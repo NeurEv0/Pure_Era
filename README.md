@@ -2,4 +2,5 @@
 🤝🤝🤝**Welcome to the github page of 2025XJTLU_Software. We are a team participating in the 2025 igem competition.**
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/8ec66eb9-fb1c-4500-a96b-027160bc3257" />
 
+All deep learning models use swanlab[github]() to supervise the training process
 ## Menu
