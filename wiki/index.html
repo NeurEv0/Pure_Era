@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Demo</title>
+    <!-- 引入 Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入 Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* 使用 CSS 变量管理主题色 */
+        :root {
+            --primary-light-blue: #87CEFA;
+            --secondary-light-blue: #6495ED;
+            --light-text: #f8f9fa;
+            --accent-color: #ADD8E6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background: linear-gradient(to right, var(--primary-light-blue), var(--secondary-light-blue));
+            color: var(--light-text);
+        }
+
+        /* 首屏样式 */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-light-blue), var(--accent-color));
+            height: 100vh;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 功能卡片样式 */
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* 标题下划线样式 */
+        .section-title {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--light-text);
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(to right, var(--primary-light-blue), var(--secondary-light-blue));
+            color: var(--light-text);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 固定顶部导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="Logo" width="120">
+            </a>
+            <a class="navbar-brand" href="#">Link</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTeam" role="button"
+                            data-bs-toggle="dropdown">
+                            Team
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownTeam">
+                            <li><a class="dropdown-item" href="#">Team</a></li>
+                            <li><a class="dropdown-item" href="#">Attributions</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProject" role="button"
+                            data-bs-toggle="dropdown">
+                            Project
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownProject">
+                            <li><a class="dropdown-item" href="#">Contribution</a></li>
+                            <li><a class="dropdown-item" href="#">Description</a></li>
+                            <li><a class="dropdown-item" href="#">Engineering</a></li>
+                            <li><a class="dropdown-item" href="#">Experiments</a></li>
+                            <li><a class="dropdown-item" href="#">Notebook</a></li>
+                            <li><a class="dropdown-item" href="#">Results</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDrylab" role="button"
+                            data-bs-toggle="dropdown">
+                            Drylab
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownDrylab">
+                            <li><a class="dropdown-item" href="#">Software</a></li>
+                            <li><a class="dropdown-item" href="#">Model</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHumanPractices" role="button"
+                            data-bs-toggle="dropdown">
+                            Human Practices
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownHumanPractices">
+                            <li><a class="dropdown-item" href="#">Safety</a></li>
+                            <li><a class="dropdown-item" href="#">Human Practices</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Award</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 全屏首屏展示区 -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-3">Welcome to XJTLU-Software</h1>
+            <p class="lead">Wanna find more?</p>
+            <a href="#" class="btn btn-light btn-lg">find more</a>
+        </div>
+    </section>
+
+    <!-- 三栏功能展示区 -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">Principal parts</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <img src="https://dummyimage.com/300x200/87CEFA/ffffff" class="card-img-top" alt="功能1">
+                        <div class="card-body">
+                            <h5 class="card-title">part1</h5>
+                            <p class="card-text">part1111111</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <img src="https://dummyimage.com/300x200/87CEFA/ffffff" class="card-img-top" alt="功能2">
+                        <div class="card-body">
+                            <h5 class="card-title">part2</h5>
+                            <p class="card-text">part222222</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <img src="https://dummyimage.com/300x200/87CEFA/ffffff" class="card-img-top" alt="功能3">
+                        <div class="card-body">
+                            <h5 class="card-title">part3</h5>
+                            <p class="card-text">part333333</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 三列页脚布局 -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About us</h5>
+                    <p>Brief Introduction 12345678</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick link</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Home</a></li>
+                        <li><a href="#" class="text-light">Team</a></li>
+                        <li><a href="#" class="text-light">Project</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact us</h5>
+                    <p><i class="bi bi-envelope"></i> info@example.com</p>
+                    <p><i class="bi bi-telephone"></i> +123456789</p>
+                </div>
+            </div>
+            <hr>
+            <p class="text-center">Copyright &copy; 2025</p>
+        </div>
+    </footer>
+
+    <!-- 引入 Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>    
