@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure-era Home</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="home-page">
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="logo.png"  style="vertical-align: middle; height: 30px;">
+                PURE-ERA
+            </a>
+            <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">Statistics</a></li>
+        </ul>
+    </header>
+
+
+    </section>
+    <section class="search-section">
+        <h1 class="title">Welcome to PURE-ERA Database</h1>
+        <p class="subtitle">an useful database of antimicrobial peptides</p>
+        <div class="search-container">
+            <select class="search-category">
+                <option value="all">All Categories</option>
+                <option value="antibiotic">Antibiotic</option>
+                <option value="peptide">Peptide</option>
+            </select>
+            <div class="search-input-wrapper">
+                <input type="text" 
+                       class="search-input" 
+                       placeholder="enter name or ID" 
+                       required>
+                       <span class="search-icon"><i class="fas fa-search"></i></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="characteristics-section">
+        <div class="characteristic-block">
+            <h3>Characteristic1</h3>
+            <p>part1111111</p>
+        </div>
+        <div class="characteristic-block">
+            <!-- <img src="https://via.placeholder.com/300x200" alt="Part 2"> -->
+            <h3>Characteristic2</h3>
+            <p>part222222</p>
+        </div>
+        <div class="characteristic-block">
+            <!-- <img src="https://via.placeholder.com/300x200" alt="Part 3"> -->
+            <h3>Characteristic3</h3>
+            <p>part333333</p>
+        </div>
+    </section>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
