@@ -1,167 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="shortcut icon" href="./icon/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epicidin 280 Peptide Card</title>
+    <title>peptide_card</title>
     <style>
-        /* Global styles */
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
         * {
-            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
+            padding:0;
             box-sizing: border-box;
-            color: #333;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            line-height: 1.6;
-        }
-
-        /* Top navigation bar */
-        #top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #2b1055;
-            padding: 15px 100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1100;
-        }
-
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-        }
-
-        .logo {
-            color: #fff;
-            font-weight: 800;
-            font-size: 1.6em;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            margin-right: 10px;
-        }
-
-        .team-link {
-            font-size: 0.8em;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 5px;
-            letter-spacing: 1px;
-            text-decoration: underline;
-            transition: color 0.3s ease;
-        }
-
-        .team-link:hover {
-            color: #fff;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-menu li {
-            list-style-type: none;
-        }
-
-        .nav-menu li a {
-            color: #fff;
-            padding: 6px 15px;
-            border-radius: 20px;
-            transition: background-color 0.3s ease;
+            list-style: none;
             text-decoration: none;
         }
 
-        .nav-menu li a:hover,
-        .nav-menu li a.active {
-            background: #fff;
-            color: #2b1055;
+    body{
+        background-color: #f8f9fa;
+        /* line-height: 1.6; */
+    }
+
+section {
+        position: relative;
+        width:100%;
+        height:auto;
+        display: block;
+        justify-content: center;
+        align-items:center;
+        font:900 100px;
+        margin-left: 140px;
+}
+
+    .shell{
+        position:fixed;
+        width:84px;
+        height:100%;
+        background:#2b1055;
+        z-index:9999;
+        transition:  0.5s;
+        padding-left: 10px;
+        overflow: hidden;
+        top: 0;
+    }
+
+    .shell:hover{
+        width:300px;
+    }
+
+    .imageBox{
+        position:relative;
+        width: 50px;
+        height:50px;
+        border-radius: 50%;
+        overflow:hidden;
+    }
+
+    .imageBox img{
+        width:100%;
+        height:100%;
+        object-fit: cover;
+
+    }
+
+    .shell ul {
+        position:relative;
+        height: 100vh;
+
+    }
+
+    .shell ul li{
+        position: relative;
+        padding: 5px;
+    }
+
+    .active{
+    background:#f8f9fa;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius:50px;
+}
+
+    .active::before{
+            content: "";
+            position:absolute;
+            top: -30px;
+            right:0;
+            width:30px;
+            height:30px;
+            border-bottom-right-radius: 25px;
+            box-shadow:5px 5px 0 5px #f8f9fa;
+            background: transparent;
         }
 
-        /* Left navigation bar */
-        #sidebar {
-            position: fixed;
-            left: 0;
-            top: 60px;
-            width: 240px;
-            height: calc(100vh - 60px);
-            background-color: #6a37b8;
-            padding: 20px;
-            overflow-y: auto;
-            transition: left 0.3s ease;
-            z-index: 1000;
+    .active::after{
+            content: "";
+            position:absolute;
+            bottom:-30px;
+            right:0;
+            width:30px;
+            height:30px;
+            border-top-right-radius: 25px;
+            box-shadow:5px -5px 0 #f8f9fa;
+            background:transparent;
+}
+#logo {
+    margin: 40px 0 100px 0;
+}
+
+.shell  ul li a {
+    position:relative;
+    display:flex;
+    white-space: nowrap;
+    align-items: center;
+
+}
+
+.icon{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+    height: 60px;
+    /* padding-left: 10px; */
+    color:#fff;
+    transition: 0.5s;
+    color:#fff;
+}
+
+.icon i{
+    font-size: 25px;
+    z-index: 999;
+}
+
+.text{
+    position:relative;
+    height: 30px;
+    display:flex;
+    align-items: center;
+    font-size: 16px;
+    color: #7597de;
+    padding-left:15px;
+    /* text-transform: uppercase; */
+    /* letter-spacing: 1px; */
+    transition:0.2s;
+    opacity:0;
+    visibility: hidden;
+}
+
+.shell:hover .text {
+            opacity: 1;
+            visibility: visible;
         }
 
-        #sidebar.hide {
-            left: -240px;
-        }
+.shell ul li:hover a .icon,
+.shell ul li:hover a .text{
+    color: #2b1055;
+}
 
-        .sidebar-title {
-            color: white;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.active a .icon:before{
+    content: "";
+    position:absolute;
+    inset: 5px;
+    width: 50px;
+    background:#7597de;
+    border-radius:50%;
+    transition:7px solid #000000;
+    box-sizing: border-box;
 
-        .nav-link {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            margin: 8px 0;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
+}
 
-        .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Navigation bar toggle button */
-        #menu-btn {
-            position: fixed;
-            left: 240px;
-            top: 70px;
-            background-color: #6a37b8;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: none;
-        }
-
-        /* Main content area */
-        #main-content {
-            margin-left: 240px;
+ /* Main content area */
+ .main-content {
+         margin-left: 120px;
             padding: 100px 60px 40px;
             max-width: 1200px;
             margin-inline: auto;
-        }
+            position: relative;
+ }
 
         /* Title style */
-        .page-title {
+       .page-title {
             color: #2b1055;
             font-size: 2.5em;
             margin-bottom: 30px;
             border-bottom: 2px solid #2b1055;
             display: inline-block;
         }
-
-        /* Information module */
-        .module {
+/* Information module */
+            .module {
             margin-bottom: 40px;
             background: white;
             padding: 25px;
@@ -169,7 +197,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .module-title {
+       .module-title {
             color: #2b1055;
             font-size: 1.5em;
             margin-bottom: 20px;
@@ -178,342 +206,371 @@
         }
 
         /* Table style */
-        .info-table {
+       .info-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .info-table th,
-        .info-table td {
+       .info-table th,
+       .info-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #eee;
         }
 
-        .info-table th {
+       .info-table th {
             width: 200px;
             color: #666;
             font-weight: 500;
         }
 
-        .sequence-table {
+       .sequence-table {
             margin-top: 20px;
             border: 1px solid #eee;
             border-radius: 6px;
         }
 
-        .sequence-table th,
-        .sequence-table td {
+       .sequence-table th,
+       .sequence-table td {
             text-align: center;
             padding: 10px;
             border: 1px solid #eee;
+            white-space: normal;
         }
 
-        /* Responsive design */
-        @media (max-width: 1024px) {
-            #sidebar {
-                left: -240px;
-            }
-
-            #main-content {
-                margin-left: 0;
-                padding: 100px 30px 40px;
-            }
-
-            #menu-btn {
-                display: block;
-            }
-
-            #top-nav {
-                padding: 15px 40px;
-            }
-        }
+        
     </style>
 </head>
+<body>
+    <div class="shell">
+        <ul class="nav">
+            <li class="active" id="logo">
+                <a href="#">
+                    <div class="icon">
+                        <div class="imageBox">
+                            <img src="logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="text">Select a Section</div>
+                </a>
+            </li>
+            <li>
+                <a href="home.html">
+                    <div class="icon">
+                        <i class="iconfont icon-home"></i>
+                        </div>
+                
+                    <div class="text">Home</div>
+                </a>
+                </li>
+            <li>
+                <a href="#general-info-module">
+                    <div class="icon">
+                        <i class="iconfont icon-xinxikongxin"></i>
+                        </div>
+                
+                    <div class="text">General Information</div>
+                </a>
+                </li>
+                <li>
+                    <a href="#activity-info-module">
+                        <div class="icon">
+                            <i class="iconfont icon-linghuoxing"></i>
+                            </div>
+                    
+                        <div class="text">Activity Information</div>
+                    </a>
+                    </li>
+                    <li>
+                        <a href="#structure-info-module">
+                            <div class="icon">
+                                <i class="iconfont icon-yaowuhuoxing4"></i>
+                                </div>
+                        
+                            <div class="text">Structural Information</div>
+                        </a>
+                        </li>
+                        <li>
+                            <a href="#physico-chem-info-module">
+                                <div class="icon">
+                                    <i class="iconfont icon-shujushiyanshi"></i>
+                                    </div>
+                            
+                                <div class="text">Physicochemical Properties</div>
+                            </a>
+                            </li>
+                            <li>
+                                <a href="#comments-info-module">
+                                    <div class="icon">
+                                        <i class="iconfont icon-shengwu"></i>
+                                        </div>
+                                
+                                    <div class="text">Comments Information</div>
+                                </a>
+                                </li>
+                                <li>
+                                    <a href="#literature-info-module">
+                                        <div class="icon">
+                                            <i class="iconfont icon-icon-cankaowenxian"></i>
+                                            </div>
+                                    
+                                        <div class="text">Literature Information</div>
+                                    </a>
+                                    </li>
+                                
+                                </ul>
+                             </div>
 
-<body class="other-page">
-    <!-- Top navigation bar -->
-    <nav id="top-nav">
-        <div class="logo-container">
-            <a href="#" class="logo">
-                <img src="logo.png" style="vertical-align: middle; height: 30px;">
-                PURE - ERA
-            </a>
-            <a href="https://2025.igem.wiki/xjtlu-software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
-        </div>
-        <ul class="nav-menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Search</a></li>
-            <li><a href="#">Tools</a></li>
-            <li><a href="#">Statistics</a></li>
-        </ul>
-    </nav>
+       
 
-    <!-- Left navigation bar -->
-    <aside id="sidebar">
-        <h2 class="sidebar-title">Epicidin 280</h2>
-        <a href="#general-info" class="nav-link">General Information</a>
-        <a href="#sequence-info" class="nav-link">Sequence Information</a>
-        <a href="#biological-activity" class="nav-link">Biological Activity</a>
-        <a href="#structural-info" class="nav-link">Structural Information</a>
-        <a href="#physico-chemical" class="nav-link">Physico-Chemical Properties</a>
-        <a href="#function-info" class="nav-link">Function Information</a>
-        <a href="#literature-info" class="nav-link">Literature Information</a>
-    </aside>
+          <!-- Main content area -->
+    <section>
+        <main id="main-content">
+            <h1 class="page-title">Epicidin 280 (Bacteriocin)</h1>
+            <!-- General information module -->
+            <div class="module" id="general-info-module">
+                <h3 class="module-title">General Information</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>DRAMP ID</th>
+                        <td>DRAMP00005</td>
+                    </tr>
+                    <tr>
+                        <th>Source</th>
+                        <td>Staphylococcus epidermidis BN 280 (Gram - positive bacteria)</td>
+                    </tr>
+                    <tr>
+                        <th>Family</th>
+                        <td>Belongs to the lantibiotic family (Class I bacteriocin)</td>
+                    </tr>
+                    <tr>
+                        <th>Sequence Length</th>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <th>Biological Activity</th>
+                        <td>Antimicrobial, Antibacterial, Anti - Gram+</td>
+                    </tr>
+                    <tr>
+                        <th>Gene</th>
+                        <td>eciA</td>
+                    </tr>
+                    <tr>
+                        <th>Sequence</th>
+                        <td>SLGPAIKATRQVCPKATRFVTVSCKKSDCQ</td>
+                    </tr>
+                    <tr>
+                        <th>UniProt Entry</th>
+                        <td><a href="http://www.uniprot.org/uniprot/O54220">http://www.uniprot.org/uniprot/O54220</a></td>
+                    </tr>
+                    <tr>
+                        <th>Protein Existence</th>
+                        <td>Protein level</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Activity information module -->
+            <div class="module" id="activity-info-module">
+                <h3 class="module-title">Activity Information</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Biological Activity</th>
+                        <td>Antimicrobial, Antibacterial, Anti - Gram+</td>
+                    </tr>
+                    <tr>
+                        <th>Target Organism</th>
+                        <td>Gram - positive bacteria:Staphylococcus simulans 22 (MIC = 0.304 μg/ml), Staphylococcus epidermidis 5 (MIC = 3.85 μg/ml), Micrococcus luteus ATCC4698 (MIC = 9.7 μg/ml), Staphylococcus carnosus TM300 (MIC = 0.175 μg/ml).</td>
+                    </tr>
+                    <tr>
+                        <th>Hemolytic Activity</th>
+                        <td>No hemolysis information or data found in the reference(s) presented in this entry</td>
+                    </tr>
+                    <tr>
+                        <th>Cytotoxicity</th>
+                        <td>No cytotoxicity information found in the reference(s) presented</td>
+                    </tr>
+                    <tr>
+                        <th>Binding Target</th>
+                        <td>Not found</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Structural information module -->
+            <div class="module" id="structure-info-module">
+                <h3 class="module-title">Structural Information</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Linear/Cyclic</th>
+                        <td>Cyclic (very possibly)</td>
+                    </tr>
+                    <tr>
+                        <th>N - terminal Modification</th>
+                        <td>Oxypropionylation</td>
+                    </tr>
+                    <tr>
+                        <th>C - terminal Modification</th>
+                        <td>Not mentioned clearly</td>
+                    </tr>
+                    <tr>
+                        <th>Nonterminal Modifications and Unusual Amino Acids</th>
+                        <td>There are possible lanthionine(Lan)/3 - methyllanthionine(Me - Lan) structure association between Thr9 and Cys13, Thr21 and Cys24, Ser23 and Cys29.</td>
+                    </tr>
+                    <tr>
+                        <th>Stereochemistry</th>
+                        <td>L</td>
+                    </tr>
+                    <tr>
+                        <th>Structure</th>
+                        <td>Not found</td>
+                    </tr>
+                    <tr>
+                        <th>Structure Description</th>
+                        <td>Not found</td>
+                    </tr>
+                    <tr>
+                        <th>Helical Wheel Diagram</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>PDB ID</th>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <th>Predicted Structure</th>
+                        <td>There is no predicted structure for DRAMP00005.</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Physico-chemical properties module -->
+            <div class="module" id="physico-chem-info-module">
+                <h3 class="module-title">Physico-Chemical Properties</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Formula</th>
+                        <td>C137H236N42O41S3</td>
+                    </tr>
+                    <tr>
+                        <th>Absent Amino Acids</th>
+                        <td>EHMNWY</td>
+                    </tr>
+                    <tr>
+                        <th>Common Amino Acids</th>
+                        <td>K</td>
+                    </tr>
+                    <tr>
+                        <th>Mass</th>
+                        <td>3223.82</td>
+                    </tr>
+                    <tr>
+                        <th>PI</th>
+                        <td>9.75</td>
+                    </tr>
+                    <tr>
+                        <th>Basic Residues</th>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <th>Acidic Residues</th>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <th>Hydrophobic Residues</th>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <th>Net Charge</th>
+                        <td>+5</td>
+                    </tr>
+                    <tr>
+                        <th>Boman Index</th>
+                        <td>- 54.6</td>
+                    </tr>
+                    <tr>
+                        <th>Hydrophobicity</th>
+                        <td>- 0.22</td>
+                    </tr>
+                    <tr>
+                        <th>Aliphatic Index</th>
+                        <td>65</td>
+                    </tr>
+                    <tr>
+                        <th>Half Life</th>
+                        <td>Mammalian:1.9 hourYeast:>20 hourE.coli:>10 hour</td>
+                    </tr>
+                    <tr>
+                        <th>Extinction Coefficient Cystines</th>
+                        <td>125</td>
+                    </tr>
+                    <tr>
+                        <th>Absorbance 280nm</th>
+                        <td>4.31</td>
+                    </tr>
+                    <tr>
+                        <th>Polar Residues</th>
+                        <td>10</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Function information module -->
+            <div class="module" id="comments-info-module">
+                <h3 class="module-title">Comments Information</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Function</th>
+                        <td>Lanthionine - containing peptide antibiotic (lantibiotic) Transiently and partially depolarizes the transmembrane electrical potential and pH gradient of susceptible cells, inhibits the uptake of amino acids and depletes the intracellular ATP pool.</td>
+                    </tr>
+                    <tr>
+                        <th>PTM</th>
+                        <td>Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Literature information module -->
+            <div class="module" id="literature-info-module">
+                <h3 class="module-title">Literature Information</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Title</th>
+                        <td>Isolation, characterization, and heterologous expression of the novel lantibiotic epicidin 280 and analysis of its biosynthetic gene cluster.</td>
+                    </tr>
+                    <tr>
+                        <th>Pubmed ID</th>
+                        <td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=9726851">9726851</a></td>
+                    </tr>
+                    <tr>
+                        <th>Reference</th>
+                        <td>Appl Environ Microbiol. 1998 Sep;64(9):3140 - 3146.</td>
+                    </tr>
+                    <tr>
+                        <th>Author</th>
+                        <td>Heidrich C, Pag U, Josten M, Metzger J, Jack RW, Bierbaum G, Jung G, Sahl HG.</td>
+                    </tr>
+                </table>
+            </div>
 
-    <!-- Navigation bar toggle button -->
-    <button id="menu-btn" onclick="toggleSidebar()">&#9776; Menu</button>
+</main>
+</section>
 
-    <!-- Main content area -->
-    <main id="main-content">
-        <h1 class="page-title">Epicidin 280 (Bacteriocin)</h1>
-
-        <!-- General information module -->
-        <div class="module" id="general-info">
-            <h3 class="module-title">General Information</h3>
-            <table class="info-table">
-                <tr>
-                    <th>DRAMP ID</th>
-                    <td>DRAMP00005</td>
-                </tr>
-                <tr>
-                    <th>Source</th>
-                    <td>Staphylococcus epidermidis BN 280 (Gram - positive bacteria)</td>
-                </tr>
-                <tr>
-                    <th>Family</th>
-                    <td>Belongs to the lantibiotic family (Class I bacteriocin)</td>
-                </tr>
-                <tr>
-                    <th>Sequence Length</th>
-                    <td>30</td>
-                </tr>
-                <tr>
-                    <th>Biological Activity</th>
-                    <td>Antimicrobial, Antibacterial, Anti - Gram+</td>
-                </tr>
-                <tr>
-                    <th>Gene</th>
-                    <td>eciA</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Sequence information module -->
-        <div class="module" id="sequence-info">
-            <h3 class="module-title">Sequence Information</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Sequence</th>
-                    <td>SLGPAIKATRQVCPKATRFVTVSCKKSDCQ</td>
-                </tr>
-                <tr>
-                    <th>Sequence Length</th>
-                    <td>30</td>
-                </tr>
-                <tr>
-                    <th>UniProt Entry</th>
-                    <td><a href="http://www.uniprot.org/uniprot/O54220">http://www.uniprot.org/uniprot/O54220</a></td>
-                </tr>
-                <tr>
-                    <th>Protein Existence</th>
-                    <td>Protein level</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Biological activity module -->
-        <div class="module" id="biological-activity">
-            <h3 class="module-title">Biological Activity</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Biological Activity</th>
-                    <td>Antimicrobial, Antibacterial, Anti - Gram+</td>
-                </tr>
-                <tr>
-                    <th>Target Organism</th>
-                    <td>Gram - positive bacteria:Staphylococcus simulans 22 (MIC = 0.304 μg/ml), Staphylococcus epidermidis 5 (MIC = 3.85 μg/ml), Micrococcus luteus ATCC4698 (MIC = 9.7 μg/ml), Staphylococcus carnosus TM300 (MIC = 0.175 μg/ml).</td>
-                </tr>
-                <tr>
-                    <th>Hemolytic Activity</th>
-                    <td>No hemolysis information or data found in the reference(s) presented in this entry</td>
-                </tr>
-                <tr>
-                    <th>Cytotoxicity</th>
-                    <td>No cytotoxicity information found in the reference(s) presented</td>
-                </tr>
-                <tr>
-                    <th>Binding Target</th>
-                    <td>Not found</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Structural information module -->
-        <div class="module" id="structural-info">
-            <h3 class="module-title">Structural Information</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Linear/Cyclic</th>
-                    <td>Cyclic (very possibly)</td>
-                </tr>
-                <tr>
-                    <th>N - terminal Modification</th>
-                    <td>Oxypropionylation</td>
-                </tr>
-                <tr>
-                    <th>C - terminal Modification</th>
-                    <td>Not mentioned clearly</td>
-                </tr>
-                <tr>
-                    <th>Nonterminal Modifications and Unusual Amino Acids</th>
-                    <td>There are possible lanthionine(Lan)/3 - methyllanthionine(Me - Lan) structure association between Thr9 and Cys13, Thr21 and Cys24, Ser23 and Cys29.</td>
-                </tr>
-                <tr>
-                    <th>Stereochemistry</th>
-                    <td>L</td>
-                </tr>
-                <tr>
-                    <th>Structure</th>
-                    <td>Not found</td>
-                </tr>
-                <tr>
-                    <th>Structure Description</th>
-                    <td>Not found</td>
-                </tr>
-                <tr>
-                    <th>Helical Wheel Diagram</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>PDB ID</th>
-                    <td>None</td>
-                </tr>
-                <tr>
-                    <th>Predicted Structure</th>
-                    <td>There is no predicted structure for DRAMP00005.</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Physico-chemical properties module -->
-        <div class="module" id="physico-chemical">
-            <h3 class="module-title">Physico-Chemical Properties</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Formula</th>
-                    <td>C137H236N42O41S3</td>
-                </tr>
-                <tr>
-                    <th>Absent Amino Acids</th>
-                    <td>EHMNWY</td>
-                </tr>
-                <tr>
-                    <th>Common Amino Acids</th>
-                    <td>K</td>
-                </tr>
-                <tr>
-                    <th>Mass</th>
-                    <td>3223.82</td>
-                </tr>
-                <tr>
-                    <th>PI</th>
-                    <td>9.75</td>
-                </tr>
-                <tr>
-                    <th>Basic Residues</th>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <th>Acidic Residues</th>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <th>Hydrophobic Residues</th>
-                    <td>9</td>
-                </tr>
-                <tr>
-                    <th>Net Charge</th>
-                    <td>+5</td>
-                </tr>
-                <tr>
-                    <th>Boman Index</th>
-                    <td>- 54.6</td>
-                </tr>
-                <tr>
-                    <th>Hydrophobicity</th>
-                    <td>- 0.22</td>
-                </tr>
-                <tr>
-                    <th>Aliphatic Index</th>
-                    <td>65</td>
-                </tr>
-                <tr>
-                    <th>Half Life</th>
-                    <td>Mammalian:1.9 hourYeast:>20 hourE.coli:>10 hour</td>
-                </tr>
-                <tr>
-                    <th>Extinction Coefficient Cystines</th>
-                    <td>125</td>
-                </tr>
-                <tr>
-                    <th>Absorbance 280nm</th>
-                    <td>4.31</td>
-                </tr>
-                <tr>
-                    <th>Polar Residues</th>
-                    <td>10</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Function information module -->
-        <div class="module" id="function-info">
-            <h3 class="module-title">Function Information</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Function</th>
-                    <td>Lanthionine - containing peptide antibiotic (lantibiotic) Transiently and partially depolarizes the transmembrane electrical potential and pH gradient of susceptible cells, inhibits the uptake of amino acids and depletes the intracellular ATP pool.</td>
-                </tr>
-                <tr>
-                    <th>PTM</th>
-                    <td>Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Literature information module -->
-        <div class="module" id="literature-info">
-            <h3 class="module-title">Literature Information</h3>
-            <table class="info-table">
-                <tr>
-                    <th>Title</th>
-                    <td>Isolation, characterization, and heterologous expression of the novel lantibiotic epicidin 280 and analysis of its biosynthetic gene cluster.</td>
-                </tr>
-                <tr>
-                    <th>Pubmed ID</th>
-                    <td><a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=9726851">9726851</a></td>
-                </tr>
-                <tr>
-                    <th>Reference</th>
-                    <td>Appl Environ Microbiol. 1998 Sep;64(9):3140 - 3146.</td>
-                </tr>
-                <tr>
-                    <th>Author</th>
-                    <td>Heidrich C, Pag U, Josten M, Metzger J, Jack RW, Bierbaum G, Jung G, Sahl HG.</td>
-                </tr>
-            </table>
-        </div>
-    </main>
-
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.getElementById('menu-btn');
-            sidebar.classList.toggle('hide');
-            // Adjust the margin of the main content area if needed
-            // document.getElementById('main-content').style.marginLeft = sidebar.classList.contains('hide') ? '0' : '240px';
-        }
-    </script>
 </body>
 
-</html>    
+<script>
+   let nav = document.querySelectorAll(".nav li");
+    function activeLink() {
+        nav.forEach((item) => item.classList.remove("active"));
+        this.classList.add("active");
+    }
+    nav.forEach((item) => item.addEventListener("click", activeLink));
+    nav.forEach((item) => {
+        item.addEventListener("mouseover", function() {
+            this.classList.add("active");
+        });
+        item.addEventListener("mouseout", function() {
+            if (!this.classList.contains("clicked")) {
+                this.classList.remove("active");
+            }
+        });
+        item.addEventListener("click", function() {
+            this.classList.add("clicked");
+        });
+    });
+</script>
+</html>
