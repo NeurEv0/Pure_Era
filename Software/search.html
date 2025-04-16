@@ -5,7 +5,6 @@
   <title>抗菌肽特性选择</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="shortcut icon" href="./icon/favicon.ico">
   <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
     * {
@@ -148,6 +147,35 @@
     th {
       background: rgba(255,255,255,0.1);
     }
+    
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .pagination-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      padding: 8px 15px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .pagination-btn.active {
+      background: #0077cc;
+    }
+    
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -182,8 +210,33 @@
         <label>Sequence Length</label>
         <input type="text" id="lengthInput" placeholder="例如: 10-50">
       </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="categorySelect" style="width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.3); border-radius: 25px; color: white; font-size: 1em;">
+          <option value="all">All Categories</option>
+          <option value="Clinical">Clinical</option>
+          <option value="General">General</option>
+          <option value="Expended">Expended</option>
+          <option value="patent_data">Patent Data</option>
+          <option value="Stability">Stability</option>
+          <option value="stapled">Stapled</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Activity</label>
+        <select id="activitySelect" style="width: 100%; padding: 12px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.3); border-radius: 25px; color: white; font-size: 1em;">
+          <option value="all">All Activities</option>
+          <option value="Antibacterial">Antibacterial</option>
+          <option value="Antifungal">Antifungal</option>
+          <option value="Antiviral">Antiviral</option>
+          <option value="Anticancer">Anticancer</option>
+          <option value="Anti-Gram+">Anti-Gram+</option>
+          <option value="Anti-Gram-">Anti-Gram-</option>
+        </select>
+      </div>
       <button class="btn" onclick="search()">Search</button>
       <button class="btn" onclick="exportCSV()">Export CSV</button>
+      <div id="loadingStatus" style="margin-top: 15px; color: white; font-size: 0.9em;"></div>
     </div>
     <div class="table-container">
       <table id="resultsTable">
@@ -201,7 +254,7 @@
             <td>Epicidin 280</td>
             <td>SLGPAIKATRQVCPKATRFVTVSCKKSDCQ</td>
             <td>
-              <button class="btn" onclick="window.location.href='peptide_card.html?id=DRAMP00005'">View</button>
+              <button class="btn" onclick="window.location.href='detail.html?id=DRAMP00005'">View</button>
             </td>
           </tr>
         </tbody>
@@ -219,11 +272,1265 @@
       });
     });
 
-    // 点击外部关闭弹窗
-    window.onclick = function(event) {
-      if (event.target == document.getElementById('detailModal')) {
-        closeModal();
+    // 存储所有肽数据
+    let allPeptides = [];
+    
+    // 导出CSV功能
+    function exportCSV() {
+      // 获取过滤后的数据
+      const filteredData = filterPeptides();
+      
+      if (filteredData.length === 0) {
+        alert('没有数据可导出');
+        return;
       }
+      
+      // 创建CSV内容
+      let csvContent = 'ID,Name,Sequence,Category,Activity\n';
+      
+      filteredData.forEach(peptide => {
+        const activity = peptide.activity ? peptide.activity.join(';') : '';
+        csvContent += `"${peptide.id}","${peptide.name}","${peptide.sequence}","${peptide.folder}","${activity}"\n`;
+      });
+      
+      // 创建下载链接
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'peptide_data.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    // 存储已加载的文件夹
+    let loadedFolders = new Set();
+    
+    // 当前页码和每页显示数量
+    let currentPage = 1;
+    const itemsPerPage = 20;
+    
+    // 缓存键
+    const CACHE_KEY = 'peptide_data_cache';
+    const CACHE_TIMESTAMP_KEY = 'peptide_cache_timestamp';
+    const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24小时缓存过期
+    
+    // 页面加载时获取数据
+    window.onload = async function() {
+      // 初始化加载状态UI
+      initLoadingUI();
+      
+      // 尝试从缓存加载数据
+      if (await loadFromCache()) {
+        // 如果缓存加载成功，显示初始结果
+        displayResults(getPageData());
+        updatePagination();
+        document.getElementById('loadingStatus').innerHTML = `从缓存加载了 ${allPeptides.length} 条记录`;
+      } else {
+        // 如果没有缓存，加载初始数据
+        await loadInitialData();
+      }
+      
+      // 添加滚动事件监听器，实现懒加载
+      window.addEventListener('scroll', handleScroll);
+    };
+    
+    // 初始化加载状态UI
+    function initLoadingUI() {
+      document.getElementById('resultsTable').innerHTML = `
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Sequence</th>
+            <th>Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5" style="text-align: center;">
+              <i class="fas fa-spinner fa-spin"></i> 正在加载数据...
+            </td>
+          </tr>
+        </tbody>
+      `;
+      
+      // 添加分页控件
+      const tableContainer = document.querySelector('.table-container');
+      if (!document.getElementById('pagination')) {
+        const paginationDiv = document.createElement('div');
+        paginationDiv.id = 'pagination';
+        paginationDiv.className = 'pagination';
+        paginationDiv.style.cssText = 'margin-top: 20px; text-align: center;';
+        tableContainer.appendChild(paginationDiv);
+      }
+      
+      // 添加进度条
+      if (!document.getElementById('progressContainer')) {
+        const progressContainer = document.createElement('div');
+        progressContainer.id = 'progressContainer';
+        progressContainer.style.cssText = 'width: 100%; background-color: rgba(255,255,255,0.2); border-radius: 10px; margin-top: 10px; overflow: hidden; display: none;';
+        
+        const progressBar = document.createElement('div');
+        progressBar.id = 'progressBar';
+        progressBar.style.cssText = 'width: 0%; height: 10px; background-color: #0077cc; border-radius: 10px; transition: width 0.3s;';
+        
+        progressContainer.appendChild(progressBar);
+        document.getElementById('loadingStatus').parentNode.appendChild(progressContainer);
+      }
+    }
+    
+    // 从缓存加载数据
+    async function loadFromCache() {
+      try {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+        
+        if (cachedData && cachedTimestamp) {
+          const timestamp = parseInt(cachedTimestamp);
+          const now = new Date().getTime();
+          
+          // 检查缓存是否过期
+          if (now - timestamp < CACHE_EXPIRY) {
+            allPeptides = JSON.parse(cachedData);
+            console.log(`从缓存加载了 ${allPeptides.length} 条记录`);
+            return true;
+          } else {
+            // 缓存过期，清除
+            localStorage.removeItem(CACHE_KEY);
+            localStorage.removeItem(CACHE_TIMESTAMP_KEY);
+          }
+        }
+        return false;
+      } catch (error) {
+        console.error('从缓存加载失败:', error);
+        return false;
+      }
+    }
+    
+    // 保存数据到缓存
+    function saveToCache() {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(allPeptides));
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, new Date().getTime().toString());
+        console.log(`已缓存 ${allPeptides.length} 条记录`);
+      } catch (error) {
+        console.error('缓存数据失败:', error);
+      }
+    }
+    
+    // 加载初始数据（优先加载General文件夹）
+    async function loadInitialData() {
+      try {
+        // 定义可能的文件夹
+        const folders = [
+          "Clinical", "Expended", "General", "patent_data", "Stability", "stapled"
+        ];
+        
+        const loadingStatus = document.getElementById('loadingStatus');
+        loadingStatus.innerHTML = "开始加载数据...";
+        
+        // 显示进度条
+        document.getElementById('progressContainer').style.display = 'block';
+        
+        // 首先加载General文件夹（包含大部分数据）和其他小文件夹
+        const initialFolders = ["General", "Clinical", "Expended"];
+        console.log(`开始加载初始文件夹: ${initialFolders.join(', ')}`);
+        await loadFoldersInParallel(initialFolders);
+        
+        console.log(`初始文件夹加载完成，已加载 ${allPeptides.length} 条记录`);
+        
+        // 显示初始结果
+        displayResults(getPageData());
+        updatePagination();
+        
+        // 在后台继续加载其他文件夹
+        const remainingFolders = folders.filter(f => !initialFolders.includes(f));
+        console.log(`继续在后台加载剩余文件夹: ${remainingFolders.join(', ')}`);
+        loadFoldersInBackground(remainingFolders);
+        
+      } catch (error) {
+        console.error('加载数据失败:', error);
+        document.getElementById('resultsTable').innerHTML = `
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Sequence</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" style="text-align: center; color: red;">
+                加载数据失败: ${error.message}
+              </td>
+            </tr>
+          </tbody>
+        `;
+      }
+    }
+    
+    // 并行加载多个文件夹
+    async function loadFoldersInParallel(folders) {
+      const loadingStatus = document.getElementById('loadingStatus');
+      loadingStatus.innerHTML = `正在加载 ${folders.join(', ')} 文件夹...`;
+      
+      // 并行加载所有指定的文件夹
+      await Promise.all(folders.map(folder => scanAndLoadFiles(folder)));
+      
+      loadingStatus.innerHTML = `已加载 ${folders.join(', ')} 文件夹，共 ${allPeptides.length} 条记录`;
+    }
+    
+    // 在后台加载剩余文件夹
+    function loadFoldersInBackground(folders) {
+      if (folders.length === 0) return;
+      
+      const loadingStatus = document.getElementById('loadingStatus');
+      loadingStatus.innerHTML = `正在后台加载更多数据...`;
+      
+      // 一个接一个地加载剩余文件夹，但不阻塞UI
+      let folderIndex = 0;
+      
+      function loadNextFolder() {
+        if (folderIndex >= folders.length) {
+          // 所有文件夹加载完成
+          loadingStatus.innerHTML = `加载完成，共找到 ${allPeptides.length} 条记录`;
+          document.getElementById('progressContainer').style.display = 'none';
+          saveToCache(); // 所有数据加载完成后保存到缓存
+          return;
+        }
+        
+        const folder = folders[folderIndex++];
+        loadingStatus.innerHTML = `正在后台加载 ${folder} 文件夹...`;
+        
+        // 更新进度条
+        const progress = (folderIndex / folders.length) * 100;
+        document.getElementById('progressBar').style.width = `${progress}%`;
+        
+        // 加载当前文件夹，然后继续下一个
+        scanAndLoadFiles(folder).then(() => {
+          // 更新显示的结果
+          displayResults(getPageData());
+          updatePagination();
+          
+          // 继续加载下一个文件夹
+          setTimeout(loadNextFolder, 100); // 小延迟，让UI有时间响应
+        });
+      }
+      
+      // 开始加载第一个文件夹
+      loadNextFolder();
+    }
+    
+    // 扫描并加载文件
+    async function scanAndLoadFiles(folder) {
+      // 如果该文件夹已经加载过，则跳过
+      if (loadedFolders.has(folder)) {
+        console.log(`文件夹 ${folder} 已经加载过，跳过`);
+        return;
+      }
+      
+      try {
+        // 获取文件夹中的文件列表
+        const response = await fetch(`../DetaBaseV1/${folder}/`);
+        
+        // 如果无法直接获取文件列表（由于浏览器安全限制），则使用预定义的文件列表
+        if (!response.ok) {
+          await loadPredefinedFiles(folder);
+          loadedFolders.add(folder); // 标记为已加载
+          return;
+        }
+        
+        // 尝试解析目录内容（这在大多数情况下不会工作，因为浏览器安全限制）
+        const text = await response.text();
+        const regex = /href="([^"]+\.json)"/g;
+        let match;
+        const fileNames = [];
+        
+        while ((match = regex.exec(text)) !== null) {
+          fileNames.push(match[1]);
+        }
+        
+        if (fileNames.length > 0) {
+          // 如果成功获取到文件列表，使用并行加载
+          await loadFilesInBatches(fileNames, folder);
+        } else {
+          // 如果无法获取文件列表，则使用预定义的文件列表
+          await loadPredefinedFiles(folder);
+        }
+        
+        // 标记文件夹为已加载
+        loadedFolders.add(folder);
+      } catch (e) {
+        console.log(`无法扫描文件夹 ${folder}: ${e.message}`);
+        // 如果出错，则使用预定义的文件列表
+        await loadPredefinedFiles(folder);
+        loadedFolders.add(folder); // 标记为已加载
+      }
+    }
+    
+    // 批量并行加载文件
+    async function loadFilesInBatches(fileNames, folder) {
+      const batchSize = 10; // 每批加载的文件数量
+      const totalFiles = fileNames.length;
+      let processedCount = 0;
+      
+      // 分批处理文件
+      for (let i = 0; i < totalFiles; i += batchSize) {
+        const batch = fileNames.slice(i, i + batchSize);
+        
+        // 并行加载当前批次的所有文件
+        const promises = batch.map(fileName => {
+          return new Promise(async (resolve) => {
+            try {
+              const fileId = fileName.replace('.json', '');
+              const fileResponse = await fetch(`../DetaBaseV1/${folder}/${fileName}`);
+              if (fileResponse.ok) {
+                const data = await fileResponse.json();
+                processFileData(data, fileId, folder);
+              }
+            } catch (e) {
+              console.log(`无法加载文件 ${fileName}: ${e.message}`);
+            }
+            resolve();
+          });
+        });
+        
+        // 等待当前批次的所有文件加载完成
+        await Promise.all(promises);
+        
+        processedCount += batch.length;
+        
+        // 更新加载状态
+        const loadingStatus = document.getElementById('loadingStatus');
+        loadingStatus.innerHTML = `正在加载 ${folder} 文件夹: ${processedCount}/${totalFiles} 个文件已加载...`;
+        
+        // 更新进度条
+        if (document.getElementById('progressBar')) {
+          const progress = (processedCount / totalFiles) * 100;
+          document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+      }
+    }
+    
+    // 使用预定义的文件列表加载文件
+    async function loadPredefinedFiles(folder) {
+      // 预定义的文件ID列表
+      let fileIds = [];
+      
+      // 根据不同文件夹添加已知的文件ID
+      if (folder === "Clinical") {
+        fileIds = ["DRAMP18057", "DRAMP18059"];
+      } else if (folder === "General") {
+        // 添加General文件夹中的文件
+        // 确保至少加载前10个文件，这些文件是确定存在的
+        const knownFiles = ["DRAMP00001", "DRAMP00002", "DRAMP00003", "DRAMP00004", "DRAMP00005", 
+                          "DRAMP00006", "DRAMP00008", "DRAMP00009", "DRAMP00010", "DRAMP00011"];
+        fileIds = [...knownFiles];
+        
+        // 尝试加载更多文件 - 增加加载范围到200
+        for (let i = 12; i <= 200; i++) {
+          const id = i.toString().padStart(5, '0');
+          fileIds.push(`DRAMP${id}`);
+        }
+      } else if (folder === "Expended") {
+        fileIds = ["nan"];
+      } else if (folder === "patent_data") {
+        fileIds = ["DRAMP04719"];
+      } else if (folder === "Stability") {
+        fileIds = ["DRAMP02819", "DRAMP29128"];
+      } else if (folder === "stapled") {
+        fileIds = ["DRAMP21468"];
+      }
+      
+      const loadingStatus = document.getElementById('loadingStatus');
+      loadingStatus.innerHTML = `正在加载 ${folder} 文件夹中的 ${fileIds.length} 个文件...`;
+      
+      // 批量并行加载文件
+      const batchSize = 10; // 每批加载的文件数量
+      const totalFiles = fileIds.length;
+      let processedCount = 0;
+      
+      // 分批处理文件
+      for (let i = 0; i < totalFiles; i += batchSize) {
+        const batch = fileIds.slice(i, i + batchSize);
+        
+        // 并行加载当前批次的所有文件
+        const promises = batch.map(fileId => {
+          return new Promise(async (resolve) => {
+            try {
+              const response = await fetch(`../DetaBaseV1/${folder}/${fileId}.json`);
+              if (response.ok) {
+                const data = await response.json();
+                processFileData(data, fileId, folder);
+              }
+            } catch (e) {
+              console.log(`无法加载文件 ${fileId}.json: ${e.message}`);
+            }
+            resolve();
+          });
+        });
+        
+        // 等待当前批次的所有文件加载完成
+        await Promise.all(promises);
+        
+        processedCount += batch.length;
+        
+        // 更新加载状态
+        loadingStatus.innerHTML = `正在加载 ${folder} 文件夹: ${processedCount}/${totalFiles} 个文件已加载...`;
+        
+        // 更新进度条
+        if (document.getElementById('progressBar')) {
+          const progress = (processedCount / totalFiles) * 100;
+          document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+      }
+      
+      loadingStatus.innerHTML = `${folder} 文件夹加载完成，共加载 ${processedCount} 个文件`;
+    }
+    
+    // 处理文件数据
+    function processFileData(data, fileId, folder) {
+      let peptideInfo = {
+        id: fileId,
+        name: '未知名称',
+        sequence: '未知序列',
+        folder: folder,
+        activity: [],
+        source: '未知来源',
+        description: '',
+        originalData: data
+      };
+      
+      try {
+        // 根据不同文件夹的数据结构提取信息
+        if (folder === "Clinical") {
+          const seqInfo = data["Sequence Information"] || {};
+          peptideInfo.id = cleanFieldValue(seqInfo["DRAMP ID"] || fileId);
+          peptideInfo.name = cleanFieldValue(seqInfo["Name"] || '未知名称');
+          peptideInfo.sequence = cleanFieldValue(seqInfo["Sequence"] || '未知序列');
+          peptideInfo.activity = [cleanFieldValue(seqInfo["Activity"] || '')];
+          peptideInfo.description = cleanFieldValue(seqInfo["Description"] || '');
+          
+          // 提取目标生物信息
+          if (seqInfo["Target Organism"]) {
+            peptideInfo.targetOrganism = cleanFieldValue(seqInfo["Target Organism"]);
+          }
+        } 
+        else if (folder === "stapled") {
+          const generalInfo = data.general_info || {};
+          const activityInfo = data.activity_info || {};
+          const structureInfo = data.structure_info || {};
+          
+          peptideInfo.id = generalInfo["DRAMP ID"] || fileId;
+          peptideInfo.name = generalInfo["Peptide Name"] || '未知名称';
+          peptideInfo.sequence = generalInfo["Sequence"] || generalInfo["Original Sequence"] || '未知序列';
+          peptideInfo.source = generalInfo["Source"] || '未知来源';
+          
+          // 提取活性信息
+          if (activityInfo["Biological Activity"]) {
+            if (typeof activityInfo["Biological Activity"] === 'string') {
+              peptideInfo.activity = activityInfo["Biological Activity"].split(',');
+            } else if (Array.isArray(activityInfo["Biological Activity"])) {
+              peptideInfo.activity = activityInfo["Biological Activity"];
+            }
+          }
+          
+          // 提取目标生物信息
+          if (activityInfo["Target Organism"]) {
+            if (Array.isArray(activityInfo["Target Organism"])) {
+              peptideInfo.targetOrganism = activityInfo["Target Organism"].join('\n');
+            } else {
+              peptideInfo.targetOrganism = activityInfo["Target Organism"];
+            }
+          }
+          
+          // 提取结构信息
+          if (structureInfo["Linear/Cyclic"]) {
+            peptideInfo.structure = structureInfo["Linear/Cyclic"];
+          }
+          if (structureInfo["Secondary Structure"]) {
+            peptideInfo.secondaryStructure = structureInfo["Secondary Structure"];
+          }
+        } 
+        else if (folder === "patent_data") {
+          peptideInfo.id = data["DRAMP ID"] || fileId;
+          peptideInfo.name = data["Sequence Name"] || '未知名称';
+          peptideInfo.sequence = data["Sequence"] || '未知序列';
+          peptideInfo.activity = [data["Activity"] || ''];
+          peptideInfo.source = data["Source"] || '未知来源';
+          
+          // 提取专利信息
+          if (data["Patent No"]) {
+            peptideInfo.patentNo = data["Patent No"];
+          }
+          if (data["Patent Title"]) {
+            peptideInfo.patentTitle = data["Patent Title"];
+          }
+          if (data["Abstract"]) {
+            peptideInfo.description = data["Abstract"];
+          }
+        } 
+        else {
+          // General, Expended, Stability 格式类似
+          peptideInfo.id = data["DRAMP ID"] || fileId;
+          peptideInfo.name = data["Peptide Name"] || '未知名称';
+          peptideInfo.sequence = data["Sequence"] || '未知序列';
+          peptideInfo.source = data["Source"] || '未知来源';
+          
+          // 提取活性信息
+          if (data["Biological Activity"]) {
+            if (typeof data["Biological Activity"] === 'string') {
+              peptideInfo.activity = data["Biological Activity"].split(',');
+            } else if (Array.isArray(data["Biological Activity"])) {
+              peptideInfo.activity = data["Biological Activity"];
+            }
+          }
+          
+          // 提取目标生物信息
+          if (data["Target Organism"]) {
+            peptideInfo.targetOrganism = data["Target Organism"];
+          }
+          
+          // 提取物理化学特性
+          const properties = [
+            "Formula", "Mass", "PI", "Basic Residues", "Acidic Residues", 
+            "Hydrophobic Residues", "Net Charge", "Boman Index", "Hydrophobicity", 
+            "Aliphatic Index", "Half Life"
+          ];
+          
+          peptideInfo.properties = {};
+          for (const prop of properties) {
+            if (data[prop]) {
+              peptideInfo.properties[prop] = data[prop];
+            }
+          }
+          
+          // 提取功能描述
+          if (data["Function"]) {
+            peptideInfo.description = data["Function"];
+          }
+        }
+        
+        // 处理活性数据，确保它是数组格式
+        if (typeof peptideInfo.activity === 'string') {
+          peptideInfo.activity = [peptideInfo.activity];
+        }
+        
+        // 清理活性数据中的空字符串
+        peptideInfo.activity = peptideInfo.activity.filter(act => act && act.trim() !== '');
+        
+        // 添加序列长度
+        if (peptideInfo.sequence && !peptideInfo.sequenceLength) {
+          peptideInfo.sequenceLength = peptideInfo.sequence.length;
+        }
+      } catch (error) {
+        console.error(`处理文件 ${fileId} 时出错:`, error);
+      }
+      
+      // 添加到全局数组
+      allPeptides.push(peptideInfo);
+    }
+    
+    // 清理字段值（移除前缀）
+    function cleanFieldValue(value) {
+      if (typeof value === 'string') {
+        // 移除字段名前缀，例如 "SequenceGXGKFLKKAKKFGKAFVKLLKK" -> "GXGKFLKKAKKFGKAFVKLLKK"
+        const prefixMatch = value.match(/^[A-Za-z\s]+(.*)/);
+        if (prefixMatch && prefixMatch[1]) {
+          return prefixMatch[1];
+        }
+      }
+      return value;
+    }
+    
+    // 获取当前页的数据
+    function getPageData() {
+      // 应用过滤器
+      const filteredData = filterPeptides();
+      
+      // 计算当前页的起始和结束索引
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      
+      // 返回当前页的数据
+      return filteredData.slice(startIndex, endIndex);
+    }
+    
+    // 更新分页控件
+    function updatePagination() {
+      const filteredData = filterPeptides();
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+      
+      const paginationDiv = document.getElementById('pagination');
+      if (!paginationDiv) return;
+      
+      // 清空分页控件
+      paginationDiv.innerHTML = '';
+      
+      // 如果总页数小于等于1，不显示分页
+      if (totalPages <= 1) return;
+      
+      // 添加上一页按钮
+      const prevButton = document.createElement('button');
+      prevButton.textContent = '上一页';
+      prevButton.className = 'btn pagination-btn';
+      prevButton.disabled = currentPage === 1;
+      prevButton.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          displayResults(getPageData());
+          updatePagination();
+          // 滚动到表格顶部
+          document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(prevButton);
+      
+      // 添加页码按钮
+      const maxPageButtons = 5; // 最多显示的页码按钮数
+      let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
+      let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+      
+      // 调整startPage，确保显示足够的页码按钮
+      if (endPage - startPage + 1 < maxPageButtons) {
+        startPage = Math.max(1, endPage - maxPageButtons + 1);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i.toString();
+        pageButton.className = `btn pagination-btn ${i === currentPage ? 'active' : ''}`;
+        pageButton.onclick = () => {
+          currentPage = i;
+          displayResults(getPageData());
+          updatePagination();
+          // 滚动到表格顶部
+          document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+        };
+        paginationDiv.appendChild(pageButton);
+      }
+      
+      // 添加下一页按钮
+      const nextButton = document.createElement('button');
+      nextButton.textContent = '下一页';
+      nextButton.className = 'btn pagination-btn';
+      nextButton.disabled = currentPage === totalPages;
+      nextButton.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          displayResults(getPageData());
+          updatePagination();
+          // 滚动到表格顶部
+          document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+      paginationDiv.appendChild(nextButton);
+      
+      // 添加页码信息
+      const pageInfo = document.createElement('span');
+      pageInfo.textContent = ` 第 ${currentPage}/${totalPages} 页，共 ${filteredData.length} 条记录 `;
+      pageInfo.style.margin = '0 10px';
+      pageInfo.style.color = 'white';
+      paginationDiv.appendChild(pageInfo);
+    }
+    
+    // 处理滚动事件，实现懒加载
+    function handleScroll() {
+      // 如果所有文件夹都已加载，则不需要继续加载
+      if (loadedFolders.size >= 6) {
+        window.removeEventListener('scroll', handleScroll);
+        return;
+      }
+      
+      // 检查是否滚动到页面底部
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+        // 获取未加载的文件夹
+        const folders = ["Clinical", "Expended", "General", "patent_data", "Stability", "stapled"];
+        const unloadedFolders = folders.filter(folder => !loadedFolders.has(folder));
+        
+        if (unloadedFolders.length > 0) {
+          // 加载下一个未加载的文件夹
+          const nextFolder = unloadedFolders[0];
+          scanAndLoadFiles(nextFolder).then(() => {
+            // 更新显示的结果
+            displayResults(getPageData());
+            updatePagination();
+          });
+        }
+      }
+    }
+    
+    // 过滤肽数据
+    function filterPeptides() {
+      const idFilter = document.getElementById('idInput').value.toLowerCase();
+      const nameFilter = document.getElementById('nameInput').value.toLowerCase();
+      const sequenceFilter = document.getElementById('sequenceInput').value.toLowerCase();
+      const lengthFilter = document.getElementById('lengthInput').value;
+      const categoryFilter = document.getElementById('categorySelect').value;
+      const activityFilter = document.getElementById('activitySelect').value;
+      
+      return allPeptides.filter(peptide => {
+        // ID过滤
+        if (idFilter && !peptide.id.toLowerCase().includes(idFilter)) {
+          return false;
+        }
+        
+        // 名称过滤
+        if (nameFilter && !peptide.name.toLowerCase().includes(nameFilter)) {
+          return false;
+        }
+        
+        // 序列过滤
+        if (sequenceFilter && !peptide.sequence.toLowerCase().includes(sequenceFilter)) {
+          return false;
+        }
+        
+        // 序列长度过滤
+        if (lengthFilter) {
+          const lengthRange = lengthFilter.split('-');
+          if (lengthRange.length === 2) {
+            const minLength = parseInt(lengthRange[0]);
+            const maxLength = parseInt(lengthRange[1]);
+            if (!isNaN(minLength) && !isNaN(maxLength)) {
+              if (peptide.sequenceLength < minLength || peptide.sequenceLength > maxLength) {
+                return false;
+              }
+            }
+          } else {
+            const exactLength = parseInt(lengthFilter);
+            if (!isNaN(exactLength) && peptide.sequenceLength !== exactLength) {
+              return false;
+            }
+          }
+        }
+        
+        // 类别过滤
+        if (categoryFilter !== 'all' && peptide.folder !== categoryFilter) {
+          return false;
+        }
+        
+        // 活性过滤
+        if (activityFilter !== 'all') {
+          if (!peptide.activity || !peptide.activity.some(act => 
+            act.toLowerCase().includes(activityFilter.toLowerCase()))) {
+            return false;
+          }
+        }
+        
+        return true;
+      }).sort((a, b) => a.id.localeCompare(b.id)); // 按ID排序
+    }
+    
+    // 搜索函数
+    function search() {
+      currentPage = 1; // 重置为第一页
+      displayResults(getPageData());
+      updatePagination();
+    }
+    
+    // 显示搜索结果
+    function displayResults(results) {
+      const table = document.getElementById('resultsTable');
+      
+      // 创建表头
+      table.innerHTML = `
+       <thead>
+         <tr>
+           <th>ID</th>
+           <th>Name</th>
+           <th>Sequence</th>
+           <th>Category</th>
+           <th>Action</th>
+         </tr>
+       </thead>
+       <tbody></tbody>
+     `;
+      
+      const tbody = table.querySelector('tbody');
+      
+      if (results.length === 0) {
+        tbody.innerHTML = `
+         <tr>
+           <td colspan="5" style="text-align: center;">
+             未找到匹配的结果
+           </td>
+         </tr>
+       `;
+        return;
+      }
+      
+      results.forEach(peptide => {
+        const row = document.createElement('tr');
+        
+        const idCell = document.createElement('td');
+        idCell.textContent = peptide.id;
+        row.appendChild(idCell);
+        
+        const nameCell = document.createElement('td');
+        nameCell.textContent = peptide.name;
+        row.appendChild(nameCell);
+        
+        const sequenceCell = document.createElement('td');
+        sequenceCell.textContent = peptide.sequence.length > 30 ? 
+          peptide.sequence.substring(0, 30) + '...' : peptide.sequence;
+        row.appendChild(sequenceCell);
+        
+        const categoryCell = document.createElement('td');
+        categoryCell.textContent = peptide.folder;
+        row.appendChild(categoryCell);
+        
+        const actionCell = document.createElement('td');
+        const viewButton = document.createElement('button');
+        viewButton.className = 'btn';
+        viewButton.textContent = '查看';
+        viewButton.onclick = function() {
+          showPeptideDetails(peptide);
+        };
+        actionCell.appendChild(viewButton);
+        row.appendChild(actionCell);
+        
+        tbody.appendChild(row);
+      });
+    
+    });
+    
+    // 显示肽详情
+    function showPeptideDetails(peptide) {
+      // 创建模态框
+      const modal = document.createElement('div');
+      modal.id = 'detailModal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1001;
+      `;
+      
+      // 创建模态框内容
+      const modalContent = document.createElement('div');
+      modalContent.style.cssText = `
+        background: linear-gradient(#2b1055, #7597de);
+        padding: 30px;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow-y: auto;
+        color: white;
+      `;
+      
+      // 添加关闭按钮
+      const closeBtn = document.createElement('span');
+      closeBtn.innerHTML = '&times;';
+      closeBtn.style.cssText = `
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      `;
+      closeBtn.onclick = function() {
+        document.body.removeChild(modal);
+      };
+      modalContent.appendChild(closeBtn);
+      
+      // 添加标题
+      const title = document.createElement('h2');
+      title.textContent = peptide.name;
+      title.style.marginBottom = '20px';
+      modalContent.appendChild(title);
+      
+      // 创建详情内容
+      let detailsHTML = `
+        <div style="margin-bottom: 15px;">
+          <strong>ID:</strong> ${peptide.id}
+        </div>
+        <div style="margin-bottom: 15px;">
+          <strong>Category:</strong> ${peptide.folder}
+        </div>
+        <div style="margin-bottom: 15px;">
+          <strong>Sequence:</strong> ${peptide.sequence}
+        </div>
+        <div style="margin-bottom: 15px;">
+          <strong>Sequence Length:</strong> ${peptide.sequence.length}
+        </div>
+      `;
+      
+      // 添加活性信息
+      if (peptide.activity && peptide.activity.length > 0) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Activity:</strong> ${peptide.activity.join(', ')}
+          </div>
+        `;
+      }
+      
+      // 添加来源信息
+      if (peptide.source) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Source:</strong> ${peptide.source}
+          </div>
+        `;
+      }
+      
+      // 添加描述信息
+      if (peptide.description) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Description:</strong> ${peptide.description}
+          </div>
+        `;
+      }
+      
+      // 添加结构信息
+      if (peptide.structure) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Structure Type:</strong> ${peptide.structure}
+          </div>
+        `;
+      }
+      
+      if (peptide.secondaryStructure) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Secondary Structure:</strong> ${peptide.secondaryStructure}
+          </div>
+        `;
+      }
+      
+      // 添加专利信息
+      if (peptide.patentNo) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Patent No:</strong> ${peptide.patentNo}
+          </div>
+        `;
+      }
+      
+      if (peptide.patentTitle) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Patent Title:</strong> ${peptide.patentTitle}
+          </div>
+        `;
+      }
+      
+      // 根据不同类别添加特定信息
+      if (peptide.folder === "Clinical") {
+        const clinicalInfo = peptide.originalData["Clinical Information"] || {};
+        if (clinicalInfo["Medical use"]) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>Medical Use:</strong> ${cleanFieldValue(clinicalInfo["Medical use"])}
+            </div>
+          `;
+        }
+        if (clinicalInfo["Company"]) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>Company:</strong> ${cleanFieldValue(clinicalInfo["Company"])}
+            </div>
+          `;
+        }
+        if (clinicalInfo["Stage of Development"]) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>Stage of Development:</strong> ${cleanFieldValue(clinicalInfo["Stage of Development"])}
+            </div>
+          `;
+        }
+        if (clinicalInfo["Comments"]) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>Comments:</strong> ${cleanFieldValue(clinicalInfo["Comments"])}
+            </div>
+          `;
+        }
+      }
+      
+      // 添加目标生物信息
+      if (peptide.targetOrganism) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>Target Organism:</strong> 
+            <pre style="white-space: pre-wrap; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 5px;">${peptide.targetOrganism}</pre>
+          </div>
+        `;
+      } else {
+        // 尝试从原始数据中获取
+        let targetOrganism = '';
+        if (peptide.folder === "Clinical") {
+          const seqInfo = peptide.originalData["Sequence Information"] || {};
+          targetOrganism = seqInfo["Target Organism"] || '';
+        } else if (peptide.folder === "stapled") {
+          const activityInfo = peptide.originalData.activity_info || {};
+          if (activityInfo["Target Organism"] && Array.isArray(activityInfo["Target Organism"])) {
+            targetOrganism = activityInfo["Target Organism"].join('\n');
+          } else {
+            targetOrganism = activityInfo["Target Organism"] || '';
+          }
+        } else {
+          targetOrganism = peptide.originalData["Target Organism"] || '';
+        }
+        
+        if (targetOrganism) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>Target Organism:</strong> 
+              <pre style="white-space: pre-wrap; background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 5px;">${targetOrganism}</pre>
+            </div>
+          `;
+        }
+      }
+      
+      // 添加物理化学特性
+      if (peptide.properties && Object.keys(peptide.properties).length > 0) {
+        let propertiesHTML = '';
+        for (const [prop, value] of Object.entries(peptide.properties)) {
+          propertiesHTML += `
+            <div style="margin-bottom: 10px;">
+              <strong>${prop}:</strong> ${value}
+            </div>
+          `;
+        }
+        
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>物理化学特性:</strong>
+            <div style="background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 5px;">
+              ${propertiesHTML}
+            </div>
+          </div>
+        `;
+      } else if (peptide.folder === "General" || peptide.folder === "Stability" || peptide.folder === "Expended") {
+        // 尝试从原始数据中获取物理化学特性
+        const properties = [
+          "Formula", "Mass", "PI", "Basic Residues", "Acidic Residues", 
+          "Hydrophobic Residues", "Net Charge", "Boman Index", "Hydrophobicity", 
+          "Aliphatic Index", "Half Life"
+        ];
+        
+        let propertiesHTML = '';
+        let hasProperties = false;
+        
+        for (const prop of properties) {
+          if (peptide.originalData[prop]) {
+            propertiesHTML += `
+              <div style="margin-bottom: 10px;">
+                <strong>${prop}:</strong> ${peptide.originalData[prop]}
+              </div>
+            `;
+            hasProperties = true;
+          }
+        }
+        
+        if (hasProperties) {
+          detailsHTML += `
+            <div style="margin-bottom: 15px;">
+              <strong>物理化学特性:</strong>
+              <div style="background: rgba(0,0,0,0.1); padding: 10px; border-radius: 5px; margin-top: 5px;">
+                ${propertiesHTML}
+              </div>
+            </div>
+          `;
+        }
+      }
+      
+      // 添加参考文献信息
+      let references = [];
+      if (peptide.folder === "Clinical") {
+        const seqInfo = peptide.originalData["Sequence Information"] || {};
+        if (seqInfo["Reference"] && Array.isArray(seqInfo["Reference"])) {
+          references = seqInfo["Reference"].filter(ref => ref !== "Reference");
+        }
+      } else if (peptide.folder === "stapled") {
+        const litInfo = peptide.originalData.literature_info || {};
+        if (litInfo["Reference"]) {
+          references.push(litInfo["Reference"]);
+        }
+      } else if (peptide.originalData["Reference"]) {
+        references.push(peptide.originalData["Reference"]);
+      }
+      
+      if (references.length > 0) {
+        detailsHTML += `
+          <div style="margin-bottom: 15px;">
+            <strong>References:</strong>
+            <ul style="margin-top: 5px; padding-left: 20px;">
+              ${references.map(ref => `<li>${ref}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+      
+      // 将详情内容添加到模态框
+      modalContent.innerHTML += detailsHTML;
+      
+      // 添加下载按钮
+      const downloadBtn = document.createElement('button');
+      downloadBtn.className = 'btn';
+      downloadBtn.textContent = '下载JSON';
+      downloadBtn.style.marginRight = '10px';
+      downloadBtn.onclick = function() {
+        const dataStr = JSON.stringify(peptide.originalData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        const exportFileDefaultName = `${peptide.id}.json`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      };
+      
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.textAlign = 'center';
+      buttonContainer.style.marginTop = '20px';
+      buttonContainer.appendChild(downloadBtn);
+      
+      modalContent.appendChild(buttonContainer);
+      
+      // 将模态框添加到页面
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+    }
+    
+    // 搜索功能
+    function search() {
+      const idFilter = document.getElementById('idInput').value.trim().toLowerCase();
+      const nameFilter = document.getElementById('nameInput').value.trim().toLowerCase();
+      const sequenceFilter = document.getElementById('sequenceInput').value.trim().toUpperCase();
+      const lengthFilter = document.getElementById('lengthInput').value.trim();
+      const categoryFilter = document.getElementById('categorySelect').value;
+      const activityFilter = document.getElementById('activitySelect').value;
+      
+      // 解析长度范围
+      let minLength = 0;
+      let maxLength = Infinity;
+      
+      if (lengthFilter) {
+        const lengthMatch = lengthFilter.match(/^(\d+)-(\d+)$/);
+        if (lengthMatch) {
+          minLength = parseInt(lengthMatch[1]);
+          maxLength = parseInt(lengthMatch[2]);
+        } else if (!isNaN(parseInt(lengthFilter))) {
+          minLength = maxLength = parseInt(lengthFilter);
+        }
+      }
+      
+      // 显示加载状态
+      document.getElementById('loadingStatus').innerHTML = "正在搜索...";
+      
+      // 过滤结果
+      const filteredResults = allPeptides.filter(peptide => {
+        try {
+          // ID过滤
+          if (idFilter && !peptide.id.toLowerCase().includes(idFilter)) {
+            return false;
+          }
+          
+          // 名称过滤
+          if (nameFilter && !peptide.name.toLowerCase().includes(nameFilter)) {
+            return false;
+          }
+          
+          // 序列过滤
+          if (sequenceFilter && !peptide.sequence.includes(sequenceFilter)) {
+            return false;
+          }
+          
+          // 长度过滤
+          const sequenceLength = peptide.sequence.length;
+          if (sequenceLength < minLength || sequenceLength > maxLength) {
+            return false;
+          }
+          
+          // 类别过滤
+          if (categoryFilter !== 'all' && peptide.folder !== categoryFilter) {
+            return false;
+          }
+          
+          // 活性过滤
+          if (activityFilter !== 'all') {
+            // 检查活性数组
+            if (peptide.activity && peptide.activity.length > 0) {
+              const activityString = peptide.activity.join(' ').toLowerCase();
+              if (!activityString.includes(activityFilter.toLowerCase())) {
+                return false;
+              }
+            } else {
+              // 如果没有活性信息，则不符合活性过滤条件
+              return false;
+            }
+          }
+          
+          return true;
+        } catch (error) {
+          console.error(`搜索过滤肽 ${peptide.id} 时出错:`, error);
+          return false;
+        }
+      });
+      
+      // 更新状态
+      document.getElementById('loadingStatus').innerHTML = `找到 ${filteredResults.length} 条匹配记录`;
+      
+      // 显示过滤结果
+      displayResults(filteredResults);
+    }
+    
+    // 导出CSV功能
+    function exportCSV() {
+      // 获取当前显示的结果
+      const table = document.getElementById('resultsTable');
+      const rows = table.querySelectorAll('tbody tr');
+      
+      if (rows.length === 0) {
+        alert('没有可导出的数据');
+        return;
+      }
+      
+      // 创建CSV内容
+      let csvContent = 'ID,Name,Sequence,Category,Activity\n';
+      
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const id = cells[0].textContent;
+        const name = cells[1].textContent;
+        const sequence = cells[2].textContent.replace('...', ''); // 移除省略号
+        const category = cells[3].textContent;
+        
+        // 查找完整数据
+        const peptide = allPeptides.find(p => p.id === id);
+        const activity = peptide ? peptide.activity.join('; ') : '';
+        
+        // 添加到CSV
+        csvContent += `"${id}","${name}","${peptide ? peptide.sequence : sequence}","${category}","${activity}"\n`;
+      });
+      
+      // 创建下载链接
+      const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'peptides_export.csv');
+      document.body.appendChild(link);
+      
+      // 触发下载
+      link.click();
+      
+      // 清理
+      document.body.removeChild(link);
     }
   </script>
 </body>
