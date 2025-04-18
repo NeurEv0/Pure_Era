@@ -362,25 +362,6 @@ header ul li a.active
         <tbody id="table-body">
           <!-- 动态生成的表格行将插入这里 -->
         </tbody>
-        <!-- 修正后的静态表格行示例 -->
-        <!-- <tbody>
-          <tr>
-            <td>DRAMP00005</td>
-            <td>Epicidin 280</td>
-            <td>SLGPAIKATRQVCPKATRFVTVSCKKSDCQ</td>
-            <td>
-              <button class="btn" onclick="window.location.href='peptide_card.html?id=DRAMP00005'">View</button>
-            </td>
-          </tr>
-          <tr>
-            <td>DRAMP00015</td>
-            <td>Geobacillin II (nisin analog; Bacteriocin)</td>
-            <td>STIVCVSLRICNWSLRFCPSFKVRCPM</td>
-            <td>
-              <button class="btn" onclick="window.location.href='peptide_card.html?id=DRAMP00015'">View</button>
-            </td>
-          </tr>
-        </tbody> -->
       </table>
     </div>
   </div>
@@ -467,19 +448,10 @@ header ul li a.active
   const name = document.getElementById("nameInput").value.trim();
   const sequence = document.getElementById("sequenceInput").value.trim();
   
-  // 优先用 ID，其次用 Name
-//   if (id) {
-//     window.location.href = `peptide_card.html?DRAMP ID=${encodeURIComponent(id)}`;
-//   } else if (name) {
-//     window.location.href = `peptide_card.html?Peptide Name=${encodeURIComponent(name)}`;
-//   } else {
-//     alert("请输入 ID 或 Name 进行跳转");
-//   }
-// }
 
 if (id) {
     const encodedID = encodeURIComponent(id);
-    window.location.href = `peptide_card.html?DRAMP_ID=${encodedID}`; // 使用下划线代替空格
+    window.location.href = `peptide_card.html?DRAMP ID=${encodedID}`; // 使用下划线代替空格
     return;
       }
 
@@ -487,7 +459,7 @@ if (id) {
         // const peptide = dataArray.find(p => p['Peptide Name'] === name);
         const peptide = dataArray.find(p => p['Peptide Name'].toLowerCase() === name.toLowerCase());
         if (peptide) {
-          window.location.href = `peptide_card.html?DRAMP_ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
+          window.location.href = `peptide_card.html?DRAMP ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
           return;
         }
         alert(`未找到名称为 "${name}" 的抗菌肽`);
@@ -497,7 +469,7 @@ if (id) {
       if (sequence) {
         const peptide = dataArray.find(p => p['Sequence'] === sequence);
         if (peptide) {
-          window.location.href = `peptide_card.html?DRAMP_ ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
+          window.location.href = `peptide_card.html?DRAMP ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
           return;
         }
         alert(`未找到序列为 "${sequence}" 的抗菌肽`);
