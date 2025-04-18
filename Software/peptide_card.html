@@ -386,7 +386,7 @@
                                     link.textContent = item;
                                     return link;
                                 } else {
-                                    return item; // 文学数据需要特殊处理
+                                    return item; // 文学数据需要特殊处理，这里简化处理
                                 }
                             });
                         } else {
@@ -416,7 +416,7 @@
             });
         }
 
-        // 导航栏交互
+        // 导航栏交互（保留原有功能）
         let nav = document.querySelectorAll(".nav li");
         function activeLink() {
             nav.forEach((item) => item.classList.remove("active"));
