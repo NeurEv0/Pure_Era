@@ -158,16 +158,20 @@ header ul li a.active
 
     .main-container {
       position: relative;
-      top: 150px;
+      top: 100px; 
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 300px 1fr; 
       gap: 30px;
+      height: calc(100vh - 100px); 
+      overflow: hidden;
       width: 90%;
       margin: 0 auto;
-      padding-bottom: 50px;
     }
 
     .filter {
+      position: sticky;
+      top: 100px; /* header 高度 */
+      height: fit-content;
       background: rgba(255,255,255,0.1);
       padding: 30px;
       border-radius: 20px;
@@ -175,6 +179,8 @@ header ul li a.active
     }
 
     .table-container {
+      overflow-y: auto;
+      height: 100%;
       background: rgba(255,255,255,0.1);
       padding: 30px;
       border-radius: 20px;
@@ -383,9 +389,19 @@ header ul li a.active
       console.error('数据加载失败:', error);
     });
 
-    function search() {
-      // 搜索功能实现
-    }
+     function search() {
+  const id = document.getElementById("idInput").value.trim();
+  const name = document.getElementById("nameInput").value.trim();
+  
+  // 优先用 ID，其次用 Name
+  if (id) {
+    window.location.href = `peptide_card.html?id=${encodeURIComponent(id)}`;
+  } else if (name) {
+    window.location.href = `peptide_card.html?name=${encodeURIComponent(name)}`;
+  } else {
+    alert("请输入 ID 或 Name 进行跳转");
+  }
+}
 
     function exportCSV() {
       // 导出 CSV 功能实现
