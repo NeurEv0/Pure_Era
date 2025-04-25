@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="shortcut icon" href="./icon/favicon.ico">
+  <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
     * {
@@ -16,24 +17,34 @@
     }
 
     body {
-      min-height: 100vh;
-      background: linear-gradient(#2b1055, #7597de);
-    }
+  min-height: 100vh;
+  background: #ffffff;  /* 改为纯白背景 */
+  color: #2b1055;        /* 文本颜色建议配合调整 */
+  overflow-x: hidden;
+}
+
+
 
     /* body:not(.home-page) {
     background: #fff; /* 非 Home 页背景色 */
 /* } */
 body:not(.home-page) header {
-    background: #2b1055;
-    position :fixed; 
+    background: linear-gradient(to bottom, rgba(43, 16, 85, 0.98) 0%, rgba(43, 16, 85, 0.9) 100%);
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     padding: 15px 100px;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* 非 Home 页导航栏颜色 */
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
 }
+
 
 .logo-container {
     position: relative;
@@ -97,30 +108,33 @@ header ul li
     list-style: none;
     margin-left: 20px;
 }
-header ul li a
-{
+header ul li a {
     text-decoration: none;
     padding: 6px 15px;
-    color:#fff;
+    color: #fff;
     border-radius: 20px;
 }
 
 header ul li a:hover,
-header ul li a.active
-{
-    background: #fff;
-    color:#2b1055;
+header ul li a.active {
+    background: rgba(255, 255, 255, 0.9);
+    color:  #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
 }
+
 
 /* 导航栏切换按钮样式 */
 .nav-toggle {
     display: none;
     background: none;
     border: none;
-    color: white;
+    color: #fff;
     font-size: 1.5em;
     cursor: pointer;
 }
+
 
 /* 媒体查询，手机端样式 */
 @media (max-width: 768px) {
@@ -133,16 +147,17 @@ header ul li a.active
     }
 
     .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #7e70cfed;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 0;
-    }
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(43, 16, 85, 0.95);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
 
     .nav-menu.active {
         display: flex;
@@ -169,33 +184,40 @@ header ul li a.active
     }
 
     .filter {
-      position: sticky;
-      top: 100px; 
-      background: rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      flex-direction: column; /* 使内容垂直排列 */
-      justify-content: flex-start;
-      height: 100%; /* 明确设置高度100% */
-    }
+  position: sticky;
+  top: 100px;
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(43, 16, 85, 0.3);
+  backdrop-filter: blur(10px);
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
 
-    .table-container {
-    flex:1;
-    position: relative;
-      overflow-y: auto;
-      overflow-x: hidden;
-      height: 100%;
-      background: rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-    }
+.table-container {
+  flex:1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(43, 16, 85, 0.3);
+  backdrop-filter: blur(10px);
+}
+
 
     thead {
+  /* 恢复固定定位 */
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.1);
+  /* 深紫色纯色背景 */
+  background: rgba(43, 16, 85, 1);
+  /* 增加阴影效果 */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -205,7 +227,7 @@ header ul li a.active
     }
 
     label {
-      color: rgba(255,255,255,0.9);
+      color:#2b1055;
       display: block;
       margin-bottom: 8px;
     }
@@ -214,15 +236,15 @@ header ul li a.active
       width: 100%;
       padding: 12px 20px;
       background: rgba(255,255,255,0.05);
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(43, 16, 85, 0.4); /* 深紫色半透明 */
       border-radius: 25px;
-      color: white;
+      color: #2b1055;
       font-size: 1em;
     }
 
     .search-btn {
-      background: #0077cc;
-      color: white;
+      background: #8fd0ff;
+      color: #2b1055;
       padding: 15px 20px;
       border: none;
       border-radius: 25px;
@@ -232,16 +254,17 @@ header ul li a.active
     }
 
     .search-btn:hover {
-      background: #005fa3;
+      background: #8fd0ff;
+      ;
     }
 
     .view-btn:hover{
-        background: #005fa3;
+        background: #8fd0ff;
     }
 
     .view-btn {
-      background: #0077cc;
-      color: white;
+      background: #8fd0ff;
+      color: #2b1055;
       padding: 8px 15px;
       border: none;
       border-radius: 25px;
@@ -254,27 +277,31 @@ header ul li a.active
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      color: white;
+      border-collapse: separate;
+      border-spacing: 0;
+      color: #2b1055;
+      /* 表格整体的圆角与 table-container 保持一致 */
+      border-radius: 20px;
+      overflow: hidden;
     }
 
-    th{
-      padding: 15px;
+    th {
+      padding: 25px;
       text-align: left;
+      /* 使表头部分与下方的单元格看起来更融合 */
+      border-bottom: 1px solid rgba(246, 245, 247, 0.2);
+      color: white; /* 表头文字为白色 */
+      background-color: #2b1055; /* 可以设置表头的背景色，确保白色字体清晰可见 */
     }
 
     td {
-  padding: 15px;
+      padding: 25px;
   text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  word-wrap: break-word;  /* 允许长单词换行 */
-  word-break: break-all;  /* 允许任意位置换行 */
-  white-space: normal;    /* 取消强制不换行 */
-  max-width: 200px;       /* 设置最大宽度防止单元格过宽 */
-}
-
-    th {
-      background: rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(43, 16, 85, 0.2);
+      word-wrap: break-word;
+      word-break: break-all;
+      white-space: normal;
+      max-width: 200px;
     }
 
     th:nth-child(4), td:nth-child(4) {
@@ -305,6 +332,178 @@ header ul li a.active
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.3);
 }
+
+/* 语言选择器样式 - 可复用到所有页面 */
+.language-selector {
+    position: fixed;
+    right: 20px;
+    top: 100px; /* 调整到更合适的高度 */
+    z-index: 10000;
+}
+
+.language-current {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: rgba(43, 16, 85, 0.95);
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* 使用缓动函数让动画更自然 */
+    overflow: hidden;
+}
+
+.language-current i {
+    font-size: 18px;
+    color: #2b1055;
+    margin-right: 0; /* 默认没有右边距 */
+    transition: margin 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.language-current span {
+    max-width: 0;
+    opacity: 0;
+    color: #2b1055;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 悬停时的动画变化 */
+.language-selector:hover .language-current {
+    padding-right: 15px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.language-selector:hover .language-current i {
+    margin-right: 8px;
+}
+
+.language-selector:hover .language-current span {
+    max-width: 120px;
+    opacity: 1;
+    padding-left: 5px;
+}
+
+.language-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(43, 16, 85, 0.95);
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 180px;
+    max-height: 350px;
+    overflow-y: auto;
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.language-selector:hover .language-options {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+    animation: fadeDown 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.language-options a {
+    display: block;
+    padding: 10px 15px;
+    color:#ffffff;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.language-options a:hover {
+    background:rgba(255,255,255,0.1);
+}
+
+/* 为最后一个元素添加圆角 */
+.language-options a:last-child {
+    margin-bottom: 10px;
+}
+
+/* 为第一个元素添加顶部间距 */
+.language-options a:first-child {
+    margin-top: 10px;
+}
+
+/* 自定义滚动条样式 */
+.language-options::-webkit-scrollbar {
+    width: 5px;
+}
+
+.language-options::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+
+.language-options::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+/* 分页控件样式 */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.pagination-btn {
+    background: rgba(255,255,255,0.1);
+    color: #2b1055;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.2);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: #2b1055;
+    margin: 0 15px;
+    font-size: 0.9em;
+}
+
+/* 为表头的第一个和最后一个单元格添加圆角 */
+thead th:first-child {
+  border-top-left-radius: 20px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 20px;
+}
   </style>
 </head>
 
@@ -313,7 +512,7 @@ header ul li a.active
     <div class="logo-container">
       <a href="#" class="logo">
         <img src="logo.png"  style="vertical-align: middle; height: 30px;">
-        PURE-ERA
+        SPADE
       </a>
       <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
     </div>
@@ -325,8 +524,28 @@ header ul li a.active
       <li><a href="search.html">Search</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="statistics.html">Statistics</a></li>
+      <li><a href="chat.html">Chat</a></li>
     </ul>
   </header>
+
+  <!-- 新的侧边语言选择器UI -->
+  <div class="language-selector">
+    <div class="language-current" id="currentLang">
+      <i class="fas fa-globe"></i>
+      <span id="currentLangText">中文 (简体)</span>
+    </div>
+    <div class="language-options">
+      <a href="#" data-lang="en" class="no-translate">English</a>
+      <a href="#" data-lang="zh-Hans" class="no-translate">中文 (简体)</a>
+      <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+      <a href="#" data-lang="ja" class="no-translate">日本語</a>
+      <a href="#" data-lang="ko" class="no-translate">한국어</a>
+      <a href="#" data-lang="fr" class="no-translate">Français</a>
+      <a href="#" data-lang="de" class="no-translate">Deutsch</a>
+      <a href="#" data-lang="es" class="no-translate">Español</a>
+      <a href="#" data-lang="ru" class="no-translate">Русский</a>
+    </div>
+  </div>
 
   <div class="main-container">
     <div class="filter">
@@ -348,6 +567,7 @@ header ul li a.active
       </div>
       <button class="search-btn" onclick="search()">Search</button>
       <button class="search-btn" onclick="exportCSV()">Export CSV</button>
+      <button class="search-btn" id="resetSearchBtn" style="display: none; background-color: #6c757d;">Clear Search</button>
     </div>
     <div class="table-container">
       <table id="resultsTable">
@@ -363,17 +583,34 @@ header ul li a.active
           <!-- 动态生成的表格行将插入这里 -->
         </tbody>
       </table>
+      <!-- 分页控件 -->
+      <div class="pagination-container">
+        <button id="prevPageBtn" class="pagination-btn" disabled>Previous</button>
+        <span id="pageInfo" class="page-info">Page 1 of 1</span>
+        <button id="nextPageBtn" class="pagination-btn" disabled>Next</button>
+      </div>
     </div>
   </div>
 
   <script>
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    let dataArray = [];
+    const itemsPerPage = 15; // 每页显示条数
+    let currentPage = 1;
+    let totalPages = 1;
+    let allPeptideFiles = []; // 存储所有文件名
+    let peptideIndexData = []; // 存储索引文件数据
+    let currentFilterFiles = []; // 存储当前过滤后的文件名列表
+    let isFiltered = false; // 标记当前是否处于过滤状态
 
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
+
+    // 在页面加载时初始化数据
+    document.addEventListener('DOMContentLoaded', function() {
+      // 加载数据...
+      loadInitialData(); // 确保在页面加载时调用
 
     // 导航交互
     document.querySelectorAll('header ul li').forEach(li => {
@@ -391,26 +628,361 @@ header ul li a.active
       }
     }
 
-    // 存储所有 JSON 文件的路径，这里你可以根据实际情况添加更多
-    const jsonFiles = ['DRAMP00001.json','DRAMP00002.json','DRAMP00003.json','DRAMP00004.json','DRAMP00005.json','DRAMP00006.json','DRAMP00008.json','DRAMP00009.json','DRAMP00015.json'];
+      // 如果全局特殊词汇配置不存在，则创建
+      if (!window.specialTerms) {
+        window.specialTerms = {
+          'en': { 'PURE-ERA': 'PURE-ERA' },
+          'zh-Hans': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': '首页',
+            'Search': '搜索',
+            'Tools': '工具',
+            'Statistics': '统计',
+            'ID': 'ID',
+            'Name': '名称',
+            'Sequence': '序列',
+            'Action': '操作',
+            'View': '查看',
+            'Visualize': '可视化',
+            'Input ID': '输入ID',
+            'Input Name': '输入名称',
+            'Input Sequence': '输入序列',
+            'Sequence Length': '序列长度',
+            'For example: 10-50': '例如：10-50',
+            'Search': '搜索',
+            'Export CSV': '导出CSV',
+            'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队',
+            'AMP Visualization': '抗菌肽可视化'
+          },
+          'zh-Hant': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': '首頁',
+            'Search': '搜索',
+            'Tools': '工具',
+            'Statistics': '統計',
+            'ID': 'ID',
+            'Name': '名稱',
+            'Sequence': '序列',
+            'Action': '操作',
+            'View': '查看',
+            'Visualize': '可視化',
+            'Input ID': '輸入ID',
+            'Input Name': '輸入名稱',
+            'Input Sequence': '輸入序列',
+            'Sequence Length': '序列長度',
+            'For example: 10-50': '例如：10-50',
+            'Search': '搜索',
+            'Export CSV': '導出CSV',
+            'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊',
+            'AMP Visualization': '抗菌肽可視化'
+          },
+          'ja': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': 'ホーム',
+            'Search': '検索',
+            'Tools': 'ツール',
+            'Statistics': '統計',
+            'ID': 'ID',
+            'Name': '名前',
+            'Sequence': '配列',
+            'Action': '操作',
+            'View': '表示',
+            'Visualize': '可視化',
+            'Input ID': 'IDを入力',
+            'Input Name': '名前を入力',
+            'Input Sequence': '配列を入力',
+            'Sequence Length': '配列の長さ',
+            'For example: 10-50': '例：10-50',
+            'Search': '検索',
+            'Export CSV': 'CSVをエクスポート',
+            'AMP Visualization': '抗菌ペプチド可視化'
+          },
+          // 为其他语言也添加PURE-ERA的映射
+          'ko': { 'PURE-ERA': 'PURE-ERA' },
+          'fr': { 'PURE-ERA': 'PURE-ERA' },
+          'de': { 'PURE-ERA': 'PURE-ERA' },
+          'es': { 'PURE-ERA': 'PURE-ERA' },
+          'ru': { 'PURE-ERA': 'PURE-ERA' }
+        };
+      }
+      
+      const savedLang = getLanguagePreference();
+      document.documentElement.lang = savedLang;
+      
+      // 更新当前语言显示 - 确保不翻译语言名称
+      updateCurrentLanguageDisplay();
+      
+      // 初始化多语言选择下拉菜单事件
+      const langOptions = document.querySelectorAll('.language-options a');
+      langOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.preventDefault();
+          const newLang = this.getAttribute('data-lang');
+          if (newLang === document.documentElement.lang) return;
+          
+          // 保存语言设置并刷新页面
+          saveLanguagePreference(newLang);
+          
+          // 获取当前URL并添加时间戳参数以确保刷新
+          const currentUrl = new URL(window.location.href);
+          currentUrl.searchParams.set('ts', Date.now());
+          window.location.href = currentUrl.toString();
+        });
+      });
+      
+      // 初始化翻译
+      initializeTranslation(savedLang);
+    });
+    
+    // 初始化翻译函数
+    function initializeTranslation(lang) {
+      const tranzy = new Tranzy.Translator({
+        toLang: lang,
+        fromLang: 'en',
+        ignore: ['.no-translate', 'input', 'select', '.search-icon', 'textarea', '.language-dropdown a'],
+        manualDict: window.specialTerms
+      });
+      
+      tranzy.translatePage();
+      tranzy.startObserver();
+      
+      // 将翻译实例保存到全局变量，以便之后销毁
+      window.tranzyInstance = tranzy;
+    }
 
-    // 加载所有 JSON 文件并填充表格
-    Promise.all(jsonFiles.map(file => 
-      fetch(`./database/${file}`)
+    // 提供一个全局函数用于动态添加或修改特殊名词（如果没有在home.html中定义）
+    if (!window.updateSpecialTerm) {
+      window.updateSpecialTerm = function(term, translation, language) {
+        language = language || document.documentElement.lang;
+        if (!window.specialTerms[language]) {
+          window.specialTerms[language] = {};
+        }
+        window.specialTerms[language][term] = translation;
+        
+        // 如果当前语言匹配，立即应用更新
+        if (language === document.documentElement.lang && window.tranzyInstance) {
+          window.tranzyInstance.destroy();
+          initializeTranslation(language);
+        }
+      };
+    }
+
+    function search() {
+      const idInput = document.getElementById("idInput").value.trim();
+      const nameInput = document.getElementById("nameInput").value.trim();
+      const sequenceInput = document.getElementById("sequenceInput").value.trim();
+      const lengthInput = document.getElementById("lengthInput").value.trim();
+
+      // 优先处理ID搜索 - 修改为不区分大小写
+      if (idInput) {
+          // 检查是否能在文件列表中找到不区分大小写的匹配项
+          const matchID = idInput.toUpperCase().replace(/\s+/g, ''); // 转为大写并移除空格
+          
+          // 查找匹配的文件
+          const matchedFile = allPeptideFiles.find(file => 
+              file.toUpperCase().replace(/\.json$/i, '') === matchID ||   // 精确匹配（不带扩展名）
+              file.toUpperCase().includes(matchID));                      // 包含匹配
+          
+          if (matchedFile) {
+              // 如果找到匹配，提取实际ID（移除扩展名）
+              const actualID = matchedFile.replace(/\.json$/i, '');
+              const encodedID = encodeURIComponent(actualID);
+              window.location.href = `peptide_card.html?DRAMP ID=${encodedID}`;
+              return;
+          } else {
+              // 如果在文件列表中找不到，尝试原方式直接搜索
+              const encodedID = encodeURIComponent(idInput);
+              window.location.href = `peptide_card.html?DRAMP ID=${encodedID}`;
+              return;
+          }
+      }
+
+      // 如果没有索引数据，无法进行高级搜索
+      if (peptideIndexData.length === 0 && (nameInput || sequenceInput || lengthInput)) {
+          alert('搜索索引未加载，无法按名称、序列或长度搜索。请尝试使用 ID 搜索。');
+          return;
+      }
+      
+      let results = [...peptideIndexData]; // 从完整索引开始过滤
+      let didFilter = false;
+
+      // 按名称过滤
+      if (nameInput) {
+          results = results.filter(p => p.name && p.name.toLowerCase().includes(nameInput.toLowerCase()));
+          didFilter = true;
+      }
+
+      // 按序列过滤
+      if (sequenceInput) {
+          results = results.filter(p => p.sequence && p.sequence.toLowerCase().includes(sequenceInput.toLowerCase()));
+          didFilter = true;
+      }
+
+      // 按长度过滤
+      if (lengthInput) {
+          const rangeMatch = lengthInput.match(/^(\d+)-(\d+)$/);
+          if (rangeMatch) {
+              const minLength = parseInt(rangeMatch[1], 10);
+              const maxLength = parseInt(rangeMatch[2], 10);
+              results = results.filter(p => p.length >= minLength && p.length <= maxLength);
+              didFilter = true;
+          } else {
+              alert("序列长度格式不正确，请输入范围，例如：10-50");
+              return; // 格式错误则停止搜索
+          }
+      }
+
+      // 如果没有输入任何过滤条件，则不执行操作（避免显示空结果）
+      if (!didFilter) {
+          // 可以选择重置显示所有数据，或者提示用户输入条件
+          // alert("请输入至少一个搜索条件（名称、序列或长度）。");
+          // 或者重置
+          isFiltered = false;
+          currentFilterFiles = [...allPeptideFiles];
+          displayPage(1);
+          return;
+      }
+
+      // 更新过滤状态和文件列表
+      isFiltered = true;
+      currentFilterFiles = results.map(p => `${p.id}.json`); // 从结果中获取对应的文件名
+      
+      console.log(`搜索完成，找到 ${currentFilterFiles.length} 个结果。`);
+
+      // 显示搜索结果的第一页
+      displayPage(1);
+
+      // --- 移除旧的基于当前页的搜索逻辑 --- 
+      /* 
+      if (nameInput) { ... }
+      if (sequenceInput) { ... }
+      if (lengthInput) { ... }
+      alert("请输入 ID、名称、序列或长度范围进行搜索");
+      */
+     }
+
+    function exportCSV() {
+      // 导出 CSV 功能实现
+    }
+
+    // 加载初始数据（文件名列表和索引），并显示第一页
+    async function loadInitialData() {
+        console.log("开始加载初始数据...");
+        // 假设 jsonFiles 数组包含所有文件名
+        // 在实际应用中，可能需要动态获取或从manifest文件读取
+        const jsonFiles = ['DRAMP00001.json','DRAMP00002.json','DRAMP00003.json','DRAMP00004.json','DRAMP00005.json','DRAMP00006.json','DRAMP00008.json','DRAMP00009.json','DRAMP00015.json', /* ... 更多文件名 ... */ 'DRAMP00016.json', 'DRAMP00017.json', 'DRAMP00018.json', 'DRAMP00019.json', 'DRAMP00020.json', 'DRAMP00021.json', 'DRAMP00022.json', 'DRAMP00023.json', 'DRAMP00024.json', 'DRAMP00025.json', 'DRAMP00026.json', 'DRAMP00027.json', 'DRAMP00028.json', 'DRAMP00029.json', 'DRAMP00030.json'];
+        allPeptideFiles = jsonFiles; // 存储完整列表
+        console.log(`加载了 ${allPeptideFiles.length} 个文件名`);
+        
+        currentFilterFiles = [...allPeptideFiles]; // 初始状态下，过滤列表等于完整列表
+        isFiltered = false;
+
+        // 加载索引文件 - 尝试多种可能的路径
+        let indexLoaded = false;
+        
+        // 尝试可能的路径列表
+        const possiblePaths = [
+            'peptide_index.json',
+            './peptide_index.json',
+            '/peptide_index.json',
+            '../peptide_index.json',
+            'database/peptide_index.json',
+            './database/peptide_index.json'
+        ];
+        
+        for (const path of possiblePaths) {
+            if (indexLoaded) break;
+            
+            try {
+                console.log(`尝试从路径加载索引文件: ${path}`);
+                const response = await fetch(path);
+                if (!response.ok) continue;
+                
+                peptideIndexData = await response.json();
+                console.log(`索引文件从 ${path} 加载成功，包含 ${peptideIndexData.length} 个条目`);
+                indexLoaded = true;
+                break;
+            } catch (error) {
+                console.warn(`从路径 ${path} 加载索引文件失败:`, error);
+            }
+        }
+        
+        if (!indexLoaded) {
+            console.error('无法从任何可能的路径加载索引文件');
+            alert('警告：无法加载搜索索引，名称/序列/长度搜索可能无法正常工作。');
+            peptideIndexData = []; // 置空以避免后续错误
+        }
+
+        totalPages = Math.ceil(currentFilterFiles.length / itemsPerPage);
+        currentPage = 1;
+        console.log(`总页数: ${totalPages}, 当前页: ${currentPage}`);
+        await displayPage(currentPage);
+        setupPaginationControls();
+        setupResetButton(); // 设置重置按钮
+    }
+
+    // 显示指定页的数据
+    async function displayPage(page) {
+        console.log(`显示第 ${page} 页数据...`);
+        currentPage = page;
+        const tableBody = document.getElementById('table-body');
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Loading...</td></tr>';
+
+        // 根据是否过滤，选择使用的文件列表
+        const filesSource = isFiltered ? currentFilterFiles : allPeptideFiles;
+        totalPages = Math.ceil(filesSource.length / itemsPerPage);
+        console.log(`当前文件列表包含 ${filesSource.length} 个文件, 总页数: ${totalPages}`);
+        
+        // 确保页码在有效范围内
+        if (page < 1) page = 1;
+        if (page > totalPages && totalPages > 0) page = totalPages;
+        currentPage = page;
+        
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(page * itemsPerPage, filesSource.length);
+        const filesToLoad = filesSource.slice(startIndex, endIndex);
+        console.log(`正在加载第 ${startIndex+1} 到 ${endIndex} 条数据，文件数: ${filesToLoad.length}`);
+
+        if (filesToLoad.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No data available.</td></tr>';
+            updatePaginationInfo();
+            return;
+        }
+
+        try {
+            const loadPromises = filesToLoad.map(file => {
+                const url = `database/${file}`;
+                console.log(`尝试加载: ${url}`);
+                return fetch(url)
         .then(response => {
           if (!response.ok) {
-            throw new Error('网络响应有问题');
+                            console.error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
+                            return null;
           }
           return response.json();
         })
-    ))
-    .then(loadedData => {
-      dataArray = loadedData; // 赋值给全局变量
-      const tableBody = document.getElementById('table-body');
-       // 清空现有表格内容（重要！）
-  tableBody.innerHTML = '';
+                    .catch(error => {
+                        console.error(`Error fetching ${file}:`, error);
+                        return null;
+                    });
+            });
+            
+            const loadedData = await Promise.all(loadPromises);
+            const validData = loadedData.filter(data => data !== null);
+            console.log(`成功加载 ${validData.length} / ${filesToLoad.length} 个文件`);
 
-      loadedData.forEach(data => {
+  tableBody.innerHTML = '';
+            const resultsFound = validData.length > 0;
+            if (!resultsFound && filesSource.length > 0) {
+                 tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px;">${isFiltered ? 'No matching results found.' : 'Failed to load data for this page.'}</td></tr>`;
+            } else if (!resultsFound) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No data available.</td></tr>';
+            } else {
+                validData.forEach(data => {
         const row = document.createElement('tr');
         const idCell = document.createElement('td');
         idCell.textContent = data['DRAMP ID'];
@@ -427,60 +999,135 @@ header ul li a.active
         const actionCell = document.createElement('td');
         const viewButton = document.createElement('button');
         viewButton.className = 'view-btn';
-        viewButton.textContent = 'View';
+                    viewButton.textContent = 'View'; // 稍后会被Tranzy翻译
         viewButton.onclick = function() {
-          const url = `peptide_card.html?DRAMP ID=${data['DRAMP ID']}`;
-          console.log('跳转链接:', url);
+                        const url = `peptide_card.html?DRAMP ID=${encodeURIComponent(data['DRAMP ID'])}`;
           window.location.href = url;
         };
         actionCell.appendChild(viewButton);
+
+        // 添加Visualize按钮
+        const visualizeButton = document.createElement('button');
+        visualizeButton.className = 'view-btn';
+        visualizeButton.style.marginLeft = '5px';
+        visualizeButton.style.backgroundColor = '#7597de';
+        visualizeButton.textContent = 'Visualize'; // 稍后会被Tranzy翻译
+        visualizeButton.onclick = function() {
+          const url = `amp_visualization.html?id=${encodeURIComponent(data['DRAMP ID'])}`;
+          window.location.href = url;
+        };
+        actionCell.appendChild(visualizeButton);
+
         row.appendChild(actionCell);
 
         tableBody.appendChild(row);
       });
-    })
-    .catch(error => {
-      console.error('数据加载失败:', error);
-    });
+            }
+            
+            if (window.tranzyInstance) {
+                window.tranzyInstance.translatePage('#table-body');
+            }
 
-     function search() {
-  const id = document.getElementById("idInput").value.trim();
-  const name = document.getElementById("nameInput").value.trim();
-  const sequence = document.getElementById("sequenceInput").value.trim();
-  
-
-if (id) {
-    const encodedID = encodeURIComponent(id);
-    window.location.href = `peptide_card.html?DRAMP ID=${encodedID}`; // 使用下划线代替空格
-    return;
-      }
-
-      if (name) {
-        // const peptide = dataArray.find(p => p['Peptide Name'] === name);
-        const peptide = dataArray.find(p => p['Peptide Name'].toLowerCase() === name.toLowerCase());
-        if (peptide) {
-          window.location.href = `peptide_card.html?DRAMP ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
-          return;
+        } catch (error) {
+            console.error('数据加载或渲染失败:', error);
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Error loading data.</td></tr>';
         }
-        alert(`未找到名称为 "${name}" 的抗菌肽`);
-        return;
-      }
 
-      if (sequence) {
-        const peptide = dataArray.find(p => p['Sequence'] === sequence);
-        if (peptide) {
-          window.location.href = `peptide_card.html?DRAMP ID=${encodeURIComponent(peptide['DRAMP ID'])}`;
-          return;
+        updatePaginationInfo();
+    }
+    
+    // 更新分页信息和按钮状态
+    function updatePaginationInfo() {
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+        
+        if (totalPages === 0) {
+            pageInfo.textContent = "Page 0 of 0";
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+        } else {
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
         }
-        alert(`未找到序列为 "${sequence}" 的抗菌肽`);
-        return;
-      }
-
-      alert("请输入 ID、名称或序列进行搜索");
+        
+        // 控制重置按钮的显示
+        document.getElementById('resetSearchBtn').style.display = isFiltered ? 'inline-block' : 'none';
     }
 
-    function exportCSV() {
-      // 导出 CSV 功能实现
+    // 获取保存的语言偏好
+    function getLanguagePreference() {
+      return localStorage.getItem('preferredLanguage') || 'en';
+    }
+
+    // 保存语言偏好
+    function saveLanguagePreference(lang) {
+      localStorage.setItem('preferredLanguage', lang);
+    }
+    
+    // 获取语言显示名称
+    function getLanguageDisplayName(langCode) {
+      const langNames = {
+        'en': 'English',
+        'zh-Hans': '中文 (简体)',
+        'zh-Hant': '繁體中文',
+        'ja': '日本語',
+        'ko': '한국어',
+        'fr': 'Français',
+        'de': 'Deutsch',
+        'es': 'Español',
+        'ru': 'Русский'
+      };
+      return langNames[langCode] || langCode;
+    }
+
+    // 更新当前语言显示 - 确保不翻译语言名称
+    function updateCurrentLanguageDisplay() {
+      const currentLang = document.getElementById('currentLang');
+      const currentLangText = document.getElementById('currentLangText');
+      
+      // 更新文本内容
+      currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+      
+      // 确保语言名称不被翻译
+      currentLang.classList.add('no-translate');
+      currentLangText.classList.add('no-translate');
+    }
+
+    // 设置分页按钮事件
+    function setupPaginationControls() {
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                displayPage(currentPage - 1);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                displayPage(currentPage + 1);
+            }
+        });
+    }
+
+    // 设置重置按钮事件
+    function setupResetButton() {
+        const resetBtn = document.getElementById('resetSearchBtn');
+        resetBtn.addEventListener('click', () => {
+            // 清空输入框
+            document.getElementById("idInput").value = '';
+            document.getElementById("nameInput").value = '';
+            document.getElementById("sequenceInput").value = '';
+            document.getElementById("lengthInput").value = '';
+            
+            // 重置过滤状态和数据
+            isFiltered = false;
+            currentFilterFiles = [...allPeptideFiles];
+            displayPage(1); // 显示第一页的全部数据
+        });
     }
   </script>
 </body>
