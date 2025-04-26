@@ -12,15 +12,21 @@ illustrate:
 ## Raw Data
 1. **LAMP:** 
     - number of LAMP: 23253
+    - number of LAMP with references: 8721, share 37.5%
 2. **DRAMP**
     - number of DRAMP(**data cleaned**): 25943
-3. **dbaasp**
-    - number of dbaasp: 
-4. **APD3**
+    - number of DRAMP with patent information: 15796, share 60.9%
+    - number of DRAMP with clinical information: 50
+    - number of DRAMP with references: 10721
+3. **APD3**
     - number of APD3:
+    - number of APD3 with references: 5242
+4. **DBAASP**
+    - number of DBAASP: 
 
 ## Version1: First merging(LAMP and DRAMP)
 **The number of repeated antimicrobial peptides in LAMP and DRAMP is 9151.**
 
-### Introduction to the first version of the database
-- 
+## Version2: Second merging(LAMP and DRAMP and APD3)
+**The number of repeated antimicrobial peptides in LAMP and DRAMP is .**
+
