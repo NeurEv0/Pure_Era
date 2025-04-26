@@ -1,0 +1,65 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01587",
+        "Peptide Name": "Citropin-1.1 (Frogs, amphibians, animals)",
+        "Source": "Litoria citropa (Australian blue mountains tree frog)",
+        "Family": "Not found",
+        "Gene": "Not found",
+        "Sequence": "GLFDVIKKVASVIGGL",
+        "Sequence Length": "16",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P81835",
+            "http://www.uniprot.org/uniprot/P81836",
+            "http://www.uniprot.org/uniprot/P81837"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Bacillus cereus (MIC=50 µg/ml), Leuconostoc lactis (MIC=6 µg/ml), Listeria innocua (MIC=25 µg/ml), Micrococcus luteus (MIC=12 µg/ml), Staphylococcus aureus (MIC=25 µg/ml), Staphylococcus epidermidis (MIC=12 µg/ml), Streptococcus uberis (MIC=25 µg/ml).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Amidation",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Alpha helix",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01587.",
+        "Formula": "C76H130N18O20",
+        "Absent Amino Acids": "CEHMNPQRTWY",
+        "Common Amino Acids": "GV",
+        "Mass": "1615.98",
+        "PI": "8.59",
+        "Basic Residues": "2",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+1",
+        "Boman Index": "16.19",
+        "Hydrophobicity": "1.281",
+        "Aliphatic Index": "158.13",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "4",
+        "Function": "Bacteriostatic action for Gram-positive bacteria.",
+        "Tissue specificity": "Expressed by the dorsal and submental skin glands.",
+        "PTM": "C-terminal amidation.",
+        "Literature": [
+            {
+                "Title": "Host defence peptides from the skin glands of the Australian blue mountains tree-frog Litoria citropa. Solution structure of the antibacterial peptide citropin 1.1.",
+                "Pubmed ID": "10504394",
+                "Reference": "Eur J Biochem. 1999 Oct;265(2)627-637.",
+                "Author": "Wegener KL, Wabnitz PA, Carver JA, Bowie JH, Chia BC, Wallace JC, Tyler MJ.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10504394"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

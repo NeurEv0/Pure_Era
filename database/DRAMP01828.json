@@ -1,0 +1,73 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [
+        {
+            "Patent No": "US 10723764 B2",
+            "Patent Link": "http://www.lens.org/lens/patent/US_10723764_B2",
+            "Patent Type": "Granted Patent",
+            "Publication Date": "2020-7-28",
+            "Family Info": "US20150259382A1",
+            "Patent Title": "Anti-microbial Peptides And Methods Of Use Thereof",
+            "Abstract": "Anti-microbial peptides and methods of use are provided."
+        }
+    ],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01828",
+        "Peptide Name": "Temporin-1Lb (Temporin 1Lb; Frogs, amphibians, animals)",
+        "Source": "Rana luteiventris (Spotted frog)",
+        "Family": "Belongs to the frog skin active peptide family (Brevinin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "NFLGTLINLAKKIM",
+        "Sequence Length": "14",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P82831"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "[Ref.10651828] Gram-positive bacterium:Staphylococcus aureus (MIC=48 µM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "α-Amidation",
+        "Nonterminal Modifications and Unusual Amino Acids": "None",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01828.",
+        "Formula": "C73H126N18O18S",
+        "Absent Amino Acids": "CDEHPQRSVWY",
+        "Common Amino Acids": "L",
+        "Mass": "1575.97",
+        "PI": "10",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+2",
+        "Boman Index": "5.73",
+        "Hydrophobicity": "0.786",
+        "Aliphatic Index": "146.43",
+        "Half Life": "Mammalian:1.4 hourYeast:3 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "4",
+        "Function": "Antibacterial activity against Gram-positive bacteria.",
+        "Tissue specificity": "Expressed by the skin glands.",
+        "PTM": "Methionine amide at position 14.",
+        "Literature": [
+            {
+                "Title": "Peptides with antimicrobial activity from four different families isolated from the skins of the North American frogs Rana luteiventris, Rana berlandieri and Rana pipiens.",
+                "Pubmed ID": "10651828",
+                "Reference": "Eur J Biochem. 2000 Feb;267(3)894-900.",
+                "Author": "Goraya J, Wang Y, Li Z, O'Flaherty M, Knoop FC, Platz JE, Conlon JM.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10651828"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

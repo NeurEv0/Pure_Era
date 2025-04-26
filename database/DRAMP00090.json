@@ -1,0 +1,86 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00090",
+        "Peptide Name": "Carnobacteriocin B2 (CbnB2; Bacteriocin)",
+        "Source": "Carnobacterium piscicola LV18B (Gram-positive bacteria)",
+        "Family": "Belongs to the class IIa bacteriocin",
+        "Gene": "cbnB2",
+        "Sequence": "VNYGNGVSCSKTKCSVNWGQAFQERYTAGINSFVSGVASGAGSIGRRP",
+        "Sequence Length": "48",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P38580"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "[Ref.8163526]Gram-positive bacteria:Lactobacillus plantarum ATCC 4008 (MIC=2 AU/μg), Pediococcus parvulus ATCC 19371 (MIC=8 AU/μg), Listeria monocytogenes ATCC 15313 (MIC=32 AU/μg), Listeria innocua ATCC 33090 (MIC=16 AU/μg), Enterococcus faecium ATCC 11576 (MIC=16 AU/μg), Enterococcus faecalis ATCC 19433 (MIC=16 AU/μg), Enterococcus faecium ATCC 19434 (MIC=4 AU/μg).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "[Ref.8163526 & Ref.10569926] CbnB2 can easily form a disulfide bond between Cys9 and Cys14",
+        "Stereochemistry": "L",
+        "Structure": "Alpha helix (1 helices; 24 residues)",
+        "Structure Description": "CbnB2 forms a disulfide bond and that this peptide has full antimicrobial activity. NMR results indicate that CbnB2 in TFE has a well-defined central helical structure (residues 18-39) but a disordered N terminus. And the central helical structure is conserved.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "1CW5resolved  by NMR.",
+        "Predicted Structure": "",
+        "Formula": "C213H332N66O68S2",
+        "Absent Amino Acids": "DHLM",
+        "Common Amino Acids": "G",
+        "Mass": "4969.5",
+        "PI": "9.7",
+        "Basic Residues": "5",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "14",
+        "Net Charge": "+4",
+        "Boman Index": "-73.88",
+        "Hydrophobicity": "-0.277",
+        "Aliphatic Index": "54.79",
+        "Half Life": "Mammalian:100 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "8605",
+        "Absorbance 280nm": "183.09",
+        "Polar Residues": "25",
+        "Function": "Has antibacterial activity against Listeria and Enterococcus.",
+        "PTM": "Contains one disulfide bond 9-14.",
+        "Literature": [
+            {
+                "Title": "Chemical and genetic characterization of bacteriocins produced by Carnobacterium piscicola LV18B.",
+                "Pubmed ID": "8163526",
+                "Reference": "J Biol Chem 1994; 269 12204-12211.",
+                "Author": "Quadri LE et al Stiles ME.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8163526"
+            },
+            {
+                "Title": "Characteristics and genetic determinants of bacteriocin activities produced by Carnobacterium piscicola CP5 isolated from cheese.",
+                "Pubmed ID": "9353214",
+                "Reference": "Curr Microbiol. 1997 Dec;35(6)319-326.",
+                "Author": "Herbin S, Mathieu F, Brul© F, Branlant C, Lefebvre G, Lebrihi A.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=9353214"
+            },
+            {
+                "Title": "Solution structure of carnobacteriocin B2 and implications for structure-activity relationships among type IIa bacteriocins from lactic acid bacteria.",
+                "Pubmed ID": "10569926",
+                "Reference": "Biochemistry. 1999 Nov 23;38(47)15438-15447.",
+                "Author": "Wang Y, Henz ME, Gallagher NL, Chai S, Gibbs AC, Yan LZ, Stiles ME, Wishart DS, Vederas JC.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10569926"
+            },
+            {
+                "Title": "Chemical and genetic characterization of bacteriocins produced by Carnobacterium piscicola LV17B.",
+                "Pubmed ID": "",
+                "Author": "Stiles M.E.,Vederas J.C.,Roy K.L.,Sailer M.,Quadri L.E.N."
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "1CW5",
+                "3d_structure_url": "https://www.rcsb.org/structure/1CW5"
+            }
+        ]
+    }
+}

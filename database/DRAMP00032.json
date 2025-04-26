@@ -1,0 +1,86 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00032",
+        "Peptide Name": "Ruminococcin A (RumA; Bacteriocin)",
+        "Source": "Ruminococcus gnavus & Ruminococcus hansenii (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "rumA1 AND rumA2 AND",
+        "Sequence": "GNGVLKTISHECNMNTWQFLFTCC",
+        "Sequence Length": "24",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P83674",
+            "http://www.uniprot.org/uniprot/P83676",
+            "http://www.uniprot.org/uniprot/P83677",
+            "http://www.uniprot.org/uniprot/Q8VLK0",
+            "http://www.uniprot.org/uniprot/Q9K381",
+            "http://www.uniprot.org/uniprot/P83675",
+            "http://www.uniprot.org/uniprot/P83679",
+            "http://www.uniprot.org/uniprot/P83680",
+            "http://www.uniprot.org/uniprot/Q8VLK0"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Bifidobacterium longum (strain:ATCC 15707) (MIC=75 µg/ml), Bacillus cereus (strain:Z4222, TZ415) (MIC=75 µg/ml), Eubacterium contortum (strain:ATCC 25540) (MIC=32.5 µg/ml), Ruminococcus obeum (strain:ATCC 29174) (MIC=32.5 µg/ml), R. gnavus (strain:ATCC 29149) (MIC=75 µg/ml), Clostridium perfringens (strain:CpA) (MIC=75 µg/ml), Clostridium difficile serogroup A (strain:B-1) (MIC=75 µg/ml), C. difficile serogroup C (strain:C253) (MIC=75 µg/ml), C. difficile serogroup S3 (strain:79685) (MIC=75 µg/ml), C. botulinum type A (strain:CIP 38) (MIC=75 µg/ml), C. botulinum type B (strain:NCTC 7273) (MIC=75 µg/ml), C. botulinum type E (strain:NCTC 8266) (MIC=75 µg/ml), C. bifermentans (strain:NCTC 506) (MIC=75 µg/ml).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Cyclic (very possibly)",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization (possibly)",
+        "Nonterminal Modifications and Unusual Amino Acids": "① It is highly probable that (i) Ser9 and the putative Cys23 and (ii) the putative His22 and Thr24 are associated in a Lanthionine (Lan) and a 3-methyllanthionine (Me-Lan) residue, respectively. ②The residues at position 7 and 16 are (Z)-2,3-didehydrobutyrine (Dhb).",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00032.",
+        "Formula": "C119H180N32O35S4",
+        "Absent Amino Acids": "ADPRY",
+        "Common Amino Acids": "CNT",
+        "Mass": "2747.17",
+        "PI": "6.72",
+        "Basic Residues": "2",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+1",
+        "Boman Index": "-18.43",
+        "Hydrophobicity": "0.088",
+        "Aliphatic Index": "60.83",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "5625",
+        "Absorbance 280nm": "244.57",
+        "Polar Residues": "12",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores. Ruminococcin A is a broad spectrum bacteriocin exhibiting activity against a wide range of pathogenic clostridia and B.longum.",
+        "Developmental stage": "Highest expression in mid to late logarithmic growth phase, after which expression decreases slowly before leveling off in the stationary growth phase.",
+        "Induction": "By trypsin.",
+        "PTM": "There are one didehydrobutyrine (Dhb) at T16, one lanthionine (S9-23) and two Beta-methyllanthionines (T7-C12; T22-C24).",
+        "Literature": [
+            {
+                "Title": "Ruminococcin A, a new lantibiotic produced by a Ruminococcus gnavus strain isolated from human feces.",
+                "Pubmed ID": "11526013",
+                "Reference": "Appl Environ Microbiol. 2001 Sep;67(9)4111-4118.",
+                "Author": "Dabard J, Bridonneau C, Phillipe C, Anglade P, Molle D, Nardi M, Ladiré M, Girardin H, Marcille F, Gomez A, Fons M.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=11526013"
+            },
+            {
+                "Title": "Trypsin mediates growth phase-dependent transcriptional tegulation of genes involved in biosynthesis of ruminococcin A, a lantibiotic produced by a Ruminococcus gnavus strain from a human intestinal microbiota.",
+                "Pubmed ID": "11741840",
+                "Reference": "J Bacteriol. 2002 Jan;184(1)18-28.",
+                "Author": "Gomez A, Ladiré M, Marcille F, Fons M.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=11741840"
+            },
+            {
+                "Title": "Distribution of genes encoding the trypsin-dependent lantibiotic ruminococcin A among bacteria isolated from human fecal microbiota.",
+                "Pubmed ID": "12089024",
+                "Reference": "Appl Environ Microbiol. 2002 Jul;68(7)3424-3431.",
+                "Author": "Marcille F, Gomez A, Joubert P, Ladiré M, Veau G, Clara A, Gavini F, Willems A, Fons M.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12089024"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

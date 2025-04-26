@@ -1,0 +1,75 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01562",
+        "Peptide Name": "Caerin-2.1 (Frogs, amphibians, animals)",
+        "Source": "Litoria splendida (Magnificent tree frog) (Emerald spotted tree frog)",
+        "Family": "Belongs to the frog skin active peptide family (Caerin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "GLVSSIGRALGGLLADVVKSKGQPA",
+        "Sequence Length": "25",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P56233",
+            "http://www.uniprot.org/uniprot/P86485"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram-"
+        ],
+        "Target Organism": "Gram-negative bacterium:Pasteurella multocida (MIC=25 µg/ml). (Ref.2)",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "[Ref.15203252]No  cytotoxicity information found[Ref.19642086]No  cytotoxicity information found",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01562.",
+        "Formula": "C105H185N31O32",
+        "Absent Amino Acids": "CEFHMNTWY",
+        "Common Amino Acids": "G",
+        "Mass": "2393.81",
+        "PI": "9.99",
+        "Basic Residues": "3",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "11",
+        "Net Charge": "+2",
+        "Boman Index": "-3.63",
+        "Hydrophobicity": "0.496",
+        "Aliphatic Index": "124.8",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "8",
+        "Function": "Antibacterial peptide, that adopts an alpha helical conformation which can disrupt bacterial membranes. Each caerin displays a different antimicrobial specificity.",
+        "Tissue specificity": "Expressed by the skin parotoid and/or rostral glands.",
+        "Literature": [
+            {
+                "Title": "Host-defence peptides of Australian anurans structure, mechanism of action and evolutionary significance.",
+                "Pubmed ID": "15203252",
+                "Reference": "Peptides. 2004 Jun;25(6)1035-1054.",
+                "Author": "Apponyi MA, Pukala TL, Brinkworth CS, Maselli VM, Bowie JH, Tyler MJ, Booker GW, Wallace JC, Carver JA, Separovic F, Doyle J, Llewellyn LE.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15203252"
+            },
+            {
+                "Title": "The host-defence skin peptide profiles of Peron's Tree Frog Litoria peronii in winter and summer. Sequence determination by electrospray mass spectrometry and activities of the peptides.",
+                "Pubmed ID": "19642086",
+                "Reference": "Rapid Commun Mass Spectrom. 2009 Sep;23(17)2628-2636.",
+                "Author": "Bilusich D, Jackway RJ, Musgrave IF, Tyler MJ, Bowie JH.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19642086"
+            },
+            {
+                "Title": "Peptides from Australian frogs. Structures of the caerins and caeridin 1 from Litoria splendida.",
+                "Pubmed ID": "",
+                "Author": "Tyler M.J.,Wallace J.C.,Bowie J.H.,Waugh R.J.,Stone D.J.M."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

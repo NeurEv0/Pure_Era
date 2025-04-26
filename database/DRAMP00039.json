@@ -1,0 +1,89 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [
+        {
+            "Patent No": "US 2005/0260715 A1",
+            "Patent Link": "http://www.lens.org/lens/patent/US_2005_0260715_A1",
+            "Patent Type": "Patent Application",
+            "Publication Date": "2005-11-24",
+            "Family Info": "US6946261",
+            "Patent Title": "Efficient methods for producing antimicrobial cationic peptides in host cells.",
+            "Abstract": "Endogenously produced cationic antimicrobial peptides are ubiquitous components of host defenses in mammals, birds, amphibia, insects, and plants. Cationic peptides are also effective when administered as therapeutic agents. A practical drawback in cationic peptide therapy, however, is the cost of producing the agents. The methods described herein provide a means to efficiently produce cationic peptides from recombinant host cells. These recombinantly-produced cationic peptides can be rapidly purified from host cell proteins using anion exchange chromatography."
+        }
+    ],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00039",
+        "Peptide Name": "Pep5 (Bacteriocin)",
+        "Source": "Staphylococcus epidermidis (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "pepA",
+        "Sequence": "TAGPAIRASVKQCQKTLKATRLFTVSCKGKNGCK",
+        "Sequence Length": "34",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P19578"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00039.",
+        "Formula": "C153H269N49O44S3",
+        "Absent Amino Acids": "DEHMWY",
+        "Common Amino Acids": "K",
+        "Mass": "3595.3",
+        "PI": "10.33",
+        "Basic Residues": "8",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "10",
+        "Net Charge": "+8",
+        "Boman Index": "-58.22",
+        "Hydrophobicity": "-0.356",
+        "Aliphatic Index": "63.24",
+        "Half Life": "Mammalian:7.2 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "3.79",
+        "Polar Residues": "13",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.After proteolysis of the propeptide, the N-terminal 2,3-didehydrobutyrine hydrolyzes to 2-oxobutanoic acid, possibly spontaneously.",
+        "Literature": [
+            {
+                "Title": "Pep5, a new lantibiotic structural gene isolation and prepeptide sequence.",
+                "Pubmed ID": "2764678",
+                "Reference": "Arch Microbiol. 1989;152(1)16-19.",
+                "Author": "Kaletta C, Entian KD, Kellner R, Jung G, Reis M, Sahl HG.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=2764678"
+            },
+            {
+                "Title": "Nucleotide sequence of the lantibiotic Pep5 biosynthetic gene cluster and functional analysis of PepP and PepC. Evidence for a role of PepC in thioether formation.",
+                "Pubmed ID": "7556197",
+                "Reference": "Eur J Biochem. 1995 Sep 1;232(2)478-489.",
+                "Author": "Meyer C, Bierbaum G, Heidrich C, Reis M, S¼ling J, Iglesias-Wind MI, Kempter C, Molitor E, Sahl HG.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=7556197"
+            },
+            {
+                "Title": "Pep5, a new lantibiotic: structural gene isolation and prepeptide sequence.",
+                "Pubmed ID": "",
+                "Author": "Reis M.,Jung G.,Kellner R.,Entian K.-D.,Kaletta C."
+            },
+            {
+                "Title": "Biosynthesis of the lantibiotic Pep5. Isolation and characterization of a prepeptide containing dehydroamino acids.",
+                "Pubmed ID": "",
+                "Author": "Jung G.,Stevanovic S.,Metzger J.,Beck-Sickinger A.G.,Weil H.-P."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

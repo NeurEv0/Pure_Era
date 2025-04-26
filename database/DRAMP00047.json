@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00047",
+        "Peptide Name": "Streptin 1 (Bacteriocin)",
+        "Source": "Bacillus subtilis A1/3 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "VGSRYLCTPGSCWKLVCFTTTVK",
+        "Sequence Length": "23",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00047.",
+        "Formula": "C114H181N29O31S3",
+        "Absent Amino Acids": "ADEHIMNQ",
+        "Common Amino Acids": "T",
+        "Mass": "2550.05",
+        "PI": "9.11",
+        "Basic Residues": "3",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+3",
+        "Boman Index": "-10.25",
+        "Hydrophobicity": "0.4",
+        "Aliphatic Index": "71.74",
+        "Half Life": "Mammalian:100 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "7115",
+        "Absorbance 280nm": "323.41",
+        "Polar Residues": "12",
+        "Two possible structures have been proposed for streptin 1 due to insufficient info. The first lanthionine S3-C7 and the second methyllanthionine T8-C12 are identical in the two proposed structures. A third intra-bond is either S11-C17 or C17-T19 (or C17-T20 or C17-T21). Compared to Streptin 1, Streptin 2 contains 3 additional residues TPY at the N-terminus. Small quantities of peptides at various degrees of dehydration were also detected.": "",
+        "Literature": [
+            {
+                "Title": "Purification and characterization of streptin, a type A1 lantibiotic produced by Streptococcus pyogenes.",
+                "Pubmed ID": "12732544",
+                "Reference": "Appl Environ Microbiol. 2003 May;69(5)2737-2747.",
+                "Author": "Wescombe PA, Tagg JR.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12732544"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

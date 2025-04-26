@@ -1,0 +1,76 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00008",
+        "Peptide Name": "Lacticin 3147 A1 (LtnA1; Bacteriocin; Preclinical)",
+        "Source": "Lactococcus lactis subsp. lactis (Streptococcus lactis) (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "ltnA1",
+        "Sequence": "CSTNTFSLSDYWGNNGAWCTLTHECMAWCK",
+        "Sequence Length": "30",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/O87236"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Enterococcus, Lactobacillus, Lactococcus, Leuconostoc.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two 2,3-dehydrobutyrines (T3; T5), one 2,3-didehydroalanine (S7), two Lanthionines (C1-S2; S9-C19) and two Beta-methyllanthionines (T20-C25; T22-C29).",
+        "Stereochemistry": "Mixed(D-Ala)",
+        "Structure": "Alpha helix",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "",
+        "Formula": "C148H209N39O46S5",
+        "Absent Amino Acids": "IPQRV",
+        "Common Amino Acids": "CT",
+        "Mass": "3430.82",
+        "PI": "5.32",
+        "Basic Residues": "2",
+        "Acidic Residues": "2",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "0",
+        "Boman Index": "-33.5",
+        "Hydrophobicity": "-0.29",
+        "Aliphatic Index": "32.67",
+        "Half Life": "Mammalian:1.2 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "18240",
+        "Absorbance 280nm": "628.97",
+        "Polar Residues": "17",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores. When present individually lacticin 3147 A1 exhibits strong activity towards L.lactis strain AM2, weak activity towards L.lactis strain HP and no activity towards L.lactis strain IFPL359, but when combined with lacticin 3147 A2 it displays strong activity towards all three strains.",
+        "PTM": "There are two 2,3-dehydrobutyrines (T3; T5), one 2,3-didehydroalanine (S7), two Lanthionines (C1-S2; S9-C19) and two Beta-methyllanthionines (T20-C25; T22-C29).",
+        "Literature": [
+            {
+                "Title": "Biological and molecular characterization of a two-peptide lantibiotic produced by Lactococcus lactis IFPL105.",
+                "Pubmed ID": "10971756",
+                "Reference": "J Appl Microbiol. 2000 Aug;89(2)249-260.",
+                "Author": "Mart­nez-Cuesta MC, Buist G, Kok J, Hauge HH, Nissen-Meyer J, Pel¡ez C, Requena T.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10971756"
+            },
+            {
+                "Title": "Structural characterization of lacticin 3147, a two-peptide lantibiotic with synergistic activity.",
+                "Pubmed ID": "15023056",
+                "Reference": "Biochemistry. 2004 Mar 23;43(11)3049-3056.",
+                "Author": "Martin NI, Sprules T, Carpenter MR, Cotter PD, Hill C, Ross RP, Vederas JC.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15023056"
+            },
+            {
+                "Title": "Extensive post-translational modification, including serine to D-alanine conversion, in the two-component lantibiotic, lacticin 3147.",
+                "Pubmed ID": "10608807",
+                "Reference": "J Biol Chem. 1999 Dec 31;274(53)37544-37550.",
+                "Author": "Ryan MP, Jack RW, Josten M, Sahl HG, Jung G, Ross RP, Hill C.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10608807"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00014",
+        "Peptide Name": "Geobacillin I (nisin analog; Bacteriocin)",
+        "Source": "Geobacillus thermodenitrificans NG80-2 (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "sunA",
+        "Sequence": "VTSKSLCTPGCITGVLMCLTQNSCVSCNSCIRC",
+        "Sequence Length": "33",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Streptococcus dysgalatiae subsp dysgalactiae ATCC 27957 (IC50=0.69±0.05 µM), Vancomycin-resistant Enterococcusfaecium CNRZ 481 (IC50=0.84±0.05 µM), Methicillin-resistant Staphylococcus aureus C5 (IC50=2.23±0.03 µM), Bacillus anthracis Sterne 7702 (IC50=0.49±0.02 µM), Bacillus subtilis ATCC 6633 (IC50=0.55±0.01 µM), Lactococcus lactis HP ATCC 11602 (IC50=0.12±0.09 µM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization  between S29 and C33",
+        "Nonterminal Modifications and Unusual Amino Acids": "Four lanthionines (S3-C7,S23-C27,S26-C30,S29-C33) and three β-methyllanthionines (T8-C11; T13-C18; T20-C24),S5 is dehydroalanines.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Extensive NMR characterization demonstrated that geobacillin I contains seven thioether cross-links, two more than the five cross-links found in nisin and the most cross-links found in any lantibiotic to date.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00014.",
+        "Formula": "C136H238N40O46S8",
+        "Absent Amino Acids": "ADEFHWY",
+        "Common Amino Acids": "C",
+        "Mass": "3426.11",
+        "PI": "8.27",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+2",
+        "Boman Index": "-16.66",
+        "Hydrophobicity": "0.736",
+        "Aliphatic Index": "85.45",
+        "Half Life": "Mammalian:100 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "375",
+        "Absorbance 280nm": "11.72",
+        "Polar Residues": "20",
+        "Function": "Geobacillin I is active against a wide range of Gram positive bacteria but it not active against Gram-negative bacterium E. coli.",
+        "PTM": "Contains seven thioether cross-links.",
+        "Biophysicochemical properties": "Geobacillin I is more stable than nisin at pH 7 and 8 at 37 and at 60 °C.",
+        "Literature": [
+            {
+                "Title": "Lantibiotics from Geobacillus thermodenitrificans.",
+                "Pubmed ID": "22431611",
+                "Reference": "Proc Natl Acad Sci U S A. 2012 Apr 3;109(14)5241-5246.",
+                "Author": "Garg N, Tang W, Goto Y, Nair SK, van der Donk WA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=22431611"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

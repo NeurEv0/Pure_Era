@@ -1,0 +1,93 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00044",
+        "Peptide Name": "Bacteriocin nukacin (Nukacin 3299; Simulancin 3299)",
+        "Source": "Staphylococcus simulans",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "nukA",
+        "Sequence": "KKKSGVIPTVSHDCHMNSFQFVFTCCS",
+        "Sequence Length": "27",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/E0WX65"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00044.",
+        "Formula": "C132H204N36O38S4",
+        "Absent Amino Acids": "AELRWY",
+        "Common Amino Acids": "S",
+        "Mass": "3031.53",
+        "PI": "8.66",
+        "Basic Residues": "5",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+4",
+        "Boman Index": "-32.5",
+        "Hydrophobicity": "-0.011",
+        "Aliphatic Index": "46.67",
+        "Half Life": "Mammalian:1.3 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "4.81",
+        "Polar Residues": "11",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores (By similarity).",
+        "Biophysicochemical properties": "pH dependence (Optimum pHs for antimicrobial activity are 3.0 and 6.0. Activity is reduced by 50% at alkaline pHs 9.0 and 11.0); Temperature dependence (No change in antimicrobial activity between 80 or 100 degrees Celsius after 15 minutes, but reduction in 50% antimicrobial activity at 121 degrees Celsius after 15 minutes).",
+        "ptm": "Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor (By similarity).",
+        "Literature": [
+            {
+                "Title": "Nukacin 3299, a lantibiotic produced by Staphylococcus simulans 3299 identical to nukacin ISK-1.",
+                "Pubmed ID": "20627619",
+                "Reference": "Vet Microbiol. 2010 Nov 20;146(1-2)124-131.",
+                "Author": "Ceotto H, Holo H, da Costa KF, Nascimento Jdos S, Salehian Z, Nes IF, Bastos Mdo C.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=20627619"
+            },
+            {
+                "Title": "A novel lantibiotic, nukacin ISK-1, of Staphylococcus warneri ISK-1: cloning of the structural gene and identification of the structure.",
+                "Pubmed ID": "",
+                "Author": "Matsusaki H.,Adachi A.,Higuchi T.,Kimura H.,Sashihara T."
+            },
+            {
+                "Title": "Purification and partial identification of bacteriocin ISK-1, a new lantibiotic produced by Pediococcus sp. ISK-1.",
+                "Pubmed ID": "",
+                "Author": "Ishizaki A.,Sonomoto K.,Sashihara T.,Matsusaki H.,Kimura H."
+            },
+            {
+                "Title": "Characterization of a gene cluster of Staphylococcus warneri ISK-1 encoding the biosynthesis of and immunity to the lantibiotic, nukacin ISK-1.",
+                "Pubmed ID": "R2004J0273",
+                "Author": "Koga H.,Kanemasa Y.,Nagao J.,Sashihara T.,Aso Y."
+            },
+            {
+                "Title": "Description of complete DNA sequence of two plasmids from the nukacin ISK-1 producer, Staphylococcus warneri ISK-1.",
+                "Pubmed ID": "R2005J0439",
+                "Author": "Kanemasa Y.,Nagao J.,Sashihara T.,Koga H.,Aso Y."
+            },
+            {
+                "Title": "Heterologous expression and functional analysis of the gene cluster for the biosynthesis of and immunity to the lantibiotic, nukacin ISK-1.",
+                "Pubmed ID": "R2004J0597",
+                "Author": "Kanemasa Y.,Okuda K.,Koga H.,Nagao J.,Aso Y."
+            },
+            {
+                "Title": "Lysine-oriented charges trigger the membrane binding and activity of nukacin ISK-1.",
+                "Pubmed ID": "R2006J0826",
+                "Author": "Sonomoto K.,Nakayama J.,Aso Y.,Nagao J.,Asaduzzaman S.M."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00053",
+        "Peptide Name": "Nisin F (Bacteriocin; Perclinical)",
+        "Source": "Lactococcus lactis F10 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "ITSISLCTPGCKTGALMGCNMKTATCNCSVHVSK",
+        "Sequence Length": "34",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Staphylococcus aureus, Staphylococcus carnosus, Lactobacillus curvatus N1902, Lactobacillus plantarum, Lactobacillus reuteri.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two dehydroalanines (S5; S33), one dehydrobutyrine (T2), which form one lanthionine (S3-C7) and four β-methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00053.",
+        "Formula": "C140H243N41O46S7",
+        "Absent Amino Acids": "DEFQRWY",
+        "Common Amino Acids": "CT",
+        "Mass": "3461.14",
+        "PI": "8.78",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+4",
+        "Boman Index": "-15.74",
+        "Hydrophobicity": "0.397",
+        "Aliphatic Index": "68.82",
+        "Half Life": "Mammalian:20 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "250",
+        "Absorbance 280nm": "7.58",
+        "Polar Residues": "19",
+        "Function": "defense response to Gram-positive bacteria.",
+        "Literature": [
+            {
+                "Title": "Characterization of the structural gene encoding nisin F, a new lantibiotic produced by a Lactococcus lactis subsp. lactis isolate from freshwater catfish (Clarias gariepinus).",
+                "Pubmed ID": "18039827",
+                "Reference": "Appl Environ Microbiol. 2008 Jan;74(2)547-549.",
+                "Author": "de Kwaadsteniet M, Ten Doeschate K, Dicks LM.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=18039827"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

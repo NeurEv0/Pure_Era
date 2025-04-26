@@ -1,0 +1,77 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00454",
+        "Peptide Name": "Petunia hybrida defensin 1 (PhD1; Cys-rich; Plant defensin)",
+        "Source": "Petunia hybrida (Petunia)",
+        "Family": "Belongs to the DEFL family",
+        "Gene": "D1",
+        "Sequence": "ATCKAECPTWDSVCINKKPCVACCKKAKFSDGHCSKILRRCLCTKEC",
+        "Sequence Length": "47",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/Q8H6Q1"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antifungal"
+        ],
+        "Target Organism": "Fungi:Fusarium oxysporum (MIC=10 µg/ml), Botrytis cinerea (MIC=10 µg/ml).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "When compared to other plant defensins, the petunia defensins have an additional fifth disulfide bond. There are five disulfide bonds between Cys3 and Cys47, Cys7 and Cys23, Cys14 and Cys34, Cys20 and Cys41, Cys24 and Cys43.",
+        "Stereochemistry": "L",
+        "Structure": "Combine helix and strand structure",
+        "Structure Description": "PhD1 has the fold of the cysteine-stabilized alphabeta motif, consisting of an alpha-helix and a triple-stranded antiparallel beta-sheet, except that it contains a fifth disulfide bond from the first loop to the alpha-helix.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "1N4Nresolved  by NMR.",
+        "Predicted Structure": "There is no predicted structure for DRAMP00454.",
+        "Formula": "C217H363N65O63S10",
+        "Absent Amino Acids": "MQY",
+        "Common Amino Acids": "C",
+        "Mass": "5211.27",
+        "PI": "8.9",
+        "Basic Residues": "11",
+        "Acidic Residues": "4",
+        "Hydrophobic Residues": "12",
+        "Net Charge": "+7",
+        "Boman Index": "-80.46",
+        "Hydrophobicity": "-0.211",
+        "Aliphatic Index": "54.04",
+        "Half Life": "Mammalian:4.4 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "6125",
+        "Absorbance 280nm": "133.15",
+        "Polar Residues": "18",
+        "Function": "Plant defense peptide with antifungal activity.",
+        "Tissue specificity": "Petals.",
+        "Domain": "The presence of a 'disulfide through disulfide knot' structurally defines this protein as a knottin.",
+        "Biophysicochemical properties": "pH dependence (Stable under extremes of pH); Temperature dependence (Stable under extremes of temperature).",
+        "PTM": "Contains five disulfide bonds 3-47; 7-23; 14-34; 20-41; 24-43.",
+        "Literature": [
+            {
+                "Title": "Isolation and properties of floral defensins from ornamental tobacco and petunia.",
+                "Pubmed ID": "12644678",
+                "Reference": "Plant Physiol. 2003 Mar;131(3)1283-1293.",
+                "Author": "Lay FT, Brugliera F, Anderson MA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12644678"
+            },
+            {
+                "Title": "Structure of Petunia hybrida defensin 1, a novel plant defensin with five disulfide bonds.",
+                "Pubmed ID": "12846570",
+                "Reference": "Biochemistry. 2003 Jul 15;42(27)8214-8222.",
+                "Author": "Janssen BJ, Schirra HJ, Lay FT, Anderson MA, Craik DJ.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12846570"
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "1N4N",
+                "3d_structure_url": "https://www.rcsb.org/structure/1N4N"
+            }
+        ]
+    }
+}

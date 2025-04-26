@@ -1,0 +1,62 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00034",
+        "Peptide Name": "Lantibiotic epilancin K7 (Bacteriocin)",
+        "Source": "Staphylococcus epidermidis K7 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "elkA",
+        "Sequence": "SASVLKTSIKVSKKYCKGVTLTCGCNITGGK",
+        "Sequence Length": "31",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/Q57312"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00034.",
+        "Formula": "C136H240N38O42S3",
+        "Absent Amino Acids": "DEFHMPQRW",
+        "Common Amino Acids": "K",
+        "Mass": "3175.81",
+        "PI": "9.74",
+        "Basic Residues": "6",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+6",
+        "Boman Index": "-22.75",
+        "Hydrophobicity": "0.087",
+        "Aliphatic Index": "81.61",
+        "Half Life": "Mammalian:1.9 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1615",
+        "Absorbance 280nm": "53.83",
+        "Polar Residues": "17",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "There are two dihydroalanines (Dha)",
+        "Literature": [
+            {
+                "Title": "Elucidation of the primary structure of the lantibiotic epilancin K7 from Staphylococcus epidermidis K7. Cloning and characterisation of the epilancin-K7-encoding gene and NMR analysis of mature epilancin K7.",
+                "Pubmed ID": "7607233",
+                "Reference": "Eur J Biochem. 1995 Jun 1;230(2)587-600.",
+                "Author": "van de Kamp M, van den Hooven HW, Konings RN, Bierbaum G, Sahl HG, Kuipers OP, Siezen RJ, de Vos WM, Hilbers CW, van de Ven FJ.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=7607233"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

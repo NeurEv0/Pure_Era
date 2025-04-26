@@ -1,0 +1,81 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00009",
+        "Peptide Name": "Bacteriocin lacticin 3147 A2 (LtnA2; Bacteriocin; Preclinical)",
+        "Source": "Lactococcus lactis subsp. lactis (Streptococcus lactis) (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "ltnA2",
+        "Sequence": "TTPATPAISILSAYISTNTCPTTKCTRAC",
+        "Sequence Length": "29",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/O87237"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Enterococcus, Lactobacillus, Lactococcus, Leuconostoc.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Amidation",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are one 2-oxobutanoic acid (T1), two 2,3-dehydrobutyrines (T2; T5), two 2,3-dehydroalanines (S9; S12), one Lanthionine (S16-C20) and two Beta-methyllanthionines (T22-C24; T26-C29).",
+        "Stereochemistry": "Mixed(D-Ala)",
+        "Structure": "Alpha helix",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00009.",
+        "Formula": "C126H212N34O43S3",
+        "Absent Amino Acids": "DEFGHMQVW",
+        "Common Amino Acids": "T",
+        "Mass": "2987.45",
+        "PI": "8.65",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+2",
+        "Boman Index": "-27.25",
+        "Hydrophobicity": "0.207",
+        "Aliphatic Index": "67.59",
+        "Half Life": "Mammalian:7.2 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1615",
+        "Absorbance 280nm": "57.68",
+        "Polar Residues": "16",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores. When present individually lacticin 3147 A2 exhibits weak activity towards L.lactis strain AM2 and L.lactis strain HP, and no activity towards L.lactis strain IFPL359, but when combined with lacticin 3147 A1 it displays strong activity towards all three strains.",
+        "PTM": "There are one 2-oxobutanoic acid (T1), two 2,3-dehydrobutyrines (T2; T5), two 2,3-dehydroalanines (S9; S12), one Lanthionine (S16-C20) and two Beta-methyllanthionines (T22-C24; T26-C29).",
+        "Literature": [
+            {
+                "Title": "Biological and molecular characterization of a two-peptide lantibiotic produced by Lactococcus lactis IFPL105.",
+                "Pubmed ID": "10971756",
+                "Reference": "J Appl Microbiol. 2000 Aug;89(2)249-260.",
+                "Author": "Mart­nez-Cuesta MC, Buist G, Kok J, Hauge HH, Nissen-Meyer J, Pel¡ez C, Requena T.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10971756"
+            },
+            {
+                "Title": "Structural characterization of lacticin 3147, a two-peptide lantibiotic with synergistic activity.",
+                "Pubmed ID": "15023056",
+                "Reference": "Biochemistry. 2004 Mar 23;43(11)3049-3056.",
+                "Author": "Martin NI, Sprules T, Carpenter MR, Cotter PD, Hill C, Ross RP, Vederas JC.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15023056"
+            },
+            {
+                "Title": "Extensive post-translational modification, including serine to D-alanine conversion, in the two-component lantibiotic, lacticin 3147.",
+                "Pubmed ID": "10608807",
+                "Reference": "J Biol Chem. 1999 Dec 31;274(53)37544-37550.",
+                "Author": "Ryan MP, Jack RW, Josten M, Sahl HG, Jung G, Ross RP, Hill C.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10608807"
+            },
+            {
+                "Title": "Sequence and analysis of the 60 kb conjugative, bacteriocin-producing plasmid pMRC01 from Lactococcus lactis DPC3147.",
+                "Pubmed ID": "",
+                "Author": "Venter J.C.,Richardson D.R.,Weidman J.F.,Hill C.,Dougherty B.A."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

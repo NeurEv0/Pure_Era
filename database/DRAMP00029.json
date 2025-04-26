@@ -1,0 +1,69 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00029",
+        "Peptide Name": "Streptococcin A-FF22 (Antibacterial peptide SA-FF22; Bacteriocin)",
+        "Source": "Streptococcus pyogenes FF22 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "scnA",
+        "Sequence": "GKNGVFKTISHECHLNTWAFLATCCS",
+        "Sequence Length": "26",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P36501"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00029.",
+        "Formula": "C126H191N35O36S3",
+        "Absent Amino Acids": "DMPQRY",
+        "Common Amino Acids": "CT",
+        "Mass": "2868.3",
+        "PI": "7.97",
+        "Basic Residues": "4",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+3",
+        "Boman Index": "-18.59",
+        "Hydrophobicity": "0.112",
+        "Aliphatic Index": "63.85",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "5625",
+        "Absorbance 280nm": "225",
+        "Polar Residues": "12",
+        "Function Lanthionine-containing peptide antibiotic (lantibiotic) active on certain Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.": "",
+        "PTM": "There are one 2,3-didehydrobutyrine at T23, two Beta-methyllanthionine (T8-C13; T17-C25), and one Lanthionine (S10-C24).",
+        "Literature": [
+            {
+                "Title": "Cloning of the gene encoding Streptococcin A-FF22, a novel lantibiotic produced by Streptococcus pyogenes, and determination of its nucleotide sequence.",
+                "Pubmed ID": "8328813",
+                "Reference": "Appl Environ Microbiol. 1993 Jun;59(6)1969-1971.",
+                "Author": "Hynes WL, Ferretti JJ, Tagg JR.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8328813"
+            },
+            {
+                "Title": "Elucidation of the structure of SA-FF22, a lanthionine-containing antibacterial peptide produced by Streptococcus pyogenes strain FF22.",
+                "Pubmed ID": "8125103",
+                "Reference": "Eur J Biochem. 1994 Mar 1;220(2)455-462.",
+                "Author": "Jack RW, Carne A, Metzger J, StefanoviÄ‡ S, Sahl HG, Jung G, Tagg J.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8125103"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

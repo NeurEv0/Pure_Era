@@ -1,0 +1,119 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00048",
+        "Peptide Name": "Lantibiotic subtilin (Bacteriocin)",
+        "Source": "Bacillus subtilis (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "spaS",
+        "Sequence": "WKSESLCTPGCVTGALQTCFLQTLTCNCKISK",
+        "Sequence Length": "32",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P10946"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Succinylation",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two dehydroalanines (S5; S31),one dehydrobutyrine (T18),one lanthionine (S3-C7) and four β-methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Stereochemistry": "L",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00048.",
+        "Formula": "C148H243N39O46S5",
+        "Absent Amino Acids": "DHMRY",
+        "Common Amino Acids": "CT",
+        "Mass": "3465.09",
+        "PI": "8.42",
+        "Basic Residues": "3",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+2",
+        "Boman Index": "-20.19",
+        "Hydrophobicity": "0.191",
+        "Aliphatic Index": "73.13",
+        "Half Life": "Mammalian:2.8 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "5750",
+        "Absorbance 280nm": "185.48",
+        "Polar Residues": "16",
+        "Function Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.": "",
+        "PTM": "Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.Succinylated subtilin is 10-20 times less active than subtilin. The ratio subtilin/succinylated subtilin is about 1",
+        "Literature": [
+            {
+                "Title": "Subtilin, VI the structure of subtilin (author's transl).",
+                "Pubmed ID": "4154277",
+                "Reference": "Hoppe Seylers Z Physiol Chem. 1973 Jul;354(7)810-812.",
+                "Author": "Gross E, Kiltz HH, Nebelin E.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=4154277"
+            },
+            {
+                "Title": "Entianin, a novel subtilin-like lantibiotic from Bacillus subtilis subsp. spizizenii DSM 15029T with high antimicrobial activity",
+                "Pubmed ID": "21239550",
+                "Reference": "Appl Environ Microbiol\n. 2011 Mar;77(5)1698-707.",
+                "Author": "Sebastian W Fuchs, Thorsten W Jaskolla, Sophie Bochmann, Peter Kötter, Thomas Wichelhaus, Michael Karas, Torsten Stein, Karl-Dieter Entian",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=21239550"
+            },
+            {
+                "Title": "Structure and expression of a gene encoding the precursor of subtilin, a small protein antibiotic.",
+                "Pubmed ID": "",
+                "Author": "Hansen J.N.,Banerjee S."
+            },
+            {
+                "Title": "The subtilin gene of Bacillus subtilis ATCC 6633 is encoded in an operon that contains a homolog of the hemolysin B transport protein.",
+                "Pubmed ID": "",
+                "Author": "Hansen J.N.,Steen M.T.,Chung Y.J."
+            },
+            {
+                "Title": "Analysis of genes involved in biosynthesis of the lantibiotic subtilin.",
+                "Pubmed ID": "",
+                "Author": "Entian K.-D.,Schnell N.,Kaletta C.,Klein C."
+            },
+            {
+                "Title": "Determination of the sequence of spaE and identification of a promoter in the subtilin (spa) operon in Bacillus subtilis.",
+                "Pubmed ID": "",
+                "Author": "Hansen J.N.,Chung Y.J."
+            },
+            {
+                "Title": "Genes involved in self-protection against the lantibiotic subtilin produced by Bacillus subtilis ATCC 6633.",
+                "Pubmed ID": "",
+                "Author": "Entian K.-D.,Klein C."
+            },
+            {
+                "Title": "Subtilin, VI: the structure of subtilin.",
+                "Pubmed ID": "",
+                "Author": "Nebelin E.,Kiltz H.H.,Gross E."
+            },
+            {
+                "Title": "The peptide antibiotic subtilin acts by formation of voltage-dependent multi-state pores in bacterial and artificial membranes.",
+                "Pubmed ID": "",
+                "Author": "Sahl H.-G.,Benz R.,Schueller F."
+            },
+            {
+                "Title": "A novel post-translational modification of the peptide antibiotic subtilin: isolation and characterization of a natural variant from Bacillus subtilis A.T.C.C. 6633.",
+                "Pubmed ID": "R1993J0069",
+                "Author": "Roberts G.C.K.,Lian L.-Y.,Leyland M.L.,Bycroft B.W.,Chan W.C."
+            },
+            {
+                "Title": "Sequence-specific resonance assignment and conformational analysis of subtilin by 2D NMR.",
+                "Pubmed ID": "",
+                "Author": "Yang J.C.,Lian L.-Y.,Leylands M.L.,Bycroft B.W.,Chan W.C."
+            },
+            {
+                "Title": "The antimicrobial effect of a structural variant of subtilin against outgrowing Bacillus cereus T spores and vegetative cells occurs by different mechanisms.",
+                "Pubmed ID": "",
+                "Author": "Hansen J.N.,Liu W."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

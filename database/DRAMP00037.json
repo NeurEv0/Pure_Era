@@ -1,0 +1,81 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00037",
+        "Peptide Name": "Nisin Z (Bacteriocin; Preclinical)",
+        "Source": "Lactococcus lactis subsp. lactis (Streptococcus lactis) (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "nisZ",
+        "Sequence": "ITSISLCTPGCKTGALMGCNMKTATCNCSIHVSK",
+        "Sequence Length": "34",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P29559"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Enterococcus, Lactobacillus, Lactococcus, Leuconostoc, Listeria, clostridium.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two dehydroalanines (S5; S33), one dehydrobutyrine (T2), which form one lanthionine (S3-C7) and four β-methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Stereochemistry": "L",
+        "Structure": "Alpha helix (1 helices; 4 residues)",
+        "Structure Description": "The structure shows a novel lipid II-binding motif in which the pyrophosphate moiety of lipid II is primarily coordinated by the N-terminal backbone amides of nisin via intermolecular hydrogen bonds. This cage structure provides a rationale for the conservation of the lanthionine rings among several lipid II-binding lantibiotics.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "1WCOresolved  by NMR.",
+        "Predicted Structure": "There is no predicted structure for DRAMP00037.",
+        "Formula": "C141H245N41O46S7",
+        "Absent Amino Acids": "DEFQRWY",
+        "Common Amino Acids": "CT",
+        "Mass": "3475.16",
+        "PI": "8.78",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+4",
+        "Boman Index": "-14.86",
+        "Hydrophobicity": "0.406",
+        "Aliphatic Index": "71.76",
+        "Half Life": "Mammalian:20 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "250",
+        "Absorbance 280nm": "7.58",
+        "Polar Residues": "19",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "There are two dehydroalanines (Dha)",
+        "Literature": [
+            {
+                "Title": "Identification and characterization of the lantibiotic nisin Z, a natural nisin variant.",
+                "Pubmed ID": "1935953",
+                "Reference": "Eur J Biochem. 1991 Nov 1;201(3)581-584.",
+                "Author": "Mulders JW, Boerrigter IJ, Rollema HS, Siezen RJ, de Vos WM.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=1935953"
+            },
+            {
+                "Title": "The codon usage of the nisZ operon in Lactococcus lactis N8 suggests a non-lactococcal origin of the conjugative nisin-sucrose transposon.",
+                "Pubmed ID": "7626780",
+                "Reference": "DNA Seq. 1995;5(4)203-218.",
+                "Author": "Immonen T, Ye S, Ra R, Qiao M, Paulin L, Saris PE.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=7626780"
+            },
+            {
+                "Title": "The nisin-lipid II complex reveals a pyrophosphate cage that provides a blueprint for novel antibiotics.",
+                "Pubmed ID": "15361862",
+                "Reference": "Nat Struct Mol Biol. 2004 Oct;11(10)963-967.",
+                "Author": "Hsu ST, Breukink E, Tischenko E, Lutters MA, de Kruijff B, Kaptein R, Bonvin AM, van Nuland NA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15361862"
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "1WCO",
+                "3d_structure_url": "https://www.rcsb.org/structure/1WCO"
+            }
+        ]
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00015",
+        "Peptide Name": "Geobacillin II (nisin analog; Bacteriocin)",
+        "Source": "Geobacillus thermodenitrificans NG80-2 (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "STIVCVSLRICNWSLRFCPSFKVRCPM",
+        "Sequence Length": "27",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Bacillus cereus Z4222, Bacillus subtilis ATCC 6633.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization  between S29 and C33",
+        "Nonterminal Modifications and Unusual Amino Acids": "Four lanthionines (S3-C7,S23-C27,S26-C30,S29-C33) and three β-methyllanthionines (T8-C11; T13-C18; T20-C24),S5 is dehydroalanines.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00015.",
+        "Formula": "C139H225N39O34S5",
+        "Absent Amino Acids": "ADEGHQY",
+        "Common Amino Acids": "CS",
+        "Mass": "3146.86",
+        "PI": "9.37",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "10",
+        "Net Charge": "+4",
+        "Boman Index": "-25.56",
+        "Hydrophobicity": "0.659",
+        "Aliphatic Index": "90",
+        "Half Life": "Mammalian:1.9 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "5750",
+        "Absorbance 280nm": "221.15",
+        "Polar Residues": "10",
+        "Function": "Geobacillin II only demonstrated antimicrobial activity against Bacillus strains.",
+        "Literature": [
+            {
+                "Title": "Lantibiotics from Geobacillus thermodenitrificans.",
+                "Pubmed ID": "22431611",
+                "Reference": "Proc Natl Acad Sci U S A. 2012 Apr 3;109(14)5241-5246.",
+                "Author": "Garg N, Tang W, Goto Y, Nair SK, van der Donk WA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=22431611"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

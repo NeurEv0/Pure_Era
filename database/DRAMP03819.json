@@ -1,0 +1,71 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP03819",
+        "Peptide Name": "Cyclic hexapeptide CYC-(RRWWRF)",
+        "Source": "Synthetic construct",
+        "Family": "Not found",
+        "Gene": "Not found",
+        "Sequence": "RRWWRF",
+        "Sequence Length": "6",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Synthetic",
+        "Biological Activity": [
+            "Antimicrobial, Anti-Gram+, Anti-Gram-"
+        ],
+        "Target Organism": "[Ref.16075425] Gram-negative bacterium:Escherichia coli(MIC=6.3 μM);Gram-positive bacterium:Bacillus subtilis(MIC=3.1 μM)",
+        "Hemolytic Activity": "[Ref.16075425] It has 24% hemolysis at 100 μM against erythrocytes.",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "No specific N-terminal",
+        "C-terminal Modification": "No specific C-terminal",
+        "Nonterminal Modifications and Unusual Amino Acids": "None",
+        "Stereochemistry": "L",
+        "Structure": "Non helix or strand structure (Turn)",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "1QVK,1QVL",
+        "Predicted Structure": "There is no predicted structure for DRAMP03819.",
+        "Formula": "C49H67N17O7",
+        "Absent Amino Acids": "ACDEGHIKLMNPQSTVY",
+        "Common Amino Acids": "R",
+        "Mass": "1006.18",
+        "PI": "12.3",
+        "Basic Residues": "3",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "3",
+        "Net Charge": "+3",
+        "Boman Index": "-37.12",
+        "Hydrophobicity": "-2.083",
+        "Aliphatic Index": "0",
+        "Half Life": "Mammalian:1 hourYeast:2 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "11000",
+        "Absorbance 280nm": "2200",
+        "Polar Residues": "0",
+        "Function": "Antibacterial activity against Escherichia coli and Bacillus subtilis.  Has hemolytic activity.",
+        "Literature": [
+            {
+                "Title": "Structure of the antimicrobial, cationic hexapeptide cyclo(RRWWRF) and its analogues in solution and bound to detergent micelles.",
+                "Pubmed ID": "16075425",
+                "Reference": "Chembiochem. 2005 Sep;6(9)1654-1662.",
+                "Author": "Appelt C, Wessolowski A, S?derh??ll JA, Dathe M, Schmieder P.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=16075425"
+            },
+            {
+                "Title": "The antimicrobial activity of hexapeptides derived from synthetic combinatorial libraries.",
+                "Pubmed ID": "7883644",
+                "Reference": "J Appl Bacteriol. 1995 Jan;78(1)39-46.",
+                "Author": "Blondelle SE, Takahashi E, Dinh KT, Houghten RA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=7883644"
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "1QVL",
+                "3d_structure_url": "https://www.rcsb.org/structure/1QVL"
+            }
+        ]
+    }
+}

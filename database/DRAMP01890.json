@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01890",
+        "Peptide Name": "Brevinin-1VLa (Frogs, amphibians, animals)",
+        "Source": "Rana vaillanti (Central American frog)",
+        "Family": "Not found",
+        "Gene": "Not found",
+        "Sequence": "FLGAIAGVAAKFLPKVFCFITKKC",
+        "Sequence Length": "24",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-, Antifungal"
+        ],
+        "Target Organism": "Gram-negative bacterium:E. coli (MIC=25 µM);Gram-positive bacterium:S. aureus (MIC=3 µM).Yeast:C. albicans (MIC=3 µM).",
+        "Hemolytic Activity": "[Ref.19379837] LC50=8 mM against human erythrocytes",
+        "Cytotoxicity": "[Ref.19379837] LC50=4mM against HepG2 hepatoma-derived cells",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization (Cys18 and Cys24)",
+        "Nonterminal Modifications and Unusual Amino Acids": "Disulfide bond between Cys18 and Cys24.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "",
+        "Formula": "C125H198N28O26S2",
+        "Absent Amino Acids": "DEHMNQRSWY",
+        "Common Amino Acids": "AFK",
+        "Mass": "2573.24",
+        "PI": "9.7",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "14",
+        "Net Charge": "+4",
+        "Boman Index": "26.59",
+        "Hydrophobicity": "1.238",
+        "Aliphatic Index": "105.83",
+        "Half Life": "Mammalian:1.1 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "5.43",
+        "Polar Residues": "5",
+        "Function": "Brevinin-1VLa showes particularly high growth-inhibitory potency (MIC < or =3 microM) against a Gram-positive microorganism Staphylococcus aureus and the opportunistic yeast pathogen Candida albicans and potent cytolytic activity (LC(50)< or =8 microM) against both human erythrocytes and HepG2 hepatoma-derived cells. The peptide ia also active against a Gram-negative microorganism Escherichia coli (MIC< or =50 microM).",
+        "Literature": [
+            {
+                "Title": "Purification of peptides with differential cytolytic activities from the skin secretions of the Central American frog, Lithobates vaillanti (Ranidae).",
+                "Pubmed ID": "19379837",
+                "Reference": "Comp Biochem Physiol C Toxicol Pharmacol. 2009 Aug;150(2)150-154.",
+                "Author": "Conlon JM, Raza H, Coquet L, Jouenne T, Leprince J, Vaudry H, King JD.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19379837"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01555",
+        "Peptide Name": "Caerin-1.5 (Frogs, amphibians, animals)",
+        "Source": "Litoria caerulea (Green tree frog)",
+        "Family": "Belongs to the frog skin active peptide family (Caerin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "GLLSVLGSVVKHVIPHVVPVIAEHL",
+        "Sequence Length": "25",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P56230"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-,Antiviral"
+        ],
+        "Target Organism": "[Ref.15203252]Gram-positive bacteria:Bacillus cereus (MIC=50 µg/ml), Leuconostoc lactis (MIC=3 µg/ml), Listeria innocua (MIC=50 µg/ml), Micrococcus luteus (MIC=12 µg/ml), Staphylococcus aureus (MIC=25 µg/ml), Staphylococcus epidermis (MIC=25 µg/ml), Streptococcus uberis (MIC=50 µg/ml);Gram-negative bacterium:Pasteurella multocida (MIC=25 µg/ml).[Ref.26026377]Virus:HIV:inhibition of HIV Pseudovirus (PsV) infection in CD4+ T cells(IC50=3 µM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "[Ref.26026377]Human endocervical cells End1/E6E7:50% cell death at 12.5 µM.",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Amidation",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01555.",
+        "Formula": "C123H206N32O30",
+        "Absent Amino Acids": "CDFMNQRTWY",
+        "Common Amino Acids": "V",
+        "Mass": "2613.19",
+        "PI": "7.02",
+        "Basic Residues": "4",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "14",
+        "Net Charge": "+3",
+        "Boman Index": "28.35",
+        "Hydrophobicity": "1.312",
+        "Aliphatic Index": "178.8",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "4",
+        "Function": "Antibacterial peptide, that adopts an alpha helical conformation which can disrupt bacterial membranes. Each caerin displays a different antimicrobial specificity.",
+        "Tissue specificity": "Expressed by the skin parotoid and/or rostral glands.",
+        "Domain": "Contains two amphipathic alpha helix regions separated by a region of less-defined helicity and greater flexibility (By similarity).",
+        "PTM": "C-terminal amidation.",
+        "Literature": [
+            {
+                "Title": "Inhibition of HIV infection by caerin 1 antimicrobial peptides.",
+                "Pubmed ID": "26026377",
+                "Reference": "Peptides. 2015 Sep;71296-303.",
+                "Author": "VanCompernolle S, Smith PB, Bowie JH, Tyler MJ, Unutmaz D, Rollins-Smith LA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=26026377"
+            },
+            {
+                "Title": "Host-defence peptides of Australian anurans structure, mechanism of action and evolutionary significance.",
+                "Pubmed ID": "15203252",
+                "Reference": "Peptides. 2004 Jun;25(6)1035-1054.",
+                "Author": "Apponyi MA, Pukala TL, Brinkworth CS, Maselli VM, Bowie JH, Tyler MJ, Booker GW, Wallace JC, Carver JA, Separovic F, Doyle J, Llewellyn LE.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15203252"
+            },
+            {
+                "Title": "Peptides from Australian frogs. The structures of the caerins from Litoria caerula.",
+                "Pubmed ID": "PubMed ID is not available",
+                "Reference": "J. Chem. Res. 1993; 138 910-936.",
+                "Author": "Stone DJM, Waugh RJ, Bowie JH, Wallace JC, Tyler MJ.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=PubMed ID is not available"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01734",
+        "Peptide Name": "Temporin-ALg (Frogs, amphibians, animals)",
+        "Source": "Amolops loloensis",
+        "Family": "Belongs to the frog skin active peptide family (Brevinin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "FFPIVGKLLFGLFGLL",
+        "Sequence Length": "16",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-"
+        ],
+        "Target Organism": "[Ref.19843479]Gram-positive bacteria:Staphylococcus aureus ATCC2592 (MIC=2.5 µg/mL), Bacillus pumilus (MIC=2.5 µg/mL), Bacillus cereus (MIC=30 µg/mL);Gram-negative bacteria:Escherichia coli ATCC25922 (MIC=5 µg/mL), Bacillus dysenteriae (MIC=10 µg/mL), Acinetobacter calcoaceticus (MIC=30 µg/mL), Psecdomonas aeruginosa (MIC=7.5 µg/mL);Yeast:Candida albicans ATCC2002 (MIC=1.25 µg/mL).",
+        "Hemolytic Activity": "[Ref:19843479]16% hemolytic activity at 100 μg/mL against rabbit red blood cells.",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Amidation",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01734.",
+        "Formula": "C94H141N17O17",
+        "Absent Amino Acids": "ACDEHMNQRSTWY",
+        "Common Amino Acids": "L",
+        "Mass": "1781.26",
+        "PI": "8.75",
+        "Basic Residues": "1",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "11",
+        "Net Charge": "+1",
+        "Boman Index": "42.75",
+        "Hydrophobicity": "2.013",
+        "Aliphatic Index": "164.38",
+        "Half Life": "Mammalian:1.1 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "3",
+        "Function": "Temporin-ALg exhibits hemolytic activity against rabbit red blood cells.",
+        "Literature": [
+            {
+                "Title": "Five novel antimicrobial peptides from skin secretions of the frog, Amolops loloensis.",
+                "Pubmed ID": "19843479",
+                "Reference": "Comp Biochem Physiol B Biochem Mol Biol. 2010 Jan;155(1)72-76.",
+                "Author": "Wang M, Wang Y, Wang A, Song Y, Ma D, Yang H, Ma Y, Lai R.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19843479"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,79 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [
+        {
+            "Patent No": "US 2023/0416797 A1",
+            "Patent Link": "http://www.lens.org/lens/patent/US_2023_0416797_A1",
+            "Patent Type": "Patent Application",
+            "Publication Date": "2023-12-28",
+            "Family Info": "JP2023548477A,EP4243844A1,CN116685204A,WO2022104321A1",
+            "Patent Title": "MODULATING ANTIMICROBIAL PEPTIDE HALF-LIFE",
+            "Abstract": "Methods of modulating the half-life of an antimicrobial peptide are described. The method may include administering an antimicrobial peptide to an environment where the antimicrobial peptide remains active until a specified endpoint, and on or after the specified endpoint, digesting the antimicrobial peptide with a protease to thereby inactivate the antimicrobial peptide and modulate its half-life. Compositions and kits for modulating the half-life of an antimicrobial peptide are also described."
+        }
+    ],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00059",
+        "Peptide Name": "Lantibiotic duramycin C (Bacteriocin)",
+        "Source": "Streptomyces griseoluteus R2107 (Gram-positive bacteria)",
+        "Family": "Belongs to the type B lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "CANSCSYGPLTWSCDGNTK",
+        "Sequence Length": "19",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P36503"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "Bacillus",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "phosphatidylethanolamine",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00059.",
+        "Formula": "C82H123N23O30S3",
+        "Absent Amino Acids": "EFHIMQRV",
+        "Common Amino Acids": "CS",
+        "Mass": "2007.19",
+        "PI": "5.81",
+        "Basic Residues": "1",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "3",
+        "Net Charge": "0",
+        "Boman Index": "-28.25",
+        "Hydrophobicity": "-0.511",
+        "Aliphatic Index": "25.79",
+        "Half Life": "Mammalian:1.2 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "7115",
+        "Absorbance 280nm": "395.28",
+        "Polar Residues": "13",
+        "Function": "Acts as inhibitor of phospholipase A2.",
+        "PTM": "Methyllanthionine rings between residues 1 and 18 as well as between residues 5 and 11; a lanthionine occurs between Cys14 and residue 4. In addition, addition of Lys19 to dehydralanine at position 6 forms a lysinoalanine bridge. The Asp residue at position 15 is hydroxylated.",
+        "Literature": [
+            {
+                "Title": "Duramycins B and C, two new lanthionine containing antibiotics as inhibitors of phospholipase A3. Structural revision of duramycin and cinnamycin.Solution structures of the lantibiotics duramycin B and C.",
+                "Pubmed ID": "2125590",
+                "Reference": "J Antibiot (Tokyo). 1990 Nov;43(11)1403-1412.",
+                "Author": "Fredenhagen A, Fendrich G, Märki F, Märki W, Gruner J, Raschdorf F, Peter HH. Zimmermann N, Freund S, Fredenhagen A, Jung G.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=2125590"
+            },
+            {
+                "Title": "",
+                "Pubmed ID": "8375380",
+                "Reference": "Eur J Biochem. 1993 Sep 1;216(2)419-428.",
+                "Author": "",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8375380"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

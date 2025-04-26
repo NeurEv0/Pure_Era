@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00018",
+        "Peptide Name": "SmbA1 (Bacteriocin)",
+        "Source": "Streptococcus mutans GS5 (Gram-negative bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "GTTVVNSTFSIVLGNKGYICTVTVECMRNCSK",
+        "Sequence Length": "32",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00018.",
+        "Formula": "C145H242N40O47S4",
+        "Absent Amino Acids": "ADHPQW",
+        "Common Amino Acids": "TV",
+        "Mass": "3426",
+        "PI": "8.66",
+        "Basic Residues": "3",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+2",
+        "Boman Index": "-28.99",
+        "Hydrophobicity": "0.353",
+        "Aliphatic Index": "81.88",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1615",
+        "Absorbance 280nm": "52.1",
+        "Polar Residues": "18",
+        "The two peptides (SmbA and SmbB) are encoded by two chromosomal DNA genes in the same operon.": "",
+        "Literature": [
+            {
+                "Title": "Genetic analysis of a unique bacteriocin, Smb, produced by Streptococcus mutans GS5.",
+                "Pubmed ID": "15673730",
+                "Reference": "Antimicrob Agents Chemother. 2005 Feb;49(2)541-548.",
+                "Author": "Yonezawa H, Kuramitsu HK.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15673730"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

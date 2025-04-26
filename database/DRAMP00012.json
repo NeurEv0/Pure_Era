@@ -1,0 +1,94 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00012",
+        "Peptide Name": "Lantibiotic lichenicidin VK21 A1 (LchA1; Lchalpha; Bacteriocin)",
+        "Source": "Bacillus licheniformis (strain ATCC 14580/VK21/DSM 13) (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "lchA1",
+        "Sequence": "TITLSTCAILSKPLGNNGYLCTVTKECMPSCN",
+        "Sequence Length": "32",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P86475",
+            "http://www.uniprot.org/uniprot/E0YCK1",
+            "http://www.uniprot.org/uniprot/Q65DC4",
+            "http://www.uniprot.org/uniprot/Q62NU5"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "Only Lchalpha:Bacillus megaterium VKM41 (IC50=1.8 uM), Bacillus subtilis L1 (IC50=9 uM), Rhodococcus sp. SS2 (IC50=9 uM), Micrococcus luteus B1314 (IC50=1.2 uM), Staphylococcus aureus 209p (IC50=3.1 uM).Lchalpha+Lchbeta:Bacillus megaterium VKM41 (IC50=0.12 uM), Bacillus subtilis L1 (IC50=0.64 uM), Rhodococcus sp. SS2 (IC50=0.64 uM), Micrococcus luteus B1314 (IC50=0.09 uM), Staphylococcus aureus 209p (IC50=0.64 uM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Alpha helix (1 helices; 3 residues)",
+        "Structure Description": "The Lchalpha peptide displays structural homology with mersacidin-like lantibiotics and involves relatively well-structured N- and C-terminal domains connected by a flexible loop stabilized by a thioether bridge Ala11-S-Ala21.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "2KTNresolved  by NMR.",
+        "Predicted Structure": "There is no predicted structure for DRAMP00012.",
+        "Formula": "C142H239N37O47S5",
+        "Absent Amino Acids": "DFHQRW",
+        "Common Amino Acids": "T",
+        "Mass": "3376.98",
+        "PI": "7.57",
+        "Basic Residues": "2",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+1",
+        "Boman Index": "-16.3",
+        "Hydrophobicity": "0.284",
+        "Aliphatic Index": "85.31",
+        "Half Life": "Mammalian:7.2 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1740",
+        "Absorbance 280nm": "56.13",
+        "Polar Residues": "18",
+        "Function": "The mature peptides, Lchalpha and Lchbeta, interact synergistically to possess antibiotic activity against Gram-positive bacteria within a nanomolar concentration range, though the individual peptides were shown to be active at micromolar concentrations. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores. Combined LchA1 and LchA2 peptides also inhibit Bacillus sp. HIL-Y85/54728, L.lactis DPC3417 and B.halodurans C-125, which produce lantibiotics themselves. Inactivated by proteinase K and pronase E, but not by trypsin and chymotrypsin.",
+        "PTM": "Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.",
+        "Literature": [
+            {
+                "Title": "Identification of a novel two-peptide lantibiotic, lichenicidin, following rational genome mining for LanM proteins.",
+                "Pubmed ID": "19561184",
+                "Reference": "Appl Environ Microbiol. 2009 Sep;75(17)5451-5460.",
+                "Author": "Begley M, Cotter PD, Hill C, Ross RP.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19561184"
+            },
+            {
+                "Title": "Production of the novel two-peptide lantibiotic lichenicidin by Bacillus licheniformis DSM 13.",
+                "Pubmed ID": "19707558",
+                "Reference": "PLoS One. 2009 Aug 26;4(8)e6788.",
+                "Author": "Dischinger J, Josten M, Szekat C, Sahl HG, Bierbaum G.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19707558"
+            },
+            {
+                "Title": "Isolation, structure elucidation, and synergistic antibacterial activity of a novel two-component lantibiotic lichenicidin from Bacillus licheniformis VK21.",
+                "Pubmed ID": "20578714",
+                "Reference": "Biochemistry. 2010 Aug 3;49(30)6462-6472.",
+                "Author": "Shenkarev ZO, Finkina EI, Nurmukhamedova EK, Balandin SV, Mineev KS, Nadezhdin KD, Yakimenko ZA, Tagaev AA, Temirov YV, Arseniev AS, Ovchinnikova TV.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=20578714"
+            },
+            {
+                "Title": "Complete genome sequence of the industrial bacterium Bacillus licheniformis and comparisons with closely related Bacillus species.",
+                "Pubmed ID": "R2004J0379",
+                "Author": "Zaretsky E.J.,Brody-Karpin S.D.,Nelson B.A.,Ramaiya P.,Rey M.W."
+            },
+            {
+                "Title": "The complete genome sequence of Bacillus licheniformis DSM13, an organism with great industrial potential.",
+                "Pubmed ID": "R2004J1373",
+                "Author": "Maurer K.H.,Feesche J.,Steckel S.,Herzberg C.,Veith B."
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "2KTN",
+                "3d_structure_url": "https://www.rcsb.org/structure/2KTN"
+            }
+        ]
+    }
+}

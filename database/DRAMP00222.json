@@ -1,0 +1,76 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00222",
+        "Peptide Name": "Microcin E492 (MccE492; Bacteriocin)",
+        "Source": "Klebsiella pneumoniae RYC492 (Gram-negative bacteria)",
+        "Family": "Not found",
+        "Gene": "mceA",
+        "Sequence": "GETDPNTQLLNDLGNNMAWGAALGAPGGLGSAALGAAGGALQTVGQGLIDHGPVNVFIPVLIGPSWNGSGSGYNSATSSSGSGS",
+        "Sequence Length": "84",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/Q9Z4N4"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram-"
+        ],
+        "Target Organism": "Gram-negative bacteria:Escherichia coli F (MIC=0.14 µM), Escherichia coli 363 (MIC=0.02 µM), Escherichia coli ML35p (MIC=0.14 µM), Escherichia coli GM1 (MIC=0.04 µM), Escherichia coli GM1 KP1060(MIC=0.65 µM), Escherichia coli W3110 (MIC=0.02 µM), Escherichia coli W3110-KP1344 Pms7 (MIC=0.08 µM), Escherichia coli W3110-6 (MIC=0.32 µM), Escherichia coli C600 (MIC=0.08 µM), Escherichia coli C600 pHX405 (MIC=0.16 µM), Salmonella enteritidis (MIC=0.6 µM), Salmonella typhimurium (MIC=1.2 µM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Attachment to a siderophore ester",
+        "Nonterminal Modifications and Unusual Amino Acids": "[Ref.15102848] The post-translational modification consists of a trimer of N-(2,3-dihydroxybnenzoyl)-L-serine linked via a C-glycosidic linkage to a β-D-glucose moiety, itself linked to the MccE492m Ser-84-carboxyl through an O-glycosidic bond.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00222.",
+        "Formula": "C342H532N98O118S",
+        "Absent Amino Acids": "CKR",
+        "Common Amino Acids": "G",
+        "Mass": "7936.63",
+        "PI": "3.84",
+        "Basic Residues": "1",
+        "Acidic Residues": "4",
+        "Hydrophobic Residues": "29",
+        "Net Charge": "-3",
+        "Boman Index": "-24",
+        "Hydrophobicity": "0.066",
+        "Aliphatic Index": "81.43",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "12490",
+        "Absorbance 280nm": "150.48",
+        "Polar Residues": "41",
+        "Function": "Channel-forming bacteriocin. Forms cation-selective channels. Active on enterobacteria, with highest activity against Escherichia coli. The unmodified protein is active against Escherichia coli and S. enteritidis. When the siderophore ester is present at Ser-99, antibacterial activity against these species is increased and activity is also detected against E. cloacae and K. pneumoniae.",
+        "PTM": "The C-terminal Ser is modified by attachment to a siderophore similar to enterobactin, which can bind one atom of iron. The modification consists of an ester linkage of the serine carboxyl to O6 of a glucose which is linked by a C-glycosidic bond to the 5'-benzoyl of a linear triester of N-(2,3-dihydroxybenzoyl)serine. Presence of the siderophore ester increases the antibacterial activity of the protein.",
+        "Literature": [
+            {
+                "Title": "Microcin E492 antibacterial activity evidence for a TonB-dependent inner membrane permeabilization on Escherichia coli.",
+                "Pubmed ID": "12890026",
+                "Reference": "Mol Microbiol. 2003 Aug;49(4)1031-1041.",
+                "Author": "Destoumieux-Garz³n D, Thomas X, Santamaria M, Goulard C, Barth©l©my M, Boscher B, Bessin Y, Molle G, Pons AM, Letellier L, Peduzzi J, Rebuffat S.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12890026"
+            },
+            {
+                "Title": "Siderophore peptide, a new type of post-translationally modified antibacterial peptide with potent activity.",
+                "Pubmed ID": "15102848",
+                "Reference": "J Biol Chem. 2004 Jul 2;279(27)28233-28242.",
+                "Author": "Thomas X, Destoumieux-Garz³n D, Peduzzi J, Afonso C, Blond A, Birlirakis N, Goulard C, Dubost L, Thai R, Tabet JC, Rebuffat S.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15102848"
+            },
+            {
+                "Title": "Microcin E492 forms ion channels in phospholipid bilayer membrane.",
+                "Pubmed ID": "7682973",
+                "Reference": "FEBS Lett. 1993 Apr 26;321(2-3)145-148.",
+                "Author": "Lagos R, Wilkens M, Vergara C, Cecchi X, Monasterio O.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=7682973"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

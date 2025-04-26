@@ -1,0 +1,62 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00011",
+        "Peptide Name": "Plantaricin W beta (Plw-beta; Bacteriocin)",
+        "Source": "Lactobacillus plantarum (Gram-positive bacteria)",
+        "Family": "Belongs to the lantibiotic family (Class I bacteriocin)",
+        "Gene": "plWbeta",
+        "Sequence": "SGIPCTIGAAVAASIAVCPTTKCSKRCGKRKK",
+        "Sequence Length": "32",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/Q9AF68"
+        ],
+        "Protein Existence": "Predicted",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Lactobacillus spp, Lactococcus lactis, Listeria innocua, Listeria monocytogenes, Oenococcus oeni, Leuconostoc mesenteroides, Pediococcus acidilactici, Pediococcus pentosaceus, Enterococcus faecalis, Propionibacterium freudenreichii, Staphylococcus aureus.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Deaminated",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "one lanthionine (S14-C18),two β-methyllanthionines(T20-C23,T21-C27).",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00011.",
+        "Formula": "C134H241N43O39S4",
+        "Absent Amino Acids": "DEFHLMNQWY",
+        "Common Amino Acids": "AK",
+        "Mass": "3206.89",
+        "PI": "9.96",
+        "Basic Residues": "7",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "10",
+        "Net Charge": "+7",
+        "Boman Index": "-35.67",
+        "Hydrophobicity": "0.109",
+        "Aliphatic Index": "70.31",
+        "Half Life": "Mammalian:1.9 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "250",
+        "Absorbance 280nm": "8.06",
+        "Polar Residues": "13",
+        "Function": "Plantaricin W (Plw) is a new two-peptide bacteriocin, from Lactobacillus plantarum, which inhibits a large number of Gram-positive bacteria. The two individual peptides, Plwalpha (comprising 29 residues) and Plwbeta (comprising 32 residues), had low antimicrobial activity but acted synergistically. The data indicate that the two peptides work in a 1",
+        "PTM": "Chemical analyses showed that both peptides are lantibiotics, but two unmodified cysteines and one serine residue were present in Plwa, and Plwb contained one cysteine residue. Plwbeta is synthesized with a 29 aa leader, processed by an ABC transporter and then subjected to further proteolytic attack, resulting in the removal of the six Nterminal residues.",
+        "Literature": [
+            {
+                "Title": "Plantaricin W from Lactobacillus plantarum belongs to a new family of two-peptide lantibiotics.",
+                "Pubmed ID": "11238971",
+                "Reference": "Microbiology. 2001 Mar;147(Pt 3)643-651.",
+                "Author": "Holo H, Jeknic Z, Daeschel M, Stevanovic S, Nes IF.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=11238971"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

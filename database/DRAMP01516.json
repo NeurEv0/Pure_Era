@@ -1,0 +1,72 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [
+        {
+            "Patent No": "US 7862826 B2",
+            "Patent Link": "http://www.lens.org/lens/patent/US_7862826_B2",
+            "Patent Type": "Granted Patent",
+            "Publication Date": "2011-1-4",
+            "Family Info": "US20090298741A1,US11214372,US60604912,US20070207209,WO\n0209738",
+            "Patent Title": "Trophic factor combinations for nervous system treatment",
+            "Abstract": "The present invention relates to a composition including an effective amount of at least one of an antimicrobial peptide and a substance having an antimicrobial peptide effect and an effective amount of a neurotrophin. The composition can also include an effective amount of at least one of a growth factor and a neuropeptide. The present invention also relates a method of treating an injury to a nervous system of an animal that includes the steps of identifying the injury to the nervous system and applying to the injury an effective amount of at least one of antimicrobial peptide and a substance having an antimicrobial peptide effect. The method can also include applying an effective amount of one or more trophic factors selected from the group consisting of a growth factor, a neurotrophin, and a neuropeptide to the injury."
+        }
+    ],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01516",
+        "Peptide Name": "Esculentin-2B (Frogs, amphibians, animals)",
+        "Source": "Rana berlandieri (Rio Grande leopard frog)",
+        "Family": "Belongs to the frog skin active peptide family (Brevinin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "GLFSILRGAAKFASKGLGKDLTKLGVDLVACKISKQC",
+        "Sequence Length": "37",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P82839"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-, Antifungal"
+        ],
+        "Target Organism": "[Ref.10651828]Gram-positive bacterium:Staphylococcus aureus (MIC=1 μM);Gram-negative bacterium:Escherichia coli (MIC=1 μM).Yeast:Candida albicans (MIC=29 μM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization of a C-terminal Cys residue (forming a disulfide bond)",
+        "Nonterminal Modifications and Unusual Amino Acids": "There is a disulfide bond between Cys31 and Cys37.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "",
+        "Formula": "C172H295N47O47S2",
+        "Absent Amino Acids": "EHMNPWY",
+        "Common Amino Acids": "KL",
+        "Mass": "3837.64",
+        "PI": "9.79",
+        "Basic Residues": "7",
+        "Acidic Residues": "2",
+        "Hydrophobic Residues": "16",
+        "Net Charge": "+5",
+        "Boman Index": "-16.07",
+        "Hydrophobicity": "0.392",
+        "Aliphatic Index": "110.81",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "3.47",
+        "Polar Residues": "11",
+        "Function": "Antimicrobial activity against the Gram-positive, Gram-negative bacteria and fungi.",
+        "Tissue specificity": "Expressed by the skin glands.",
+        "Literature": [
+            {
+                "Title": "Peptides with antimicrobial activity from four different families isolated from the skins of the North American frogs Rana luteiventris, Rana berlandieri and Rana pipiens.",
+                "Pubmed ID": "10651828",
+                "Reference": "Eur J Biochem. 2000 Feb;267(3)894-900.",
+                "Author": "Goraya J, Wang Y, Li Z, O'Flaherty M, Knoop FC, Platz JE, Conlon JM.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10651828"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

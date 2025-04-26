@@ -1,0 +1,63 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP02023",
+        "Peptide Name": "Brevinin-2DYd (Frogs, amphibians, animals)",
+        "Source": "Rana dybowskii (Dybovsky's frog) (Korean brown frog)",
+        "Family": "Belongs to the frog skin active peptide family (Brevinin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "GIFDVVKGVLKGVGKNVAGSLLEQLKCKLSGGC",
+        "Sequence Length": "33",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P0C5X4"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-"
+        ],
+        "Target Organism": "Gram-positive bacterium:Staphylococcus aureus (MIC=15 µM);Gram-negative bacterium:Escherichia coli (MIC=15 µM).NOTE:mixture of Brevinin-2DYc/2DYd",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Cyclization (Cys27 and Cys33)",
+        "Nonterminal Modifications and Unusual Amino Acids": "Disulfide bond between Cys27 and Cys33.",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "",
+        "Formula": "C147H254N40O42S2",
+        "Absent Amino Acids": "HMPRTWY",
+        "Common Amino Acids": "G",
+        "Mass": "3318",
+        "PI": "9.24",
+        "Basic Residues": "5",
+        "Acidic Residues": "2",
+        "Hydrophobic Residues": "13",
+        "Net Charge": "+3",
+        "Boman Index": "1.39",
+        "Hydrophobicity": "0.491",
+        "Aliphatic Index": "117.88",
+        "Half Life": "Mammalian:30 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "3.91",
+        "Polar Residues": "12",
+        "Function": "Antimicrobial peptide.",
+        "Tissue specificity": "Expressed by the skin glands.",
+        "PTM": "contains one disulfide bond 27-33.",
+        "Literature": [
+            {
+                "Title": "Cytolytic peptides belonging to the brevinin-1 and brevinin-2 families isolated from the skin of the Japanese brown frog, Rana dybowskii.",
+                "Pubmed ID": "17688900",
+                "Reference": "Toxicon. 2007 Nov;50(6)746-756.",
+                "Author": "Conlon JM, Kolodziejek J, Nowotny N, Leprince J, Vaudry H, Coquet L, Jouenne T, Iwamuro S.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=17688900"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00177",
+        "Peptide Name": "Enterocin B (EntB; Bacteriocin)",
+        "Source": "Enterococcus faecium T136 (Gram-positive bacteria)",
+        "Family": "Belongs to the class IId bacteriocin",
+        "Gene": "entB",
+        "Sequence": "ENDHRMPNNLNRPNNLSKGGAKCGAAIAGGLFGIPKGPLAWAAGLANVYSKCN",
+        "Sequence Length": "53",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/O34017"
+        ],
+        "Protein Existence": "Predicted",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Enterococcus faecalis JCM 5803 (MIC=86.9 nM), Enterococcus faecalis OU510 (MIC=174 nM), E. faecium TUA 1344L (MIC=43.4 nM), E. hirae ATCC 10541 (MIC=5.44 nM), Lactobacillus plantarum ATCC 14917 (MIC=86.9 nM), L. sakei ssp. sakei JCM 1157 (MIC=5.44 nM), Bacillus coagulans JCM 2257 (MIC=89000 nM), Bacillus subtilis JCM 1465 (MIC=44500 nM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "The peptide has forms a disulfide bond between Cys-23 and Cys-52",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00177.",
+        "Formula": "C236H376N74O69S3",
+        "Absent Amino Acids": "QT",
+        "Common Amino Acids": "AGN",
+        "Mass": "5450.22",
+        "PI": "9.59",
+        "Basic Residues": "7",
+        "Acidic Residues": "2",
+        "Hydrophobic Residues": "18",
+        "Net Charge": "+5",
+        "Boman Index": "-61.59",
+        "Hydrophobicity": "-0.376",
+        "Aliphatic Index": "72.08",
+        "Half Life": "Mammalian:1 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "7115",
+        "Absorbance 280nm": "136.83",
+        "Polar Residues": "21",
+        "Comment": "No comments found on DRAMP database",
+        "Literature": [
+            {
+                "Title": "Atypical genetic locus associated with constitutive production of enterocin B by Enterococcus faecium BFE 900.",
+                "Pubmed ID": "10224016",
+                "Reference": "Appl Environ Microbiol. 1999 May;65(5)2170-2178.",
+                "Author": "Franz CM, Worobo RW, Quadri LE, Schillinger U, Holzapfel WH, Vederas JC, Stiles ME.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10224016"
+            },
+            {
+                "Title": "Enterocin B, a new bacteriocin from Enterococcus faecium T136 which can act synergistically with enterocin A.",
+                "Pubmed ID": "9245817",
+                "Reference": "Microbiology. 1997 Jul;143 (Pt 7)2287-2294.",
+                "Author": "Casaus P, Nilsen T, Cintas LM, Nes IF, Hern¡ndez PE, Holo H.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=9245817"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

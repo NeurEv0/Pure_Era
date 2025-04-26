@@ -1,0 +1,86 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00049",
+        "Peptide Name": "Bacteriocin lacticin-481 (Lactococcin-DR)",
+        "Source": "Lactococcus lactis CNRZ 481 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "lctA",
+        "Sequence": "KGGSGVIHTISHECNMNSWQFVFTCCS",
+        "Sequence Length": "27",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P36499"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Lactic acid bacteria, Clostridium tyrobutyricum.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00049.",
+        "Formula": "C127H190N36O39S4",
+        "Absent Amino Acids": "ADLPRY",
+        "Common Amino Acids": "S",
+        "Mass": "2973.36",
+        "PI": "6.89",
+        "Basic Residues": "3",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+2",
+        "Boman Index": "-24.02",
+        "Hydrophobicity": "0.052",
+        "Aliphatic Index": "50.37",
+        "Half Life": "Mammalian:1.3 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "5625",
+        "Absorbance 280nm": "216.35",
+        "Polar Residues": "14",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "Maturation of lantibiotics involves the enzymic conversion of Thr, and Ser into dehydrated AA and the formation of thioether bonds with cysteine. This is followed by membrane translocation and cleavage of the modified precursor.",
+        "Literature": [
+            {
+                "Title": "Purification and Partial Characterization of Lacticin 481, a Lanthionine-Containing Bacteriocin Produced by Lactococcus lactis subsp. lactis CNRZ 481.",
+                "Pubmed ID": "16348628",
+                "Reference": "Appl Environ Microbiol. 1992 Jan;58(1)279-284.",
+                "Author": "Piard JC, Muriana PM, Desmazeaud MJ, Klaenhammer TR.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=16348628"
+            },
+            {
+                "Title": "Structure, organization, and expression of the lct gene for lacticin 481, a novel lantibiotic produced by Lactococcus lactis.",
+                "Pubmed ID": "8344922",
+                "Reference": "J Biol Chem. 1993 Aug 5;268(22)16361-16368.",
+                "Author": "Piard JC, Kuipers OP, Rollema HS, Desmazeaud MJ, de Vos WM.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8344922"
+            },
+            {
+                "Title": "The structure of the lantibiotic lacticin 481 produced by Lactococcus lactis location of the thioether bridges.",
+                "Pubmed ID": "8764998",
+                "Reference": "FEBS Lett. 1996 Aug 12;391(3)317-322.",
+                "Author": "van den Hooven HW, Lagerwerf FM, Heerma W, Haverkamp J, Piard JC, Hilbers CW, Siezen RJ, Kuipers OP, Rollema HS.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8764998"
+            },
+            {
+                "Title": "Cloning, expression, and nucleotide sequence of genes involved in production of lactococcin DR, a bacteriocin from Lactococcus lactis subsp. lactis.",
+                "Pubmed ID": "",
+                "Author": "Bourgeois C.M.,Thuault D.,le Pogam S.,Dufour A.,Rince A."
+            },
+            {
+                "Title": "The structure of the lantibiotic lacticin 481 produced by Lactococcus lactis: location of the thioether bridges.",
+                "Pubmed ID": "",
+                "Author": "Piard J.-C.,Haverkamp J.,Heerma W.,Lagerwerf F.M.,van den Hooven H.W."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

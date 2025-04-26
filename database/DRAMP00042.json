@@ -1,0 +1,77 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [
+        {
+            "Patent No": "US 2023/0416797 A1",
+            "Patent Link": "http://www.lens.org/lens/patent/US_2023_0416797_A1",
+            "Patent Type": "Patent Application",
+            "Publication Date": "2023-12-28",
+            "Family Info": "JP2023548477A,EP4243844A1,CN116685204A,WO2022104321A1",
+            "Patent Title": "MODULATING ANTIMICROBIAL PEPTIDE HALF-LIFE",
+            "Abstract": "Methods of modulating the half-life of an antimicrobial peptide are described. The method may include administering an antimicrobial peptide to an environment where the antimicrobial peptide remains active until a specified endpoint, and on or after the specified endpoint, digesting the antimicrobial peptide with a protease to thereby inactivate the antimicrobial peptide and modulate its half-life. Compositions and kits for modulating the half-life of an antimicrobial peptide are also described."
+        }
+    ],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00042",
+        "Peptide Name": "Bacteriocin mutacin B-Ny266 (Preclinical)",
+        "Source": "Streptococcus mutans Ny266 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "FKSWSFCTPGCAKTGSFNSYCC",
+        "Sequence Length": "22",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P80666"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacterium:Micrococcus luteus ATCC 272.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Cell membrane",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00042.",
+        "Formula": "C107H150N26O31S4",
+        "Absent Amino Acids": "DEHILMQRV",
+        "Common Amino Acids": "CS",
+        "Mass": "2424.76",
+        "PI": "8.52",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "5",
+        "Net Charge": "+2",
+        "Boman Index": "-16.54",
+        "Hydrophobicity": "-0.014",
+        "Aliphatic Index": "4.55",
+        "Half Life": "Mammalian:1.1 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "7240",
+        "Absorbance 280nm": "344.76",
+        "Polar Residues": "14",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "There are one dihydroalanines (Dha)",
+        "Literature": [
+            {
+                "Title": "Purification and structure of mutacin B-Ny266 a new lantibiotic produced by Streptococcus mutans.",
+                "Pubmed ID": "9237644",
+                "Reference": "FEBS Lett. 1997 Jun 30;410(2-3)275-279.",
+                "Author": "Mota-Meira M, Lacroix C, LaPointe G, Lavoie MC.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=9237644"
+            },
+            {
+                "Title": "Purification and structure of mutacin B-Ny266: a new lantibiotic produced by Streptococcus mutans.",
+                "Pubmed ID": "",
+                "Author": "Lavoie M.C.,Lapointe G.,Lacroix C.,Mota-Meira M."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

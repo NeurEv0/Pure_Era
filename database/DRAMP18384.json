@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP18384",
+        "Peptide Name": "sOT2 (reptiles; animals)",
+        "Source": "Chinese softshell turtle, Pelodiscus sinensis",
+        "Family": "Not found",
+        "Gene": "Not found",
+        "Sequence": "KKSCHTGLDRSAGWVIPIGTLVKKAILPWDRK",
+        "Sequence Length": "32",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "Active against E. coli ATCC 25922 (MIC 28 uM), V. cholerae (MIC 7 uM), Gram+ B. megaterium (MIC 7 uM) and B. pumilus TISTR 905 (MIC 7 uM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Helix",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP18384.",
+        "Formula": "C163H269N47O41S",
+        "Absent Amino Acids": "EFMNQY",
+        "Common Amino Acids": "K",
+        "Mass": "3575.28",
+        "PI": "10.19",
+        "Basic Residues": "8",
+        "Acidic Residues": "2",
+        "Hydrophobic Residues": "12",
+        "Net Charge": "+6",
+        "Boman Index": "-4165",
+        "Hydrophobicity": "-0.266",
+        "Aliphatic Index": "97.5",
+        "Half Life": "Mammalian:1.3 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "11000",
+        "Absorbance 280nm": "354.84",
+        "Polar Residues": "8",
+        "Comment": "No comments found on DRAMP database",
+        "Literature": [
+            {
+                "Title": "Antimicrobial effects of novel peptides cOT2 and sOT2 derived from Crocodylus siamensis and Pelodiscus sinensis ovotransferrins",
+                "Pubmed ID": "28159460",
+                "Reference": "Biochim Biophys Acta Biomembr. 2017 May;1859(5)860-869.",
+                "Author": "Prajanban BO, Jangpromma N, Araki T, Klaynongsruang S",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=28159460"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00054",
+        "Peptide Name": "Nisin Q (Bacteriocin)",
+        "Source": "Lactococcus lactis 61-14 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "nisQ",
+        "Sequence": "ITSISLCTPGCKTGVLMGCNLKTATCNCSVHVSK",
+        "Sequence Length": "34",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:LAB, Bacillus sp, Listeria sp, Micrococcus sp.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two dehydroalanines (S5; S33), one dehydrobutyrine (T2), which form one lanthionine (S3-C7) and four β-methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00054.",
+        "Formula": "C143H249N41O46S6",
+        "Absent Amino Acids": "DEFQRWY",
+        "Common Amino Acids": "CT",
+        "Mass": "3471.16",
+        "PI": "8.78",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+4",
+        "Boman Index": "-10.94",
+        "Hydrophobicity": "0.524",
+        "Aliphatic Index": "85.88",
+        "Half Life": "Mammalian:20 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "250",
+        "Absorbance 280nm": "7.58",
+        "Polar Residues": "19",
+        "Function": "defense response to Gram-positive bacteria.",
+        "Literature": [
+            {
+                "Title": "Identification of the lantibiotic nisin Q, a new natural nisin variant produced by Lactococcus lactis 61-14 isolated from a river in Japan.",
+                "Pubmed ID": "12913315",
+                "Reference": "Biosci Biotechnol Biochem. 2003 Jul;67(7)1616-1619.",
+                "Author": "Zendo T, Fukao M, Ueda K, Higuchi T, Nakayama J, Sonomoto K.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=12913315"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

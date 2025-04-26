@@ -1,0 +1,66 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00051",
+        "Peptide Name": "Mutacin I (Bacteriocin)",
+        "Source": "Streptococcus mutans CH43); also Streptococcus mutans UA140 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "FSSLSLCSLGCTGVKNPSFNSYCC",
+        "Sequence Length": "24",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Staphylococcus aureus, Staphylococcus epidermidis, enterococci, pneumococci, group A streptococci.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00051.",
+        "Formula": "C107H165N27O35S4",
+        "Absent Amino Acids": "ADEHIMQRW",
+        "Common Amino Acids": "S",
+        "Mass": "2517.89",
+        "PI": "7.88",
+        "Basic Residues": "1",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "6",
+        "Net Charge": "+1",
+        "Boman Index": "-10.18",
+        "Hydrophobicity": "0.463",
+        "Aliphatic Index": "60.83",
+        "Half Life": "Mammalian:1.1 hourYeast:3 minE.coli:2 min",
+        "Extinction Coefficient Cystines": "1740",
+        "Absorbance 280nm": "75.65",
+        "Polar Residues": "16",
+        "Comment": "No comments found on DRAMP database",
+        "Literature": [
+            {
+                "Title": "Purification and biochemical characterization of mutacin I from the group I strain of Streptococcus mutans, CH43, and genetic analysis of mutacin I biosynthesis genes.",
+                "Pubmed ID": "10919773",
+                "Reference": "Appl Environ Microbiol. 2000 Aug;66(8)3221-3229.",
+                "Author": "Qi F, Chen P, Caufield PW.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10919773"
+            },
+            {
+                "Title": "The group I strain of Streptococcus mutans, UA140, produces both the lantibiotic mutacin I and a nonlantibiotic bacteriocin, mutacin IV.",
+                "Pubmed ID": "11133423",
+                "Reference": "Appl Environ Microbiol. 2001 Jan;67(1)15-21.",
+                "Author": "Qi F, Chen P, Caufield PW.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=11133423"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

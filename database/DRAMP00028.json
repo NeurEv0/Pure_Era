@@ -1,0 +1,70 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00028",
+        "Peptide Name": "Lantibiotic epidermin (Bacteriocin)",
+        "Source": "Staphylococcus epidermidis TU 3298 / DSM 3095 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "epiA",
+        "Sequence": "IASKFICTPGCAKTGSFNSYCC",
+        "Sequence Length": "22",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P08136",
+            "http://www.uniprot.org/uniprot/Q54093"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "No MICs found in DRAMP database",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00028.",
+        "Formula": "C99H153N25O30S4",
+        "Absent Amino Acids": "DEHLMQRVW",
+        "Common Amino Acids": "C",
+        "Mass": "2301.69",
+        "PI": "8.52",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "6",
+        "Net Charge": "+2",
+        "Boman Index": "-6.8",
+        "Hydrophobicity": "0.427",
+        "Aliphatic Index": "44.55",
+        "Half Life": "Mammalian:20 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1740",
+        "Absorbance 280nm": "82.86",
+        "Polar Residues": "13",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "There are one didehydrobutyrine (T14), two lanthionines (S3-C7; S16-C21) and one Beta-methyllanthionine (T8-C11) and one S-(2-aminovinyl)-D-cysteine (S19-C22).",
+        "Literature": [
+            {
+                "Title": "Prepeptide sequence of epidermin, a ribosomally synthesized antibiotic with four sulphide-rings.",
+                "Pubmed ID": "2835685",
+                "Reference": "Nature. 1988 May 19;333(6170)276-268.",
+                "Author": "Schnell N, Entian KD, Schneider U, Götz F, Zähner H, Kellner R, Jung G.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=2835685"
+            },
+            {
+                "Title": "Epidermin sequencing of a heterodetic tetracyclic 21-peptide amide antibiotic.",
+                "Pubmed ID": "3769923",
+                "Reference": "Eur J Biochem. 1986 Oct 1;160(1)9-22.",
+                "Author": "Allgaier H, Jung G, Werner RG, Schneider U, Zähner H.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=3769923"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

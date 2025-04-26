@@ -1,0 +1,61 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP30797",
+        "Peptide Name": "P25(derived from HCV polyprotein)",
+        "Source": "Synthetic construct(derived from Hepatitis C virus(HCV) polyprotein)",
+        "Family": "Flaviviridae",
+        "Gene": "Not found",
+        "Sequence": "ADLEVVAATYVDVD",
+        "Sequence Length": "14",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P26662"
+        ],
+        "Protein Existence": "Not found",
+        "Biological Activity": [
+            "Antimicrobial, Antiviral"
+        ],
+        "Target Organism": "[Ref.14694985]Hepatitis C virus(HCV):inhibition of activation of NS3-6K protease(50 nM)(19% inhibition at 3 µM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "NS3 protease",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "None",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP30797.",
+        "Formula": "C65H102N14O25",
+        "Absent Amino Acids": "CFGHIKMNPQRSW",
+        "Common Amino Acids": "V",
+        "Mass": "1479.6",
+        "PI": "3.37",
+        "Basic Residues": "0",
+        "Acidic Residues": "4",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "-4",
+        "Boman Index": "-917",
+        "Hydrophobicity": "0.714",
+        "Aliphatic Index": "132.14",
+        "Half Life": "Mammalian:4.4 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "1490",
+        "Absorbance 280nm": "114.62",
+        "Polar Residues": "2",
+        "Mechanism": "HCV NS3 protease is essential for the processing of HCV polyprotein, this protease is a target of choice to control HCV replication. The peptide was demonstrated that can indeed block the activity of NS3 and thus inhibit HCV replication",
+        "Literature": [
+            {
+                "Title": "Peptide inhibitors of hepatitis C virus NS3 protease.",
+                "Pubmed ID": "14694985",
+                "Reference": "Antivir Chem Chemother. 2003 Sep;14(5)225-33.",
+                "Author": "Portal-Núñez S, González-Navarro CJ, García-Delgado M, Vizmanos JL, Lasarte JJ, Borrás-Cuesta F.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=14694985"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

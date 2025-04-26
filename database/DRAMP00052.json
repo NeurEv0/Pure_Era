@@ -1,0 +1,110 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00052",
+        "Peptide Name": "Mutacin-2 (Mutacin II mutacin H-29B; Bacteriocin)",
+        "Source": "Streptococcus mutans (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "mutA",
+        "Sequence": "NRWWQGVVPTVSYECRMNSWQHVFTCC",
+        "Sequence Length": "27",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/O54329",
+            "http://www.uniprot.org/uniprot/P84110"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-"
+        ],
+        "Target Organism": "Gram-positive bacteria:Micrococcus luteus, Staphylococcus aureus, Peptostreptococcus micros, Pediococcus acidilactici, Clostridium sporogenes, Corynebacterium diphtheriae, Actinomyces viscosus, Gardnerella vaginalis, Propionibacterium acnes, Listeria monocytogenes, Mycobacterium smegmatis.Gram-negative bacteria:Campylobacter jejuni, Helicobacter pylori, Neisseria gonorrhoeae.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Rich",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "",
+        "Formula": "C147H210N42O39S4",
+        "Absent Amino Acids": "ADIKL",
+        "Common Amino Acids": "V",
+        "Mass": "3317.78",
+        "PI": "7.97",
+        "Basic Residues": "3",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "8",
+        "Net Charge": "+2",
+        "Boman Index": "-44.49",
+        "Hydrophobicity": "-0.359",
+        "Aliphatic Index": "42.96",
+        "Half Life": "Mammalian:1.4 hourYeast:3 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "18115",
+        "Absorbance 280nm": "696.73",
+        "Polar Residues": "11",
+        "Function": "Mutacin-2 inhibits other mutans streptococci as well as many gram-positive exogenous pathogens. Transiently and partially depolarizes the transmembrane electrical potential and pH gradient of susceptible cells, inhibits the uptake of amino acids and depletes the intracellular ATP pool.",
+        "Biophysicochemical properties": "pH dependence (Stable from pH 4.0 to 10.0); Temperature dependence (Thermostable).",
+        "PTM": "There are one didehydrobutyrine (T25), two lanthionines (S12-C26; S19-C27) and one Beta-methyllanthionine (T10-C15).",
+        "Literature": [
+            {
+                "Title": "Biochemical structural analysis of the lantibiotic mutacin II.",
+                "Pubmed ID": "10821848",
+                "Reference": "J Biol Chem. 2000 May 26;275(21)15845-15850.",
+                "Author": "Krull RE, Chen P, Novak J, Kirk M, Barnes S, Baker J, Krishna NR, Caufield PW.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=10821848"
+            },
+            {
+                "Title": "Mutacin II, a bactericidal antibiotic from Streptococcus mutans.",
+                "Pubmed ID": "8592997",
+                "Reference": "Antimicrob Agents Chemother. 1995 Dec;39(12)2656-2660.",
+                "Author": "Chikindas ML, Nov¡k J, Driessen AJ, Konings WN, Schilling KM, Caufield PW.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8592997"
+            },
+            {
+                "Title": "Mutacin H-29B is identical to mutacin II (J-T8).",
+                "Pubmed ID": "16626493",
+                "Reference": "BMC Microbiol. 2006 Apr 20;636.",
+                "Author": "Nicolas G, Morency H, LaPointe G, Lavoie MC.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=16626493"
+            },
+            {
+                "Title": "Isolation and biochemical characterization of a novel lantibiotic mutacin from Streptococcus mutans.",
+                "Pubmed ID": "8021218",
+                "Reference": "J Bacteriol. 1994 Jul;176(14)4316-4320.",
+                "Author": "Nov¡k J, Caufield PW, Miller EJ.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=8021218"
+            },
+            {
+                "Title": "Sequence analysis of mutA and mutM genes involved in the biosynthesis of the lantibiotic mutacin II in Streptococcus mutans.",
+                "Pubmed ID": "",
+                "Author": "Caufield P.W.,Novak J.,Woodruff W.A."
+            },
+            {
+                "Title": "Structure-activity study of the lantibiotic mutacin II from Streptococcus mutans T8 by a gene replacement strategy.",
+                "Pubmed ID": "",
+                "Author": "Qi F.,Barnes S.,Kirk M.,Novak J.,Chen P."
+            },
+            {
+                "Title": "Mutacin II, a bactericidal lantibiotic from Streptococcus mutans.",
+                "Pubmed ID": "",
+                "Author": "Schilling K.M.,Konings W.N.,Driessen A.J.M.,Novak J.,Chikindas M.L."
+            },
+            {
+                "Title": "Detection of modified amino acids in lantibiotic peptide mutacin II by chemical derivation and electrospray ionization-mass spectroscopic analysis.",
+                "Pubmed ID": "",
+                "Author": "Morrison K.,Barnes S.,Caufield P.W.,Kirk M.,Novak J."
+            },
+            {
+                "Title": "Effect of amino acid substitutions in conserved residues in the leader peptide on biosynthesis of the lantibiotic mutacin II.",
+                "Pubmed ID": "",
+                "Author": "Caufield P.W.,Krull R.E.,Novak J.,Qi F.,Chen P."
+            }
+        ],
+        "3D_Structures": []
+    }
+}

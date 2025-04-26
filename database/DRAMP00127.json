@@ -1,0 +1,106 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00127",
+        "Peptide Name": "Plantaricin F (PlnF; Bacteriocin)",
+        "Source": "Lactobacillus plantarum (Gram-positive bacteria)",
+        "Family": "Belongs to the class IIb bacteriocin",
+        "Gene": "plnF",
+        "Sequence": "VFHAYSARGVRNNYKSAVGPADWVISAVRGFIHG",
+        "Sequence Length": "34",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P71469",
+            "http://www.uniprot.org/uniprot/Q7AKV8"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Pediococcus pentosaceus Pac 1.0 (MIC=5 nM), Lactobacillus plantarum 965 (MIC=7 nM), Lactobacillus casei subsp.casei NCDO 161 (MIC=20 nM), Lactobacillus casei NCDO 2713 (MIC=150 nM), Lactobacillus sakei NCDO 2714 (MIC=4 nM), Lactobacillus viridescens NCDO 1655 (MIC=2 nM), Pediococcus pentosaceus NCDO 990 (MIC=30 nM), Lactobacillus sakei 706 (MIC=100 nM), Pediococcus acidilactici CH (MIC=10 nM), Lactobacillus curvatus 89 (MIC=5 nM). [PlnE:PlnF=1:1]",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There is a possible hydrogen bond/salt bridge between Asn12/Asn13 and Asp22",
+        "Stereochemistry": "L",
+        "Structure": "Alpha helix (1 helices; 26 residues)",
+        "Structure Description": "In DPC micelles, PlnF has a long central alpha-helix (residues 7-32) with a kink of 38+/-7 degrees at Pro20. There is some flexibility in the helix in the kink region. The helix in plnF is polar in its N-terminal half and amphiphilic in its C-terminal half. plnF has one such motif at residues 30 to 34. The helix in plnF is polar in its N-terminal half and amphiphilic in its C-terminal half. PlnF has one GxxxG motif at residues 30 to 34.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "2RLWresolved  by NMR.",
+        "Predicted Structure": "There is no predicted structure for DRAMP00127.",
+        "Formula": "C169H253N51O44",
+        "Absent Amino Acids": "CELMQT",
+        "Common Amino Acids": "AV",
+        "Mass": "3703.18",
+        "PI": "10.27",
+        "Basic Residues": "6",
+        "Acidic Residues": "1",
+        "Hydrophobic Residues": "15",
+        "Net Charge": "+5",
+        "Boman Index": "-40.97",
+        "Hydrophobicity": "0.035",
+        "Aliphatic Index": "80.29",
+        "Half Life": "Mammalian:100 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "8480",
+        "Absorbance 280nm": "256.97",
+        "Polar Residues": "11",
+        "Function": "A strain-specific antagonistic activity was detected at nanomolar concentrations when PlnE and PlnF were combined. Complementary peptides were at least 103 times more active when they were combined than when they were present individually, and optimal activity was obtained when the complementary peptides were present in approximately equal amounts.",
+        "Literature": [
+            {
+                "Title": "The gene encoding plantaricin A, a bacteriocin from Lactobacillus plantarum C11, is located on the same transcription unit as an agr-like regulatory system.",
+                "Pubmed ID": "9603847",
+                "Reference": "Appl Environ Microbiol. 1994 Jan;60(1)160-166.",
+                "Author": "Diep DB, Håvarstein LS, Nissen-Meyer J, Nes IF.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=9603847"
+            },
+            {
+                "Title": "Antagonistic activity of Lactobacillus plantarum C11 two new two-peptide bacteriocins, plantaricins EF and JK, and the induction factor plantaricin A.",
+                "Pubmed ID": "19538999",
+                "Reference": "Appl Environ Microbiol. 1998 Jun;64(6)2269-2272.",
+                "Author": "Anderssen EL, Diep DB, Nes IF, Eijsink VG, Nissen-Meyer J.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=19538999"
+            },
+            {
+                "Title": "Three-dimensional structure of the two peptides that constitute the two-peptide bacteriocin plantaricin EF.",
+                "Pubmed ID": "18555030",
+                "Reference": "",
+                "Author": "Fimland N, Rogne P, Fimland G, Nissen-Meyer J, Kristiansen P.E.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=18555030"
+            },
+            {
+                "Title": "A bacteriocin-like peptide induces bacteriocin synthesis in Lactobacillus plantarum C11.",
+                "Pubmed ID": "",
+                "Author": "Nes I.F.,Haavarstein S.L.,Diep D.B."
+            },
+            {
+                "Title": "Characterization of the locus responsible for the bacteriocin production in Lactobacillus plantarum C11.",
+                "Pubmed ID": "",
+                "Author": "Nes I.F.,Havarstein L.S.,Diep D.B."
+            },
+            {
+                "Title": "Induction of plantaricin production in Lactobacillus plantarum NC8 after coculture with specific gram-positive bacteria is mediated by an autoinduction mechanism.",
+                "Pubmed ID": "R2004J0689",
+                "Author": "Ruiz-Barba J.L.,Jimenez-Diaz R.,Maldonado A."
+            },
+            {
+                "Title": "Characterization of a new organization of the plantaricin locus in the inducible bacteriocin-producing Lactobacillus plantarum J23 of grape must origin.",
+                "Pubmed ID": "R2008J0274",
+                "Author": "Zarazaga M.,Jimenez-Diaz R.,Navarro L.,Saenz Y.,Rojo-Bezares B."
+            },
+            {
+                "Title": "Comparative study of the pln locus of the quorum-sensing regulated bacteriocin-producing L. plantarum J51 strain.",
+                "Pubmed ID": "R2008J0369",
+                "Author": "Zarazaga M.,Diez L.,Saenz Y.,Rojo-Bezares B.,Navarro L."
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "2RLW",
+                "3d_structure_url": "https://www.rcsb.org/structure/2RLW"
+            }
+        ]
+    }
+}

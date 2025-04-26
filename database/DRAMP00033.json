@@ -1,0 +1,67 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00033",
+        "Peptide Name": "Lantibiotic epilancin 15X (Bacteriocin)",
+        "Source": "Staphylococcus epidermidis 15X154 (Gram-positive bacteria)",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "Not found",
+        "Sequence": "ASIVKTTIKASKKLCRGFTLTCGCHFTGKK",
+        "Sequence Length": "30",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/P86047"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:resistant bacterial strains Staphylococcus aureus (MRSA) and VRE.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "Not included yet",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Not included yet",
+        "N-terminal Modification": "Not included yet",
+        "C-terminal Modification": "Not included yet",
+        "Nonterminal Modifications and Unusual Amino Acids": "Not included yet",
+        "Stereochemistry": "Not included yet",
+        "Structure": "Non helix or strand structure",
+        "Structure Description": "The molecule contains ten post-translationally modified amino acids, three lanthionine ring structures and a hydroxy-propionyl N-terminal moiety.",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "1W9Nresolved  by NMR.",
+        "Predicted Structure": "There is no predicted structure for DRAMP00033.",
+        "Formula": "C142H243N41O38S3",
+        "Absent Amino Acids": "DEMNPQWY",
+        "Common Amino Acids": "K",
+        "Mass": "3228.92",
+        "PI": "10.07",
+        "Basic Residues": "8",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+8",
+        "Boman Index": "-32.57",
+        "Hydrophobicity": "0.003",
+        "Aliphatic Index": "68.33",
+        "Half Life": "Mammalian:4.4 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "125",
+        "Absorbance 280nm": "4.31",
+        "Polar Residues": "13",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria",
+        "PTM": "There are one Lactic acid (S1), one 2,3-didehydroalanine (S3) and three 2,3-dehydrobutyrines (T7; T8; T28); also one Lanthionine (S12-C16) and two Beta-methyllanthionines (T20-C23; T22-C25).",
+        "Literature": [
+            {
+                "Title": "Isolation and structural characterization of epilancin 15X, a novel lantibiotic from a clinical strain of Staphylococcus epidermidis.",
+                "Pubmed ID": "15792796",
+                "Reference": "FEBS Lett. 2005 Mar 28;579(9)1917-1922.",
+                "Author": "Ekkelenkamp MB, Hanssen M, Danny Hsu ST, de Jong A, Milatovic D, Verhoef J, van Nuland NA.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=15792796"
+            }
+        ],
+        "3D_Structures": [
+            {
+                "pdb_id": "1W9N",
+                "3d_structure_url": "https://www.rcsb.org/structure/1W9N"
+            }
+        ]
+    }
+}

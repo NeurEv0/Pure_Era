@@ -1,0 +1,59 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP18389",
+        "Peptide Name": "VK12 (histone derived; animals)",
+        "Source": "blood plasma, Komodo dragon, Varanus komodoensis",
+        "Family": "Not found",
+        "Gene": "Not found",
+        "Sequence": "AKKPVAKKAAGGVKKPKK",
+        "Sequence Length": "18",
+        "UniProt Entry": "No entry found",
+        "Protein Existence": "",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial"
+        ],
+        "Target Organism": "Active against P. eruginosa ATCC9027 (EC50 0.7 uM) and S. aureus ATCC 25923 (EC50 0.8 uM).",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP18389.",
+        "Formula": "C84H156N26O19",
+        "Absent Amino Acids": "CDEFHILMNQRSTWY",
+        "Common Amino Acids": "K",
+        "Mass": "1834.33",
+        "PI": "10.85",
+        "Basic Residues": "8",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "6",
+        "Net Charge": "+8",
+        "Boman Index": "-2720",
+        "Hydrophobicity": "-1.089",
+        "Aliphatic Index": "54.44",
+        "Half Life": "Mammalian:4.4 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "0",
+        "Absorbance 280nm": "0",
+        "Polar Residues": "2",
+        "Comment": "No comments found on DRAMP database",
+        "Literature": [
+            {
+                "Title": "Discovery of Novel Antimicrobial Peptides from Varanus komodoensis (Komodo dragon) by Large Scale Analyses and De Novo-Assisted Sequencing using Electron Transfer Dissociation Mass Spectrometry",
+                "Pubmed ID": "28164707",
+                "Reference": "J Proteome Res. 2017 Apr 7;16(4)1470-1482.",
+                "Author": "Bishop BM, Juba ML, Russo PS, Devine M, Barksdale SM, Scott S, Settlage R, Michalak P, Gupta K, Vliet K, Schnur JM, van Hoek ML",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=28164707"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP01787",
+        "Peptide Name": "Temporin-HN1 (Frogs, amphibians, animals)",
+        "Source": "Odorrana hainanensis (Hainan odorous frog)",
+        "Family": "Belongs to the frog skin active peptide family (Brevinin subfamily)",
+        "Gene": "Not found",
+        "Sequence": "AILTTLANWARKFL",
+        "Sequence Length": "14",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/E7EKD0"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+, Anti-Gram-, Antifungal"
+        ],
+        "Target Organism": "[Ref.22450466]Gram-positive bacteria:Staphylococcus aureus ATCC2592 (MIC=37.5 µM), Staphylococcus carnosus KHS (MIC=37.5 µM), Bacillus licheniformis X39 (MIC=19 µM), Rhodococcus rhodochrous X15 (MIC=4.8 µM);Gram-negative bacteria:Psychrobacter faecalis X29 (MIC=75 µM);Fungi:Slime mould 090223 (MIC=19 µM), Candida albicans ATCC2002 (MIC=75 µM).",
+        "Hemolytic Activity": "[Ref:22450466]IC50=75 µM against washed human erythrocytes",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Not found",
+        "Linear/Cyclic": "Linear",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Amidation",
+        "Nonterminal Modifications and Unusual Amino Acids": "Free",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP01787.",
+        "Formula": "C77H124N20O18",
+        "Absent Amino Acids": "CDEGHMPQSVY",
+        "Common Amino Acids": "AL",
+        "Mass": "1617.95",
+        "PI": "11",
+        "Basic Residues": "2",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "9",
+        "Net Charge": "+2",
+        "Boman Index": "-1.83",
+        "Hydrophobicity": "0.707",
+        "Aliphatic Index": "132.86",
+        "Half Life": "Mammalian:4.4 hourYeast:>20 hourE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "5500",
+        "Absorbance 280nm": "423.08",
+        "Polar Residues": "3",
+        "Function": "Has hemolytic activity against washed human erythrocytes (IC50=75 µM).",
+        "Literature": [
+            {
+                "Title": "Novel antimicrobial peptides isolated from the skin secretions of Hainan odorous frog, Odorrana hainanensis.",
+                "Pubmed ID": "22450466",
+                "Reference": "Peptides. 2012 Jun;35(2)285-290.",
+                "Author": "Wang H, Yu Z, Hu Y, Li F, Liu L, Zheng H, Meng H, Yang S, Yang X, Liu J.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=22450466"
+            }
+        ],
+        "3D_Structures": []
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "Clinical Information": [],
+    "Patent Information": [],
+    "Sequence Information": {
+        "DRAMP ID": "DRAMP00038",
+        "Peptide Name": "Nisin U (Bacteriocin)",
+        "Source": "Lactococcus uberis ATCC 27958",
+        "Family": "Belongs to the type A lantibiotic family (Class I bacteriocin)",
+        "Gene": "nsuA",
+        "Sequence": "ITSKSLCTPGCKTGILMTCPLKTATCGCHFG",
+        "Sequence Length": "31",
+        "UniProt Entry": [
+            "http://www.uniprot.org/uniprot/Q2QBT0"
+        ],
+        "Protein Existence": "Protein level",
+        "Biological Activity": [
+            "Antimicrobial, Antibacterial, Anti-Gram+"
+        ],
+        "Target Organism": "Gram-positive bacteria:Streptococcus pyogenes, Streptococcus uberis, Streptococcus agalactiae, Streptococcus dysgalactiae, Staphylococcus simulans, Staphylococcus cohnii, Lactococcus lactis, Lactobacillus acidophilus, Streptococcus mitis.",
+        "Hemolytic Activity": "No hemolysis information or data found in the reference(s) presented in this entry",
+        "Cytotoxicity": "No cytotoxicity information found in the reference(s) presented",
+        "Binding Target": "Lipid II",
+        "Linear/Cyclic": "Cyclic",
+        "N-terminal Modification": "Free",
+        "C-terminal Modification": "Free",
+        "Nonterminal Modifications and Unusual Amino Acids": "There are two dihydroalanines (Dha)(S5; T18), one didehydrobutyrine (Dhb)(T2), one lanthionine (S3-C7) and four methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Stereochemistry": "L",
+        "Structure": "Not found",
+        "Structure Description": "Not found",
+        "Helical Wheel Diagram": "",
+        "PDB ID": "None",
+        "Predicted Structure": "There is no predicted structure for DRAMP00038.",
+        "Formula": "C134H226N36O40S6",
+        "Absent Amino Acids": "DENQRVWY",
+        "Common Amino Acids": "T",
+        "Mass": "3173.85",
+        "PI": "8.78",
+        "Basic Residues": "4",
+        "Acidic Residues": "0",
+        "Hydrophobic Residues": "7",
+        "Net Charge": "+4",
+        "Boman Index": "-1.63",
+        "Hydrophobicity": "0.448",
+        "Aliphatic Index": "66.13",
+        "Half Life": "Mammalian:20 hourYeast:30 minE.coli:>10 hour",
+        "Extinction Coefficient Cystines": "250",
+        "Absorbance 280nm": "8.33",
+        "Polar Residues": "17",
+        "Function": "Lanthionine-containing peptide antibiotic (lantibiotic) active on Gram-positive bacteria. The bactericidal activity of lantibiotics is based on depolarization of energized bacterial cytoplasmic membranes, initiated by the formation of aqueous transmembrane pores.",
+        "PTM": "There are two dihydroalanines (Dha)(S5; T18), one didehydrobutyrine (Dhb)(T2), one lanthionine (S3-C7) and four methyllanthionines (T8-C11; T13-C19; T23-C26; T25-C28).",
+        "Biotechnological use": "Used as a food preservative.",
+        "Literature": [
+            {
+                "Title": "Molecular and genetic characterization of a novel nisin variant produced by Streptococcus uberis.",
+                "Pubmed ID": "16461661",
+                "Reference": "Appl Environ Microbiol. 2006 Feb;72(2)1148-1156.",
+                "Author": "Wirawan RE, Klesse NA, Jack RW, Tagg JR.",
+                "URL": "http://www.ncbi.nlm.nih.gov/pubmed/?term=16461661"
+            }
+        ],
+        "3D_Structures": []
+    }
+}
