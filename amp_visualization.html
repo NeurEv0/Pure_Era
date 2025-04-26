@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE AMP Visualization</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="shortcut icon" href="./icon/favicon.ico">
+    <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 页面特定样式 */
+        body.visualization-page {
+            min-height: 100vh;
+            background: linear-gradient(#2b1055, #7597de);
+            color: #fff;
+        }
+        
+        .main-content {
+            padding-top: 80px;
+        }
+        
+        .back-button-container {
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            z-index: 5;
+            position: relative;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .viz-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        .viz-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .viz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .viz-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #fff;
+            margin: 30px 0;
+            font-size: 2em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .peptide-info {
+            color: #fff;
+        }
+
+        .peptide-info p {
+            margin: 8px 0;
+        }
+
+        .peptide-info strong {
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .sequence-display {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            word-break: break-all;
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #fff;
+            position: relative;
+            padding-right: 40px; /* 为复制按钮留出空间 */
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(117, 151, 222, 0.2);
+            border: 1px solid rgba(117, 151, 222, 0.5);
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            background: rgba(117, 151, 222, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .copy-tooltip {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transform: translateY(5px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-bottom: 5px;
+        }
+        
+        .copy-button.show-tooltip .copy-tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .activity-table th, .activity-table td {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .activity-table th {
+            background: rgba(43, 16, 85, 0.5);
+        }
+
+        .activity-level {
+            display: flex;
+            align-items: center;
+        }
+
+        .activity-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 3px;
+            background-color: #4CAF50;
+        }
+        
+        .mic-value {
+            color: #81D4FA;
+            font-weight: 500;
+        }
+        
+        .no-activity {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        .activity-note {
+            font-style: italic;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .total-score-display {
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .score-label-description {
+            text-align: center;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        /* 评分颜色分类 - 增加更多分级 */
+        .score-excellent {
+            color: #00C853;
+            text-shadow: 0 0 10px rgba(0, 200, 83, 0.5);
+        }
+        
+        .score-good {
+            color: #64DD17;
+            text-shadow: 0 0 10px rgba(100, 221, 23, 0.5);
+        }
+        
+        .score-above-average {
+            color: #AEEA00;
+            text-shadow: 0 0 10px rgba(174, 234, 0, 0.5);
+        }
+        
+        .score-average {
+            color: #FFD600;
+            text-shadow: 0 0 10px rgba(255, 214, 0, 0.5);
+        }
+        
+        .score-below-average {
+            color: #FFAB00;
+            text-shadow: 0 0 10px rgba(255, 171, 0, 0.5);
+        }
+        
+        .score-fair {
+            color: #FF6D00;
+            text-shadow: 0 0 10px rgba(255, 109, 0, 0.5);
+        }
+        
+        .score-poor {
+            color: #FF3D00;
+            text-shadow: 0 0 10px rgba(255, 61, 0, 0.5);
+        }
+        
+        .score-very-poor {
+            color: #DD2C00;
+            text-shadow: 0 0 10px rgba(221, 44, 0, 0.5);
+        }
+
+        /* 生物活性和文献样式 */
+        .bioactivity-list {
+            color: #fff;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .bioactivity-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .empty-info {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .literature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .literature-item {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .lit-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(43, 16, 85, 0.7);
+            color: white;
+            font-weight: bold;
+            min-width: 40px;
+            padding: 0 10px;
+        }
+        
+        .lit-content {
+            padding: 12px 15px;
+            color: #fff;
+            width: 100%;
+        }
+        
+        .lit-authors {
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .lit-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .lit-journal {
+            font-style: italic;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .lit-doi, .lit-pubmed {
+            font-size: 0.8em;
+            margin-top: 3px;
+        }
+        
+        .lit-doi a, .lit-pubmed a {
+            color: #7597de;
+            text-decoration: none;
+        }
+        
+        .lit-doi a:hover, .lit-pubmed a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 文献按钮样式 */
+        .lit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .lit-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: rgba(117, 151, 222, 0.2);
+            border: 1px solid rgba(117, 151, 222, 0.5);
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.85em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        
+        .lit-button:hover {
+            background: rgba(117, 151, 222, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .lit-button i {
+            margin-right: 5px;
+            font-size: 1em;
+        }
+
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .score-label:last-child {
+            border-bottom: none;
+        }
+
+        .score-name {
+            font-weight: 500;
+        }
+
+        .score-value {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 50px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .loading-indicator i {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(255, 99, 71, 0.2);
+            border: 1px solid rgba(255, 99, 71, 0.5);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 700px;
+        }
+
+        .viz-card-full {
+            grid-column: 1 / -1;
+        }
+
+        /* 响应式设计调整 */
+        @media (max-width: 768px) {
+            .viz-container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .page-title {
+                font-size: 1.6em;
+                margin: 20px 0;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+
+        /* 仪表盘指针样式 - 删除 */
+        .gauge-pointer-container {
+            display: none;
+        }
+        
+        .gauge-pointer {
+            display: none;
+        }
+        
+        .gauge-pointer::after {
+            display: none;
+        }
+
+        /* 统计数据样式 */
+        .statistics-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .statistics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .statistics-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .statistics-item h4 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 220px;
+            width: 100%;
+        }
+        
+        .data-source-note {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+        }
+
+        /* 语言选择器相关样式 */
+        .language-selector {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .language-current {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 8px 15px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .language-current i {
+            margin-right: 5px;
+        }
+
+        .language-current:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .language-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(43, 16, 85, 0.9);
+            border-radius: 10px;
+            width: 150px;
+            margin-top: 10px;
+            padding: 10px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector:hover .language-options {
+            display: flex;
+        }
+
+        .language-option {
+            padding: 8px 15px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            text-align: left;
+        }
+
+        .language-option:hover, .language-option.active {
+            background: rgba(117, 151, 222, 0.3);
+        }
+
+        .language-option.active {
+            font-weight: bold;
+        }
+
+        /* 氨基酸频率分析卡片样式 */
+        .amino-freq-container {
+            margin-top: 15px;
+        }
+        
+        /* 确保频率图表始终保持适当高度 */
+        #amino-acid-freq-chart {
+            min-height: 250px;
+        }
+    </style>
+</head>
+<body class="visualization-page">
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="logo.png" style="vertical-align: middle; height: 30px;">
+                SPADE
+            </a>
+            <a href="https://2025.igem.wiki/xjtlu-software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+            <li><a href="amp_visualization.html" class="active">AMP Visualization</a></li>
+            <li><a href="chat.html">Chat</a></li>
+        </ul>
+    </header>
+
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="language-current" id="currentLang">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangText">English</span>
+        </div>
+        <div class="language-options">
+            <a href="#" data-lang="en" class="language-option">English</a>
+            <a href="#" data-lang="zh-Hans" class="language-option">中文 (简体)</a>
+            <a href="#" data-lang="zh-Hant" class="language-option">繁體中文</a>
+            <a href="#" data-lang="ja" class="language-option">日本語</a>
+            <a href="#" data-lang="ko" class="language-option">한국어</a>
+            <a href="#" data-lang="fr" class="language-option">Français</a>
+            <a href="#" data-lang="de" class="language-option">Deutsch</a>
+            <a href="#" data-lang="es" class="language-option">Español</a>
+            <a href="#" data-lang="ru" class="language-option">Русский</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="back-button-container">
+            <button class="back-button" onclick="window.location.href='search.html';">
+                <i class="fas fa-arrow-left"></i>
+                <span class="back-button-text">返回搜索</span>
+            </button>
+        </div>
+        <h1 id="peptideTitle" class="page-title">AMP Visualization</h1>
+        
+        <div id="viz-container" class="viz-container">
+            <!-- 动态内容将在这里生成 -->
+            <div class="loading-indicator">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading visualization data...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 辅助函数：在嵌套对象/数组中查找值 ---
+        function findValueInObject(data, targetKey) {
+            "use strict";
+            if (typeof data !== 'object' || data === null) {
+                return null;
+            }
+        
+            if (data.hasOwnProperty(targetKey)) {
+                return data[targetKey];
+            }
+        
+            if (Array.isArray(data)) {
+                for (const item of data) {
+                    const found = findValueInObject(item, targetKey);
+                    if (found !== null && found !== undefined) {
+                        return found;
+                    }
+                }
+            } else { // 是对象
+                for (const key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        const found = findValueInObject(data[key], targetKey);
+                        if (found !== null && found !== undefined) {
+                            return found;
+                        }
+                    }
+                }
+            }
+        
+            return null; // 未找到键
+        }
+        // --- 结束辅助函数 ---
+
+        // --- 核心功能：获取 ID 和加载数据 ---
+        function getPeptideIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id') || null;
+        }
+
+        // 加载肽数据
+        async function loadPeptideData(peptideId) {
+            if (!peptideId) {
+                const message = getLocalizedText('No peptide ID provided. Please specify a peptide ID in the URL.');
+                return showError(message, true);
+            }
+
+            try {
+                const dataUrl = `result/scored_${peptideId}.json`;
+                const response = await fetch(dataUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load data for ${peptideId}: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                renderVisualization(data);
+            } catch (error) {
+                console.error('Data loading error:', error);
+                const message = getLocalizedText('Error loading data') + ': ' + error.message;
+                showError(message);
+            }
+        }
+
+        // 获取当前语言的本地化文本
+        function getLocalizedText(textKey) {
+            const lang = document.documentElement.lang || 'en';
+            const translations = getTranslations(lang);
+            return translations[textKey] || textKey;
+        }
+
+        // 显示错误信息
+        function showError(message, isWarning = false) {
+            const container = document.getElementById('viz-container');
+            container.innerHTML = '';
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.backgroundColor = isWarning ? 'rgba(255, 193, 7, 0.2)' : 'rgba(255, 99, 71, 0.2)';
+            errorDiv.style.borderColor = isWarning ? 'rgba(255, 193, 7, 0.5)' : 'rgba(255, 99, 71, 0.5)';
+            
+            errorDiv.innerHTML = `
+                <i class="fas fa-${isWarning ? 'exclamation-triangle' : 'times-circle'}" 
+                   style="font-size: 2em; margin-bottom: 10px; display: block;"></i>
+                <p>${message}</p>
+                ${!isWarning ? '<p>' + getLocalizedText('Please check the ID and try again.') + '</p>' : ''}
+            `;
+            
+            container.appendChild(errorDiv);
+            document.getElementById('peptideTitle').textContent = isWarning ? 
+                getLocalizedText('Warning') : getLocalizedText('Error Loading Data');
+        }
+        
+        // --- 多语言支持 ---
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+        
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+        
+        // 切换语言
+        function changeLanguage(newLang) {
+            if (newLang === document.documentElement.lang) return;
+            
+            // 保存语言偏好
+            saveLanguagePreference(newLang);
+            document.documentElement.lang = newLang;
+            
+            // 高亮当前语言选项
+            document.querySelectorAll('.language-option').forEach(option => {
+                if (option.getAttribute('data-lang') === newLang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // 更新语言显示
+            const currentLangText = document.getElementById('currentLangText');
+            if (currentLangText) {
+                currentLangText.textContent = getLanguageDisplayName(newLang);
+            }
+            
+            // 刷新界面文本
+            updatePageTexts();
+            
+            // 更新界面组件
+            updateUIComponents();
+        }
+        
+        // 更新页面文本
+        function updatePageTexts() {
+            const lang = document.documentElement.lang;
+            const translations = getTranslations(lang);
+            
+            // 标题和导航
+            document.title = 'PURE-ERA ' + (translations['AMP Visualization'] || 'AMP Visualization');
+            
+            // 更新导航菜单
+            const navItems = {
+                'Home': translations['Home'] || 'Home',
+                'Search': translations['Search'] || 'Search',
+                'Tools': translations['Tools'] || 'Tools',
+                'Statistics': translations['Statistics'] || 'Statistics',
+                'AMP Visualization': translations['AMP Visualization'] || 'AMP Visualization'
+            };
+            
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                const key = link.textContent.trim();
+                if (navItems[key]) {
+                    link.textContent = navItems[key];
+                }
+            });
+            
+            // 更新返回搜索按钮
+            const backButton = document.querySelector('.back-button-text');
+            if (backButton) {
+                backButton.textContent = translations['Back to Search'] || 'Back to Search';
+            }
+            
+            // 更新标题
+            const title = document.getElementById('peptideTitle');
+            if (title && !title.textContent.includes('Warning') && !title.textContent.includes('Error')) {
+                // 提取ID部分
+                const idMatch = title.textContent.match(/- ([A-Z0-9]+)$/);
+                const id = idMatch ? idMatch[1] : '';
+                title.textContent = (translations['AMP Visualization'] || 'AMP Visualization') + (id ? ` - ${id}` : '');
+            }
+            
+            // 更新卡片标题
+            const cardTitleMap = {
+                'Peptide Information': translations['Peptide Information'],
+                'Overall Score': translations['Overall Score'],
+                'Scoring Profile': translations['Scoring Profile'],
+                'Weighted Scores': translations['Weighted Scores'],
+                'Detailed Scores': translations['Detailed Scores'],
+                'Target Organism Activity': translations['Target Organism Activity'],
+                'Bioactivity Details': translations['Bioactivity Details'],
+                'Original Literature': translations['Original Literature'],
+                'Statistics': translations['Statistics'],
+                // 中文标题映射回英文，然后翻译
+                '肽信息': translations['Peptide Information'],
+                '总体评分': translations['Overall Score'],
+                '评分概况': translations['Scoring Profile'],
+                '加权评分': translations['Weighted Scores'],
+                '详细评分': translations['Detailed Scores'],
+                '目标生物活性': translations['Target Organism Activity'],
+                '生物活性详情': translations['Bioactivity Details'],
+                '原始文献': translations['Original Literature'],
+                '统计数据': translations['Statistics']
+            };
+            
+            document.querySelectorAll('.viz-card h3').forEach(header => {
+                const originalText = header.textContent.trim();
+                if (cardTitleMap[originalText]) {
+                    header.textContent = cardTitleMap[originalText];
+                }
+            });
+            
+            // 更新评分文本
+            const ratingLabel = document.querySelector('.score-label-description');
+            if (ratingLabel) {
+                const ratingMatch = ratingLabel.textContent.match(/([^:]+):(.*)/);
+                if (ratingMatch) {
+                    const ratingType = ratingMatch[1].trim();
+                    const ratingValue = ratingMatch[2].trim();
+                    
+                    // 翻译评级类型
+                    let translatedType = translations['Rating'] || 'Rating';
+                    
+                    // 翻译评级值
+                    let translatedValue = ratingValue;
+                    if (ratingValue === 'Excellent' || ratingValue === '优秀') {
+                        translatedValue = translations['Excellent'] || 'Excellent';
+                    } else if (ratingValue === 'Good' || ratingValue === '良好') {
+                        translatedValue = translations['Good'] || 'Good';
+                    } else if (ratingValue === 'Above Average' || ratingValue === '中上') {
+                        translatedValue = translations['Above Average'] || 'Above Average';
+                    } else if (ratingValue === 'Average' || ratingValue === '中等') {
+                        translatedValue = translations['Average'] || 'Average';
+                    } else if (ratingValue === 'Below Average' || ratingValue === '中下') {
+                        translatedValue = translations['Below Average'] || 'Below Average';
+                    } else if (ratingValue === 'Fair' || ratingValue === '一般') {
+                        translatedValue = translations['Fair'] || 'Fair';
+                    } else if (ratingValue === 'Poor' || ratingValue === '较差') {
+                        translatedValue = translations['Poor'] || 'Poor';
+                    } else if (ratingValue === 'Very Poor' || ratingValue === '差') {
+                        translatedValue = translations['Very Poor'] || 'Very Poor';
+                    }
+                    
+                    ratingLabel.textContent = `${translatedType}: ${translatedValue}`;
+                }
+            }
+            
+            // 更新肽信息标签
+            const peptideInfoCard = document.querySelector('.peptide-info');
+            if (peptideInfoCard) {
+                const labelPairs = peptideInfoCard.querySelectorAll('p strong');
+                labelPairs.forEach(label => {
+                    const text = label.textContent.replace(':', '').trim();
+                    if (text === 'Length' || text === '长度') {
+                        label.textContent = (translations['Length'] || 'Length') + ':';
+                    } else if (text === 'Cysteine Count' || text === '半胱氨酸数量') {
+                        label.textContent = (translations['Cysteine Count'] || 'Cysteine Count') + ':';
+                    } else if (text === 'Disulfide Bonds' || text === '二硫键') {
+                        label.textContent = (translations['Disulfide Bonds'] || 'Disulfide Bonds') + ':';
+                    } else if (text === 'Sequence' || text === '序列') {
+                        label.textContent = (translations['Sequence'] || 'Sequence') + ':';
+                    }
+                });
+            }
+            
+            // 更新复制按钮提示
+            const copyButton = document.querySelector('.copy-button');
+            if (copyButton) {
+                copyButton.title = translations['Copy Sequence'] || 'Copy Sequence';
+            }
+        }
+        
+        // 新增：格式化评分标签
+        function formatScoreLabel(key) {
+            if (!key) return '';
+            // 将下划线替换为空格，并将每个单词首字母大写
+            return key.replace(/_/g, ' ')
+                      .replace(/\b\w/g, char => char.toUpperCase());
+        }
+        
+        // 获取翻译字典
+        function getTranslations(lang) {
+            // 确保lang是有效的，否则使用默认语言
+            lang = lang || 'en';
+            
+            // 定义所有翻译
+            const translations = {
+                'en': {
+                    'AMP Visualization': 'AMP Visualization',
+                    'Home': 'Home',
+                    'Search': 'Search',
+                    'Tools': 'Tools',
+                    'Statistics': 'Statistics',
+                    'Back to Search': 'Back to Search',
+                    'Peptide Information': 'Peptide Information',
+                    'Overall Score': 'Overall Score',
+                    'Scoring Profile': 'Scoring Profile',
+                    'Weighted Scores': 'Weighted Scores',
+                    'Detailed Scores': 'Detailed Scores',
+                    'Target Organism Activity': 'Target Organism Activity',
+                    'Bioactivity Details': 'Bioactivity Details',
+                    'Original Literature': 'Original Literature',
+                    'Statistics': 'Statistics',
+                    'Length': 'Length',
+                    'Cysteine Count': 'Cysteine Count',
+                    'Disulfide Bonds': 'Disulfide Bonds',
+                    'Sequence': 'Sequence',
+                    'Rating': 'Rating',
+                    'Copy Sequence': 'Copy Sequence',
+                    'Copy Success!': 'Copy Success!',
+                    'Copy Failed!': 'Copy Failed!',
+                    'Excellent': 'Excellent',
+                    'Good': 'Good',
+                    'Above Average': 'Above Average',
+                    'Average': 'Average',
+                    'Below Average': 'Below Average',
+                    'Fair': 'Fair',
+                    'Poor': 'Poor',
+                    'Very Poor': 'Very Poor',
+                    'Loading visualization data...': 'Loading visualization data...',
+                    'Error Loading Data': 'Error Loading Data',
+                    'Warning': 'Warning',
+                    'No peptide ID provided. Please specify a peptide ID in the URL.': 'No peptide ID provided. Please specify a peptide ID in the URL.',
+                    'Please check the ID and try again.': 'Please check the ID and try again.',
+                    'Error loading data': 'Error loading data',
+                    // 新增氨基酸频率分析相关翻译
+                    'Amino Acid Frequency Analysis': 'Amino Acid Frequency Analysis',
+                    'Amino Acid Frequency (%)': 'Amino Acid Frequency (%)',
+                    'Frequency (%)': 'Frequency (%)',
+                    'Amino Acid': 'Amino Acid',
+                    'Sequence Length': 'Sequence Length',
+                    'amino acids': 'amino acids',
+                    'count': '',
+                    'Unable to analyze: sequence data not available': 'Unable to analyze: sequence data not available'
+                },
+                'zh-Hans': {
+                    'AMP Visualization': '抗菌肽可视化',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Back to Search': '返回搜索',
+                    'Peptide Information': '肽信息',
+                    'Overall Score': '总体评分',
+                    'Scoring Profile': '评分概况',
+                    'Weighted Scores': '加权评分',
+                    'Detailed Scores': '详细评分',
+                    'Target Organism Activity': '目标生物活性',
+                    'Bioactivity Details': '生物活性详情',
+                    'Original Literature': '原始文献',
+                    'Statistics': '统计数据',
+                    'Length': '长度',
+                    'Cysteine Count': '半胱氨酸数量',
+                    'Disulfide Bonds': '二硫键',
+                    'Sequence': '序列',
+                    'Rating': '评价',
+                    'Copy Sequence': '复制序列',
+                    'Copy Success!': '复制成功!',
+                    'Copy Failed!': '复制失败!',
+                    'Excellent': '优秀',
+                    'Good': '良好',
+                    'Above Average': '中上',
+                    'Average': '中等',
+                    'Below Average': '中下',
+                    'Fair': '一般',
+                    'Poor': '较差',
+                    'Very Poor': '差',
+                    'Loading visualization data...': '正在加载可视化数据...',
+                    'Error Loading Data': '加载数据错误',
+                    'Warning': '警告',
+                    'No peptide ID provided. Please specify a peptide ID in the URL.': '未提供肽ID，请在URL中指定肽ID。',
+                    'Please check the ID and try again.': '请检查ID并重试。',
+                    'Error loading data': '加载数据错误',
+                    // 新增氨基酸频率分析相关翻译
+                    'Amino Acid Frequency Analysis': '氨基酸频率分析',
+                    'Amino Acid Frequency (%)': '氨基酸频率 (%)',
+                    'Frequency (%)': '频率 (%)',
+                    'Amino Acid': '氨基酸',
+                    'Sequence Length': '序列长度',
+                    'amino acids': '氨基酸',
+                    'count': '个',
+                    'Unable to analyze: sequence data not available': '无法分析：序列数据不可用'
+                },
+                'zh-Hant': {
+                    'AMP Visualization': '抗菌肽可視化',
+                    'Home': '首頁',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '統計',
+                    'Back to Search': '返回搜索',
+                    'Peptide Information': '肽信息',
+                    'Overall Score': '總體評分',
+                    'Scoring Profile': '評分概況',
+                    'Weighted Scores': '加權評分',
+                    'Detailed Scores': '詳細評分',
+                    'Target Organism Activity': '目標生物活性',
+                    'Bioactivity Details': '生物活性詳情',
+                    'Original Literature': '原始文獻',
+                    'Statistics': '統計數據',
+                    'Length': '長度',
+                    'Cysteine Count': '半胱氨酸數量',
+                    'Disulfide Bonds': '二硫鍵',
+                    'Sequence': '序列',
+                    'Rating': '評價',
+                    'Copy Sequence': '複製序列',
+                    'Copy Success!': '複製成功!',
+                    'Copy Failed!': '複製失敗!',
+                    'Excellent': '優秀',
+                    'Good': '良好',
+                    'Above Average': '中上',
+                    'Average': '中等',
+                    'Below Average': '中下',
+                    'Fair': '一般',
+                    'Poor': '較差',
+                    'Very Poor': '差',
+                    'Loading visualization data...': '正在加載可視化數據...',
+                    'Error Loading Data': '加載數據錯誤',
+                    'Warning': '警告',
+                    'No peptide ID provided. Please specify a peptide ID in the URL.': '未提供肽ID，請在URL中指定肽ID。',
+                    'Please check the ID and try again.': '請檢查ID並重試。',
+                    'Error loading data': '加載數據錯誤',
+                    // 新增氨基酸頻率分析相關翻譯
+                    'Amino Acid Frequency Analysis': '氨基酸頻率分析',
+                    'Amino Acid Frequency (%)': '氨基酸頻率 (%)',
+                    'Frequency (%)': '頻率 (%)',
+                    'Amino Acid': '氨基酸',
+                    'Sequence Length': '序列長度',
+                    'amino acids': '氨基酸',
+                    'count': '個',
+                    'Unable to analyze: sequence data not available': '無法分析：序列數據不可用'
+                },
+                'es': {
+                    'AMP Visualization': 'Visualización de AMP',
+                    'Home': 'Inicio',
+                    'Search': 'Búsqueda',
+                    'Tools': 'Herramientas',
+                    'Statistics': 'Estadísticas',
+                    'Back to Search': 'Volver a la búsqueda',
+                    'Peptide Information': 'Información del péptido',
+                    'Overall Score': 'Puntuación general',
+                    'Scoring Profile': 'Perfil de puntuación',
+                    'Weighted Scores': 'Puntuaciones ponderadas',
+                    'Detailed Scores': 'Puntuaciones detalladas',
+                    'Target Organism Activity': 'Actividad sobre organismos diana',
+                    'Bioactivity Details': 'Detalles de bioactividad',
+                    'Original Literature': 'Literatura original',
+                    'Statistics': 'Estadísticas',
+                    'Length': 'Longitud',
+                    'Cysteine Count': 'Recuento de cisteína',
+                    'Disulfide Bonds': 'Enlaces disulfuro',
+                    'Sequence': 'Secuencia',
+                    'Rating': 'Valoración',
+                    'Copy Sequence': 'Copiar secuencia',
+                    'Copy Success!': '¡Copiado con éxito!',
+                    'Copy Failed!': '¡Error al copiar!',
+                    'Excellent': 'Excelente',
+                    'Good': 'Bueno',
+                    'Above Average': 'Por encima del promedio',
+                    'Average': 'Promedio',
+                    'Below Average': 'Por debajo del promedio',
+                    'Fair': 'Aceptable',
+                    'Poor': 'Pobre',
+                    'Very Poor': 'Muy pobre',
+                    // 新增氨基酸频率分析相关翻译（西班牙语）
+                    'Amino Acid Frequency Analysis': 'Análisis de Frecuencia de Aminoácidos',
+                    'Amino Acid Frequency (%)': 'Frecuencia de Aminoácidos (%)',
+                    'Frequency (%)': 'Frecuencia (%)',
+                    'Amino Acid': 'Aminoácido',
+                    'Sequence Length': 'Longitud de Secuencia',
+                    'amino acids': 'aminoácidos',
+                    'count': '',
+                    'Unable to analyze: sequence data not available': 'No se puede analizar: datos de secuencia no disponibles'
+                }
+            };
+            
+            return translations[lang] || translations['en'];
+        }
+        
+        // 更新界面组件
+        function updateUIComponents() {
+            const lang = document.documentElement.lang;
+            const translations = getTranslations(lang);
+            
+            // 更新加载提示
+            const loadingText = document.querySelector('.loading-indicator p');
+            if (loadingText) {
+                loadingText.textContent = translations['Loading visualization data...'] || 'Loading visualization data...';
+            }
+        }
+        
+        // --- 渲染可视化 ---
+        function renderVisualization(data) {
+            const container = document.getElementById('viz-container');
+            container.innerHTML = ''; // 清空容器
+            
+            // 使用辅助函数获取数据
+            const drampId = findValueInObject(data, "DRAMP ID");
+            const totalScore = findValueInObject(data, "total");
+            const scores = findValueInObject(data, "scores") || {};
+            const weightedScores = findValueInObject(data, "weighted_scores") || {};
+            const targetOrganisms = findValueInObject(data, "target_organisms") || {};
+            
+            // 更新标题
+            document.getElementById('peptideTitle').textContent = `AMP Visualization - ${drampId || 'Unknown ID'}`;
+            
+            // 创建所有卡片
+            createPeptideInfoCard(container, data); // 传递整个data，因为可能需要查找多个字段
+            createGaugeChartCard(container, totalScore);
+            createRadarChartCard(container, scores);
+            createBarChartCard(container, weightedScores);
+            createDetailedScoresCard(container, scores);
+            // 在详细评分卡片之后创建氨基酸频率分析卡片
+            createAminoAcidFrequencyCard(container, data);
+            createTargetOrganismsCard(container, targetOrganisms);
+            createBioactivityCard(container, data); // 传递整个data以便查找ID并加载详细信息
+            createLiteratureCard(container, data); // 传递整个data以便查找ID并加载详细信息
+            
+            // 页面呈现后更新文本
+            setTimeout(() => {
+                updatePageTexts();
+            }, 300);
+        }
+        
+        // 创建肽基本信息卡片
+        function createPeptideInfoCard(container, data) {
+            const card = document.createElement('div');
+            card.className = 'viz-card peptide-info';
+
+            // 使用辅助函数查找数据
+            const drampId = findValueInObject(data, "DRAMP ID");
+            const sequence = findValueInObject(data, "Sequence") || '';
+            const apd3Data = findValueInObject(data, "APD3") || {};
+            const cysCount = findValueInObject(apd3Data, "cys_count");
+            const disulfideBonds = findValueInObject(apd3Data, "disulfide_bonds");
+
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 根据语言设置文本
+            let peptideInfoTitle = translations['Peptide Information'] || 'Peptide Information';
+            let lengthLabel = translations['Length'] || 'Length';
+            let cysteineCountLabel = translations['Cysteine Count'] || 'Cysteine Count';
+            let disulfideBondsLabel = translations['Disulfide Bonds'] || 'Disulfide Bonds';
+            let sequenceLabel = translations['Sequence'] || 'Sequence';
+            let copyButtonTitle = translations['Copy Sequence'] || 'Copy Sequence';
+            
+            card.innerHTML = `
+                <h3>${peptideInfoTitle}</h3>
+                <p><strong>DRAMP ID:</strong> ${drampId || 'N/A'}</p>
+                <p><strong>${lengthLabel}:</strong> ${sequence.length}</p>
+                <p><strong>${cysteineCountLabel}:</strong> ${cysCount !== undefined && cysCount !== null ? cysCount : 'N/A'}</p>
+                <p><strong>${disulfideBondsLabel}:</strong> ${disulfideBonds !== undefined && disulfideBonds !== null ? disulfideBonds : 'N/A'}</p>
+                <p><strong>${sequenceLabel}:</strong></p>
+                <div class="sequence-display">
+                    ${sequence}
+                    <button class="copy-button" data-sequence="${sequence}" title="${copyButtonTitle}">
+                        <i class="fas fa-copy"></i>
+                        <span class="copy-tooltip"></span>
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            
+            // 添加复制功能
+            const copyButton = card.querySelector('.copy-button');
+            if (copyButton) {
+                copyButton.addEventListener('click', function() {
+                    const sequenceText = this.getAttribute('data-sequence');
+                    copyToClipboard(sequenceText, this);
+                });
+            }
+        }
+        
+        // 复制文本到剪贴板
+        function copyToClipboard(text, button) {
+            if (!text) return;
+            
+            // 使用较新的剪贴板API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(() => showCopySuccess(button))
+                    .catch(() => fallbackCopy(text, button));
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+        
+        // 复制文本的备用方法
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess(button);
+                } else {
+                    showCopyError(button);
+                }
+            } catch (err) {
+                showCopyError(button);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        // 显示复制成功提示
+        function showCopySuccess(button) {
+            const tooltip = button.querySelector('.copy-tooltip');
+            if (tooltip) {
+                const currentLang = document.documentElement.lang;
+                const translations = getTranslations(currentLang);
+                let successMessage = translations['Copy Success!'] || 'Copy Success!';
+                tooltip.textContent = successMessage;
+            }
+            
+            button.classList.add('show-tooltip');
+            setTimeout(() => {
+                button.classList.remove('show-tooltip');
+            }, 2000);
+        }
+        
+        // 显示复制失败提示
+        function showCopyError(button) {
+            const tooltip = button.querySelector('.copy-tooltip');
+            if (tooltip) {
+                const currentLang = document.documentElement.lang;
+                const translations = getTranslations(currentLang);
+                let errorMessage = translations['Copy Failed!'] || 'Copy Failed!';
+                tooltip.textContent = errorMessage;
+            }
+            
+            button.classList.add('show-tooltip');
+            setTimeout(() => {
+                button.classList.remove('show-tooltip');
+            }, 2000);
+        }
+        
+        // 创建雷达图卡片
+        function createRadarChartCard(container, scores) {
+            const card = document.createElement('div');
+            card.className = 'viz-card';
+            
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 获取翻译后的标题
+            let scoringProfileTitle = translations['Scoring Profile'] || 'Scoring Profile';
+            
+            card.innerHTML = `
+                <h3>${scoringProfileTitle}</h3>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            
+            // 渲染雷达图
+            setTimeout(() => {
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                // 提取并翻译标签
+                const labels = Object.keys(scores).map(key => {
+                    const formattedKey = formatScoreLabel(key);
+                    // 使用 translations 替代 dict
+                    return translations[formattedKey] || formattedKey;
+                });
+                const dataPoints = Object.values(scores).map(v => v !== null ? v : 0);
+                
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            // 使用 translations 替代 dict
+                            label: translations['Score'] || 'Score',
+                            data: dataPoints,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                min: 0,
+                                max: 10,
+                                ticks: {
+                                    stepSize: 2,
+                                    backdropColor: 'rgba(0, 0, 0, 0.1)',
+                                    color: 'rgba(255, 255, 255, 0.7)'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                },
+                                angleLines: {
+                                    color: 'rgba(255, 255, 255, 0.3)'
+                                },
+                                pointLabels: {
+                                    color: 'rgba(255, 255, 255, 0.9)',
+                                    font: {
+                                        size: 11
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'rgba(255, 255, 255, 0.9)'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                titleColor: 'rgba(255, 255, 255, 0.9)',
+                                bodyColor: 'rgba(255, 255, 255, 0.9)',
+                                displayColors: false
+                            }
+                        }
+                    }
+                });
+            }, 100);
+        }
+        
+        // 创建条形图卡片 (加权评分)
+        function createBarChartCard(container, weightedScores) {
+            const card = document.createElement('div');
+            card.className = 'viz-card';
+            
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 获取翻译后的标题
+            let weightedScoresTitle = translations['Weighted Scores'] || 'Weighted Scores';
+            
+            card.innerHTML = `
+                <h3>${weightedScoresTitle}</h3>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            
+            // 渲染条形图
+            setTimeout(() => {
+                const ctx = document.getElementById('barChart').getContext('2d');
+                // 提取并翻译标签
+                const labels = Object.keys(weightedScores).map(key => {
+                    const formattedKey = formatScoreLabel(key);
+                    // 使用 translations 替代 dict
+                    return translations[formattedKey] || formattedKey;
+                });
+                const dataPoints = Object.values(weightedScores).map(v => v !== null ? v : 0);
+                
+                const colors = [
+                    'rgba(255, 99, 132, 0.7)',   // 红色
+                    'rgba(54, 162, 235, 0.7)',   // 蓝色
+                    'rgba(255, 206, 86, 0.7)',   // 黄色
+                    'rgba(75, 192, 192, 0.7)'    // 绿色
+                ];
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            // 使用 translations 替代 dict
+                            label: translations['Weighted Score'] || 'Weighted Score',
+                            data: dataPoints,
+                            backgroundColor: colors.slice(0, labels.length),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 2.5,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.7)'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.9)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                titleColor: 'rgba(255, 255, 255, 0.9)',
+                                bodyColor: 'rgba(255, 255, 255, 0.9)',
+                                displayColors: false
+                            }
+                        }
+                    }
+                });
+            }, 100);
+        }
+        
+        // 创建仪表图卡片
+        function createGaugeChartCard(container, totalScore) {
+            const card = document.createElement('div');
+            card.className = 'viz-card';
+            
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 根据分数确定评价和颜色 - 缩小区间范围
+            let scoreClass = 'score-average';
+            let scoreDescription = 'Average';
+            
+            if (totalScore >= 8.5) {
+                scoreClass = 'score-excellent';
+                scoreDescription = translations['Excellent'] || 'Excellent';
+            } else if (totalScore >= 7.5) {
+                scoreClass = 'score-good';
+                scoreDescription = translations['Good'] || 'Good';
+            } else if (totalScore >= 6.5) {
+                scoreClass = 'score-above-average';
+                scoreDescription = translations['Above Average'] || 'Above Average';
+            } else if (totalScore >= 5.5) {
+                scoreClass = 'score-average';
+                scoreDescription = translations['Average'] || 'Average';
+            } else if (totalScore >= 4.5) {
+                scoreClass = 'score-below-average';
+                scoreDescription = translations['Below Average'] || 'Below Average';
+            } else if (totalScore >= 3.5) {
+                scoreClass = 'score-fair';
+                scoreDescription = translations['Fair'] || 'Fair';
+            } else if (totalScore >= 2.5) {
+                scoreClass = 'score-poor';
+                scoreDescription = translations['Poor'] || 'Poor';
+            } else {
+                scoreClass = 'score-very-poor';
+                scoreDescription = translations['Very Poor'] || 'Very Poor';
+            }
+            
+            // 获取翻译后的标题和评价文本
+            let overallScoreTitle = translations['Overall Score'] || 'Overall Score';
+            let ratingText = translations['Rating'] || 'Rating';
+            
+            card.innerHTML = `
+                <h3>${overallScoreTitle}</h3>
+                <div class="total-score-display ${scoreClass}">${totalScore ? totalScore.toFixed(2) : 'N/A'}</div>
+                <p class="score-label-description">${ratingText}: ${scoreDescription}</p>
+                <div class="chart-container">
+                    <canvas id="gaugeChart"></canvas>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            
+            // 渲染仪表图
+            setTimeout(() => {
+                // 仪表图的渲染代码保持不变...
+                const ctx = document.getElementById('gaugeChart').getContext('2d');
+                const maxScore = 10;
+                const normalizedScore = Math.min(totalScore || 0, maxScore);
+                const remaining = maxScore - normalizedScore;
+                
+                // 根据分数确定颜色
+                let color;
+                switch(scoreClass) {
+                    case 'score-excellent':
+                        color = 'rgba(0, 200, 83, 1)'; // 深绿色
+                        break;
+                    case 'score-good':
+                        color = 'rgba(100, 221, 23, 1)'; // 绿色
+                        break;
+                    case 'score-above-average':
+                        color = 'rgba(174, 234, 0, 1)'; // 黄绿色
+                        break;
+                    case 'score-average':
+                        color = 'rgba(255, 214, 0, 1)'; // 黄色
+                        break;
+                    case 'score-below-average':
+                        color = 'rgba(255, 171, 0, 1)'; // 琥珀色
+                        break;
+                    case 'score-fair':
+                        color = 'rgba(255, 109, 0, 1)'; // 橙色
+                        break;
+                    case 'score-poor':
+                        color = 'rgba(255, 61, 0, 1)'; // 红橙色
+                        break;
+                    case 'score-very-poor':
+                        color = 'rgba(221, 44, 0, 1)'; // 红色
+                        break;
+                    default:
+                        color = 'rgba(255, 214, 0, 1)'; // 默认黄色
+                }
+                
+                // 创建仪表盘图表
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [normalizedScore, remaining],
+                            backgroundColor: [
+                                color,
+                                'rgba(255, 255, 255, 0.1)'
+                            ],
+                            borderWidth: 0,
+                            circumference: 180,
+                            rotation: 270
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: false
+                            }
+                        }
+                    }
+                });
+            }, 100);
+        }
+        
+        // 创建详细评分卡片
+        function createDetailedScoresCard(container, scores) {
+            const card = document.createElement('div');
+            card.className = 'viz-card';
+            
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 获取翻译后的标题
+            let detailedScoresTitle = translations['Detailed Scores'] || 'Detailed Scores';
+            
+            let scoresHtml = '';
+            for (const [key, value] of Object.entries(scores)) {
+                const formattedKey = formatScoreLabel(key);
+                // 使用 translations 替代 dict
+                const translatedKey = translations[formattedKey] || formattedKey;
+                
+                scoresHtml += `
+                    <div class="score-label">
+                        <span class="score-name">${translatedKey}</span>
+                        <span class="score-value">${value !== null ? value : 'N/A'}</span>
+                    </div>
+                `;
+            }
+            
+            card.innerHTML = `
+                <h3>${detailedScoresTitle}</h3>
+                <div class="scores-container">
+                    ${scoresHtml}
+                </div>
+            `;
+            
+            container.appendChild(card);
+        }
+        
+        // 创建目标生物活性卡片
+        function createTargetOrganismsCard(container, targetOrganisms) {
+            const card = document.createElement('div');
+            card.className = 'viz-card viz-card-full';
+            
+            let tableHtml = '';
+            let noteText = '';
+            
+            for (const [category, organisms] of Object.entries(targetOrganisms)) {
+                if (category === 'Note' && Array.isArray(organisms) && organisms.length > 0) {
+                    noteText = organisms[0].name || '';
+                    continue;
+                }
+                
+                if (!Array.isArray(organisms) || organisms.length === 0) continue;
+                
+                tableHtml += `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #fff;">${category}</h4>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>微生物名称</th>
+                                <th>活性</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                organisms.forEach(org => {
+                    // 处理不同格式的活性数据
+                    let activityDisplay = '';
+                    let activityLevel = 0;
+                    
+                    if (org.activity) {
+                        // 检查活性是否包含加号模式 (+++)
+                        if (org.activity.includes('+')) {
+                            activityLevel = getActivityLevel(org.activity);
+                            activityDisplay = `
+                                <div class="activity-level">
+                                    ${renderActivityDots(activityLevel)}
+                                    <span>${org.activity}</span>
+                                </div>
+                            `;
+                        }
+                        // 检查是否为MIC值格式
+                        else if (org.activity.toLowerCase().includes('mic') || 
+                                org.activity.includes('μg/ml') || 
+                                org.activity.includes('ug/ml')) {
+                            activityDisplay = `<span class="mic-value">${org.activity}</span>`;
+                        }
+                        // 其他格式的活性数据
+                        else {
+                            activityDisplay = `<span>${org.activity}</span>`;
+                        }
+                    } else {
+                        // 无活性数据情况
+                        activityDisplay = '<span class="no-activity">N/A</span>';
+                    }
+                    
+                    tableHtml += `
+                        <tr>
+                            <td>${org.name || 'N/A'}</td>
+                            <td>${activityDisplay}</td>
+                        </tr>
+                    `;
+                });
+                
+                tableHtml += `
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            // 无数据情况处理
+            if (!tableHtml && !noteText) {
+                tableHtml = `
+                    <div class="empty-info">
+                        <p>此抗菌肽的目标生物活性数据尚未添加</p>
+                    </div>
+                `;
+            }
+            
+            card.innerHTML = `
+                <h3>目标生物活性</h3>
+                ${tableHtml}
+                ${noteText ? `<div class="activity-note">${noteText}</div>` : ''}
+            `;
+            
+            container.appendChild(card);
+        }
+        
+        // 获取活性等级 (+数量)
+        function getActivityLevel(activity) {
+            if (!activity) return 0;
+            
+            const plusCount = (activity.match(/\+/g) || []).length;
+            return plusCount;
+        }
+        
+        // 渲染活性点
+        function renderActivityDots(level) {
+            if (level <= 0) return '';
+            
+            let dots = '';
+            let dotColor = '#4CAF50'; // 默认绿色
+            
+            if (level === 1) {
+                dotColor = '#FFC107'; // 黄色
+            } else if (level === 2) {
+                dotColor = '#2196F3'; // 蓝色
+            } else if (level >= 3) {
+                dotColor = '#4CAF50'; // 绿色
+            }
+            
+            for (let i = 0; i < level; i++) {
+                dots += `<span class="activity-dot" style="background-color: ${dotColor};"></span>`;
+            }
+            
+            return dots;
+        }
+        
+        // 创建生物活性详细信息卡片
+        function createBioactivityCard(container, data) {
+            const card = document.createElement('div');
+            card.className = 'viz-card viz-card-full';
+            
+            // 显示加载指示器
+            card.innerHTML = `
+                <h3>生物活性详情</h3>
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>加载生物活性数据...</p>
+                </div>
+            `;
+            container.appendChild(card);
+            
+            // 从database目录获取完整的肽数据信息
+            const peptideId = data["DRAMP ID"];
+            fetch(`database/${peptideId}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('无法获取生物活性数据');
+                    }
+                    return response.json();
+                })
+                .then(fullData => {
+                    // 更新卡片内容
+                    updateBioactivityCard(card, fullData, data);
+                })
+                .catch(error => {
+                    console.error('生物活性数据加载错误:', error);
+                    
+                    // 使用已有数据进行备用显示
+                    const bioactivity = data.bioactivity || {};
+                    const activeMechanisms = bioactivity.mechanisms || [];
+                    const applications = bioactivity.applications || [];
+                    
+                    let mechanismsHtml = '';
+                    if (Array.isArray(activeMechanisms) && activeMechanisms.length > 0) {
+                        mechanismsHtml = `
+                            <h4 style="margin-top: 15px; margin-bottom: 10px; color: #fff;">作用机制</h4>
+                            <ul class="bioactivity-list">
+                                ${activeMechanisms.map(mechanism => `<li>${mechanism}</li>`).join('')}
+                            </ul>
+                        `;
+                    }
+                    
+                    let applicationsHtml = '';
+                    if (Array.isArray(applications) && applications.length > 0) {
+                        applicationsHtml = `
+                            <h4 style="margin-top: 15px; margin-bottom: 10px; color: #fff;">应用领域</h4>
+                            <ul class="bioactivity-list">
+                                ${applications.map(app => `<li>${app}</li>`).join('')}
+                            </ul>
+                        `;
+                    }
+                    
+                    card.innerHTML = `
+                        <h3>生物活性详情</h3>
+                        <div class="bioactivity-content">
+                            ${mechanismsHtml}
+                            ${applicationsHtml}
+                            <p class="empty-info">加载详细生物活性信息时出错: ${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        // 使用获取的数据更新生物活性信息卡片
+        function updateBioactivityCard(card, fullData, scoredData) {
+            // 从完整数据中获取生物活性信息 (使用辅助函数)
+            const bioActivity = findValueInObject(fullData, "Biological Activity") || [];
+            const function_desc = findValueInObject(fullData, "Function") || '';
+            const biophysical = findValueInObject(fullData, "Biophysicochemical properties") || '';
+
+            // 从评分数据中获取补充信息 (使用辅助函数)
+            const bioactivity = findValueInObject(scoredData, "bioactivity") || {};
+            const activeMechanisms = findValueInObject(bioactivity, "mechanisms") || [];
+            const applications = findValueInObject(bioactivity, "applications") || [];
+            const micData = findValueInObject(bioactivity, "mic_values") || []; // Get MIC data
+
+            // 构建生物活性信息HTML
+            let bioActivityHtml = '';
+            if (Array.isArray(bioActivity) && bioActivity.length > 0) {
+                bioActivityHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 10px; color: #fff;">生物活性类型</h4>
+                    <ul class="bioactivity-list">
+                        ${bioActivity.map(activity => `<li>${activity}</li>`).join('')}
+                    </ul>
+                `;
+            }
+            
+            // 构建功能描述HTML
+            let functionHtml = '';
+            if (function_desc) {
+                functionHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 15px; color: #fff;">功能描述</h4>
+                    <p style="color: #fff; margin-bottom: 15px; line-height: 1.5;">${function_desc}</p>
+                `;
+            }
+            
+            // 构建生物物理化学特性HTML
+            let biophysicalHtml = '';
+            if (biophysical) {
+                biophysicalHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 15px; color: #fff;">生物物理化学特性</h4>
+                    <p style="color: #fff; margin-bottom: 15px; line-height: 1.5;">${biophysical}</p>
+                `;
+            }
+            
+            // 构建作用机制HTML
+            let mechanismsHtml = '';
+            if (Array.isArray(activeMechanisms) && activeMechanisms.length > 0) {
+                mechanismsHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 15px; color: #fff;">作用机制</h4>
+                    <ul class="bioactivity-list">
+                        ${activeMechanisms.map(mechanism => `<li>${mechanism}</li>`).join('')}
+                    </ul>
+                `;
+            }
+            
+            // 构建应用领域HTML
+            let applicationsHtml = '';
+            if (Array.isArray(applications) && applications.length > 0) {
+                applicationsHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 15px; color: #fff;">应用领域</h4>
+                    <ul class="bioactivity-list">
+                        ${applications.map(app => `<li>${app}</li>`).join('')}
+                    </ul>
+                `;
+            }
+            
+            // MIC 值表格
+            let micTableHtml = '';
+            // const micData = bioactivity.mic_values || []; // Already fetched above
+            if (Array.isArray(micData) && micData.length > 0) {
+                micTableHtml = `
+                    <h4 style="margin-top: 15px; margin-bottom: 15px; color: #fff;">最小抑菌浓度 (MIC)</h4>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>微生物</th>
+                                <th>MIC 值</th>
+                                <th>单位</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${micData.map(item => `
+                                <tr>
+                                    <td>${item.organism || 'N/A'}</td>
+                                    <td>${item.value || 'N/A'}</td>
+                                    <td>${item.unit || 'μg/ml'}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            card.innerHTML = `
+                <h3>生物活性详情</h3>
+                <div class="bioactivity-content">
+                    ${bioActivityHtml}
+                    ${functionHtml}
+                    ${biophysicalHtml}
+                    ${mechanismsHtml}
+                    ${applicationsHtml}
+                    ${micTableHtml}
+                    ${!bioActivityHtml && !functionHtml && !biophysicalHtml && !mechanismsHtml && !applicationsHtml && !micTableHtml ? 
+                      '<p class="empty-info">此肽的详细生物活性信息尚未添加</p>' : ''}
+                </div>
+            `;
+        }
+        
+        // 创建原始文献信息卡片
+        function createLiteratureCard(container, data) {
+            const card = document.createElement('div');
+            card.className = 'viz-card viz-card-full';
+            
+            // 显示加载指示器
+            card.innerHTML = `
+                <h3>原始文献</h3>
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>加载文献数据...</p>
+                </div>
+            `;
+            container.appendChild(card);
+            
+            // 从database目录获取完整的肽数据信息
+            const peptideId = data["DRAMP ID"];
+            fetch(`database/${peptideId}.json`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('无法获取文献数据');
+                    }
+                    return response.json();
+                })
+                .then(fullData => {
+                    // 更新卡片内容
+                    updateLiteratureCard(card, fullData);
+                })
+                .catch(error => {
+                    console.error('文献数据加载错误:', error);
+                    card.innerHTML = `
+                        <h3>原始文献</h3>
+                        <p class="empty-info">加载文献信息时出错: ${error.message}</p>
+                    `;
+                });
+        }
+        
+        // 使用获取的数据更新文献信息卡片
+        function updateLiteratureCard(card, fullData) {
+            // 使用辅助函数查找文献数据
+            const literature = findValueInObject(fullData, "Literature") || [];
+
+            let literatureHtml = '';
+            if (Array.isArray(literature) && literature.length > 0) {
+                literatureHtml = `
+                    <div class="literature-list">
+                        ${literature.map((ref, index) => `
+                            <div class="literature-item">
+                                <div class="lit-number">${index + 1}</div>
+                                <div class="lit-content">
+                                    <p class="lit-authors">${findValueInObject(ref, "Author") || 'Unknown Authors'}</p>
+                                    <p class="lit-title">${findValueInObject(ref, "Title") || 'Untitled'}</p>
+                                    <p class="lit-journal">${findValueInObject(ref, "Reference") || ''}</p>
+                                    <div class="lit-buttons">
+                                        ${findValueInObject(ref, "Pubmed ID") ? 
+                                            `<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${findValueInObject(ref, "Pubmed ID")}" 
+                                                target="_blank" class="lit-button">
+                                                <i class="fas fa-external-link-alt"></i> PubMed ${findValueInObject(ref, "Pubmed ID")}
+                                            </a>` : ''
+                                        }
+                                        ${findValueInObject(ref, "URL") ? 
+                                            `<a href="${findValueInObject(ref, "URL")}" target="_blank" class="lit-button">
+                                                <i class="fas fa-globe"></i> 查看原文
+                                            </a>` : ''
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                literatureHtml = '<p class="empty-info">此肽的文献信息尚未添加</p>';
+            }
+            
+            card.innerHTML = `
+                <h3>原始文献</h3>
+                ${literatureHtml}
+            `;
+        }
+        
+        // --- 翻译相关功能 ---
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+        
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+        
+        // 更新当前语言显示
+        function updateCurrentLanguageDisplay() {
+            const currentLang = document.getElementById('currentLang');
+            const currentLangText = document.getElementById('currentLangText');
+            
+            if (currentLangText) {
+                currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+                currentLangText.classList.add('no-translate');
+            }
+            
+            if (currentLang) {
+                currentLang.classList.add('no-translate');
+            }
+        }
+        
+        // 初始化翻译
+        function initializeTranslation(lang) {
+            // 基本字典定义不变
+            window.specialTerms = {
+                'en': { 'PURE-ERA': 'PURE-ERA' },
+                'zh-Hans': {
+                    // 中文翻译...
+                },
+                // 其他语言翻译...
+            };
+            
+            // 直接翻译页面上的静态元素
+            translateStaticElements(lang);
+            
+            // 使用Tranzy进行动态内容翻译
+            const tranzy = new Tranzy.Translator({
+                toLang: lang,
+                fromLang: 'en',
+                ignore: ['.no-translate', '.sequence-display', '.activity-level span'],
+                manualDict: window.specialTerms
+            });
+            
+            tranzy.translatePage();
+            tranzy.startObserver();
+            
+            window.tranzyInstance = tranzy;
+        }
+        
+        // 直接翻译页面上的静态元素
+        function translateStaticElements(lang) {
+            // 获取翻译词典
+            const dict = window.specialTerms[lang] || {};
+            
+            // 设置页面标题
+            document.getElementById('peptideTitle').textContent = dict['AMP Visualization'] || 'AMP Visualization';
+            
+            // 翻译导航菜单
+            translateNavMenu(dict);
+            
+            // 更新返回按钮文本
+            updateBackButtonText(lang);
+            
+            // 预定义卡片标题映射
+            const cardTitleMap = {
+                '肽信息': dict['Peptide Information'] || 'Peptide Information',
+                '总体评分': dict['Overall Score'] || 'Overall Score',
+                'Scoring Profile': dict['Scoring Profile'] || 'Scoring Profile',
+                'Weighted Scores': dict['Weighted Scores'] || 'Weighted Scores',
+                'Detailed Scores': dict['Detailed Scores'] || 'Detailed Scores',
+                '目标生物活性': dict['Target Organism Activity'] || 'Target Organism Activity',
+                '生物活性详情': dict['Bioactivity Details'] || 'Bioactivity Details',
+                '原始文献': dict['Original Literature'] || 'Original Literature',
+                '统计数据': dict['Statistics'] || 'Statistics'
+            };
+            
+            // 翻译所有卡片标题
+            document.querySelectorAll('.viz-card h3').forEach(header => {
+                const originalText = header.textContent.trim();
+                if (cardTitleMap[originalText]) {
+                    header.textContent = cardTitleMap[originalText];
+                }
+            });
+            
+            // 翻译加载提示
+            const loadingText = document.querySelector('.loading-indicator p');
+            if (loadingText) {
+                loadingText.textContent = dict['Loading visualization data...'] || 'Loading visualization data...';
+            }
+        }
+        
+        // 翻译导航菜单
+        function translateNavMenu(dict) {
+            // 获取所有导航链接
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            // 链接文本映射
+            const linkTextMap = {
+                'Home': dict['Home'] || 'Home',
+                'Search': dict['Search'] || 'Search',
+                'Tools': dict['Tools'] || 'Tools',
+                'Statistics': dict['Statistics'] || 'Statistics',
+                'AMP Visualization': dict['AMP Visualization'] || 'AMP Visualization'
+            };
+            
+            // 更新链接文本
+            navLinks.forEach(link => {
+                const text = link.textContent.trim();
+                if (linkTextMap[text]) {
+                    link.textContent = linkTextMap[text];
+                }
+            });
+            
+            // 更新团队链接
+            const teamLink = document.querySelector('.team-link');
+            if (teamLink) {
+                teamLink.textContent = dict['Belongs to 2025-XJTLU-Software'] || 'Belongs to 2025-XJTLU-Software';
+            }
+        }
+        
+        // --- 页面初始化 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 设置默认语言
+            if (!document.documentElement.lang) {
+                document.documentElement.lang = getLanguagePreference() || 'en';
+            }
+            
+            // 导航响应式菜单处理
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // 设置当前语言
+            const savedLang = getLanguagePreference();
+            document.documentElement.lang = savedLang || 'en';
+            
+            // 初始化语言选择器
+            const langOptions = document.querySelectorAll('.language-option');
+            langOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newLang = this.getAttribute('data-lang');
+                    changeLanguage(newLang);
+                });
+                
+                // 高亮当前语言选项
+                if (option.getAttribute('data-lang') === savedLang) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // 更新当前语言显示
+            const currentLangText = document.getElementById('currentLangText');
+            if (currentLangText) {
+                currentLangText.textContent = getLanguageDisplayName(savedLang || 'en');
+            }
+            
+            // 更新页面文本
+            try {
+                updatePageTexts();
+            } catch (error) {
+                console.error("Error updating page texts:", error);
+            }
+            
+            // 加载肽数据
+            const peptideId = getPeptideIdFromUrl();
+            loadPeptideData(peptideId);
+        });
+
+        // 创建氨基酸频率分析卡片
+        function createAminoAcidFrequencyCard(container, data) {
+            // 创建卡片外壳
+            const card = document.createElement('div');
+            card.className = 'viz-card viz-card-full'; // 将卡片设为全宽
+            
+            // 获取当前语言和翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 获取翻译后的标题和文本
+            const aminoAcidTitle = translations['Amino Acid Frequency Analysis'] || '氨基酸频率分析';
+            const frequencyLabel = translations['Frequency (%)'] || '频率 (%)';
+            const aminoAcidLabel = translations['Amino Acid'] || '氨基酸';
+            const sequenceLengthText = translations['Sequence Length'] || '序列长度';
+            const aminoAcidsText = translations['amino acids'] || '氨基酸';
+            const dataNotAvailableText = translations['Unable to analyze: sequence data not available'] || '无法分析：序列数据不可用';
+            
+            card.innerHTML = `
+                <h3>${aminoAcidTitle}</h3>
+                <div class="amino-acid-frequency" style="height: 350px; margin-top: 20px;">
+                    <canvas id="aminoAcidFrequencyChart"></canvas>
+                </div>
+            `;
+            container.appendChild(card);
+            
+            // 计算氨基酸频率
+            const sequence = findValueInObject(data, "Sequence") || "";
+            if (!sequence) {
+                card.innerHTML = `
+                    <h3>${aminoAcidTitle}</h3>
+                    <p class="empty-info">${dataNotAvailableText}</p>
+                `;
+                return;
+            }
+            
+            // 计算频率
+            const aminoAcidCounts = {};
+            const aminoAcids = 'ACDEFGHIKLMNPQRSTVWY'.split('');
+            
+            // 初始化所有氨基酸计数为0
+            aminoAcids.forEach(aa => {
+                aminoAcidCounts[aa] = 0;
+            });
+            
+            // 计算每种氨基酸在序列中的数量
+            for (let i = 0; i < sequence.length; i++) {
+                const aa = sequence[i].toUpperCase();
+                if (aminoAcidCounts.hasOwnProperty(aa)) {
+                    aminoAcidCounts[aa]++;
+                }
+            }
+            
+            // 计算频率（百分比）
+            const aminoAcidFrequencies = {};
+            aminoAcids.forEach(aa => {
+                aminoAcidFrequencies[aa] = (aminoAcidCounts[aa] / sequence.length) * 100;
+            });
+            
+            // 定义氨基酸颜色 - 使用更鲜艳的颜色
+            const aaColors = {
+                'A': '#FF5252', 'C': '#FF9800', 'D': '#FFEB3B', 'E': '#8BC34A', 
+                'F': '#4CAF50', 'G': '#009688', 'H': '#00BCD4', 'I': '#03A9F4', 
+                'K': '#3F51B5', 'L': '#673AB7', 'M': '#9C27B0', 'N': '#E91E63', 
+                'P': '#F44336', 'Q': '#FF5722', 'R': '#FFC107', 'S': '#8BC34A', 
+                'T': '#4CAF50', 'V': '#009688', 'W': '#00BCD4', 'Y': '#2196F3'
+            };
+            
+            // 翻译图例标签
+            const chartLabel = translations['Amino Acid Frequency (%)'] || '氨基酸频率 (%)';
+            
+            // 绘制图表
+            const ctx = document.getElementById('aminoAcidFrequencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: aminoAcids,
+                    datasets: [{
+                        label: chartLabel,
+                        data: aminoAcids.map(aa => aminoAcidFrequencies[aa]),
+                        backgroundColor: aminoAcids.map(aa => aaColors[aa]),
+                        borderColor: aminoAcids.map(aa => aaColors[aa]),
+                        borderWidth: 1,
+                        borderRadius: 5 // 添加圆角
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: frequencyLabel,
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#ffffff'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                },
+                                color: '#ffffff',
+                                callback: function(value) {
+                                    return value.toFixed(1) + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.2)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: aminoAcidLabel,
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#ffffff'
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 12
+                                },
+                                color: '#ffffff'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: {
+                                size: 14
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw.toFixed(2);
+                                    const aa = context.label;
+                                    const count = aminoAcidCounts[aa];
+                                    // 添加翻译
+                                    const countText = translations['count'] || '个';
+                                    return `${aa}: ${value}% (${count}${countText})`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 添加序列长度和总结信息
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'sequence-summary';
+            infoDiv.style.marginTop = '15px';
+            infoDiv.style.fontSize = '14px';
+            infoDiv.style.color = '#ffffff';
+            infoDiv.style.textAlign = 'center';
+            infoDiv.innerHTML = `
+                <p>${sequenceLengthText}: <strong>${sequence.length}</strong> ${aminoAcidsText}</p>
+                <p class="sequence-text" style="font-family: monospace; margin-top: 10px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; font-size: 12px;">${sequence}</p>
+            `;
+            card.appendChild(infoDiv);
+        }
+
+        // 辅助函数：递归查找对象中的值
+        function findValueInObject(obj, key) {
+            // 如果对象为空，返回undefined
+            if (!obj) return undefined;
+            
+            // 如果是数组，遍历每个元素并递归查找
+            if (Array.isArray(obj)) {
+                for (let i = 0; i < obj.length; i++) {
+                    const result = findValueInObject(obj[i], key);
+                    if (result !== undefined) return result;
+                }
+                return undefined;
+            }
+            
+            // 如果是对象，检查key是否存在
+            if (typeof obj === 'object') {
+                // 直接检查属性是否存在
+                if (obj.hasOwnProperty(key)) {
+                    return obj[key];
+                }
+                
+                // 递归检查每个属性
+                for (const k in obj) {
+                    if (obj.hasOwnProperty(k)) {
+                        // 如果key和当前遍历的key相同（不区分大小写），返回对应值
+                        if (k.toLowerCase() === key.toLowerCase()) {
+                            return obj[k];
+                        }
+                        
+                        // 递归检查子对象
+                        if (typeof obj[k] === 'object' && obj[k] !== null) {
+                            const result = findValueInObject(obj[k], key);
+                            if (result !== undefined) return result;
+                        }
+                    }
+                }
+            }
+            
+            return undefined;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Antimicrobial Peptide Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(#2b1055, #7597de);
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      color: #fff;
+      font-weight: 700;
+      font-size: 2em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .team-info {
+      font-size: 0.5em;
+      color: rgba(255,255,255,0.8);
+      display: block;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+
+    header ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header ul li {
+      list-style: none;
+      margin-left: 20px;
+    }
+
+    header ul li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 6px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    header ul li:hover a,
+    header ul li.active a {
+      background: #fff;
+      color: #2b1055;
+    }
+
+    .language-switch {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .language-switch:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .language-dropdown {
+      display: none;
+      position: absolute;
+      background: rgba(43, 16, 85, 0.95);
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      right: 0;
+    }
+
+    .language-container:hover .language-dropdown {
+      display: block;
+    }
+
+    .language-dropdown a {
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+
+    .language-dropdown a:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .language-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .main-container {
+      position: relative;
+      top: 150px;
+      width: 90%;
+      margin: 0 auto;
+      padding-bottom: 50px;
+    }
+
+    .detail-container {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 15px;
+    }
+
+    .detail-title {
+      font-size: 2em;
+      font-weight: 600;
+    }
+
+    .detail-id {
+      font-size: 1.2em;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .detail-section {
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 5px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .detail-item {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .item-label {
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 5px;
+    }
+
+    .item-value {
+      font-size: 1.1em;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .sequence-container {
+      background: rgba(0,0,0,0.2);
+      padding: 15px;
+      border-radius: 10px;
+      font-family: monospace;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .btn {
+      background: #0077cc;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 15px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #005fa3;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+      font-size: 1.5em;
+      color: white;
+    }
+
+    .error-message {
+      background: rgba(255,0,0,0.1);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    th {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .category-badge {
+      display: inline-block;
+      background: rgba(0,119,204,0.2);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+
+    .tab-container {
+      margin-bottom: 20px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      overflow-x: auto;
+      margin-bottom: 15px;
+    }
+
+    .tab-button {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 5px;
+      cursor: pointer;
+      border-radius: 5px 5px 0 0;
+      transition: 0.3s;
+    }
+
+    .tab-button.active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .reference-item {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .clinical-trial {
+      background: rgba(0,119,204,0.1);
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+
+    .structure-image {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <span data-lang-key="logo_text">Pure-era</span>
+      <span class="team-info" data-lang-key="team_info">Belongs to XJTLU-Software-2025 Team</span>
+    </div>
+    <ul>
+      <li><a href="home.html" data-lang-key="nav_home">Home</a></li>
+      <li><a href="search.html" data-lang-key="nav_search">Search</a></li>
+      <li><a href="tools.html" data-lang-key="nav_tools">Tools</a></li>
+      <li><a href="statistics.html" data-lang-key="nav_statistics">Statistics</a></li>
+      <li><a href="amp_visualization.html" data-lang-key="nav_amp_visualization">AMP Visualization</a></li>
+      <li class="language-container">
+        <div class="language-dropdown">
+          <button class="dropdown-btn">
+            <span id="currentLang" class="no-translate">English</span>
+            <i class="fas fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#" data-lang="en" class="no-translate">English</a>
+            <a href="#" data-lang="zh-Hans" class="no-translate">简体中文</a>
+            <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+            <a href="#" data-lang="ja" class="no-translate">日本語</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </header>
+
+  <div class="main-container">
+    <div id="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i> <span data-lang-key="loading">Loading data...</span>
+    </div>
+    <div id="error" class="error-message" style="display: none;"></div>
+    <div id="detailContent" style="display: none;">
+      <div class="detail-container">
+        <div class="detail-header">
+          <div>
+            <div class="detail-title" id="peptideName">Antimicrobial Peptide Name</div>
+            <div id="categoryBadges"></div>
+          </div>
+          <div class="detail-id" id="peptideId">ID: DRAMP00000</div>
+        </div>
+        
+        <div class="tab-container">
+          <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab(event, 'basicInfo')" data-lang-key="tab_basic">Basic Information</button>
+            <button class="tab-button" onclick="openTab(event, 'sequenceInfo')" data-lang-key="tab_sequence">Sequence Information</button>
+            <button class="tab-button" onclick="openTab(event, 'activityInfo')" data-lang-key="tab_activity">Activity Information</button>
+            <button class="tab-button" onclick="openTab(event, 'structureInfo')" data-lang-key="tab_structure">Structure Information</button>
+            <button class="tab-button" onclick="openTab(event, 'clinicalInfo')" data-lang-key="tab_clinical">Clinical Information</button>
+            <button class="tab-button" onclick="openTab(event, 'physicalInfo')" data-lang-key="tab_physical">Physical-Chemical Properties</button>
+            <button class="tab-button" onclick="openTab(event, 'referenceInfo')" data-lang-key="tab_reference">References</button>
+          </div>
+          
+          <div id="basicInfo" class="tab-content active">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_basic">Basic Information</div>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_source">Source</div>
+                  <div class="item-value" id="source">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_family">Family</div>
+                  <div class="item-value" id="family">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_gene">Gene</div>
+                  <div class="item-value" id="gene">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label">UniProt</div>
+                  <div class="item-value" id="uniprot">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_protein_existence">Protein Existence</div>
+                  <div class="item-value" id="proteinExistence">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_description">Description</div>
+                  <div class="item-value" id="description">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="sequenceInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_sequence">Sequence Information</div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_sequence">Sequence</div>
+                <div class="sequence-container" id="sequence">-</div>
+              </div>
+              <div class="detail-grid" style="margin-top: 15px;">
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_length">Sequence Length</div>
+                  <div class="item-value" id="length">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_original_sequence">Original Sequence</div>
+                  <div class="item-value" id="originalSequence">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="activityInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_activity">Biological Activity</div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_activity_type">Activity Type</div>
+                <div class="item-value" id="activity">-</div>
+              </div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_target_organism">Target Organism</div>
+                <div class="item-value" id="targetOrganism">-</div>
+              </div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_hemolytic">Hemolytic Activity</div>
+                <div class="item-value" id="hemolyticActivity">-</div>
+              </div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_cytotoxicity">Cytotoxicity</div>
+                <div class="item-value" id="cytotoxicity">-</div>
+              </div>
+              <div class="detail-item">
+                <div class="item-label" data-lang-key="label_binding_target">Binding Target</div>
+                <div class="item-value" id="bindingTarget">-</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="structureInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_structure">Structure Information</div>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_linear_cyclic">Linear/Cyclic</div>
+                  <div class="item-value" id="linearCyclic">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_n_terminal">N-terminal Modification</div>
+                  <div class="item-value" id="nTerminal">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_c_terminal">C-terminal Modification</div>
+                  <div class="item-value" id="cTerminal">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_special_amino_acid">Non-terminal Modifications and Special Amino Acids</div>
+                  <div class="item-value" id="specialAminoAcid">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_stereochemistry">Stereochemistry</div>
+                  <div class="item-value" id="stereochemistry">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_secondary_structure">Secondary Structure</div>
+                  <div class="item-value" id="secondaryStructure">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_structure_description">Structure Description</div>
+                  <div class="item-value" id="structureDescription">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label">PDB ID</div>
+                  <div class="item-value" id="pdbId">-</div>
+                </div>
+              </div>
+              <div id="structureImages"></div>
+            </div>
+          </div>
+          
+          <div id="clinicalInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_clinical">Clinical Information</div>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_medical_use">Medical Use</div>
+                  <div class="item-value" id="medicalUse">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_company">Company</div>
+                  <div class="item-value" id="company">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_development_stage">Development Stage</div>
+                  <div class="item-value" id="developmentStage">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_comments">Comments</div>
+                  <div class="item-value" id="comments">-</div>
+                </div>
+              </div>
+              <div class="detail-item" style="margin-top: 15px;">
+                <div class="item-label" data-lang-key="label_clinical_trials">Clinical Trials</div>
+                <div id="clinicalTrials">-</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="physicalInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_physical">Physical-Chemical Properties</div>
+              <div class="detail-grid">
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_formula">Formula</div>
+                  <div class="item-value" id="formula">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_mass">Molecular Weight</div>
+                  <div class="item-value" id="mass">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_pi">Isoelectric Point</div>
+                  <div class="item-value" id="pi">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_hydrophobicity">Hydrophobicity</div>
+                  <div class="item-value" id="hydrophobicity">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_net_charge">Net Charge</div>
+                  <div class="item-value" id="netCharge">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_aliphatic_index">Aliphatic Index</div>
+                  <div class="item-value" id="aliphaticIndex">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_basic_residues">Basic Residues</div>
+                  <div class="item-value" id="basicResidues">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_acidic_residues">Acidic Residues</div>
+                  <div class="item-value" id="acidicResidues">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_hydrophobic_residues">Hydrophobic Residues</div>
+                  <div class="item-value" id="hydrophobicResidues">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_boman_index">Boman Index</div>
+                  <div class="item-value" id="bomanIndex">-</div>
+                </div>
+                <div class="detail-item">
+                  <div class="item-label" data-lang-key="label_half_life">Half-life</div>
+                  <div class="item-value" id="halfLife">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="referenceInfo" class="tab-content">
+            <div class="detail-section">
+              <div class="section-title" data-lang-key="section_reference">References</div>
+              <div id="references">
+                <!-- References will be added dynamically via JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a href="search.html" class="btn" data-lang-key="btn_back">Back to Search</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Language translations
+    const translations = {
+      'en': {
+        'logo_text': 'Pure-era',
+        'team_info': 'Belongs to XJTLU-Software-2025 Team',
+        'nav_home': 'Home',
+        'nav_search': 'Search',
+        'nav_tools': 'Tools',
+        'nav_statistics': 'Statistics',
+        'nav_amp_visualization': 'AMP Visualization',
+        'loading': 'Loading data...',
+        'error_no_id': 'No peptide ID provided in the URL',
+        'error_loading': 'Failed to load peptide data. Please try again later.',
+        'unknown_name': 'Unknown Peptide',
+        'not_provided': 'Not provided',
+        'no_references': 'No references available',
+        'tab_basic': 'Basic Information',
+        'tab_sequence': 'Sequence Information',
+        'tab_activity': 'Activity Information',
+        'tab_structure': 'Structure Information',
+        'tab_clinical': 'Clinical Information',
+        'tab_physical': 'Physical-Chemical Properties',
+        'tab_reference': 'References',
+        'section_basic': 'Basic Information',
+        'section_sequence': 'Sequence Information',
+        'section_activity': 'Biological Activity',
+        'section_structure': 'Structure Information',
+        'section_clinical': 'Clinical Information',
+        'section_physical': 'Physical-Chemical Properties',
+        'section_reference': 'References',
+        'label_source': 'Source',
+        'label_family': 'Family',
+        'label_gene': 'Gene',
+        'label_protein_existence': 'Protein Existence',
+        'label_description': 'Description',
+        'label_sequence': 'Sequence',
+        'label_length': 'Sequence Length',
+        'label_original_sequence': 'Original Sequence',
+        'label_activity_type': 'Activity Type',
+        'label_target_organism': 'Target Organism',
+        'label_hemolytic': 'Hemolytic Activity',
+        'label_cytotoxicity': 'Cytotoxicity',
+        'label_binding_target': 'Binding Target',
+        'label_linear_cyclic': 'Linear/Cyclic',
+        'label_n_terminal': 'N-terminal Modification',
+        'label_c_terminal': 'C-terminal Modification',
+        'label_special_amino_acid': 'Non-terminal Modifications and Special Amino Acids',
+        'label_stereochemistry': 'Stereochemistry',
+        'label_secondary_structure': 'Secondary Structure',
+        'label_structure_description': 'Structure Description',
+        'label_medical_use': 'Medical Use',
+        'label_company': 'Company',
+        'label_development_stage': 'Development Stage',
+        'label_comments': 'Comments',
+        'label_clinical_trials': 'Clinical Trials',
+        'label_formula': 'Formula',
+        'label_mass': 'Molecular Weight',
+        'label_pi': 'Isoelectric Point',
+        'label_hydrophobicity': 'Hydrophobicity',
+        'label_net_charge': 'Net Charge',
+        'label_aliphatic_index': 'Aliphatic Index',
+        'label_basic_residues': 'Basic Residues',
+        'label_acidic_residues': 'Acidic Residues',
+        'label_hydrophobic_residues': 'Hydrophobic Residues',
+        'label_boman_index': 'Boman Index',
+        'label_half_life': 'Half-life',
+        'btn_back': 'Back to Search',
+        'error_no_id': 'No valid peptide ID provided',
+        'error_loading': 'Failed to load data',
+        'not_provided': 'Not provided',
+        'unknown_name': 'Unknown name',
+        'unknown_id': 'Unknown ID',
+        'unknown_source': 'Unknown source',
+        'unknown_sequence': 'Unknown sequence',
+        'unknown_activity': 'Unknown activity',
+        'unknown_target': 'Unknown target',
+        'no_activity_data': 'No activity data',
+        'no_references': 'No references',
+        'clinical_data': 'Clinical data',
+        'title': 'Antimicrobial Peptide Details'
+      },
+      'zh-Hans': {
+        'logo_text': 'Pure-era',
+        'team_info': '属于XJTLU-Software-2025团队',
+        'nav_home': '首页',
+        'nav_search': '搜索',
+        'nav_tools': '工具',
+        'nav_statistics': '统计',
+        'nav_amp_visualization': 'AMP可视化',
+        'loading': '加载数据中...',
+        'error_no_id': 'URL中未提供肽ID',
+        'error_loading': '加载肽数据失败，请稍后再试',
+        'unknown_name': '未知肽',
+        'not_provided': '未提供',
+        'no_references': '无可用参考文献',
+        'tab_basic': '基本信息',
+        'tab_sequence': '序列信息',
+        'tab_activity': '活性信息',
+        'tab_structure': '结构信息',
+        'tab_clinical': '临床信息',
+        'tab_physical': '物理化学特性',
+        'tab_reference': '参考文献',
+        'section_basic': '基本信息',
+        'section_sequence': '序列信息',
+        'section_activity': '生物活性',
+        'section_structure': '结构信息',
+        'section_clinical': '临床信息',
+        'section_physical': '物理化学特性',
+        'section_reference': '参考文献',
+        'label_source': '来源',
+        'label_family': '家族',
+        'label_gene': '基因',
+        'label_protein_existence': '蛋白存在性',
+        'label_description': '描述',
+        'label_sequence': '序列',
+        'label_length': '序列长度',
+        'label_original_sequence': '原始序列',
+        'label_activity_type': '活性类型',
+        'label_target_organism': '目标生物',
+        'label_hemolytic': '溶血活性',
+        'label_cytotoxicity': '细胞毒性',
+        'label_binding_target': '结合靶点',
+        'label_linear_cyclic': '线性/环状',
+        'label_n_terminal': 'N端修饰',
+        'label_c_terminal': 'C端修饰',
+        'label_special_amino_acid': '非末端修饰和特殊氨基酸',
+        'label_stereochemistry': '立体化学',
+        'label_secondary_structure': '二级结构',
+        'label_structure_description': '结构描述',
+        'label_medical_use': '医疗用途',
+        'label_company': '公司',
+        'label_development_stage': '开发阶段',
+        'label_comments': '备注',
+        'label_clinical_trials': '临床试验',
+        'label_formula': '分子式',
+        'label_mass': '分子量',
+        'label_pi': '等电点',
+        'label_hydrophobicity': '疏水性',
+        'label_net_charge': '净电荷',
+        'label_aliphatic_index': '脂肪族指数',
+        'label_basic_residues': '碱性残基',
+        'label_acidic_residues': '酸性残基',
+        'label_hydrophobic_residues': '疏水性残基',
+        'label_boman_index': 'Boman指数',
+        'label_half_life': '半衰期',
+        'btn_back': '返回搜索',
+        'error_no_id': '未提供有效的肽ID',
+        'error_loading': '加载数据失败',
+        'not_provided': '未提供',
+        'unknown_name': '未知名称',
+        'unknown_id': '未知ID',
+        'unknown_source': '未知来源',
+        'unknown_sequence': '未知序列',
+        'unknown_activity': '未知活性',
+        'unknown_target': '未知靶标',
+        'no_activity_data': '无活性数据',
+        'no_references': '无参考文献',
+        'clinical_data': '临床数据',
+        'title': '抗菌肽详情'
+      },
+      'zh-Hant': {
+        'logo_text': 'Pure-era',
+        'team_info': '屬於XJTLU-Software-2025團隊',
+        'nav_home': '首頁',
+        'nav_search': '搜索',
+        'nav_tools': '工具',
+        'nav_statistics': '統計',
+        'nav_amp_visualization': 'AMP視覺化',
+        'loading': '加載數據中...',
+        'error_no_id': 'URL中未提供肽ID',
+        'error_loading': '加載肽數據失敗，請稍後再試',
+        'unknown_name': '未知肽',
+        'not_provided': '未提供',
+        'no_references': '無可用參考文獻',
+        'tab_basic': '基本信息',
+        'tab_sequence': '序列信息',
+        'tab_activity': '活性信息',
+        'tab_structure': '結構信息',
+        'tab_clinical': '臨床信息',
+        'tab_physical': '物理化學特性',
+        'tab_reference': '參考文獻',
+        'section_basic': '基本信息',
+        'section_sequence': '序列信息',
+        'section_activity': '生物活性',
+        'section_structure': '結構信息',
+        'section_clinical': '臨床信息',
+        'section_physical': '物理化學特性',
+        'section_reference': '參考文獻',
+        'btn_back': '返回搜索',
+        'title': '抗菌肽詳情'
+      },
+      'ja': {
+        'logo_text': 'Pure-era',
+        'team_info': 'XJTLU-Software-2025チームに属しています',
+        'nav_home': 'ホーム',
+        'nav_search': '検索',
+        'nav_tools': 'ツール',
+        'nav_statistics': '統計',
+        'nav_amp_visualization': 'AMP可視化',
+        'loading': 'データを読み込んでいます...',
+        'error_no_id': 'URLにペプチドIDが提供されていません',
+        'error_loading': 'ペプチドデータの読み込みに失敗しました。後でもう一度お試しください',
+        'unknown_name': '不明なペプチド',
+        'not_provided': '提供なし',
+        'no_references': '利用可能な参考文献はありません',
+        'tab_basic': '基本情報',
+        'tab_sequence': '配列情報',
+        'tab_activity': '活性情報',
+        'tab_structure': '構造情報',
+        'tab_clinical': '臨床情報',
+        'tab_physical': '物理化学的特性',
+        'tab_reference': '参考文献',
+        'btn_back': '検索に戻る',
+        'title': '抗菌ペプチドの詳細'
+      }
+    };
+  
+    // 获取语言显示名称
+    function getLanguageDisplayName(langCode) {
+      const langNames = {
+        'en': 'English',
+        'zh-Hans': '中文 (简体)',
+        'zh-Hant': '繁體中文',
+        'ja': '日本語',
+        'ko': '한국어',
+        'fr': 'Français',
+        'de': 'Deutsch',
+        'es': 'Español',
+        'ru': 'Русский'
+      };
+      return langNames[langCode] || langCode;
+    }
+  
+    // Function to toggle language
+    function changeLanguage(newLang) {
+      document.documentElement.lang = newLang;
+      
+      // Update page title
+      document.title = translations[newLang]['title'] || 'Antimicrobial Peptide Details';
+      
+      // Update language toggle button text
+      const currentLang = document.getElementById('currentLang');
+      currentLang.textContent = getLanguageDisplayName(newLang);
+      
+      // Update all elements with data-lang-key attribute
+      const elements = document.querySelectorAll('[data-lang-key]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        if (translations[newLang][key]) {
+          element.textContent = translations[newLang][key];
+        }
+      });
+      
+      // Save language preference
+      localStorage.setItem('preferredLanguage', newLang);
+    }
+  
+    // Function to apply saved language preference
+    function applyLanguagePreference() {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+      if (savedLang) {
+        document.documentElement.lang = savedLang;
+        
+        // Update displayed language in dropdown
+        const currentLang = document.getElementById('currentLang');
+        currentLang.textContent = getLanguageDisplayName(savedLang);
+        currentLang.classList.add('no-translate');
+        
+        // Update page title
+        document.title = translations[savedLang]['title'] || 'Antimicrobial Peptide Details';
+        
+        // Update all elements with data-lang-key attribute
+        const elements = document.querySelectorAll('[data-lang-key]');
+        elements.forEach(element => {
+          const key = element.getAttribute('data-lang-key');
+          if (translations[savedLang][key]) {
+            element.textContent = translations[savedLang][key];
+          }
+        });
+      }
+    }
+  
+    // 获取语言首选项
+    function getLanguagePreference() {
+      return localStorage.getItem('preferredLanguage') || 'en';
+    }
+  
+    // 保存语言首选项
+    function saveLanguagePreference(lang) {
+      localStorage.setItem('preferredLanguage', lang);
+    }
+  
+    // Apply language preference when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // 如果全局特殊词汇配置不存在，则创建
+      if (!window.specialTerms) {
+        window.specialTerms = {
+          'en': {},  // 英文特殊名词配置
+          'zh-Hans': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': '首页',
+            'Search': '搜索',
+            'Tools': '工具',
+            'Statistics': '统计',
+            'ID': 'ID',
+            'Name': '名称',
+            'Sequence': '序列',
+            'Length': '长度',
+            'Mass': '质量',
+            'PI': '等电点',
+            'Charge': '电荷',
+            'Hydrophobicity': '疏水性',
+            'Return to Search': '返回搜索',
+            'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队'
+          },
+          'zh-Hant': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': '首頁',
+            'Search': '搜索',
+            'Tools': '工具',
+            'Statistics': '統計',
+            'ID': 'ID',
+            'Name': '名稱',
+            'Sequence': '序列',
+            'Length': '長度',
+            'Mass': '質量',
+            'PI': '等電點',
+            'Charge': '電荷',
+            'Hydrophobicity': '疏水性',
+            'Return to Search': '返回搜索',
+            'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊'
+          },
+          'ja': {
+            'PURE-ERA': 'PURE-ERA',
+            'Home': 'ホーム',
+            'Search': '検索',
+            'Tools': 'ツール',
+            'Statistics': '統計',
+            'ID': 'ID',
+            'Name': '名前',
+            'Sequence': '配列',
+            'Length': '長さ',
+            'Mass': '質量',
+            'PI': '等電点',
+            'Charge': '電荷',
+            'Hydrophobicity': '疎水性',
+            'Return to Search': '検索に戻る'
+          }
+        };
+      }
+      
+      const savedLang = getLanguagePreference();
+      document.documentElement.lang = savedLang;
+      
+      // 更新当前语言显示 - 确保不翻译语言名称
+      const currentLang = document.getElementById('currentLang');
+      currentLang.textContent = getLanguageDisplayName(savedLang);
+      currentLang.classList.add('no-translate');
+      
+      // 初始化多语言选择下拉菜单事件
+      const langOptions = document.querySelectorAll('.language-dropdown a');
+      langOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+          e.preventDefault();
+          const newLang = this.getAttribute('data-lang');
+          if (newLang === document.documentElement.lang) return;
+          
+          // 更新显示的当前语言
+          currentLang.textContent = getLanguageDisplayName(newLang);
+          document.documentElement.lang = newLang;
+          saveLanguagePreference(newLang);
+          
+          // 销毁旧的翻译实例，创建新的
+          if (window.tranzyInstance) {
+            window.tranzyInstance.destroy();
+          }
+          
+          // 重新初始化Tranzy翻译并立即应用
+          initializeTranslation(newLang);
+        });
+      });
+      
+      // 初始化翻译
+      initializeTranslation(savedLang);
+      
+      // 获取URL参数中的ID
+      const urlParams = new URLSearchParams(window.location.search);
+      const peptideId = urlParams.get('id');
+      
+      if (peptideId) {
+        loadPeptideData(peptideId);
+      } else {
+        showError('error_no_id');
+      }
+    });
+    
+    // 初始化翻译函数
+    function initializeTranslation(lang) {
+      const tranzy = new Tranzy.Translator({
+        toLang: lang,
+        fromLang: 'en',
+        ignore: ['.no-translate', 'input', 'select', '.search-icon', 'textarea', '.language-dropdown a', '.details-section .sequence', '.table-peptide td[data-type="sequence"]', '.sequence-container'],
+        manualDict: window.specialTerms
+      });
+      
+      tranzy.translatePage();
+      tranzy.startObserver();
+      
+      // 将翻译实例保存到全局变量，以便之后销毁
+      window.tranzyInstance = tranzy;
+    }
+
+    // 提供一个全局函数用于动态添加或修改特殊名词
+    if (!window.updateSpecialTerm) {
+      window.updateSpecialTerm = function(term, translation, language) {
+        language = language || document.documentElement.lang;
+        if (!window.specialTerms[language]) {
+          window.specialTerms[language] = {};
+        }
+        window.specialTerms[language][term] = translation;
+        
+        // 如果当前语言匹配，立即应用更新
+        if (language === document.documentElement.lang && window.tranzyInstance) {
+          window.tranzyInstance.destroy();
+          initializeTranslation(language);
+        }
+      };
+    }
+    
+    // 加载肽数据
+    async function loadPeptideData(peptideId) {
+      try {
+        console.log(`开始加载肽数据: ${peptideId}`);
+        
+        // 确定文件夹
+        let folder = "General";
+        if (peptideId.startsWith("DRAMP18")) {
+          folder = "Clinical";
+        } else if (peptideId.startsWith("DRAMP04")) {
+          folder = "patent_data";
+        } else if (peptideId.startsWith("DRAMP21")) {
+          folder = "stapled";
+        } else if (peptideId.startsWith("DRAMP02") || peptideId.startsWith("DRAMP29")) {
+          folder = "Stability";
+        } else if (peptideId === "nan") {
+          folder = "Expended";
+        } else if (peptideId.startsWith("DRAMP00")) {
+          folder = "General"; // 确保DRAMP00开头的ID使用General文件夹
+        }
+        
+        console.log(`使用文件夹: ${folder} 加载ID: ${peptideId}`);
+        
+        // 构建URL并加载数据
+        const url = `../DetaBaseV1/${folder}/${peptideId}.json`;
+        console.log(`尝试从URL加载: ${url}`);
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          console.error(`加载失败，状态码: ${response.status}`);
+          throw new Error(`Failed to load data for ${peptideId} from ${url}`);
+        }
+        
+        console.log(`成功获取响应，正在解析JSON`);
+        const data = await response.json();
+        console.log(`JSON解析成功，显示数据`);
+        displayPeptideData(data, peptideId);
+      } catch (error) {
+        console.error(`加载肽数据时出错: ${error.message}`, error);
+        showError('error_loading');
+      }
+    }
+    
+    // 显示错误信息
+    function showError(errorKey) {
+      const loading = document.getElementById('loading');
+      const error = document.getElementById('error');
+      const content = document.getElementById('detailContent');
+      
+      loading.style.display = 'none';
+      error.style.display = 'block';
+      content.style.display = 'none';
+      
+      const currentLang = document.documentElement.lang;
+      error.textContent = translations[currentLang][errorKey] || 'An error occurred';
+    }
+    
+    // 显示肽数据
+    function displayPeptideData(data, peptideId) {
+      // 隐藏加载提示，显示内容
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('detailContent').style.display = 'block';
+      
+      // 设置基本信息
+      document.getElementById('peptideId').textContent = `ID: ${peptideId}`;
+      document.getElementById('peptideName').textContent = data.name || translations[document.documentElement.lang]['unknown_name'];
+      
+      // 填充各个字段
+      setElementText('source', data.source);
+      setElementText('family', data.family);
+      setElementText('gene', data.gene);
+      setElementText('uniprot', data.uniprot);
+      setElementText('proteinExistence', data.protein_existence);
+      setElementText('description', data.description);
+      
+      // 序列信息
+      setElementText('sequence', data.sequence);
+      setElementText('length', data.sequence ? data.sequence.length : '-');
+      setElementText('originalSequence', data.original_sequence);
+      
+      // 活性信息
+      setElementText('activity', data.activity_type);
+      setElementText('targetOrganism', data.target_organism);
+      setElementText('hemolyticActivity', data.hemolytic_activity);
+      setElementText('cytotoxicity', data.cytotoxicity);
+      setElementText('bindingTarget', data.binding_target);
+      
+      // 结构信息
+      setElementText('linearCyclic', data.linear_cyclic);
+      setElementText('nTerminal', data.n_terminal);
+      setElementText('cTerminal', data.c_terminal);
+      setElementText('specialAminoAcid', data.special_amino_acid);
+      setElementText('stereochemistry', data.stereochemistry);
+      setElementText('secondaryStructure', data.secondary_structure);
+      setElementText('structureDescription', data.structure_description);
+      setElementText('pdbId', data.pdb_id);
+      
+      // 临床信息
+      setElementText('medicalUse', data.medical_use);
+      setElementText('company', data.company);
+      setElementText('developmentStage', data.development_stage);
+      setElementText('comments', data.comments);
+      setElementText('clinicalTrials', data.clinical_trials);
+      
+      // 物理化学特性
+      setElementText('formula', data.formula);
+      setElementText('mass', data.mass);
+      setElementText('pi', data.pi);
+      setElementText('hydrophobicity', data.hydrophobicity);
+      setElementText('netCharge', data.net_charge);
+      setElementText('aliphaticIndex', data.aliphatic_index);
+      setElementText('basicResidues', data.basic_residues);
+      setElementText('acidicResidues', data.acidic_residues);
+      setElementText('hydrophobicResidues', data.hydrophobic_residues);
+      setElementText('bomanIndex', data.boman_index);
+      setElementText('halfLife', data.half_life);
+      
+      // 参考文献
+      if (data.references && data.references.length > 0) {
+        const referencesContainer = document.getElementById('references');
+        referencesContainer.innerHTML = '';
+        
+        data.references.forEach((ref, index) => {
+          const refDiv = document.createElement('div');
+          refDiv.className = 'reference-item';
+          refDiv.innerHTML = `<div class="reference-number">[${index + 1}]</div><div class="reference-text">${ref}</div>`;
+          referencesContainer.appendChild(refDiv);
+        });
+      } else {
+        document.getElementById('references').innerHTML = `<div class="no-data">${translations[document.documentElement.lang]['no_references']}</div>`;
+      }
+    }
+    
+    // 辅助函数：设置元素文本
+    function setElementText(elementId, value) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      
+      const currentLang = document.documentElement.lang;
+      const notProvided = translations[currentLang]['not_provided'];
+      
+      if (value === undefined || value === null || value === '') {
+        element.textContent = '-';
+      } else if (Array.isArray(value)) {
+        element.textContent = value.join(', ') || notProvided;
+      } else {
+        element.textContent = value;
+      }
+    }
+
+    function openTab(evt, tabName) {
+      var i, tabContent, tabButtons;
+      
+      // Hide all tab content
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].style.display = "none";
+      }
+      
+      // Remove "active" class from all tab buttons
+      tabButtons = document.getElementsByClassName("tab-button");
+      for (i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+      }
+      
+      // Show the current tab and add "active" class to the button that opened the tab
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
+</body>
+</html>

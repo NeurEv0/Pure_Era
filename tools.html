@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE Tools</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="shortcut icon" href="./icon/favicon.ico">
+    <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #7d2ae8, #5e17eb);
+            color: #fff;
+            overflow-x: hidden; /* 防止水平滚动 */
+        }
+
+        body:not(.home-page) header {
+            background: linear-gradient(to bottom, rgba(43, 16, 85, 0.98) 0%, rgba(43, 16, 85, 0.9) 100%); /* 轻微调整透明度 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 增强阴影 */
+            z-index: 1000; /* 提高层级 */
+            backdrop-filter: blur(8px); /* 增强模糊效果 */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 添加细微边框 */
+            transition: background 0.3s ease; /* 添加背景过渡 */
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+        }
+
+        .team-link {
+            font-size: 0.6em;
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-decoration: underline; 
+            transition: color 0.3s ease; 
+        }
+
+        .team-link:hover {
+            color: #fff; 
+        }
+
+        header .logo {
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.6em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        
+        header .logo img {
+            margin-right: 10px; 
+        }
+
+        header ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        header ul li {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        header ul li a {
+            text-decoration: none;
+            padding: 6px 15px;
+            color: #fff;
+            border-radius: 20px;
+        }
+
+        header ul li a:hover,
+        header ul li a.active {
+            background: rgba(255, 255, 255, 0.9); /* 使用带透明度的白色背景 */
+            color: #2b1055;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+            transform: translateY(-2px); /* 轻微上移效果 */
+            transition: all 0.3s ease; /* 平滑过渡 */
+        }
+
+        /* 语言选择器样式 */
+        .language-selector {
+            position: fixed;
+            right: 20px;
+            top: 110px; /* 稍微下移以避开header */
+            z-index: 10000;
+        }
+
+        .language-current {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+
+        .language-current i {
+            font-size: 18px;
+            color: white;
+            margin-right: 0;
+            transition: margin 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-current span {
+            max-width: 0;
+            opacity: 0;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-selector:hover .language-current {
+            padding-right: 15px;
+            border-radius: 10px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .language-selector:hover .language-current i {
+            margin-right: 8px;
+        }
+
+        .language-selector:hover .language-current span {
+            max-width: 120px;
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .language-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 10px;
+            border-top-right-radius: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 180px;
+            max-height: 350px;
+            overflow-y: auto;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-selector:hover .language-options {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeDown 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes fadeDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .language-options a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .language-options a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-options a:last-child {
+            margin-bottom: 10px;
+        }
+
+        .language-options a:first-child {
+            margin-top: 10px;
+        }
+
+        .language-options::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .language-options::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .language-options::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        /* 主容器样式 */
+        .main-container {
+            position: relative;
+            top: 120px; /* 增加顶部距离 */
+            padding: 50px 40px; /* 调整内边距 */
+            max-width: 1200px;
+            margin: 0 auto;
+            color: white; /* 保持主内容区白色字体 */
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.8em; /* 略微增大 */
+            margin-bottom: 60px; /* 增加底部间距 */
+            color: #2b1055; /* 使用深紫色标题 */
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 添加轻微文本阴影 */
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px; /* 增加卡片间距 */
+            margin-top: 50px;
+        }
+
+        .tool-card {
+            background: rgba(43, 16, 85, 0.75); /* 稍微调整透明度 */
+            border-radius: 20px; /* 更大的圆角 */
+            padding: 30px; /* 增加内边距 */
+            backdrop-filter: blur(12px); /* 增强模糊 */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), background 0.4s ease; /* 更流畅的过渡 */
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* 调整阴影 */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* 添加细微边框 */
+        }
+
+        .tool-card:hover {
+            transform: translateY(-12px) scale(1.03); /* 增强悬停效果 */
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2); /* 增强悬停阴影 */
+            background: rgba(43, 16, 85, 0.9); /* 悬停时背景更深 */
+        }
+
+        .tool-card h3 {
+            font-size: 1.5em; /* 增大标题 */
+            margin-bottom: 15px;
+            color: #ffffff; /* 确保白色 */
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            color: rgba(255, 255, 255, 0.85); /* 提高文本对比度 */
+            margin-bottom: 25px; /* 增加段落间距 */
+            font-size: 0.98em; /* 调整字体大小 */
+            line-height: 1.6; /* 调整行高 */
+        }
+
+        .tool-card .btn {
+            background: rgba(255, 255, 255, 0.15); /* 调整按钮背景 */
+            color: white;
+            padding: 10px 22px; /* 调整按钮内边距 */
+            border-radius: 50px; /* 全圆角 */
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease, transform 0.3s ease; /* 添加过渡 */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* 添加边框 */
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .tool-card .btn:hover {
+            background: rgba(255, 255, 255, 0.3); /* 悬停时更亮 */
+            transform: scale(1.05); /* 轻微放大 */
+        }
+
+        .tool-icon {
+            position: absolute;
+            top: 25px; /* 调整位置 */
+            right: 25px; /* 调整位置 */
+            font-size: 2.5em; /* 增大图标 */
+            color: rgba(255, 255, 255, 0.15); /* 调整透明度 */
+            transition: transform 0.4s ease, color 0.4s ease; /* 添加过渡 */
+        }
+
+        .tool-card:hover .tool-icon {
+            transform: rotate(10deg) scale(1.1); /* 悬停时旋转放大 */
+            color: rgba(255, 255, 255, 0.3); /* 悬停时更明显 */
+        }
+
+        /* 工具模态窗口样式 */
+        .tool-modal {
+            display: none; /* 初始隐藏 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* 背景变暗 */
+            z-index: 10000; /* 最高层级 */
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px); /* 背景模糊 */
+            opacity: 0; /* 初始透明 */
+            transform: scale(0.95); /* 初始缩小 */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* 过渡动画 */
+            padding: 20px; /* 添加内边距以适应小屏幕 */
+        }
+
+        .tool-modal.active { /* 用于JS控制显示 */
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-content {
+            background: #ffffff; /* 白色背景 */
+            width: 90%; /* 调整宽度 */
+            max-width: 800px; /* 最大宽度 */
+            max-height: 90vh; /* 最大高度 */
+            border-radius: 15px; /* 圆角 */
+            padding: 40px; /* 增加内边距 */
+            position: relative;
+            overflow-y: auto;
+            color: #333;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); /* 增强阴影 */
+            transform: translateY(-20px); /* 初始轻微上移 */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* 内容动画 */
+        }
+
+        .tool-modal.active .modal-content {
+             transform: translateY(0); /* 激活时恢复位置 */
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; /* 调整位置 */
+            right: 15px; /* 调整位置 */
+            font-size: 30px; /* 增大关闭按钮 */
+            cursor: pointer;
+            color: #aaa; /* 灰色 */
+            transition: color 0.3s ease, transform 0.3s ease; /* 添加过渡 */
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #2b1055; /* 悬停时深紫色 */
+            transform: rotate(90deg); /* 悬停时旋转 */
+        }
+
+        .modal-title {
+            font-size: 2em; /* 调整标题大小 */
+            color: #2b1055;
+            margin-bottom: 25px; /* 增加间距 */
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0bbe4; /* 使用主题色系作为下划线 */
+            font-weight: 600;
+        }
+
+        .tool-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #a26fb0; /* 主题色系的焦点色 */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(162, 111, 176, 0.2); /* 添加焦点阴影 */
+        }
+
+        textarea.form-control {
+            min-height: 120px; /* 调整文本域最小高度 */
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #3a1675, #2b1055); /* 按钮渐变 */
+            color: white;
+            border: none;
+            padding: 14px 30px; /* 增大按钮 */
+            border-radius: 50px; /* 全圆角 */
+            cursor: pointer;
+            font-size: 1.05em; /* 增大字体 */
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* 添加过渡 */
+            box-shadow: 0 4px 10px rgba(43, 16, 85, 0.3); /* 添加阴影 */
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #4a2090, #3a1675); /* 悬停时改变渐变 */
+            transform: translateY(-2px); /* 轻微上移 */
+            box-shadow: 0 6px 15px rgba(43, 16, 85, 0.4); /* 增强阴影 */
+        }
+
+        .submit-btn:active {
+             transform: translateY(0px); /* 按下时恢复 */
+             box-shadow: 0 2px 5px rgba(43, 16, 85, 0.3); /* 按下时阴影 */
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) { /* 调整断点 */
+            body:not(.home-page) header {
+                padding: 15px 50px; /* 调整内边距 */
+            }
+            .main-container {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body:not(.home-page) header {
+                 padding: 15px 20px; /* 进一步调整内边距 */
+                 flex-direction: column; /* 垂直排列 */
+                 align-items: flex-start; /* 左对齐 */
+            }
+            .logo-container {
+                 margin-bottom: 10px; /* 添加间距 */
+            }
+            header ul {
+                 margin-top: 10px; /* 添加间距 */
+                 flex-wrap: wrap; /* 允许换行 */
+                 justify-content: flex-start; /* 左对齐 */
+            }
+            header ul li {
+                 margin-left: 0; /* 移除左边距 */
+                 margin-right: 15px; /* 添加右边距 */
+                 margin-bottom: 5px; /* 添加下边距 */
+            }
+            .main-container {
+                padding: 30px 15px; /* 调整内边距 */
+                top: 160px; /* 根据header高度调整 */
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 30px; /* 调整间距 */
+            }
+            .modal-content {
+                width: 95%; /* 调整宽度 */
+                padding: 25px; /* 调整内边距 */
+                max-height: 85vh; /* 调整最大高度 */
+            }
+            .page-title {
+                 font-size: 2.2em; /* 调整标题大小 */
+                 margin-bottom: 40px;
+            }
+            .tool-card {
+                 padding: 25px;
+            }
+            .language-selector {
+                 top: 160px; /* 根据header调整 */
+                 right: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="logo.png" style="vertical-align: middle; height: 30px;">
+                SPADE
+            </a>
+            <a href="https://2025.igem.wiki/xjtlu-software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="tools.html" class="active">Tools</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+            <li><a href="chat.html">Chat</a></li>
+        </ul>
+    </header>
+
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="language-current" id="currentLang">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangText">English</span>
+        </div>
+        <div class="language-options">
+            <a href="#" data-lang="en" class="no-translate">English</a>
+            <a href="#" data-lang="zh-Hans" class="no-translate">中文 (简体)</a>
+            <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+            <a href="#" data-lang="ja" class="no-translate">日本語</a>
+            <a href="#" data-lang="ko" class="no-translate">한국어</a>
+            <a href="#" data-lang="fr" class="no-translate">Français</a>
+            <a href="#" data-lang="de" class="no-translate">Deutsch</a>
+            <a href="#" data-lang="es" class="no-translate">Español</a>
+            <a href="#" data-lang="ru" class="no-translate">Русский</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <h1 class="page-title">Tools</h1>
+        
+        <div class="tools-grid">
+            <!-- 工具卡片 1 -->
+            <div class="tool-card" onclick="openModal('sequence-analysis')">
+                <i class="fas fa-dna tool-icon"></i>
+                <h3>Sequence Analysis</h3>
+                <p>Analyze peptide sequences for common motifs, patterns, and structural predictions.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+            
+            <!-- 工具卡片 2 -->
+            <div class="tool-card" onclick="openModal('activity-prediction')">
+                <i class="fas fa-chart-line tool-icon"></i>
+                <h3>Activity Prediction</h3>
+                <p>Predict antimicrobial activity based on sequence, comparing to known active peptides.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+            
+            <!-- 工具卡片 3 -->
+            <div class="tool-card" onclick="openModal('similarity-search')">
+                <i class="fas fa-search tool-icon"></i>
+                <h3>Similarity Search</h3>
+                <p>Find peptides with similar sequences or properties in our database.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+            
+            <!-- 工具卡片 4 -->
+            <div class="tool-card" onclick="openModal('physicochemical-properties')">
+                <i class="fas fa-flask tool-icon"></i>
+                <h3>Physicochemical Properties</h3>
+                <p>Calculate key properties such as hydrophobicity, charge, and isoelectric point.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+            
+            <!-- 工具卡片 5 -->
+            <div class="tool-card" onclick="openModal('structure-visualization')">
+                <i class="fas fa-cube tool-icon"></i>
+                <h3>Structure Visualization</h3>
+                <p>Visualize predicted 3D structures of peptides and analyze structural features.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+            
+            <!-- 工具卡片 6 -->
+            <div class="tool-card" onclick="openModal('target-prediction')">
+                <i class="fas fa-bullseye tool-icon"></i>
+                <h3>Target Prediction</h3>
+                <p>Predict potential microbial targets for antimicrobial peptides.</p>
+                <a href="#" class="btn">Use Tool</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 序列分析 -->
+    <div id="sequence-analysis-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('sequence-analysis')">&times;</span>
+            <h2 class="modal-title">Sequence Analysis Tool</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="sequence-input">Enter Peptide Sequence</label>
+                    <textarea id="sequence-input" class="form-control" placeholder="Enter amino acid sequence in single letter code (e.g., GLFDIIKKIAESF)" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Analysis Options</label>
+                    <div>
+                        <input type="checkbox" id="motif-search" checked>
+                        <label for="motif-search">Motif Search</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="secondary-structure" checked>
+                        <label for="secondary-structure">Secondary Structure Prediction</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="amino-composition" checked>
+                        <label for="amino-composition">Amino Acid Composition</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Analyze Sequence</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 活性预测 -->
+    <div id="activity-prediction-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('activity-prediction')">&times;</span>
+            <h2 class="modal-title">Activity Prediction Tool</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="activity-sequence">Enter Peptide Sequence</label>
+                    <textarea id="activity-sequence" class="form-control" placeholder="Enter amino acid sequence in single letter code" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prediction-model">Select Prediction Model</label>
+                    <select id="prediction-model" class="form-control">
+                        <option value="general">General Antimicrobial</option>
+                        <option value="antibacterial">Antibacterial</option>
+                        <option value="antifungal">Antifungal</option>
+                        <option value="antiviral">Antiviral</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Predict Activity</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 相似性搜索 -->
+    <div id="similarity-search-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('similarity-search')">&times;</span>
+            <h2 class="modal-title">Similarity Search Tool</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="similarity-sequence">Enter Query Sequence</label>
+                    <textarea id="similarity-sequence" class="form-control" placeholder="Enter amino acid sequence to find similar peptides"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="similarity-threshold">Similarity Threshold (%)</label>
+                    <input type="range" id="similarity-threshold" class="form-control" min="50" max="100" value="70">
+                    <output for="similarity-threshold">70%</output>
+                </div>
+                <div class="form-group">
+                    <label for="max-results">Maximum Results</label>
+                    <input type="number" id="max-results" class="form-control" min="1" max="100" value="20">
+                </div>
+                <button type="submit" class="submit-btn">Search Similar Peptides</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 物理化学性质 -->
+    <div id="physicochemical-properties-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('physicochemical-properties')">&times;</span>
+            <h2 class="modal-title">Physicochemical Properties Calculator</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="properties-sequence">Enter Peptide Sequence</label>
+                    <textarea id="properties-sequence" class="form-control" placeholder="Enter amino acid sequence" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Properties to Calculate</label>
+                    <div>
+                        <input type="checkbox" id="calc-hydrophobicity" checked>
+                        <label for="calc-hydrophobicity">Hydrophobicity</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="calc-charge" checked>
+                        <label for="calc-charge">Net Charge</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="calc-pi" checked>
+                        <label for="calc-pi">Isoelectric Point</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="calc-molecular-weight" checked>
+                        <label for="calc-molecular-weight">Molecular Weight</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Calculate Properties</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 结构可视化 -->
+    <div id="structure-visualization-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('structure-visualization')">&times;</span>
+            <h2 class="modal-title">Structure Visualization Tool</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="structure-sequence">Enter Peptide Sequence</label>
+                    <textarea id="structure-sequence" class="form-control" placeholder="Enter amino acid sequence for structure prediction" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="structure-method">Prediction Method</label>
+                    <select id="structure-method" class="form-control">
+                        <option value="alphafold">AlphaFold-based</option>
+                        <option value="rosetta">Rosetta</option>
+                        <option value="homology">Homology Modeling</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="visualization-type">Visualization Type</label>
+                    <select id="visualization-type" class="form-control">
+                        <option value="cartoon">Cartoon</option>
+                        <option value="surface">Surface</option>
+                        <option value="stick">Stick</option>
+                        <option value="sphere">Sphere</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Visualize Structure</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 模态窗口 - 靶点预测 -->
+    <div id="target-prediction-modal" class="tool-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('target-prediction')">&times;</span>
+            <h2 class="modal-title">Target Prediction Tool</h2>
+            <form class="tool-form">
+                <div class="form-group">
+                    <label for="target-sequence">Enter Peptide Sequence</label>
+                    <textarea id="target-sequence" class="form-control" placeholder="Enter amino acid sequence" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="organism-type">Target Organism Type</label>
+                    <select id="organism-type" class="form-control">
+                        <option value="bacteria">Bacteria</option>
+                        <option value="fungi">Fungi</option>
+                        <option value="virus">Virus</option>
+                        <option value="all">All Microbes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="prediction-confidence">Minimum Prediction Confidence</label>
+                    <select id="prediction-confidence" class="form-control">
+                        <option value="high">High (>80%)</option>
+                        <option value="medium" selected>Medium (>60%)</option>
+                        <option value="low">Low (>40%)</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Predict Targets</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏响应式控制
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // 模态窗口控制
+        function openModal(toolId) {
+            const modal = document.getElementById(`${toolId}-modal`);
+            modal.classList.add('active'); // 使用类来控制显示和动画
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(toolId) {
+            const modal = document.getElementById(`${toolId}-modal`);
+            modal.classList.remove('active'); // 移除类
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击模态窗口外部关闭
+        window.addEventListener('click', function(event) {
+            document.querySelectorAll('.tool-modal').forEach(modal => {
+                if (event.target === modal) {
+                    // 从 ID 中提取 toolId
+                    const toolId = modal.id.replace('-modal', '');
+                    closeModal(toolId);
+                }
+            });
+        });
+
+        // 范围滑块值实时显示
+        document.getElementById('similarity-threshold').addEventListener('input', function() {
+            document.querySelector('output[for="similarity-threshold"]').textContent = this.value + '%';
+        });
+
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+        
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+
+        // 更新当前语言显示 - 确保不翻译语言名称
+        function updateCurrentLanguageDisplay() {
+            const currentLang = document.getElementById('currentLang');
+            const currentLangText = document.getElementById('currentLangText');
+            
+            // 更新文本内容
+            currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+            
+            // 确保语言名称不被翻译
+            currentLang.classList.add('no-translate');
+            currentLangText.classList.add('no-translate');
+        }
+
+        // 设置初始语言
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建特殊名词配置库
+            window.specialTerms = {
+                'en': { 'SPADE': 'SPADE' }, 
+                'zh-Hans': {
+                    'SPADE': 'SPADE',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Chat': '聊天',
+                    'Antimicrobial Peptide Analysis Tools': '抗菌肽分析工具',
+                    'Sequence Analysis': '序列分析',
+                    'Activity Prediction': '活性预测',
+                    'Similarity Search': '相似性搜索',
+                    'Physicochemical Properties': '物理化学性质',
+                    'Structure Visualization': '结构可视化',
+                    'Target Prediction': '靶点预测',
+                    'Use Tool': '使用工具',
+                    'Enter Peptide Sequence': '输入肽序列',
+                    'Analyze Sequence': '分析序列',
+                    'Predict Activity': '预测活性',
+                    'Search Similar Peptides': '搜索相似肽',
+                    'Calculate Properties': '计算性质',
+                    'Visualize Structure': '可视化结构',
+                    'Predict Targets': '预测靶点',
+                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队'
+                },
+                'zh-Hant': {
+                    'SPADE': 'SPADE',
+                    'Home': '首頁',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '統計',
+                    'Chat': '聊天',
+                    'Antimicrobial Peptide Analysis Tools': '抗菌肽分析工具',
+                    'Sequence Analysis': '序列分析',
+                    'Activity Prediction': '活性預測',
+                    'Similarity Search': '相似性搜索',
+                    'Physicochemical Properties': '物理化學性質',
+                    'Structure Visualization': '結構可視化',
+                    'Target Prediction': '靶點預測',
+                    'Use Tool': '使用工具',
+                    'Enter Peptide Sequence': '輸入肽序列',
+                    'Analyze Sequence': '分析序列',
+                    'Predict Activity': '預測活性',
+                    'Search Similar Peptides': '搜索相似肽',
+                    'Calculate Properties': '計算性質',
+                    'Visualize Structure': '可視化結構',
+                    'Predict Targets': '預測靶點',
+                    'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊'
+                },
+                'ja': {
+                    'SPADE': 'SPADE',
+                    'Home': 'ホーム',
+                    'Search': '検索',
+                    'Tools': 'ツール',
+                    'Statistics': '統計',
+                    'Chat': 'チャット',
+                    'Antimicrobial Peptide Analysis Tools': '抗菌ペプチド分析ツール',
+                    'Sequence Analysis': '配列分析',
+                    'Activity Prediction': '活性予測',
+                    'Similarity Search': '類似性検索',
+                    'Physicochemical Properties': '物理化学的特性',
+                    'Structure Visualization': '構造可視化',
+                    'Target Prediction': 'ターゲット予測',
+                    'Use Tool': 'ツールを使用'
+                },
+                'ko': { 'SPADE': 'SPADE' },
+                'fr': { 'SPADE': 'SPADE' },
+                'de': { 'SPADE': 'SPADE' },
+                'es': { 'SPADE': 'SPADE' },
+                'ru': { 'SPADE': 'SPADE' }
+            };
+            
+            const savedLang = getLanguagePreference();
+            document.documentElement.lang = savedLang;
+            
+            // 更新当前语言显示 - 确保不翻译语言名称
+            updateCurrentLanguageDisplay();
+            
+            // 初始化多语言选择
+            const langOptions = document.querySelectorAll('.language-options a');
+            langOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newLang = this.getAttribute('data-lang');
+                    if (newLang === document.documentElement.lang) return;
+                    
+                    // 保存语言设置并刷新页面
+                    saveLanguagePreference(newLang);
+                    
+                    // 获取当前URL并添加时间戳参数以确保刷新
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.set('ts', Date.now());
+                    window.location.href = currentUrl.toString();
+                });
+            });
+            
+            // 初始化翻译
+            initializeTranslation(savedLang);
+        });
+        
+        // 初始化翻译函数
+        function initializeTranslation(lang) {
+            const tranzy = new Tranzy.Translator({
+                toLang: lang,
+                fromLang: 'en',
+                ignore: ['.no-translate', 'input[type="text"]', 'textarea', '.language-dropdown a'],
+                manualDict: window.specialTerms
+            });
+            
+            tranzy.translatePage();
+            tranzy.startObserver();
+            
+            // 将翻译实例保存到全局变量，以便之后销毁
+            window.tranzyInstance = tranzy;
+        }
+    </script>
+</body>
+</html> 

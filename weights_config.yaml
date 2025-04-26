@@ -1,0 +1,27 @@
+efficacy: 0.4
+scoring_parameters:
+  gravy_optimal_range:
+  - -0.2
+  - 0.1
+  max_length: 30
+  min_hydrophobicity: 0.4
+  optimal_disulfide: 4
+stability: 0.2
+sub_weights:
+  efficacy:
+    mic: 0.9
+    synergy_bonus: 0.1
+  stability:
+    half_life: 0.3
+    ph_thermal: 0.4
+    protease: 0.3
+  synthesis:
+    disulfide: 0.4
+    length: 0.3
+    rare_aa: 0.3
+  toxicity:
+    boman_score: 0.3
+    cytotoxicity: 0.3
+    hemolysis: 0.4
+synthesis: 0.15
+toxicity: 0.25

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./icon/iconfont.css">
+    <link rel="shortcut icon" href="./icon/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .chat-container {
+            max-width: 1000px;
+            margin: 100px auto 20px;
+            padding: 20px;
+        }
+
+        .post-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .post-form textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+
+        .post-form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .post-form button:hover {
+            background: #1e4468;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .message-content {
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .message-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .message-actions button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .message-actions button:hover {
+            color: var(--primary);
+        }
+
+        .replies {
+            margin-left: 40px;
+            margin-top: 10px;
+            padding-left: 20px;
+            border-left: 2px solid var(--border);
+        }
+
+        .reply-form {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .reply-form.active {
+            display: block;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            height: 60px;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            resize: vertical;
+        }
+
+        .reply-form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <img src="logo.png" style="vertical-align: middle; height: 30px;">
+                SPADE
+            </a>
+            <a href="https://2025.igem.wiki/xjtlu-software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+            <!-- <li><a href="amp_visualization.html">AMP Visualization</a></li> -->
+            <li><a href="chat.html" class="active">Chat</a></li>
+        </ul>
+    </header>
+
+    <div class="chat-container">
+        <div class="post-form">
+            <textarea placeholder="Share your thoughts..."></textarea>
+            <button type="submit">Post</button>
+        </div>
+
+        <div class="messages">
+            <!-- 示例消息 -->
+            <div class="message">
+                <div class="message-header">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>User123</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9em;">2 hours ago</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-content">
+                    这是一个示例留言。用户可以在这里分享他们的想法和问题。
+                </div>
+                <div class="message-footer">
+                    <div class="message-actions">
+                        <button onclick="toggleLike(this)">
+                            <i class="far fa-heart"></i>
+                            <span>12</span>
+                        </button>
+                        <button onclick="toggleReplyForm(this)">
+                            <i class="far fa-comment"></i>
+                            <span>Reply</span>
+                        </button>
+                    </div>
+                    <span>2024-01-20</span>
+                </div>
+                <div class="reply-form">
+                    <textarea placeholder="Write a reply..."></textarea>
+                    <button onclick="submitReply(this)">Reply</button>
+                </div>
+                <div class="replies">
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <strong>User456</strong>
+                                    <div style="color: var(--text-secondary); font-size: 0.9em;">1 hour ago</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-content">
+                            这是一个回复示例。
+                        </div>
+                        <div class="message-footer">
+                            <div class="message-actions">
+                                <button onclick="toggleLike(this)">
+                                    <i class="far fa-heart"></i>
+                                    <span>5</span>
+                                </button>
+                            </div>
+                            <span>2024-01-20</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 切换点赞状态
+        function toggleLike(button) {
+            const icon = button.querySelector('i');
+            const count = button.querySelector('span');
+            if (icon.classList.contains('far')) {
+                icon.classList.replace('far', 'fas');
+                count.textContent = parseInt(count.textContent) + 1;
+            } else {
+                icon.classList.replace('fas', 'far');
+                count.textContent = parseInt(count.textContent) - 1;
+            }
+        }
+
+        // 切换回复表单显示
+        function toggleReplyForm(button) {
+            const message = button.closest('.message');
+            const replyForm = message.querySelector('.reply-form');
+            replyForm.classList.toggle('active');
+        }
+
+        // 提交回复
+        function submitReply(button) {
+            const replyForm = button.closest('.reply-form');
+            const textarea = replyForm.querySelector('textarea');
+            const content = textarea.value.trim();
+            
+            if (content) {
+                const replies = button.closest('.message').querySelector('.replies');
+                const newReply = createReplyElement(content);
+                replies.insertBefore(newReply, replies.firstChild);
+                textarea.value = '';
+                replyForm.classList.remove('active');
+            }
+        }
+
+        // 创建新回复元素
+        function createReplyElement(content) {
+            const reply = document.createElement('div');
+            reply.className = 'message';
+            reply.innerHTML = `
+                <div class="message-header">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <strong>You</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9em;">Just now</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-content">${content}</div>
+                <div class="message-footer">
+                    <div class="message-actions">
+                        <button onclick="toggleLike(this)">
+                            <i class="far fa-heart"></i>
+                            <span>0</span>
+                        </button>
+                    </div>
+                    <span>${new Date().toLocaleDateString()}</span>
+                </div>
+            `;
+            return reply;
+        }
+
+        // 响应式导航栏
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>
