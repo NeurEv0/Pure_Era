@@ -1,0 +1,77 @@
+{
+  "DRAMP ID": "DRAMP00127",
+  "Sequence": "VFHAYSARGVRNNYKSAVGPADWVISAVRGFIHG",
+  "scores": {
+    "mic": 10,
+    "hemolysis": 6.0,
+    "cytotoxicity": 9.2,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 3.6,
+    "toxicity": 1.5150000000000001,
+    "stability": 1.3,
+    "synthesis": 1.275
+  },
+  "total": 7.69,
+  "APD3": {
+    "sequence": "VFHAYSARGVRNNYKSAVGPADWVISAVRGFIHG",
+    "length": 34,
+    "hydrophobic_ratio": 50.0,
+    "net_charge": 3.2,
+    "molecular_weight": 3703.19,
+    "gravy_value": 0.03529411764705883,
+    "disulfide_bonds": 0,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Lactobacillus viridescens NCDO 1655",
+        "activity": "MIC: 2 μg/ml"
+      },
+      {
+        "name": "Lactobacillus sakei NCDO 2714",
+        "activity": "MIC: 4 μg/ml"
+      },
+      {
+        "name": "Pediococcus pentosaceus Pac 1.0",
+        "activity": "MIC: 5 μg/ml"
+      },
+      {
+        "name": "Lactobacillus curvatus 89",
+        "activity": "MIC: 5 μg/ml"
+      },
+      {
+        "name": "Lactobacillus plantarum 965",
+        "activity": "MIC: 7 μg/ml"
+      },
+      {
+        "name": "Pediococcus acidilactici CH",
+        "activity": "MIC: 10 μg/ml"
+      },
+      {
+        "name": "Lactobacillus casei subsp.casei NCDO 161",
+        "activity": "MIC: 20 μg/ml"
+      },
+      {
+        "name": "Pediococcus pentosaceus NCDO 990",
+        "activity": "MIC: 30 μg/ml"
+      },
+      {
+        "name": "Lactobacillus sakei 706",
+        "activity": "MIC: 100 μg/ml"
+      },
+      {
+        "name": "Lactobacillus casei NCDO 2713",
+        "activity": "MIC: 150 μg/ml"
+      }
+    ]
+  }
+}

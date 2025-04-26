@@ -1,0 +1,85 @@
+{
+  "DRAMP ID": "DRAMP00041",
+  "Sequence": "FKSWSLCTPGCARTGSFNSYCC",
+  "scores": {
+    "mic": 10,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 3.6,
+    "toxicity": 1.8250000000000002,
+    "stability": 0.722,
+    "synthesis": 1.38
+  },
+  "total": 7.527,
+  "APD3": {
+    "sequence": "FKSWSLCTPGCARTGSFNSYCC",
+    "length": 22,
+    "hydrophobic_ratio": 27.27272727272727,
+    "net_charge": 2,
+    "molecular_weight": 2418.79,
+    "gravy_value": 0.004545454545454514,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Streptococcus cricetus E49",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus rattus BHT-2",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus mutans NG8",
+        "activity": ""
+      },
+      {
+        "name": "S. mutans OMZ175",
+        "activity": ""
+      },
+      {
+        "name": "S. mutans V100",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus sobrinus SL1",
+        "activity": ""
+      },
+      {
+        "name": "S. sobrinus ATCC 27352",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus downeii ATCC 33748",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus salivarius ATCC 25975",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus salivariusATCC 27945",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus mitis ATCC 19950",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus sanguinis.",
+        "activity": ""
+      }
+    ]
+  }
+}

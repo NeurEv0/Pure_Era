@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00048",
+  "Sequence": "WKSESLCTPGCVTGALQTCFLQTLTCNCKISK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.9333333333333332,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.725,
+    "stability": 0.756,
+    "synthesis": 1.155
+  },
+  "total": 5.796,
+  "APD3": {
+    "sequence": "WKSESLCTPGCVTGALQTCFLQTLTCNCKISK",
+    "length": 32,
+    "hydrophobic_ratio": 43.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00206",
+    "detail_info": {
+      "name_class": "Subtilin (natural AMPs; lantibiotic, class 1 bacteriocin,Gram-positive bacteria, prokaryotes; XXT5; XXW3; UCSS1b; BBMm, BBW; Derivative: XX1, S-subtilin)",
+      "source": "Bacillus subtilis",
+      "sequence": "WKSESLCTPGCVTGALQTCFLQTLTCNCKISK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "N-terminus (Parisot et al, 2008). Dha-5, which appears to be a critical residue in the antimicrobial effect of subtilin against outgrowing spores.",
+      "additional_info": "Chemical modification:  There are  two di-dehydroalanines (Dha), S3, S31; one di-dehydrobutyrine (Dhb), T18; one lanthionine, S3-C7; and four methyllanthionines, T8-C11, T13-C19, T23-C26, and T25-C28 (provided by T. Stein). In addiiton, this peptide can be succinylated via Trp, leading to reduced activity (Chan et al., 1993).Activity:  subtilin inhibits B. cereus T spore outgrowth at a very low concentration of 80 nM. In addition, f vegetative B. cereus was lysed at 8 ug/ml. spore is a dormant, reproductive cell whereas vegetative cell is any cell that does not produce gametes.MOA:  The peptide antibiotic subtilin acts by formation of voltage-dependent multi-state pores in bacterial and artificial membranes (Schüller F et al., 1989).Natural variant: [N-alpha-succinyl-Trp1]subtilin has been isolated from Bacillus subtilis A.T.C.C. 6633 (Chan et al., 1993). A total chemical synthesis [N alpha-Succinyl-Trp1]-subtilin is produced later in the growth of the bacterium. After 24 h, the ratio of subtilin/modified form=1:2. This modification reduced antibacterial activity by 10-20 fold.Recombinant production:bacteria:Bacillus subtilis: Stein and colleague improved the production of subtilin inBacillus subtilisATCC 6633 via adopting two strategies: (1) additional copies of self-protection immunity gene spaIFEG (1.7 fold increase of expression) and (2) deletion of a repressor of subtilin gene expression, leading to 6 fold increase. Interestingly, the major form of the expressed form is succinylated subtilin with reduced antibacterial activity (Heinzmann S et al., 2006).Updated 7/2021; Jan2022; 12/2022; Jan2025",
+      "reference": "Proc Soc Exp Biol Med. 1945 Oct;60:60-4. doi: 10.3181/00379727-60-15091.",
+      "boman_index": 0.63,
+      "length": 32,
+      "net_charge": 2,
+      "hydrophobic_ratio": 43.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.63
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

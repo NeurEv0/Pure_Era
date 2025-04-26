@@ -1,0 +1,45 @@
+{
+  "DRAMP ID": "DRAMP00023",
+  "Sequence": "GTPLALLGGAATGVIGYISNQTCPTTACTRAC",
+  "scores": {
+    "mic": 8.603125,
+    "hemolysis": 6.0,
+    "cytotoxicity": 3.0,
+    "boman_score": 10.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 3.097125,
+    "toxicity": 1.5750000000000002,
+    "stability": 1.3,
+    "synthesis": 1.155
+  },
+  "total": 7.127125,
+  "APD3": {
+    "sequence": "GTPLALLGGAATGVIGYISNQTCPTTACTRAC",
+    "length": 32,
+    "hydrophobic_ratio": 37.5,
+    "net_charge": 1,
+    "molecular_weight": 3082.6,
+    "gravy_value": 0.565625,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Staphylococcus aureus",
+        "activity": ""
+      },
+      {
+        "name": "Micrococcus luteus (C55alpha and C55beta work synergistically at a ratio of 1:1).",
+        "activity": ""
+      }
+    ]
+  }
+}

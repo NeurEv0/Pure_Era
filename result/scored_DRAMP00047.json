@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00047",
+  "Sequence": "VGSRYLCTPGSCWKLVCFTTTVK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 7.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.9,
+    "stability": 1.3,
+    "synthesis": 1.38
+  },
+  "total": 6.74,
+  "APD3": {
+    "sequence": "VGSRYLCTPGSCWKLVCFTTTVK",
+    "length": 23,
+    "hydrophobic_ratio": 43.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00673",
+    "detail_info": {
+      "name_class": "Streptin 1 (natural AMPs;  lantibiotic,  type 1, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT;  UCSS1b; streptin 2)",
+      "source": "Bacillus subtilisA1/3",
+      "sequence": "VGSRYLCTPGSCWKLVCFTTTVK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Two possible structures have been proposed for streptin 1 due to insufficient info. The first lanthionine S3-C7 and the second methyllanthionine T8-C12 are identical in the two proposed structures. A third intra-bond is either S11-C17 or C17-T19 (or C17-T20 or C17-T21). Compared to Streptin 1, Streptin 2 contains 3 additional residues TPY at the N-terminus. Small quantities of peptides at various degrees of dehydration were also detected.",
+      "reference": "Appl Environ Microbiol. 2003 May;69(5):2737-47.",
+      "boman_index": 0.44,
+      "length": 23,
+      "net_charge": 3,
+      "hydrophobic_ratio": 43.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.44
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

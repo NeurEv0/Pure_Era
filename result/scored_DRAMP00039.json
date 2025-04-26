@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00039",
+  "Sequence": "TAGPAIRASVKQCQKTLKATRLFTVSCKGKNGCK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 2.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 2.4,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.275,
+    "stability": 0.844,
+    "synthesis": 1.155
+  },
+  "total": 5.434,
+  "APD3": {
+    "sequence": "TAGPAIRASVKQCQKTLKATRLFTVSCKGKNGCK",
+    "length": 34,
+    "hydrophobic_ratio": 38.0,
+    "net_charge": 8,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00207",
+    "detail_info": {
+      "name_class": "Pep5  (natural AMPs; Lantibiotic,  type 1, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT3;  UCSS1b; XXW3)",
+      "source": "Staphylococcus epidermidisstrain 5",
+      "sequence": "TAGPAIRASVKQCQKTLKATRLFTVSCKGKNGCK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Activity: Active against S. aureus SG511-Berlin (MIC 0.0095ug/ml) and S. aureus MRSA252. (MIC 0.2ug/ml).Chemical modification: The sequence is subject to posttranslationally modifications. There are  three di-dehydrobutyrine (Dhb), T1,T16, and T20; Dhb1 is unstable and deaminates to 2-oxo-butyryl; two lanthionines, S9-C13 and S26-C33; and one methyllanthionine, T24-C27 (kindly provided by T. Stein).MOA:bacteria: Pep5 exerts its action by forming voltage-dependent pores in the cytoplasmic membranes. It also causes autolysis of staphylococci.SAR: A mutation of K18 to Pro caused a drop in activity by a factor of 500 compared to the WT (see ref for entry 1616). UPdated 4/2019; 10/2023",
+      "reference": "Arch. Microbiol. 1989; 152:16-19",
+      "boman_index": 1.71,
+      "length": 34,
+      "net_charge": 8,
+      "hydrophobic_ratio": 38.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 1.71
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

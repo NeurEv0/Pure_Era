@@ -1,0 +1,37 @@
+{
+  "DRAMP ID": "DRAMP00004",
+  "Sequence": "MNNTIKDFDLDLKTNKKDTATPYVGSRYLCTPGSCWKLVCFTTTVK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 4.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.4249999999999998,
+    "stability": 1.3,
+    "synthesis": 1.155
+  },
+  "total": 6.04,
+  "APD3": {
+    "sequence": "MNNTIKDFDLDLKTNKKDTATPYVGSRYLCTPGSCWKLVCFTTTVK",
+    "in_database": false,
+    "cys_count": 3,
+    "disulfide_bonds": 1
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

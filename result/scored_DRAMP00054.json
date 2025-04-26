@@ -1,0 +1,72 @@
+{
+  "DRAMP ID": "DRAMP00054",
+  "Sequence": "ITSISLCTPGCKTGVLMGCNLKTATCNCSVHVSK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 7.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 6.666666666666667,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 2.1,
+    "stability": 1.1,
+    "synthesis": 1.155
+  },
+  "total": 6.515000000000001,
+  "APD3": {
+    "sequence": "ITSISLCTPGCKTGVLMGCNLKTATCNCSVHVSK",
+    "length": 34,
+    "hydrophobic_ratio": 44.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00997",
+    "detail_info": {
+      "name_class": "Nisin Q (natural AMPs;  lantibiotic, type 1, class 1 bacteriocins; Gram-positive bacteria, prokaryotes; XXT;  UCSS1b; XXW3)",
+      "source": "Halobacterium strain AS7092",
+      "sequence": "ITSISLCTPGCKTGVLMGCNLKTATCNCSVHVSK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Two-dimensional NMR analysis (Biosci. Biotechnolo. Biochem. 72:1750-1755, 2008) revealed multiple post-translational modifications: T2 to Dhb2 (dehydrated); S5, Dha (dehydrated); T8, T23, T25, all to Abu; S33, to Dha. In addition, residues 3,7; 8,11; 13,19; 23,26; 25,28 are covalently linked via a sulfur (thioether). Similar covalent links occur in nisin A (AP00205) and nisin Z (AP00204).",
+      "reference": "Biosci Biotechnol Biochem. 2003 Jul;67(7):1616-9.PubMed.",
+      "boman_index": 0.32,
+      "length": 34,
+      "net_charge": 3,
+      "hydrophobic_ratio": 44.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.32
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "LAB",
+        "activity": ""
+      },
+      {
+        "name": "Bacillus sp",
+        "activity": ""
+      },
+      {
+        "name": "Listeria sp",
+        "activity": ""
+      },
+      {
+        "name": "Micrococcus sp.",
+        "activity": ""
+      }
+    ]
+  }
+}

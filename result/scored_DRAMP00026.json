@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00026",
+  "Sequence": "KRGSGWIATITDDCPNSVFVCC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 3.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.43333333333333335,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.15,
+    "stability": 0.726,
+    "synthesis": 1.38
+  },
+  "total": 5.416,
+  "APD3": {
+    "sequence": "KRGSGWIATITDDCPNSVFVCC",
+    "length": 22,
+    "hydrophobic_ratio": 45.0,
+    "net_charge": 1,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01195",
+    "detail_info": {
+      "name_class": "Salivaricin A (SalA, natural AMPs; lantibiotic, class 1 bacteriocin, Gram-positive bacteria, prokaryotes;  UCSS1b; XXT3)",
+      "source": "Streptococcus salivarius20P3",
+      "sequence": "KRGSGWIATITDDCPNSVFVCC",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Discovery: adsorption to hydrophobic resin XAD-2 followed by methan-ol elution.Chemical modification: one lanthionine and two beta-methyllanthionine residues.Activity: active against most S. pyogenes strains and M. luteus. Updated 10/2023",
+      "reference": "Appl Environ Microbiol. 1993 Jul;59(7):2014-21.Ross et al., 1993",
+      "boman_index": 1.16,
+      "length": 22,
+      "net_charge": 1,
+      "hydrophobic_ratio": 45.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 1.16
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "DRAMP ID": "DRAMP00010",
+  "Sequence": "KCKWWNISCDLGNNGHVCTLSHECQVSCN",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.43333333333333335,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.8250000000000002,
+    "stability": 0.726,
+    "synthesis": 1.38
+  },
+  "total": 6.091,
+  "APD3": {
+    "sequence": "KCKWWNISCDLGNNGHVCTLSHECQVSCN",
+    "in_database": false,
+    "cys_count": 5,
+    "disulfide_bonds": 2
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Lactobacillus spp",
+        "activity": ""
+      },
+      {
+        "name": "Lactococcus lactis",
+        "activity": ""
+      },
+      {
+        "name": "Listeria innocua",
+        "activity": ""
+      },
+      {
+        "name": "Listeria monocytogenes",
+        "activity": ""
+      },
+      {
+        "name": "Oenococcus oeni",
+        "activity": ""
+      },
+      {
+        "name": "Leuconostoc mesenteroides",
+        "activity": ""
+      },
+      {
+        "name": "Pediococcus acidilactici",
+        "activity": ""
+      },
+      {
+        "name": "Pediococcus pentosaceus",
+        "activity": ""
+      },
+      {
+        "name": "Enterococcus faecalis",
+        "activity": ""
+      },
+      {
+        "name": "Propionibacterium freudenreichii",
+        "activity": ""
+      },
+      {
+        "name": "Staphylococcus aureus.",
+        "activity": ""
+      }
+    ]
+  }
+}

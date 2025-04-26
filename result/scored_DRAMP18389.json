@@ -1,0 +1,59 @@
+{
+  "DRAMP ID": "DRAMP18389",
+  "Sequence": "AKKPVAKKAAGGVKKPKK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 2.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 1.4666666666666668,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.0750000000000002,
+    "stability": 0.788,
+    "synthesis": 1.5
+  },
+  "total": 5.523000000000001,
+  "APD3": {
+    "sequence": "AKKPVAKKAAGGVKKPKK",
+    "length": 18,
+    "hydrophobic_ratio": 33.0,
+    "net_charge": 8,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP02793",
+    "detail_info": {
+      "name_class": "VK12 (histone derived; Lys-rich; UCSS1; natural AMPs; Komodo dragon, lizards; reptiles; animals)",
+      "source": "blood plasma,Varanus komodoensis",
+      "sequence": "AKKPVAKKAAGGVKKPKK",
+      "activity": "Anti-Gram+ & Gram-",
+      "crucial_residues": "",
+      "additional_info": "Sequence analysis: APD analysis reveals that the sequence of THE PEPTIDE shows 94.4% similarity toVK7.Activity: Active against P. aeruginosa  ATCC9027 (EC50 0.7 uM) and S. aureus ATCC 25923 (EC50 0.8 uM). Updated 7/2021; 11/2023",
+      "reference": "J Proteome Res. 2017 Apr 7;16(4):1470-1482.PubMed",
+      "boman_index": 1.51,
+      "length": 18,
+      "net_charge": 8,
+      "hydrophobic_ratio": 33.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 1.51
+  },
+  "target_organisms": {
+    "Other": [
+      {
+        "name": "Active against P. eruginosa ATCC9027 (EC50 0.7 uM) and S. aureus ATCC 25923 (EC50 0.8 uM).",
+        "activity": ""
+      }
+    ]
+  }
+}

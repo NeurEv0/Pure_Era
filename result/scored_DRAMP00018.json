@@ -1,0 +1,61 @@
+{
+  "DRAMP ID": "DRAMP00018",
+  "Sequence": "GTTVVNSTFSIVLGNKGYICTVTVECMRNCSK",
+  "scores": {
+    "mic": 6.0,
+    "synergy_bonus": 1.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 7.0,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.2,
+    "toxicity": 1.725,
+    "stability": 1.1199999999999999,
+    "synthesis": 1.155
+  },
+  "total": 6.2,
+  "APD3": {
+    "sequence": "GTTVVNSTFSIVLGNKGYICTVTVECMRNCSK",
+    "length": 32,
+    "hydrophobic_ratio": 40.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01618",
+    "detail_info": {
+      "name_class": "SmbB (natural AMPs; lantibiotic, a two-chain class 1 bacteriocin, UCSS2b, Gram-positive bacteria, prokaryotes; Another chain: SmbA)",
+      "source": "Streptococcus mutans GS5",
+      "sequence": "GTTVVNSTFSIVLGNKGYICTVTVECMRNCSK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "The two peptides (SmbA and SmbB) are encoded by two chromosomal DNA genes in the same operon. STPACAIGVVGITVAVTGISTACTSRCINK. Sequence for chain b (SmbA) is STPACAIGVVGITVAVTGISTACTSRCINK. Both peptides are required for antibacterial activity. Whether the two chains are covalently linked or work synergistically remains to be resolved.",
+      "reference": "Antimicrob Agents Chemother. 2005 Feb;49(2):541-8",
+      "boman_index": 0.9,
+      "length": 32,
+      "net_charge": 2,
+      "hydrophobic_ratio": 40.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": true,
+      "has_synergy": true
+    },
+    "boman_index": 0.9
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

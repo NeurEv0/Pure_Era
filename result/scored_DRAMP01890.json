@@ -1,0 +1,41 @@
+{
+  "DRAMP ID": "DRAMP01890",
+  "Sequence": "FLGAIAGVAAKFLPKVFCFITKKC",
+  "scores": {
+    "mic": 6.5875,
+    "hemolysis": 4.0,
+    "cytotoxicity": 10.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.3715000000000006,
+    "toxicity": 1.375,
+    "stability": 0.722,
+    "synthesis": 1.38
+  },
+  "total": 5.8485000000000005,
+  "APD3": {
+    "sequence": "FLGAIAGVAAKFLPKVFCFITKKC",
+    "length": 24,
+    "hydrophobic_ratio": 58.333333333333336,
+    "net_charge": 4,
+    "molecular_weight": 2573.25,
+    "gravy_value": 1.2375,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-negative bacterium": [
+      {
+        "name": "E. coli",
+        "activity": "MIC: 25 μg/ml"
+      }
+    ]
+  }
+}

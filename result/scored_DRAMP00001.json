@@ -1,0 +1,103 @@
+{
+  "DRAMP ID": "DRAMP00001",
+  "Sequence": "GSGVIPTISHECHMNSFQFVFTCCS",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 10.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.8250000000000002,
+    "stability": 1.6,
+    "synthesis": 1.38
+  },
+  "total": 6.965,
+  "APD3": {
+    "sequence": "GSGVIPTISHECHMNSFQFVFTCCS",
+    "in_database": false,
+    "cys_count": 3,
+    "disulfide_bonds": 1
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Listeria monocytogenes",
+        "activity": "(++++)"
+      },
+      {
+        "name": "Lactobacillus helveticus",
+        "activity": "(+++)"
+      },
+      {
+        "name": "L. bulgaricus",
+        "activity": "(+++)"
+      },
+      {
+        "name": "Lactobacillus delbrueckii",
+        "activity": "(+++)"
+      },
+      {
+        "name": "Lactobacillus lactis",
+        "activity": "(++)"
+      },
+      {
+        "name": "Lactobacillus acidophilus",
+        "activity": "(++)"
+      },
+      {
+        "name": "Lactobacillus sake (LSK)",
+        "activity": "(++)"
+      },
+      {
+        "name": "Lactobacillus curvatus",
+        "activity": "(++)"
+      },
+      {
+        "name": "Streptococcus thermophilus",
+        "activity": "(++)"
+      },
+      {
+        "name": "Lactococcus lactis (SL2)",
+        "activity": "(++)"
+      },
+      {
+        "name": "Enterococcus faecalis",
+        "activity": "(++)"
+      },
+      {
+        "name": "Enterococcus faecium",
+        "activity": "(++)"
+      },
+      {
+        "name": "Listeria innocua",
+        "activity": "(++)"
+      },
+      {
+        "name": "Listeria welhia",
+        "activity": "(++)"
+      },
+      {
+        "name": "Lactobacillus plantarum",
+        "activity": "(+)"
+      },
+      {
+        "name": "Leuconostoc mesenteroides",
+        "activity": "(+)"
+      }
+    ],
+    "Note": [
+      {
+        "name": "Note: Inhibitory activity tested with supernatant adjusted to pH 7",
+        "activity": ""
+      }
+    ]
+  }
+}

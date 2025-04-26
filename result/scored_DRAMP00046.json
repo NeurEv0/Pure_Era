@@ -1,0 +1,41 @@
+{
+  "DRAMP ID": "DRAMP00046",
+  "Sequence": "GSRYLCTPGSCWKLVCFTTTVK",
+  "scores": {
+    "mic": 9.618181818181819,
+    "hemolysis": 10,
+    "cytotoxicity": 9.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 3.4625454545454555,
+    "toxicity": 1.9,
+    "stability": 1.3,
+    "synthesis": 1.38
+  },
+  "total": 8.042545454545456,
+  "APD3": {
+    "sequence": "GSRYLCTPGSCWKLVCFTTTVK",
+    "length": 22,
+    "hydrophobic_ratio": 31.818181818181817,
+    "net_charge": 3,
+    "molecular_weight": 2450.94,
+    "gravy_value": 0.22727272727272727,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Active on certain Gram-positive bacteria.",
+        "activity": ""
+      }
+    ]
+  }
+}

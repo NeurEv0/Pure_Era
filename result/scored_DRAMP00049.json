@@ -1,0 +1,64 @@
+{
+  "DRAMP ID": "DRAMP00049",
+  "Sequence": "KGGSGVIHTISHECNMNSWQFVFTCCS",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.43333333333333335,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.8250000000000002,
+    "stability": 0.726,
+    "synthesis": 1.38
+  },
+  "total": 6.091,
+  "APD3": {
+    "sequence": "KGGSGVIHTISHECNMNSWQFVFTCCS",
+    "length": 27,
+    "hydrophobic_ratio": 40.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01201",
+    "detail_info": {
+      "name_class": "Lacticin 481 (natural AMPs; lantibiotic, type 2, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT3; UCSS1b; BBMm)",
+      "source": "Lactococcus lactisCNRZ 481",
+      "sequence": "KGGSGVIHTISHECNMNSWQFVFTCCS",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "native stereochemical configurations",
+      "additional_info": "Chemical modification: Thioether bonds are predicted between 9,14; 11,25; and 18,26.MOA:bacteria: It is believed that this peptide causes pore formation on the bacterial membrane.",
+      "reference": "Appl Environ Microbiol. 1992 Jan;58(1):279-84. doi: 10.1128/aem.58.1.279-284.1992.PubMed",
+      "boman_index": 0.88,
+      "length": 27,
+      "net_charge": 2,
+      "hydrophobic_ratio": 40.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.88
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Lactic acid bacteria",
+        "activity": ""
+      },
+      {
+        "name": "Clostridium tyrobutyricum.",
+        "activity": ""
+      }
+    ]
+  }
+}

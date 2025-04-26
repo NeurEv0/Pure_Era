@@ -1,0 +1,88 @@
+{
+  "DRAMP ID": "DRAMP00177",
+  "Sequence": "ENDHRMPNNLNRPNNLSKGGAKCGAAIAGGLFGIPKGPLAWAAGLANVYSKCN",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 6.0,
+    "cytotoxicity": 10.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3333333333333333,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.5750000000000002,
+    "stability": 0.7200000000000001,
+    "synthesis": 1.155
+  },
+  "total": 5.61,
+  "APD3": {
+    "sequence": "ENDHRMPNNLNRPNNLSKGGAKCGAAIAGGLFGIPKGPLAWAAGLANVYSKCN",
+    "length": 53,
+    "hydrophobic_ratio": 39.0,
+    "net_charge": 4,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01185",
+    "detail_info": {
+      "name_class": "Enterocin B (EntB, natural AMPs; class 2d bacteriocins;  Gram-positive bacteria, prokaryotes)",
+      "source": "Enterococcus faeciumT136;Enterococcus faeciumW3",
+      "sequence": "ENDHRMPNNLNRPNNLSKGGAKCGAAIAGGLFGIPKGPLAWAAGLANVYSKCN",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Enterocins A and B had only slightly different inhibitory spectra, and both were active against a wide range of Gram-positive bacteria, including listeriae, staphylococci and most lactic acid bacteria tested. Found in multiple species. Updated 9/2014.",
+      "reference": "Microbiology. 1997 Jul;143 ( Pt 7):2287-94",
+      "boman_index": 1.16,
+      "length": 53,
+      "net_charge": 4,
+      "hydrophobic_ratio": 39.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 1.16
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "E. hirae ATCC 10541",
+        "activity": "MIC: 5.44 μg/ml"
+      },
+      {
+        "name": "L. sakei ssp. sakei JCM 1157",
+        "activity": "MIC: 5.44 μg/ml"
+      },
+      {
+        "name": "E. faecium TUA 1344L",
+        "activity": "MIC: 43.4 μg/ml"
+      },
+      {
+        "name": "Enterococcus faecalis JCM 5803",
+        "activity": "MIC: 86.9 μg/ml"
+      },
+      {
+        "name": "Lactobacillus plantarum ATCC 14917",
+        "activity": "MIC: 86.9 μg/ml"
+      },
+      {
+        "name": "Enterococcus faecalis OU510",
+        "activity": "MIC: 174 μg/ml"
+      },
+      {
+        "name": "Bacillus subtilis JCM 1465",
+        "activity": "MIC: 44500 μg/ml"
+      },
+      {
+        "name": "Bacillus coagulans JCM 2257",
+        "activity": "MIC: 89000 μg/ml"
+      }
+    ]
+  }
+}

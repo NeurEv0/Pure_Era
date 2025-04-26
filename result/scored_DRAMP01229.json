@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP01229",
+  "Sequence": "ALSILKGLEKLAKMGIALTNCKATKKC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 7.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 1.4666666666666668,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.9,
+    "stability": 0.788,
+    "synthesis": 1.38
+  },
+  "total": 6.228,
+  "APD3": {
+    "sequence": "ALSILKGLEKLAKMGIALTNCKATKKC",
+    "length": 27,
+    "hydrophobic_ratio": 51.0,
+    "net_charge": 5,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00617",
+    "detail_info": {
+      "name_class": "Palustrin-1d  (natural AMPs;  frog, amphibians, animals; XXU; 1S=S, UCSS1a)",
+      "source": "North America,Rana palustris",
+      "sequence": "ALSILKGLEKLAKMGIALTNCKATKKC",
+      "activity": "Anti-Gram-",
+      "crucial_residues": "",
+      "additional_info": "Activity: Active against E. coli (MIC 28 uM) but not S.aureus (MIC>150 uM) and C.albicans (MIC>150 uM).Warning: Antibacterial activity was tested together with palustrin-1c. Provided by Erik Martin. UPdated 5/2020",
+      "reference": "Biochim Biophys Acta 2000; 1543: 95-105.PubMed.",
+      "boman_index": 0.25,
+      "length": 27,
+      "net_charge": 5,
+      "hydrophobic_ratio": 51.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.25
+  },
+  "target_organisms": {
+    "Gram-negative bacterium": [
+      {
+        "name": "Escherichia coli",
+        "activity": "MIC: 28 μg/ml"
+      }
+    ]
+  }
+}

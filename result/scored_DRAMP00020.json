@@ -1,0 +1,61 @@
+{
+  "DRAMP ID": "DRAMP00020",
+  "Sequence": "CAWYNISCRLGNKGAYCTLTVECMPSCN",
+  "scores": {
+    "mic": 6.0,
+    "synergy_bonus": 1.0,
+    "hemolysis": 10,
+    "cytotoxicity": 3.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 7.0,
+    "length": 7.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.2,
+    "toxicity": 1.4500000000000002,
+    "stability": 1.1199999999999999,
+    "synthesis": 1.245
+  },
+  "total": 6.015000000000001,
+  "APD3": {
+    "sequence": "CAWYNISCRLGNKGAYCTLTVECMPSCN",
+    "length": 28,
+    "hydrophobic_ratio": 46.0,
+    "net_charge": 1,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01621",
+    "detail_info": {
+      "name_class": "Haloduracin (natural AMPs; two-chain lantibiotic, HalA1 and HalA2, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT7 (both chains); XXW3; UCSS2b; 1S=S; JJsn: BBW)",
+      "source": "Bacillus haloduransC-125",
+      "sequence": "CAWYNISCRLGNKGAYCTLTVECMPSCN",
+      "activity": "Anti-Gram+, Synergistic AMPs",
+      "crucial_residues": "",
+      "additional_info": "Discovery: Identified by using bioinformatics. Displayed is the sequence of HalA1 (chain A) prior to modification. HalA2 (Chain b) has the sequence: GDVHAQTTWPCATVGVSVALCPTTKCTSQCChemical modification:  Three thioether rings are proposed in chain A: S7-C17, T18-C23, and T20-C27. In addition, two remaining Cys residues form a S-S bond.   The sequence of HalA2 before modification is TTWPCATVGVSVALCPTTKCTSQC. Four thioether rings are proposed: T1-C5, S11-C15, T17-C20, and T21-C24. In addition, T2, T7, and S22 are dehydrated in HalA2.Recombinant production:bacteria:Escherichia coli: His-tagged recombinant peptides and their modifying enzymes were purified and co-incubated to achieve dehydration. Peptides were then released by cleaving with factor Xa.Synergy:AMPs:  Both chains are required for antibacterial activity, implying synergy. Subsequently, this two-chain lantibiotics was also reported by a another group (Lawton EM et al., 2007 FEMS Microbiol Lett. 267: 64-71), also based on bioinformatics analysis of the bacterial genome.Activity: Active against L. lactis strains HP, AM2, 104, 497, MG1363), L. monocytogenes L028, L. innocua EL, E. faecium DPC1146,  E. faecium DPC3675, E. faecalis EL, E. coli EC101 and DH5alpha, S. mutans 257, P. pentosacaeus ATCC43200, L. bulgaricusEL, B. cereus Els based on zone diffusion assays (4.5-13 mm).   Haloduracin A1 binds the peptidoglycan precursor lipid II with 2:1 stoichiometry(Oman T et al., 2011). This mediates pore formation by the complex including HalA2, leading to K+ efflux (Oman TJ et al 2009ACS Chem Biol 4:865-874). UPdated Jan2016, 4/2024.",
+      "reference": "Proc Natl Acad Sci U S A. 2006 Nov 14;103(46):17243-8.PubMed",
+      "boman_index": 0.85,
+      "length": 28,
+      "net_charge": 1,
+      "hydrophobic_ratio": 46.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": true,
+      "has_synergy": true
+    },
+    "boman_index": 0.85
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

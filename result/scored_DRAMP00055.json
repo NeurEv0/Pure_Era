@@ -1,0 +1,64 @@
+{
+  "DRAMP ID": "DRAMP00055",
+  "Sequence": "ITSVSWCTPGCTSEGGGSGCSHCC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 10.0,
+    "ph_thermal": 5.0,
+    "half_life": 6.666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.8250000000000002,
+    "stability": 1.4000000000000001,
+    "synthesis": 1.38
+  },
+  "total": 6.765000000000001,
+  "APD3": {
+    "sequence": "ITSVSWCTPGCTSEGGGSGCSHCC",
+    "length": 24,
+    "hydrophobic_ratio": 33.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00674",
+    "detail_info": {
+      "name_class": "Planosporicin (natural AMPs; Lantibiotic 97518; type 1, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT5; XXW2;  XXA; UCSS1b; revisited)",
+      "source": "Planomonospora alba",
+      "sequence": "ITSVSWCTPGCTSEGGGSGCSHCC",
+      "activity": "Anti-Gram+ & Gram-, Anti-MRSA",
+      "crucial_residues": "",
+      "additional_info": "Discovery: The primary structure, as well as the mode of intrabonds, of the peptide has been revised based on a combined analytical techniques  (Maffioli SI et al 2009). The updated sequence before post translation is diaplayed.Chemical modification:  Residues T2 and S5 are dehydrated. Lanthionines occur between S3-C7, S13-C20, S18-C23, and S21-C24. One methyllanthionine is proposed between T8 and C11. In addition, the carboxylic acids of E14 and the C-terminus are benzylamidated. The peptide is not active against E.coli and C.albicans, but is active against Gram-negative pathogenic bacterium M. catarrhalis (MIC 1 ug/ml). It inhibits cell wall synthesis of Gram-positive bacteria, including S. aureus MRSA.Structure:  3D structure has been determined by NMR (Vasile F et al., 2012).Updated 5/2014; 7/2021.",
+      "reference": "Biochemistry. 2007 May 22;46(20):5884-95",
+      "boman_index": 0.57,
+      "length": 24,
+      "net_charge": 2,
+      "hydrophobic_ratio": 33.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.57
+  },
+  "target_organisms": {
+    "Gram-negative bacteria": [
+      {
+        "name": "Escherichia coli",
+        "activity": ""
+      },
+      {
+        "name": "Moraxella catarrhalis.Yeast:Candida albicans.",
+        "activity": ""
+      }
+    ]
+  }
+}

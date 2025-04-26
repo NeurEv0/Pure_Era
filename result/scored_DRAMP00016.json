@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00016",
+  "Sequence": "GNGVVLTLTHECNLATWTKKLKCC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.6,
+    "stability": 1.3,
+    "synthesis": 1.38
+  },
+  "total": 6.44,
+  "APD3": {
+    "sequence": "GNGVVLTLTHECNLATWTKKLKCC",
+    "length": 24,
+    "hydrophobic_ratio": 45.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP02308",
+    "detail_info": {
+      "name_class": "Salivaricin 9 (natural AMPs; lantibiotic; bacteriocin,  UCSS1b; Gram-positive bacteria, prokaryotes; BBMm)",
+      "source": "Streptococcus salivariusNU10",
+      "sequence": "GNGVVLTLTHECNLATWTKKLKCC",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Calcualted molecular weight of sequence before modification is 2633.147. Reported as a 2560 Da lantibiotic.Activity: Active against M. luteus ATCC10240 (MIC 4 uM), M. luteus GAB13 (MIC 16 uM), S. equisimilis ATCC12388 (64 uM), Corynebacterium spp GH17 (MIC 8 uM), S. pyogenes ATCC12344, S. pyogenes ATCC12384 (MIC 32 uM).MOA: When added to different growth phases of Micrococcus luteus culture, salivaricin 9 induced cell lysis.  The peptide appeared to disrupt bacterial membranes. This autoinduction capability was used to enhance salivaricin 9 production in liquid medium. The peptide remains active after treatment with  lyticase, catalase and certain detergents, but NOT proteinase K or peptidase.",
+      "reference": "PLoS One. 2013 Oct 16;8(10):e77751.Pub-Med",
+      "boman_index": 0.58,
+      "length": 24,
+      "net_charge": 3,
+      "hydrophobic_ratio": 45.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.58
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Streptococcus pyogenes and some Enterococci.",
+        "activity": ""
+      }
+    ]
+  }
+}

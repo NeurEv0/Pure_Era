@@ -1,0 +1,79 @@
+{
+  "DRAMP ID": "DRAMP01734",
+  "Sequence": "FFPIVGKLLFGLFGLL",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 3.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.125,
+    "stability": 0.722,
+    "synthesis": 1.5
+  },
+  "total": 5.507,
+  "APD3": {
+    "sequence": "FFPIVGKLLFGLFGLL",
+    "length": 16,
+    "hydrophobic_ratio": 68.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01934",
+    "detail_info": {
+      "name_class": "Temporin-ALg (natural AMPs; Leu-rich; frog, amphibians, animals; XXA; UCLL1c)",
+      "source": "skin secretions,Amolops loloensis, China, Asia",
+      "sequence": "FFPIVGKLLFGLFGLL",
+      "activity": "Anti-Gram+ & Gram-",
+      "crucial_residues": "",
+      "additional_info": "Wide-spectrum peptide. Activity data provided by Biswajit Mishra.",
+      "reference": "Comp Biochem Physiol B Biochem Mol Biol. 2010 Jan;155(1):72-6.PubMed.",
+      "boman_index": -2.67,
+      "length": 16,
+      "net_charge": 2,
+      "hydrophobic_ratio": 68.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": -2.67
+  },
+  "target_organisms": {
+    "[Ref.19843479] Gram-positive bacteria": [
+      {
+        "name": "Staphylococcus aureus ATCC2592",
+        "activity": "(MIC=2.5 µg/mL)"
+      },
+      {
+        "name": "Bacillus pumilus",
+        "activity": "(MIC=2.5 µg/mL)"
+      },
+      {
+        "name": "Bacillus cereus (MIC=30 µg/mL);Gram-negative bacteria:Escherichia coli ATCC25922",
+        "activity": "(MIC=5 µg/mL)"
+      },
+      {
+        "name": "Bacillus dysenteriae",
+        "activity": "(MIC=10 µg/mL)"
+      },
+      {
+        "name": "Acinetobacter calcoaceticus",
+        "activity": "(MIC=30 µg/mL)"
+      },
+      {
+        "name": "Psecdomonas aeruginosa (MIC=7.5 µg/mL);Yeast:Candida albicans ATCC2002 (MIC=1.25 µg/mL).",
+        "activity": ""
+      }
+    ]
+  }
+}

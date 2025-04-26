@@ -1,0 +1,59 @@
+{
+  "DRAMP ID": "DRAMP01828",
+  "Sequence": "NFLGTLINLAKKIM",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 4.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 7.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.4666666666666666,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.6,
+    "stability": 0.7280000000000001,
+    "synthesis": 1.5
+  },
+  "total": 5.988,
+  "APD3": {
+    "sequence": "NFLGTLINLAKKIM",
+    "length": 14,
+    "hydrophobic_ratio": 57.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00110",
+    "detail_info": {
+      "name_class": "Temporin-1Lb (Temporin 1Lb, XXA; natural AMPs; UCLL1c; frog, amphibians, animals)",
+      "source": "frog,Rana luteiventris, North America",
+      "sequence": "NFLGTLINLAKKIM",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Activity: active against Gram+ S. aureus (MIC 48 uM), E.coli (MIC >150 uM), and C.albicans (MIC >150 uM).Updated 3/2015; 7/2021; 11/2023.",
+      "reference": "Eur J Biochem. 2000 Feb;267(3):894-900.PubMed.",
+      "boman_index": -0.4,
+      "length": 14,
+      "net_charge": 3,
+      "hydrophobic_ratio": 57.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": -0.4
+  },
+  "target_organisms": {
+    "[Ref.10651828] Gram-positive bacterium": [
+      {
+        "name": "Staphylococcus aureus",
+        "activity": "MIC: 48 μg/ml"
+      }
+    ]
+  }
+}

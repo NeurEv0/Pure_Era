@@ -1,0 +1,61 @@
+{
+  "DRAMP ID": "DRAMP00024",
+  "Sequence": "TTPACFTIGLGVGALFSAKFC",
+  "scores": {
+    "mic": 6.0,
+    "synergy_bonus": 1.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 3.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 7.0,
+    "length": 7.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.2,
+    "toxicity": 1.15,
+    "stability": 1.1199999999999999,
+    "synthesis": 1.245
+  },
+  "total": 5.715,
+  "APD3": {
+    "sequence": "TTPACFTIGLGVGALFSAKFC",
+    "length": 21,
+    "hydrophobic_ratio": 57.0,
+    "net_charge": 1,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01176",
+    "detail_info": {
+      "name_class": "Cytolysin (CylLS, natural AMPs; a two-chain lantibiotic, type 2, class 1 bacteriocins; Gram-positive bacteria, prokaryotes; XXW5; XXT5;  Chain B: CylLL; UCSS2b; JJsn)",
+      "source": "Enterococcus faecalis;  human microbiota:gut, symbiont bacteria",
+      "sequence": "TTPACFTIGLGVGALFSAKFC",
+      "activity": "Anti-Gram+ & Gram-, Synergistic AMPs, Hemolytic",
+      "crucial_residues": "",
+      "additional_info": "Enterococcus faecalis senses target cells and in response expresses cytolysin. The cytolysin consists of two structural subunits, CylLL and CylLS, that are activated by an extracellular protease, CylA.  In the absence of target cells, the other subunit (CylL(L)'') forms a complex with CylL(S)'', blocking it from autoinducing the operon. When target cells are present, however, CylL(L)'' binds preferentially to the target, allowing free CylL(S)'' to accumulate above the induction threshold to express high levels of cytolysin (Coburn PS et al., 2004).Synergy:AMPs:  The two chains work synergistically at a ratio of 1:1.Chemical modification:  CylLS contains two thioether bonds: T1-C5 and S17-C20. In addition, T2 and T7 are dehydrated. The AMINO ACID sequence of CylLL is  TTPVCAVAATAAASSAACGWVGGGIFTGVTVWSLKHC. There are three thioether bonds: T1-C5, S14-C18, S34-C38. In addition, T2, T10, S15, and T30 are dehydrated.  The peptide may also contain usual lanthionine stereochemistry (Tang and van der Donk, 2013 Nature Chem Biol). Updated 1/2013; 9/2014.",
+      "reference": "Mol Microbiol. 1996 Sep;21(6):1175-84",
+      "boman_index": -1.04,
+      "length": 21,
+      "net_charge": 1,
+      "hydrophobic_ratio": 57.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": true,
+      "has_synergy": true
+    },
+    "boman_index": -1.04
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

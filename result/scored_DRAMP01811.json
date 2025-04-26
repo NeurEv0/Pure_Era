@@ -1,0 +1,67 @@
+{
+  "DRAMP ID": "DRAMP01811",
+  "Sequence": "FLKPLFNAALKLLP",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 4.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.225,
+    "stability": 0.722,
+    "synthesis": 1.5
+  },
+  "total": 5.607,
+  "APD3": {
+    "sequence": "FLKPLFNAALKLLP",
+    "length": 14,
+    "hydrophobic_ratio": 64.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01899",
+    "detail_info": {
+      "name_class": "Temporin-Ra (Leu-rich; UCLL1; natural AMPs; frog, amphibians, animals)",
+      "source": "skin secretions,Rana ridibunda, Asia",
+      "sequence": "FLKPLFNAALKLLP",
+      "activity": "Anti-Gram+ & Gram-",
+      "crucial_residues": "",
+      "additional_info": "Activity: Active against E. coli HP101BA 7601c (MIC 24.2 ug/ml), S. dysgalactiae PTCC 1074 (MIC 33.2 ug/ml), S. agalactiae PTCC 1365 (MIC 24.7 ug/ml), S. aureus PTCC 1431 (MIC 35.2 ug/ml), and K. pneumoniae PTCC 1388 (MIC 31.2 ug/ml).SAR: Synthetic C-terminally amidated peptide is active against S. aureus (MIC 7.76 ug/ml), but not active against E.coli (MIC 317 ug/ml) and A.baumannii (MIC 158 ug/ml).Toxicity: The peptide showed a dose-deppendnet effect on bllod cells and about 1.1% hemolysis at 60 ug/ml.Chemical modification: Although not reported, the peptide is likely amidated at the C-terminus.Structure: Synthetic C-terminally amidated peptide is helical in the presence of 50% or 100% TFE or POPG (Lopes et al., 2022). Also provided by Ahmad Asoodeh. Updated 7/2021; 8/2022",
+      "reference": "J Pept Sci. 2012 Jan;18(1):10-6. doi: 10.1002/psc.1409. Epub 2011 Sep 29.PubMed.",
+      "boman_index": -1.17,
+      "length": 14,
+      "net_charge": 2,
+      "hydrophobic_ratio": 64.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": -1.17
+  },
+  "target_organisms": {
+    "Gram-negative bacteria": [
+      {
+        "name": "Escherichia coli",
+        "activity": "MIC: 24.2 μg/ml"
+      },
+      {
+        "name": "Streptococcus agalactiae PTCC 1365",
+        "activity": "MIC: 24.7 μg/ml"
+      },
+      {
+        "name": "Klebsiella pneumoniae PTCC 1388",
+        "activity": "MIC: 31.2 μg/ml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00042",
+  "Sequence": "FKSWSFCTPGCAKTGSFNSYCC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.725,
+    "stability": 0.722,
+    "synthesis": 1.38
+  },
+  "total": 5.987,
+  "APD3": {
+    "sequence": "FKSWSFCTPGCAKTGSFNSYCC",
+    "length": 22,
+    "hydrophobic_ratio": 40.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01003",
+    "detail_info": {
+      "name_class": "Mutacin, or Mutacin B-Ny266 (natural AMPs; lantibiotic, class 1 bacteriocins; Gram-positive bacteria, prokaryotes; UCSS1b; XXT)",
+      "source": "Streptococcus mutans",
+      "sequence": "FKSWSFCTPGCAKTGSFNSYCC",
+      "activity": "Anti-Gram+ & Gram-",
+      "crucial_residues": "",
+      "additional_info": "Active against Micrococcus spp. (MIC 0.05 ug/ml), Enterococcus spp. (MIC 12.8),   Listeria spp.,  Staphylococcus spp., Streptococcus spp.,  Bacillus spp., Clostridium spp., A. viscosus, Peptostreptococcus spp., C. diphtheriae (MIC 0.4-1.6),  G. vaginalis (MIC 0.03), M. smegmatis (MIC 32),  and P. acnes (MIC 1.2 ug/ml). Also,  active also against Gram- bacteria: B. bronchiseptica (MIC 49.2 ug/ml), C. jejune (MIC 0.07 ug/ml), H. influenzae (MIC 13), H. pylori (MIC 0.07), and Neisseria spp (MIC 1.6).Animal model:mouse: Mota-Meira M et al. (2005 J Antimicrob Chemother 56:869-71) demonstrated that injection of this mutacin protected mice infected with S. aureus (i.e. systemic efficacy).  Updated 10/2015; 7/2021 GW",
+      "reference": "FEBS Lett. 1997; 410, 275-279",
+      "boman_index": 0.75,
+      "length": 22,
+      "net_charge": 2,
+      "hydrophobic_ratio": 40.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.75
+  },
+  "target_organisms": {
+    "Gram-positive bacterium": [
+      {
+        "name": "Micrococcus luteus ATCC 272.",
+        "activity": ""
+      }
+    ]
+  }
+}

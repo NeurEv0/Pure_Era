@@ -1,0 +1,92 @@
+{
+  "DRAMP ID": "DRAMP00035",
+  "Sequence": "ASIIKTTIKVSKAVCKTLTCICTGSCSNCK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 7.0,
+    "cytotoxicity": 10.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 1.4666666666666668,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.6750000000000003,
+    "stability": 0.788,
+    "synthesis": 1.38
+  },
+  "total": 6.003,
+  "APD3": {
+    "sequence": "ASIIKTTIKVSKAVCKTLTCICTGSCSNCK",
+    "length": 30,
+    "hydrophobic_ratio": 46.0,
+    "net_charge": 4,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01493",
+    "detail_info": {
+      "name_class": "Paenibacillin (lantibiotic, natural AMPs; class 1 bacteriocin, M152-P4; XXE; XXT;  UCSS1b; Gram-positive bacteria, prokaryotes)",
+      "source": "Paenibacillus polymyxa(formerly bacillus polymyxa)",
+      "sequence": "ASIIKTTIKVSKAVCKTLTCICTGSCSNCK",
+      "activity": "Anti-Gram+, Anti-MRSA",
+      "crucial_residues": "",
+      "additional_info": "According to NMR, extensive post-translational modifications: N-terminal acetylation; residues 2, 6,7,27 are dehydrated Ser or Thr; residues 11-15 or 25-29 form lanthionines, and residues 17-20, 19-22, 23-26 form beta-methyllanthionines (thioethers) (He X et al 2008 FEBS Lett 582: 2787-92).  Recently, M152-P4 was found to share the same sequence. Highly active against S. aureus ATCC 25923 (MSSA),  S. aureus ATCC 43300 (MRSA), B. subtilis ATCC 6633, E. faecium NCTC 7171, E. faecium ATCC 51559 (MDR*), E. faecalis ATCC 51299 (anti-VRE), and S. epidermidis MTCC 3615 (MIC 0.39-1.56 uM) (Jangra et al. 2019). Updated 4/2019.",
+      "reference": "Appl Environ Microbiol. 2007 Jan;73(1):168-78",
+      "boman_index": 0.57,
+      "length": 30,
+      "net_charge": 4,
+      "hydrophobic_ratio": 46.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.57
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Bacillus spp",
+        "activity": ""
+      },
+      {
+        "name": "Clostridium sporogenes",
+        "activity": ""
+      },
+      {
+        "name": "Lactobacillus spp",
+        "activity": ""
+      },
+      {
+        "name": "Lactococcus lactis",
+        "activity": ""
+      },
+      {
+        "name": "Leuconostoc mesenteroides",
+        "activity": ""
+      },
+      {
+        "name": "Listeria spp",
+        "activity": ""
+      },
+      {
+        "name": "Pediococcus cerevisiae",
+        "activity": ""
+      },
+      {
+        "name": "Staphylococcus aureus",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus agalactiae",
+        "activity": ""
+      }
+    ]
+  }
+}

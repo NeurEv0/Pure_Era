@@ -1,0 +1,103 @@
+{
+  "DRAMP ID": "DRAMP00222",
+  "Sequence": "GETDPNTQLLNDLGNNMAWGAALGAPGGLGSAALGAAGGALQTVGQGLIDHGPVNVFIPVLIGPSWNGSGSGYNSATSSSGSGS",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 6.0,
+    "cytotoxicity": 0,
+    "boman_score": 7.0,
+    "protease": 10.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.125,
+    "stability": 1.6,
+    "synthesis": 1.275
+  },
+  "total": 6.16,
+  "APD3": {
+    "sequence": "GETDPNTQLLNDLGNNMAWGAALGAPGGLGSAALGAAGGALQTVGQGLIDHGPVNVFIPVLIGPSWNGSGSGYNSATSSSGSGS",
+    "length": 84,
+    "hydrophobic_ratio": 35.0,
+    "net_charge": -4,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01196",
+    "detail_info": {
+      "name_class": "Microcin E492 (MccE492, metallo-AMPs, natural AMPs; class 2b microcins, the siderophore-mocrocin family; bacteriocin, Gram-negative bacteria, prokaryotes;  BBPP; BBII, XXB; BBBh2o; Variants: u-Mcc492)",
+      "source": "Klebsiella pneumoniaeRYC492;  human microbiota:gut, symbiont bacteria",
+      "sequence": "GETDPNTQLLNDLGNNMAWGAALGAPGGLGSAALGAAGGALQTVGQGLIDHGPVNVFIPVLIGPSWNGSGSGYNSATSSSGSGS",
+      "activity": "Anti-Gram-, Anticancer",
+      "crucial_residues": "the siderophore moiety",
+      "additional_info": "Activity: Active against E. coli RYC1000, E. coli B, E. coli F., E. coli ML35p, S. enterica Enteritidis, S. enterica Typhimurium, E. cloacae and K. pneumoniae (Vassiliadis G et al. 2010). The peptide lost its activity by amyloid formation (i.e. aggregates) (Bieler S et al 2005 JBC 280:26880).MOA:bacteria: It targets bacteria via the catecholate siderophore receptor to smuggle the AMP into bacteria (\"Trojan horse\" trick). Unmodified form (u-Mcc492) has been found (JBC 279: 28232-28242, 2004) but is inactive. Amyloid AMPs: More amyloid forms with the increase in u-Mcc492 (Marcoleta A et al., 2013).  The attachment of a trimer of N-(2,3-dihydroxybenzoyl)-L-serine  to the C-terminal Ser of MccE492 via glycosidic linkage led to Fe3+ binding capability (i.e. siderophore peptide) and enhanced antibacterial activity. The polypeptide core of Microcin E492 stably associates with the mannose permease and interferes with mannose metabolism (commented by Erni; Res Microbiol. 2010 Oct;161(8):706-10). The peptide also exists as non-toxic aggregates (amyloid formation) Updated 11/2010; 7/2011; 3/2014; 10/2023.",
+      "reference": "Arch Microbiol. 1984 Sep;139(1):72-5.",
+      "boman_index": 0.28,
+      "length": 84,
+      "net_charge": -4,
+      "hydrophobic_ratio": 35.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.28
+  },
+  "target_organisms": {
+    "Gram-negative bacteria": [
+      {
+        "name": "Escherichia coli 363",
+        "activity": "MIC: 0.02 μg/ml"
+      },
+      {
+        "name": "Escherichia coli W3110",
+        "activity": "MIC: 0.02 μg/ml"
+      },
+      {
+        "name": "Escherichia coli GM1",
+        "activity": "MIC: 0.04 μg/ml"
+      },
+      {
+        "name": "Escherichia coli W3110-KP1344 Pms7",
+        "activity": "MIC: 0.08 μg/ml"
+      },
+      {
+        "name": "Escherichia coli C600",
+        "activity": "MIC: 0.08 μg/ml"
+      },
+      {
+        "name": "Escherichia coli F",
+        "activity": "MIC: 0.14 μg/ml"
+      },
+      {
+        "name": "Escherichia coli ML35p",
+        "activity": "MIC: 0.14 μg/ml"
+      },
+      {
+        "name": "Escherichia coli C600 pHX405",
+        "activity": "MIC: 0.16 μg/ml"
+      },
+      {
+        "name": "Escherichia coli W3110-6",
+        "activity": "MIC: 0.32 μg/ml"
+      },
+      {
+        "name": "Salmonella enteritidis",
+        "activity": "MIC: 0.6 μg/ml"
+      },
+      {
+        "name": "Escherichia coli GM1 KP1060",
+        "activity": "MIC: 0.65 μg/ml"
+      },
+      {
+        "name": "Salmonella typhimurium",
+        "activity": "MIC: 1.2 μg/ml"
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "DRAMP ID": "DRAMP01577",
+  "Sequence": "GLLSVLGSVAKHVLPHVVPVIAEKL",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 4.0,
+    "cytotoxicity": 10.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.375,
+    "stability": 1.3,
+    "synthesis": 1.5
+  },
+  "total": 6.335,
+  "APD3": {
+    "sequence": "GLLSVLGSVAKHVLPHVVPVIAEKL",
+    "length": 25,
+    "hydrophobic_ratio": 56.0,
+    "net_charge": 4,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00345",
+    "detail_info": {
+      "name_class": "Caerin 1.10 (natural AMPs; UCLL1c; frog, amphibians, animals; XXA; Caerin 1.1.1, inactive; caerin 1.1.2 inactive)",
+      "source": "Magnificent tree frog,Litoria splendida, Australia",
+      "sequence": "GLLSVLGSVAKHVLPHVVPVIAEKL",
+      "activity": "Anti-Gram+ & Gram-, Antiviral, Antifungal, Anti-HIV, Anticancer",
+      "crucial_residues": "N-terminal residues are critical: Caerin 1.1.1 with N-terminal GL deleted is inactive; caerin 1.1.2 with N-terminal GLL deleted is inactive",
+      "additional_info": "Sex-specific AMP: The male L. splendida produces caerin 1.10, a minor component that is not present in the glandular secretion of the female. Activity against B.cereus (MIC >100 ug/ml), E.faecalis (>100 ug/ml), L. lactis (MIC 6 uM), L. innocua (MIC 50 ug/ml), M. luteus (MIC 25 ug/ml, S.aureus ATCC 25923, or 29213 (MIC >100 ug/ml), S. epidermidis (MIC 100 ug/ml), S. uberis (MIC 50 ug/ml), E.clocae, E. coli (100 ug/ml), and P. multocida (100 ug/ml) (same ref as AP2008). This peptide could inhibit HIV infection (VanCompernolle et al., 2015). However, the two major AMPs, caerin 1.1 and caerin 1.6, are shared by both male and female.  Updated 6/2015; 5/2020.",
+      "reference": "Eur. J. Biochem. 2000; 267:269-275",
+      "boman_index": -1.0,
+      "length": 25,
+      "net_charge": 4,
+      "hydrophobic_ratio": 56.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": -1.0
+  },
+  "target_organisms": {
+    "[Ref.10601876] Gram-positive bacteria": [
+      {
+        "name": "Leuconostoc lactis",
+        "activity": "MIC: 6 μg/ml"
+      },
+      {
+        "name": "Micrococcus luteus",
+        "activity": "MIC: 25 μg/ml"
+      },
+      {
+        "name": "Listeria innocua",
+        "activity": "MIC: 50 μg/ml"
+      },
+      {
+        "name": "Streptococcus uberis",
+        "activity": "MIC: 50 μg/ml"
+      },
+      {
+        "name": "Staphylococcus epidermidis",
+        "activity": "MIC: 100 μg/ml"
+      }
+    ]
+  }
+}

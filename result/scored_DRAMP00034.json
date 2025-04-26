@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00034",
+  "Sequence": "SASVLKTSIKVSKKYCKGVTLTCGCNITGGK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 8.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.6333333333333333,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.725,
+    "stability": 0.738,
+    "synthesis": 1.155
+  },
+  "total": 5.7780000000000005,
+  "APD3": {
+    "sequence": "SASVLKTSIKVSKKYCKGVTLTCGCNITGGK",
+    "length": 31,
+    "hydrophobic_ratio": 35.0,
+    "net_charge": 6,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01615",
+    "detail_info": {
+      "name_class": "Epilancin K7 (natural AMPs; lantibiotic, class 1 bacteriocin; Gram-positive bacteria, prokaryotes; XXT3,  UCSS1b; XXW4)",
+      "source": "Staphylococcus epidermidis K7",
+      "sequence": "SASVLKTSIKVSKKYCKGVTLTCGCNITGGK",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Chemical modification: Residue S1 has been modified into Hop (2-hydroxypropionyl, a new modification found then), While S3, T7, S8, and T28 are dehydrated.  In addition, there is one lanthionine S12-C16 and two methyl-lanthionines T20-C23 and T22-C25. Updated Jan 2013.",
+      "reference": "Eur J Biochem. 1995 Feb 1;227(3):757-71.PubMed.",
+      "boman_index": 0.73,
+      "length": 31,
+      "net_charge": 6,
+      "hydrophobic_ratio": 35.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.73
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

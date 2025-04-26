@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00028",
+  "Sequence": "IASKFICTPGCAKTGSFNSYCC",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 8.0,
+    "boman_score": 7.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 6.666666666666667,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 2.125,
+    "stability": 1.1,
+    "synthesis": 1.38
+  },
+  "total": 6.765000000000001,
+  "APD3": {
+    "sequence": "IASKFICTPGCAKTGSFNSYCC",
+    "length": 22,
+    "hydrophobic_ratio": 45.0,
+    "net_charge": 2,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01495",
+    "detail_info": {
+      "name_class": "Epidermin (staphylococcin 1580; natural AMPs; lantibiotic,  type 1, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT4; XXW1;  UCSS1b; BBW)",
+      "source": "Staphylococcus epidermidisTü 3298;Staphylococcus epidermidis1580",
+      "sequence": "IASKFICTPGCAKTGSFNSYCC",
+      "activity": "Anti-Gram+",
+      "crucial_residues": "",
+      "additional_info": "Active against S. aureus SG 511 or E88 (MIC 8 ug/ml), S. epidermidis ATCC 12228 (MIC 4 ug/ml), S. pneumonia ATCC 6302 (MIC 4 ug/ml), S. pyogenes ATCC 8668 (MIC 1 ug/ml), S. faecalis ATCC 29212 (MIC 64 ug/ml), C. xerosis ATCC 9755 (MIC 1 ug/ml), E.coli ATCC 11775 (MIC 128 ug/ml), P.aeruginosa BC 19 (MIC 128 ug/ml), M. luteus 15957 or ATCC 9341 (MIC 1 or 0.25 ug/ml), B.fragilis (Bonn) or (Koln) (MIC 128 ug/ml), P. anaerobicus (MIC 0.25 ug/ml), and P. acnes IF 31002 (MIC 0.25 ug/ml).    There are extensive posttranslational modifications.  Thionines between residues 3-7,16-21, beta-methylthionines between 8-11, and Cys 22 is modified to NHCH=CHS and linked to residue 19. In addition, residue 14 is dehydrated. The genetic basis of biosynthesis was subsequently reported(Schnell N,et al. 1988). This is the first gene cluster discovered for lantibiotics. Staphylococcin 1580 is identical to the lantibiotic epidermin (Sahl 1994 Appl Environ Microbiol. 60(2):752-5). MOA: It sequesters lipid II and inhibits cell wall synthesis (for ref, see mutacin 1140). It seems that activity of the lantibiotic epidermin is regulated at the level of precursor peptide processing(Kies S,et al. 2003). Updated 9/2012; 7/2021GW",
+      "reference": "Eur J Biochem. 1986 Oct 1;160(1):9-22.Pub-Med.",
+      "boman_index": 0.3,
+      "length": 22,
+      "net_charge": 2,
+      "hydrophobic_ratio": 45.0,
+      "disulfide_bonds": 2,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.3
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

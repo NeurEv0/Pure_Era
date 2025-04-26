@@ -1,0 +1,73 @@
+{
+  "DRAMP ID": "DRAMP00038",
+  "Sequence": "ITSKSLCTPGCKTGILMTCPLKTATCGCHFG",
+  "scores": {
+    "mic": 8.95483870967742,
+    "hemolysis": 9.0,
+    "cytotoxicity": 9.1,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 6.666666666666667,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 3.2237419354838717,
+    "toxicity": 1.8075,
+    "stability": 1.1,
+    "synthesis": 1.155
+  },
+  "total": 7.286241935483872,
+  "APD3": {
+    "sequence": "ITSKSLCTPGCKTGILMTCPLKTATCGCHFG",
+    "length": 31,
+    "hydrophobic_ratio": 25.806451612903224,
+    "net_charge": 3.1,
+    "molecular_weight": 3173.88,
+    "gravy_value": 0.4483870967741935,
+    "disulfide_bonds": 2,
+    "detailed_info_fetched": false
+  },
+  "target_organisms": {
+    "Gram-positive bacteria": [
+      {
+        "name": "Streptococcus pyogenes",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus uberis",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus agalactiae",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus dysgalactiae",
+        "activity": ""
+      },
+      {
+        "name": "Staphylococcus simulans",
+        "activity": ""
+      },
+      {
+        "name": "Staphylococcus cohnii",
+        "activity": ""
+      },
+      {
+        "name": "Lactococcus lactis",
+        "activity": ""
+      },
+      {
+        "name": "Lactobacillus acidophilus",
+        "activity": ""
+      },
+      {
+        "name": "Streptococcus mitis.",
+        "activity": ""
+      }
+    ]
+  }
+}

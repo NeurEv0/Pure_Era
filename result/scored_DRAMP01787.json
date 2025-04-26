@@ -1,0 +1,75 @@
+{
+  "DRAMP ID": "DRAMP01787",
+  "Sequence": "AILTTLANWARKFL",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 4.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 10.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 1.4666666666666668,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.825,
+    "stability": 0.788,
+    "synthesis": 1.5
+  },
+  "total": 6.273,
+  "APD3": {
+    "sequence": "AILTTLANWARKFL",
+    "length": 14,
+    "hydrophobic_ratio": 64.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01959",
+    "detail_info": {
+      "name_class": "Temporin-HN1 (XXA; UCLL1c; natural AMPs; frog, amphibians, animals)",
+      "source": "skin secretions, Hainan odorous frog,Odorrana hainanensis(China, Asia).",
+      "sequence": "AILTTLANWARKFL",
+      "activity": "Anti-Gram+ & Gram-, Antifungal, candidacidal",
+      "crucial_residues": "",
+      "additional_info": "Activity: Active against S. aureus ATCC2592 (MIC 37.5 uM), S. carnosus KHS (MIC 37.5 uM), B. licheniformis X39 (MIC 19 u), R. rhodochrous X15 (MIC 4.8 uM); Gram-negative P. faecalis X29 (MIC 75 uM), and fungi S. mould 090223 and C. albicans ATCC2002 (MIC 19-75 uM).",
+      "reference": "Peptides. 2012 Jun;35(2):285-90.PubMed.",
+      "boman_index": 0.13,
+      "length": 14,
+      "net_charge": 3,
+      "hydrophobic_ratio": 64.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 0.13
+  },
+  "target_organisms": {
+    "[Ref.22450466] Gram-positive bacteria": [
+      {
+        "name": "Rhodococcus rhodochrous X15",
+        "activity": "MIC: 4.8 μg/ml"
+      },
+      {
+        "name": "Bacillus licheniformis X39",
+        "activity": "MIC: 19 μg/ml"
+      },
+      {
+        "name": "Staphylococcus aureus ATCC2592",
+        "activity": "MIC: 37.5 μg/ml"
+      },
+      {
+        "name": "Staphylococcus carnosus KHS",
+        "activity": "MIC: 37.5 μg/ml"
+      },
+      {
+        "name": "Candida albicans ATCC2002",
+        "activity": "MIC: 75 μg/ml"
+      }
+    ]
+  }
+}

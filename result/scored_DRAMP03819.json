@@ -1,0 +1,59 @@
+{
+  "DRAMP ID": "DRAMP03819",
+  "Sequence": "RRWWRF",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 3.0,
+    "cytotoxicity": 9.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.3333333333333333,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 10.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.2,
+    "stability": 0.7200000000000001,
+    "synthesis": 1.5
+  },
+  "total": 5.58,
+  "APD3": {
+    "sequence": "RRWWRF",
+    "length": 21,
+    "hydrophobic_ratio": 57.0,
+    "net_charge": 3,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": null,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00027",
+    "detail_info": {
+      "name_class": "Combi-1 (Arg-rich; UCLL1c; XXE, XXA, synthetic AMPs20; Derivative: cyclized hexamer, BBL. SeqAR)",
+      "source": "Synthetic Combinatorial peptide Library, designed, man-made sequences",
+      "sequence": "RRWWRF",
+      "activity": "Anti-Gram+ & Gram-, Antifungal, candidacidal, anti-sepsis",
+      "crucial_residues": "",
+      "additional_info": "Chemical modification: N-terminal acetylation and C-terminal amidation.Activity: Active against S. aureus (IC50 5 ug/ml), S. sanguis (IC50 5 ug/ml), E. coli (IC50 8 ug/ml), and C. albicans (IC50 39 ug/ml). Also active against E. coli ATCC 2592, M. luteus, and S. cerevisaeKe T et al., 2012.Structure: 3D structure in SDS or DPC micelles was reported by Jing W, Hunter HN, Hagel J, Vogel HJ in J Pept Res. 2005 May;65(5):491-501 and the authors propose that the main bactericidal site of action of these peptides might be located inside bacteria.SAR: Cyclization improves both antimicrobial activity and cell selectivity (Dathe et al 2004 Biochemistry 43: 9140-50).  Updated 7/2021 GW",
+      "reference": "J Appl Bacteriol 1995; 78: 39-46.PubMed.",
+      "boman_index": 6.18,
+      "length": 21,
+      "net_charge": 3,
+      "hydrophobic_ratio": 57.0,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 6.18
+  },
+  "target_organisms": {
+    "[Ref.16075425] Gram-negative bacterium": [
+      {
+        "name": "Escherichia coli",
+        "activity": "MIC: 6.3 μg/ml"
+      }
+    ]
+  }
+}

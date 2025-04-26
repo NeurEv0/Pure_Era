@@ -1,0 +1,60 @@
+{
+  "DRAMP ID": "DRAMP00057",
+  "Sequence": "CKQSCSFGPFTFVCDGNTK",
+  "scores": {
+    "mic": 6.0,
+    "hemolysis": 10,
+    "cytotoxicity": 3.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 0.39999999999999997,
+    "length": 10.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.16,
+    "toxicity": 1.4500000000000002,
+    "stability": 0.7240000000000001,
+    "synthesis": 1.38
+  },
+  "total": 5.714,
+  "APD3": {
+    "sequence": "CKQSCSFGPFTFVCDGNTK",
+    "length": 19,
+    "hydrophobic_ratio": 36.0,
+    "net_charge": 1,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP01593",
+    "detail_info": {
+      "name_class": "Duramycin (PA48009; Leucopeptin; natural AMPs; Lantibiotic, type B, class 1 bacteriocin, Gram-positive bacteria, prokaryotes; XXT;  UCSS1b; XXK; revisited)",
+      "source": "Streptoverticillium griseoverticillatum PA-48009",
+      "sequence": "CKQSCSFGPFTFVCDGNTK",
+      "activity": "Anti-Gram+, Enzyme inhibitor",
+      "crucial_residues": "",
+      "additional_info": "The structure has been revised (Hayashi F et al., 1990). Methyllanthionine rings between residues 1 and18 as well as between residues 5 and 11; a lanthionine occurs between Cys14 and residue 4. In addition, addition of Lys19 to dehydralanine at position 6 forms a lysinoalanine bridge. The Asp residue at position 15 is hydroxylated. Duramycins and cinnamycin specifically binds to phosphatidylethanolamine, thereby indirectly inhibiting the activity of phospholipase A2. Updated 2/2017.",
+      "reference": "Antibiot Annu. 1957-1958;5:241-7.",
+      "boman_index": 1.32,
+      "length": 19,
+      "net_charge": 1,
+      "hydrophobic_ratio": 36.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": false
+    },
+    "boman_index": 1.32
+  },
+  "target_organisms": {
+    "Note": [
+      {
+        "name": "No MICs found in DRAMP database",
+        "activity": ""
+      }
+    ]
+  }
+}

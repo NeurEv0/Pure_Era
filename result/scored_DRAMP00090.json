@@ -1,0 +1,85 @@
+{
+  "DRAMP ID": "DRAMP00090",
+  "Sequence": "VNYGNGVSCSKTKCSVNWGQAFQERYTAGINSFVSGVASGAGSIGRRP",
+  "scores": {
+    "mic": 6.0,
+    "synergy_bonus": 1.0,
+    "hemolysis": 9.0,
+    "cytotoxicity": 10.0,
+    "boman_score": 3.0,
+    "protease": 5.0,
+    "ph_thermal": 5.0,
+    "half_life": 10,
+    "length": 5.0,
+    "rare_aa": 10.0,
+    "disulfide": 8.0
+  },
+  "weighted_scores": {
+    "efficacy": 2.2,
+    "toxicity": 1.875,
+    "stability": 1.3,
+    "synthesis": 1.155
+  },
+  "total": 6.53,
+  "APD3": {
+    "sequence": "VNYGNGVSCSKTKCSVNWGQAFQERYTAGINSFVSGVASGAGSIGRRP",
+    "length": 48,
+    "hydrophobic_ratio": 33.0,
+    "net_charge": 4,
+    "molecular_weight": null,
+    "gravy_value": null,
+    "disulfide_bonds": 1,
+    "detailed_info_fetched": true,
+    "from_local_apd3": true,
+    "apd_id": "AP00145",
+    "detail_info": {
+      "name_class": "Carnobacteriocin B2 (Cbn B2, natural AMPs; class 2a bacteriocin, bacteria, Gram-positive bacteria, prokaryotes; 1S=S, UCSS1a, JJsn)",
+      "source": "Carnobacterium piscicola; lactic acid bacteria",
+      "sequence": "VNYGNGVSCSKTKCSVNWGQAFQERYTAGINSFVSGVASGAGSIGRRP",
+      "activity": "Anti-Gram+ & Gram-, Synergistic AMPs",
+      "crucial_residues": "The central amphipathic helical portion is important for antimicrobial activity",
+      "additional_info": "Activity: spot-on-lawn test at 50 ug/ml: Active against C. divergens LV13, C. piscicola UAL26, L. plantarum ATCC 4008, P. parvulus ATCC 19371, L. monocytogenes ATCC 15313, L. innocua ATCC 33090, E. faecium ATCC 11576 or 19434, and E. faecalis ATCC 19433.Peptide stability: Subclass IIa bacteriocins are heat-stable short peptides with antilisterial activity.Structure: These compounds share a YGNGVxCxxxxC consensus in their cationic and hydrophilic N-terminal domain; however, the C-terminal domains are somewhat more diverse, which allows subclass IIa antimicrobials to be divided into three subgroups.  It has been postulated that the C-terminal half is implicated in cell specificity. In contrast to the N-terminus of Leucocin A, the N-terminus of Cbn B2 is disordered. 1 Alpha helix: 18-41; 1 Disulfide bridge: 9-14.You can rotate, zoom, and view the 3D structure in 90% TFEherein the PDB.Synergy:AMPs: Cbn B2 showed synergistic effect with Cbn BM1 (entry 636) (Jasniewski J et al. Food Chem Toxicol 47: 893-7). 7/2010; 7/2021.",
+      "reference": "J Biol Chem. 1994 Apr 22;269(16):12204-11.Pub-Med.",
+      "boman_index": 1.53,
+      "length": 48,
+      "net_charge": 4,
+      "hydrophobic_ratio": 33.0,
+      "disulfide_bonds": 1,
+      "is_two_chain": false,
+      "has_synergy": true
+    },
+    "boman_index": 1.53
+  },
+  "target_organisms": {
+    "[Ref.8163526] Gram-positive bacteria": [
+      {
+        "name": "Lactobacillus plantarum ATCC 4008",
+        "activity": "(MIC=2 AU/μg)"
+      },
+      {
+        "name": "Pediococcus parvulus ATCC 19371",
+        "activity": "(MIC=8 AU/μg)"
+      },
+      {
+        "name": "Listeria monocytogenes ATCC 15313",
+        "activity": "(MIC=32 AU/μg)"
+      },
+      {
+        "name": "Listeria innocua ATCC 33090",
+        "activity": "(MIC=16 AU/μg)"
+      },
+      {
+        "name": "Enterococcus faecium ATCC 11576",
+        "activity": "(MIC=16 AU/μg)"
+      },
+      {
+        "name": "Enterococcus faecalis ATCC 19433",
+        "activity": "(MIC=16 AU/μg)"
+      },
+      {
+        "name": "Enterococcus faecium ATCC 19434 (MIC=4 AU/μg).",
+        "activity": ""
+      }
+    ]
+  }
+}
