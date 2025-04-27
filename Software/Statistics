@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURE-ERA Statistics</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="shortcut icon" href="./icon/favicon.ico">
+    <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+        /* 自定义滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #7d2ae8, #5e17eb);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        body:not(.home-page) header {
+            background: linear-gradient(to bottom, rgba(43, 16, 85, 0.98) 0%, rgba(43, 16, 85, 0.9) 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+        }
+
+        .team-link {
+            font-size: 0.6em;
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-decoration: underline; 
+            transition: color 0.3s ease; 
+        }
+
+        .team-link:hover {
+            color: #fff; 
+        }
+
+        header .logo {
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.6em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+        
+        header .logo img {
+            margin-right: 10px; 
+        }
+
+        header ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        header ul li {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        header ul li a {
+            text-decoration: none;
+            padding: 6px 15px;
+            color: #fff;
+            border-radius: 20px;
+        }
+
+        header ul li a:hover,
+        header ul li a.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2b1055;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        /* 语言选择器样式 */
+        .language-selector {
+            position: fixed;
+            right: 20px;
+            top: 110px;
+            z-index: 10000;
+        }
+
+        .language-current {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            overflow: hidden;
+        }
+
+        .language-current i {
+            font-size: 18px;
+            color: white;
+            margin-right: 0;
+            transition: margin 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-current span {
+            max-width: 0;
+            opacity: 0;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-selector:hover .language-current {
+            padding-right: 15px;
+            border-radius: 10px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .language-selector:hover .language-current i {
+            margin-right: 8px;
+        }
+
+        .language-selector:hover .language-current span {
+            max-width: 120px;
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .language-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 10px;
+            border-top-right-radius: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 180px;
+            max-height: 350px;
+            overflow-y: auto;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-selector:hover .language-options {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeDown 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes fadeDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .language-options a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .language-options a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-options a:last-child {
+            margin-bottom: 10px;
+        }
+
+        .language-options a:first-child {
+            margin-top: 10px;
+        }
+
+        .language-options::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .language-options::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .language-options::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        /* 主内容区域样式 */
+        .main-container {
+            position: relative;
+            top: 120px;
+            padding: 50px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 120px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 60px;
+            color: #2b1055;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 统计卡片样式 */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            color: #2b1055;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #2b1055;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* 图表容器样式 */
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+        }
+
+        .chart-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.4em;
+            color: #2b1055;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        /* 过滤器样式 */
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            padding: 8px 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-label {
+            margin-right: 10px;
+            font-weight: 500;
+            color: #2b1055;
+        }
+
+        .filter-select {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(43, 16, 85, 0.2);
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: #2b1055;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: rgba(43, 16, 85, 0.5);
+        }
+
+        /* 响应式样式 */
+        @media (max-width: 1024px) {
+            body:not(.home-page) header {
+                padding: 15px 50px;
+            }
+            .main-container {
+                padding: 40px 30px;
+            }
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body:not(.home-page) header {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .logo-container {
+                margin-bottom: 10px;
+            }
+            header ul {
+                margin-top: 10px;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            header ul li {
+                margin-left: 0;
+                margin-right: 15px;
+                margin-bottom: 5px;
+            }
+            .main-container {
+                padding: 30px 15px;
+                top: 160px;
+            }
+            .stats-overview {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            .page-title {
+                font-size: 2.2em;
+                margin-bottom: 40px;
+            }
+            .language-selector {
+                top: 160px;
+                right: 15px;
+            }
+            .filters-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body class="other-page">
+    <header>
+      <div class="logo-container">
+        <a href="#" class="logo">
+          <img src="logo.png"  style="vertical-align: middle; height: 30px;">
+          SPADE
+        </a>
+        <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="statistics.html" class="active">Statistics</a></li>
+        <!-- <li><a href="amp_visualization.html">AMP Visualization</a></li> -->
+        <li><a href="chat.html">Chat</a></li>
+    </ul>
+    </header>
+
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="language-current" id="currentLang">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangText">English</span>
+        </div>
+        <div class="language-options">
+            <a href="#" data-lang="en" class="no-translate">English</a>
+            <a href="#" data-lang="zh-Hans" class="no-translate">中文 (简体)</a>
+            <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+            <a href="#" data-lang="ja" class="no-translate">日本語</a>
+            <a href="#" data-lang="ko" class="no-translate">한국어</a>
+            <a href="#" data-lang="fr" class="no-translate">Français</a>
+            <a href="#" data-lang="de" class="no-translate">Deutsch</a>
+            <a href="#" data-lang="es" class="no-translate">Español</a>
+            <a href="#" data-lang="ru" class="no-translate">Русский</a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <h1 class="page-title">Antimicrobial Peptide Database Statistics</h1>
+        
+        <!-- 过滤器区域 -->
+        <div class="filters-container">
+            <div class="filter-group">
+                <span class="filter-label">Time Period:</span>
+                <select class="filter-select" id="time-filter">
+                    <option value="all">All Time</option>
+                    <option value="year">Last Year</option>
+                    <option value="month">Last Month</option>
+                    <option value="week">Last Week</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Category:</span>
+                <select class="filter-select" id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="antibiotic">Antibiotic</option>
+                    <option value="peptide">Peptide</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Target Organism:</span>
+                <select class="filter-select" id="organism-filter">
+                    <option value="all">All Organisms</option>
+                    <option value="bacteria">Bacteria</option>
+                    <option value="fungi">Fungi</option>
+                    <option value="virus">Virus</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- 统计概览卡片 -->
+        <div class="stats-overview">
+            <div class="stat-card">
+                <i class="fas fa-database stat-icon"></i>
+                <div class="stat-number" id="total-entries">12,487</div>
+                <div class="stat-label">Total Database Entries</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-dna stat-icon"></i>
+                <div class="stat-number" id="unique-peptides">8,214</div>
+                <div class="stat-label">Unique Peptides</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-bacteria stat-icon"></i>
+                <div class="stat-number" id="target-organisms">342</div>
+                <div class="stat-label">Target Organisms</div>
+            </div>
+            
+            <div class="stat-card">
+                <i class="fas fa-search stat-icon"></i>
+                <div class="stat-number" id="monthly-searches">14,750</div>
+                <div class="stat-label">Monthly Searches</div>
+            </div>
+        </div>
+        
+        <!-- 图表区域 -->
+        <div class="charts-container">
+            <!-- 饼图：按类别分布 -->
+            <div class="chart-wrapper">
+                <h3 class="chart-title">AMP Distribution by Category</h3>
+                <div class="chart-container">
+                    <canvas id="category-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 条形图：按目标生物分布 -->
+            <div class="chart-wrapper">
+                <h3 class="chart-title">AMP Distribution by Target Organism</h3>
+                <div class="chart-container">
+                    <canvas id="organism-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 折线图：按时间趋势 -->
+            <div class="chart-wrapper">
+                <h3 class="chart-title">Database Growth Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="growth-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 雷达图：肽性能对比 -->
+            <div class="chart-wrapper">
+                <h3 class="chart-title">Average AMP Performance Metrics</h3>
+                <div class="chart-container">
+                    <canvas id="performance-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏响应式控制
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+        
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+
+        // 设置初始语言
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建特殊名词配置库
+            window.specialTerms = {
+                'en': { 'PURE-ERA': 'PURE-ERA' }, 
+                'zh-Hans': {
+                    'PURE-ERA': 'PURE-ERA',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Antimicrobial Peptide Database Statistics': '抗菌肽数据库统计',
+                    'Time Period:': '时间段:',
+                    'All Time': '全部时间',
+                    'Last Year': '过去一年',
+                    'Last Month': '过去一个月',
+                    'Last Week': '过去一周',
+                    'Category:': '类别:',
+                    'All Categories': '所有类别',
+                    'Antibiotic': '抗生素',
+                    'Peptide': '肽',
+                    'Target Organism:': '目标生物:',
+                    'All Organisms': '所有生物',
+                    'Bacteria': '细菌',
+                    'Fungi': '真菌',
+                    'Virus': '病毒',
+                    'Total Database Entries': '数据库总条目',
+                    'Unique Peptides': '独特肽序列',
+                    'Target Organisms': '目标生物',
+                    'Monthly Searches': '月搜索量',
+                    'AMP Distribution by Category': '按类别的抗菌肽分布',
+                    'AMP Distribution by Target Organism': '按目标生物的抗菌肽分布',
+                    'Database Growth Over Time': '数据库增长趋势',
+                    'Average AMP Performance Metrics': '抗菌肽平均性能指标',
+                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队'
+                },
+                'zh-Hant': {
+                    'PURE-ERA': 'PURE-ERA',
+                    'Home': '首頁',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '統計',
+                    'Antimicrobial Peptide Database Statistics': '抗菌肽數據庫統計',
+                    'Time Period:': '時間段:',
+                    'All Time': '全部時間',
+                    'Last Year': '過去一年',
+                    'Last Month': '過去一個月',
+                    'Last Week': '過去一周',
+                    'Category:': '類別:',
+                    'All Categories': '所有類別',
+                    'Antibiotic': '抗生素',
+                    'Peptide': '肽',
+                    'Target Organism:': '目標生物:',
+                    'All Organisms': '所有生物',
+                    'Bacteria': '細菌',
+                    'Fungi': '真菌',
+                    'Virus': '病毒',
+                    'Total Database Entries': '數據庫總條目',
+                    'Unique Peptides': '獨特肽序列',
+                    'Target Organisms': '目標生物',
+                    'Monthly Searches': '月搜索量',
+                    'AMP Distribution by Category': '按類別的抗菌肽分佈',
+                    'AMP Distribution by Target Organism': '按目標生物的抗菌肽分佈',
+                    'Database Growth Over Time': '數據庫增長趨勢',
+                    'Average AMP Performance Metrics': '抗菌肽平均性能指標',
+                    'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊'
+                },
+                'ja': {
+                    'PURE-ERA': 'PURE-ERA',
+                    'Home': 'ホーム',
+                    'Search': '検索',
+                    'Tools': 'ツール',
+                    'Statistics': '統計'
+                },
+                'ko': { 'PURE-ERA': 'PURE-ERA' },
+                'fr': { 'PURE-ERA': 'PURE-ERA' },
+                'de': { 'PURE-ERA': 'PURE-ERA' },
+                'es': { 'PURE-ERA': 'PURE-ERA' },
+                'ru': { 'PURE-ERA': 'PURE-ERA' }
+            };
+            
+            const savedLang = getLanguagePreference();
+            document.documentElement.lang = savedLang;
+            
+            // 更新当前语言显示
+            updateCurrentLanguageDisplay();
+            
+            // 初始化多语言选择
+            const langOptions = document.querySelectorAll('.language-options a');
+            langOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newLang = this.getAttribute('data-lang');
+                    if (newLang === document.documentElement.lang) return;
+                    
+                    // 保存语言设置并刷新页面
+                    saveLanguagePreference(newLang);
+                    
+                    // 获取当前URL并添加时间戳参数以确保刷新
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.set('ts', Date.now());
+                    window.location.href = currentUrl.toString();
+                });
+            });
+            
+            // 初始化翻译
+            initializeTranslation(savedLang);
+            
+            // 初始化图表
+            initCharts();
+        });
+        
+        // 更新当前语言显示
+        function updateCurrentLanguageDisplay() {
+            const currentLang = document.getElementById('currentLang');
+            const currentLangText = document.getElementById('currentLangText');
+            
+            currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+            
+            currentLang.classList.add('no-translate');
+            currentLangText.classList.add('no-translate');
+        }
+        
+        // 初始化翻译函数
+        function initializeTranslation(lang) {
+            const tranzy = new Tranzy.Translator({
+                toLang: lang,
+                fromLang: 'en',
+                ignore: ['.no-translate', 'canvas', '.stat-number'],
+                manualDict: window.specialTerms
+            });
+            
+            tranzy.translatePage();
+            tranzy.startObserver();
+            
+            window.tranzyInstance = tranzy;
+        }
+        
+        // 初始化图表
+        function initCharts() {
+            // 设置图表颜色主题
+            const chartColors = {
+                purple: 'rgba(43, 16, 85, 0.7)',
+                lightPurple: 'rgba(162, 111, 176, 0.7)',
+                pink: 'rgba(224, 187, 228, 0.7)',
+                lavender: 'rgba(200, 162, 200, 0.7)',
+                white: 'rgba(255, 255, 255, 0.7)'
+            };
+            
+            // 设置图表字体
+            Chart.defaults.font.family = "'Poppins', sans-serif";
+            Chart.defaults.font.size = 14;
+            Chart.defaults.color = '#2b1055';
+            
+            // 获取当前语言
+            const currentLang = document.documentElement.lang;
+            
+            // 定义各语言的图表标签
+            const chartLabels = {
+                category: {
+                    'en': ['Antibacterial', 'Antifungal', 'Antiviral', 'Antiparasitic', 'Multiple Activities'],
+                    'zh-Hans': ['抗细菌', '抗真菌', '抗病毒', '抗寄生虫', '多重活性'],
+                    'zh-Hant': ['抗細菌', '抗真菌', '抗病毒', '抗寄生蟲', '多重活性'],
+                    'ja': ['抗細菌', '抗真菌', '抗ウイルス', '抗寄生虫', '複数活性']
+                },
+                performance: {
+                    'en': ['Efficacy', 'Stability', 'Safety', 'Specificity', 'Synthesis Ease'],
+                    'zh-Hans': ['效力', '稳定性', '安全性', '特异性', '合成难度'],
+                    'zh-Hant': ['效力', '穩定性', '安全性', '特異性', '合成難度'],
+                    'ja': ['効力', '安定性', '安全性', '特異性', '合成容易さ']
+                },
+                datasets: {
+                    'en': {
+                        'antibacterial': 'Antibacterial',
+                        'antifungal': 'Antifungal',
+                        'total': 'Total Entries'
+                    },
+                    'zh-Hans': {
+                        'antibacterial': '抗细菌',
+                        'antifungal': '抗真菌',
+                        'total': '总条目数'
+                    },
+                    'zh-Hant': {
+                        'antibacterial': '抗細菌',
+                        'antifungal': '抗真菌',
+                        'total': '總條目數'
+                    },
+                    'ja': {
+                        'antibacterial': '抗細菌',
+                        'antifungal': '抗真菌',
+                        'total': '総エントリー'
+                    }
+                }
+            };
+            
+            // 获取当前语言的标签，如果不存在则使用英文
+            const getCategoryLabels = () => chartLabels.category[currentLang] || chartLabels.category['en'];
+            const getPerformanceLabels = () => chartLabels.performance[currentLang] || chartLabels.performance['en'];
+            const getDatasetLabel = (key) => (chartLabels.datasets[currentLang] && chartLabels.datasets[currentLang][key]) || 
+                                            chartLabels.datasets['en'][key];
+            
+            // 类别分布饼图
+            const categoryCtx = document.getElementById('category-chart').getContext('2d');
+            const categoryChart = new Chart(categoryCtx, {
+                type: 'pie',
+                data: {
+                    labels: getCategoryLabels(),
+                    datasets: [{
+                        data: [45, 25, 15, 5, 10],
+                        backgroundColor: [
+                            chartColors.purple,
+                            chartColors.lightPurple,
+                            chartColors.pink,
+                            chartColors.lavender,
+                            chartColors.white
+                        ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 目标生物分布条形图
+            const organismCtx = document.getElementById('organism-chart').getContext('2d');
+            const organismChart = new Chart(organismCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['E. coli', 'S. aureus', 'P. aeruginosa', 'C. albicans', 'HIV-1', 'Influenza A'],
+                    datasets: [{
+                        label: getDatasetLabel('antibacterial'),
+                        data: [1200, 980, 750, 580, 320, 210],
+                        backgroundColor: chartColors.purple,
+                        borderColor: 'white',
+                        borderWidth: 1,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(43, 16, 85, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+            
+            // 数据库增长折线图
+            const growthCtx = document.getElementById('growth-chart').getContext('2d');
+            const growthChart = new Chart(growthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: getDatasetLabel('total'),
+                        data: [4500, 6200, 7800, 9100, 10300, 11500, 12487],
+                        backgroundColor: 'rgba(43, 16, 85, 0.1)',
+                        borderColor: chartColors.purple,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(43, 16, 85, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 肽性能雷达图
+            const performanceCtx = document.getElementById('performance-chart').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'radar',
+                data: {
+                    labels: getPerformanceLabels(),
+                    datasets: [
+                        {
+                            label: getDatasetLabel('antibacterial'),
+                            data: [85, 70, 65, 75, 80],
+                            backgroundColor: 'rgba(43, 16, 85, 0.2)',
+                            borderColor: chartColors.purple,
+                            pointBackgroundColor: chartColors.purple,
+                            pointBorderColor: '#fff'
+                        },
+                        {
+                            label: getDatasetLabel('antifungal'),
+                            data: [75, 80, 70, 65, 60],
+                            backgroundColor: 'rgba(162, 111, 176, 0.2)',
+                            borderColor: chartColors.lightPurple,
+                            pointBackgroundColor: chartColors.lightPurple,
+                            pointBorderColor: '#fff'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(43, 16, 85, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(43, 16, 85, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+            
+            // 添加过滤器事件监听器
+            const timeFilter = document.getElementById('time-filter');
+            const categoryFilter = document.getElementById('category-filter');
+            const organismFilter = document.getElementById('organism-filter');
+            
+            // 简单示例：更新过滤器时显示加载状态并延迟更新图表
+            [timeFilter, categoryFilter, organismFilter].forEach(filter => {
+                filter.addEventListener('change', function() {
+                    updateChartsBasedOnFilters();
+                });
+            });
+        }
+        
+        // 根据过滤器更新图表
+        function updateChartsBasedOnFilters() {
+            // 在实际应用中，这里应该发送API请求获取新的数据
+            // 这里仅做演示，添加一个简单的加载动画
+            
+            const chartContainers = document.querySelectorAll('.chart-container');
+            
+            // 添加加载状态
+            chartContainers.forEach(container => {
+                container.style.opacity = '0.5';
+            });
+            
+            // 模拟数据加载
+            setTimeout(() => {
+                // 恢复正常显示
+                chartContainers.forEach(container => {
+                    container.style.opacity = '1';
+                });
+                
+                // 这里应该用实际获取的数据更新图表
+                // 现在只是示例，不做实际更新
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
