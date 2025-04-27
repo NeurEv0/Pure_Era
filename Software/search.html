@@ -118,7 +118,7 @@ header ul li a {
 header ul li a:hover,
 header ul li a.active {
     background: rgba(255, 255, 255, 0.9);
-    color:  #ffffff;
+    color:  #2b1055;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
     transition: all 0.3s ease;
@@ -243,28 +243,29 @@ header ul li a.active {
     }
 
     .search-btn {
-      background: #8fd0ff;
+      background: #fff;
       color: #2b1055;
+      font-size: large;
       padding: 15px 20px;
-      border: none;
-      border-radius: 25px;
+      border: 2px solid #a88cd4;
+      border-radius: 30px;
       cursor: pointer;
       transition: 0.3s;
       margin-top: 15px;
     }
 
     .search-btn:hover {
-      background: #8fd0ff;
+      background: #a88cd4;
       ;
     }
 
     .view-btn:hover{
-        background: #8fd0ff;
+        background: #a88cd4;
     }
 
     .view-btn {
-      background: #8fd0ff;
-      color: #2b1055;
+      background: #a88cd4;
+      color: #fff;
       padding: 8px 15px;
       border: none;
       border-radius: 25px;
@@ -355,7 +356,7 @@ header ul li a.active {
 
 .language-current i {
     font-size: 18px;
-    color: #2b1055;
+    color: #fff;
     margin-right: 0; /* 默认没有右边距 */
     transition: margin 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -363,7 +364,7 @@ header ul li a.active {
 .language-current span {
     max-width: 0;
     opacity: 0;
-    color: #2b1055;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -521,7 +522,7 @@ thead th:last-child {
     </button>
     <ul class="nav-menu">
       <li><a href="home.html">Home</a></li>
-      <li><a href="search.html">Search</a></li>
+      <li><a href="search.html" class="active">Search</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="statistics.html">Statistics</a></li>
       <li><a href="chat.html">Chat</a></li>
