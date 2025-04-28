@@ -5,7 +5,7 @@
   <title>search peptides</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="shortcut icon" href="./icon/favicon.ico">
+  <link rel="shortcut icon" href="../icon/favicon.ico">
   <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
@@ -17,11 +17,13 @@
     }
 
     body {
-      min-height: 100vh;
-      background: #ffffff;  /* 改为纯白背景 */
-      color: #2b1055;        /* 文本颜色建议配合调整 */
-      overflow-x: hidden;
-    }
+  min-height: 100vh;
+  background: #ffffff;  /* 改为纯白背景 */
+  color: #2b1055;        /* 文本颜色建议配合调整 */
+  overflow-x: hidden;
+}
+
+
 
     /* body:not(.home-page) {
     background: #fff; /* 非 Home 页背景色 */
@@ -42,6 +44,7 @@ body:not(.home-page) header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: background 0.3s ease;
 }
+
 
 .logo-container {
     position: relative;
@@ -121,6 +124,7 @@ header ul li a.active {
     transition: all 0.3s ease;
 }
 
+
 /* 导航栏切换按钮样式 */
 .nav-toggle {
     display: none;
@@ -130,6 +134,7 @@ header ul li a.active {
     font-size: 1.5em;
     cursor: pointer;
 }
+
 
 /* 媒体查询，手机端样式 */
 @media (max-width: 768px) {
@@ -507,7 +512,7 @@ thead th:last-child {
   <header>
     <div class="logo-container">
       <a href="#" class="logo">
-        <img src="logo.png"  style="vertical-align: middle; height: 30px;">
+        <img src="../icon/logo.png"  style="vertical-align: middle; height: 30px;">
         SPADE
       </a>
       <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
@@ -594,20 +599,49 @@ thead th:last-child {
     const itemsPerPage = 15; // 每页显示条数
     let currentPage = 1;
     let totalPages = 1;
-    let allPeptideFiles = []; // 不再主要使用，保留以防万一，但主要数据源是 peptideIndexData
+    let allPeptideFiles = []; // 存储所有文件名
     let peptideIndexData = []; // 存储索引文件数据
-    let currentFilteredData = []; // 存储当前过滤后的数据
+    let currentFilterFiles = []; // 存储当前过滤后的文件名列表
     let isFiltered = false; // 标记当前是否处于过滤状态
-
+    
+    // 添加数据缓存
+    const dataCache = new Map(); // 用于缓存已加载的JSON数据
+    const CACHE_EXPIRY = 5 * 60 * 1000; // 缓存过期时间：5分钟
+    const BATCH_SIZE = 5; // 批量加载大小，每批加载5个文件
+    
+    // IndexedDB持久化存储配置
+    const DB_NAME = 'peptideDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'peptideCache';
+    let db = null; // 数据库连接对象
+    const INDEXED_DB_EXPIRY = 7 * 24 * 60 * 60 * 1000; // 持久缓存过期时间：7天
+    
+    // 预加载控制
+    let isPreloading = false; // 标记是否正在预加载
+    let preloadTimer = null; // 预加载定时器
+    
     navToggle.addEventListener('click', () => {
       navMenu.classList.toggle('active');
     });
 
     // 在页面加载时初始化数据
     document.addEventListener('DOMContentLoaded', function() {
-      // 加载数据...
-      loadInitialData(); // 确保在页面加载时调用
-
+      // 初始化IndexedDB
+      initIndexedDB().then(() => {
+        // 加载数据...
+        loadInitialData(); // 确保在页面加载时调用
+      }).catch(err => {
+        console.error('IndexedDB初始化失败:', err);
+        // 即使IndexedDB失败，也继续加载数据
+        loadInitialData();
+      });
+      
+      // 在页面卸载前清理缓存，释放内存
+      window.addEventListener('beforeunload', function() {
+        clearCache();
+        clearTimeout(preloadTimer); // 清理预加载定时器
+      });
+      
     // 导航交互
     document.querySelectorAll('header ul li').forEach(li => {
       li.addEventListener('click', function() {
@@ -627,9 +661,9 @@ thead th:last-child {
       // 如果全局特殊词汇配置不存在，则创建
       if (!window.specialTerms) {
         window.specialTerms = {
-          'en': { 'PURE-ERA': 'PURE-ERA' },
+          'en': { 'SPADE': 'SPADE' },
           'zh-Hans': {
-            'PURE-ERA': 'PURE-ERA',
+            'SPADE': 'SPADE',
             'Home': '首页',
             'Search': '搜索',
             'Tools': '工具',
@@ -651,7 +685,7 @@ thead th:last-child {
             'AMP Visualization': '抗菌肽可视化'
           },
           'zh-Hant': {
-            'PURE-ERA': 'PURE-ERA',
+            'SPADE': 'SPADE',
             'Home': '首頁',
             'Search': '搜索',
             'Tools': '工具',
@@ -673,7 +707,7 @@ thead th:last-child {
             'AMP Visualization': '抗菌肽可視化'
           },
           'ja': {
-            'PURE-ERA': 'PURE-ERA',
+            'SPADE': 'SPADE',
             'Home': 'ホーム',
             'Search': '検索',
             'Tools': 'ツール',
@@ -693,12 +727,12 @@ thead th:last-child {
             'Export CSV': 'CSVをエクスポート',
             'AMP Visualization': '抗菌ペプチド可視化'
           },
-          // 为其他语言也添加PURE-ERA的映射
-          'ko': { 'PURE-ERA': 'PURE-ERA' },
-          'fr': { 'PURE-ERA': 'PURE-ERA' },
-          'de': { 'PURE-ERA': 'PURE-ERA' },
-          'es': { 'PURE-ERA': 'PURE-ERA' },
-          'ru': { 'PURE-ERA': 'PURE-ERA' }
+          // 为其他语言也添加SPADE的映射
+          'ko': { 'SPADE': 'SPADE' },
+          'fr': { 'SPADE': 'SPADE' },
+          'de': { 'SPADE': 'SPADE' },
+          'es': { 'SPADE': 'SPADE' },
+          'ru': { 'SPADE': 'SPADE' }
         };
       }
       
@@ -828,135 +862,361 @@ thead th:last-child {
           }
       }
 
-      // 如果没有输入任何过滤条件，则不执行操作
+      // 如果没有输入任何过滤条件，则不执行操作（避免显示空结果）
       if (!didFilter) {
-            isFiltered = false;
-            currentFilteredData = [...peptideIndexData]; // 重置为完整数据
-            displayPage(1);
-            return;
+          // 可以选择重置显示所有数据，或者提示用户输入条件
+          // alert("请输入至少一个搜索条件（名称、序列或长度）。");
+          // 或者重置
+          isFiltered = false;
+          currentFilterFiles = [...allPeptideFiles];
+          displayPage(1);
+          return;
       }
 
-      // 更新过滤状态和数据
+      // 更新过滤状态和文件列表
       isFiltered = true;
-      currentFilteredData = results; // 直接使用过滤后的结果数组
-      console.log(`搜索完成，找到 ${currentFilteredData.length} 个结果。`);
+      currentFilterFiles = results.map(p => `${p.id}.json`); // 从结果中获取对应的文件名
+      
+      console.log(`搜索完成，找到 ${currentFilterFiles.length} 个结果。`);
 
       // 显示搜索结果的第一页
       displayPage(1);
+
+      // --- 移除旧的基于当前页的搜索逻辑 --- 
+      /* 
+      if (nameInput) { ... }
+      if (sequenceInput) { ... }
+      if (lengthInput) { ... }
+      alert("请输入 ID、名称、序列或长度范围进行搜索");
+      */
      }
 
     function exportCSV() {
       // 导出 CSV 功能实现
     }
 
-    // 加载初始数据（索引文件），并显示第一页
+    // 加载初始数据（文件名列表和索引），并显示第一页
     async function loadInitialData() {
         console.log("开始加载初始数据...");
-        peptideIndexData = []; // 重置
-        currentFilteredData = [];
-        isFiltered = false;
-
-        // 加载索引文件 - 尝试多种可能的路径
-        let indexLoaded = false;
-        const possiblePaths = [
-            'peptide_index.json',
-            './peptide_index.json',
-            // 可以根据需要添加其他可能的相对路径
-        ];
-
-        for (const path of possiblePaths) {
-            if (indexLoaded) break;
-            try {
-                console.log(`尝试从路径加载索引文件: ${path}`);
-                const response = await fetch(path);
-                if (!response.ok) {
-                    console.warn(`从路径 ${path} 加载索引文件失败: ${response.status}`);
-                    continue; // 尝试下一个路径
-                }
-                peptideIndexData = await response.json();
-                console.log(`索引文件从 ${path} 加载成功，包含 ${peptideIndexData.length} 个条目`);
-                indexLoaded = true;
-                break; // 成功加载后退出循环
-            } catch (error) {
-                console.warn(`从路径 ${path} 加载索引文件时发生错误:`, error);
+        
+        // 直接使用特定路径加载索引文件
+        const indexPath = './IndexJs/peptide_index.json';
+        
+        try {
+            console.log(`尝试从路径加载索引文件: ${indexPath}`);
+            const response = await fetch(indexPath);
+            
+            if (!response.ok) {
+                throw new Error(`索引文件加载失败: ${response.status} ${response.statusText}`);
             }
+            
+            // 加载索引数据
+            peptideIndexData = await response.json();
+            console.log(`索引文件从 ${indexPath} 加载成功，包含 ${peptideIndexData.length} 个条目`);
+            
+            // 从索引数据中提取文件名列表
+            allPeptideFiles = peptideIndexData.map(item => `${item.id}.json`);
+            console.log(`从索引生成了 ${allPeptideFiles.length} 个文件名`);
+            
+            currentFilterFiles = [...allPeptideFiles]; // 初始状态下，过滤列表等于完整列表
+            isFiltered = false;
+            
+            totalPages = Math.ceil(currentFilterFiles.length / itemsPerPage);
+            currentPage = 1;
+            console.log(`总页数: ${totalPages}, 当前页: ${currentPage}`);
+            await displayPage(currentPage);
+            setupPaginationControls();
+            setupResetButton(); // 设置重置按钮
+            
+        } catch (error) {
+            console.error('加载索引文件失败:', error);
+            alert('警告：无法加载搜索索引，搜索功能可能无法正常工作。');
+            
+            // 如果索引加载失败，使用默认的少量文件列表作为备选
+            const defaultFiles = ['DRAMP00001.json','DRAMP00002.json','DRAMP00003.json','DRAMP00004.json','DRAMP00005.json'];
+            allPeptideFiles = defaultFiles;
+            currentFilterFiles = [...allPeptideFiles];
+            peptideIndexData = [];
+            
+            totalPages = Math.ceil(currentFilterFiles.length / itemsPerPage);
+            currentPage = 1;
+            await displayPage(currentPage);
+            setupPaginationControls();
+            setupResetButton();
         }
-
-        if (!indexLoaded) {
-            console.error('错误：无法从任何尝试的路径加载 peptide_index.json');
-            alert('错误：无法加载肽索引文件，搜索页面无法正常工作。请确保 peptide_index.json 文件存在于正确的位置。');
-            // 在这里可以显示错误信息给用户，或者禁用搜索功能
-            totalPages = 0;
-            currentPage = 0;
-            updatePaginationInfo();
-            document.getElementById('table-body').innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Error: Peptide index file not found.</td></tr>';
-            return; // 索引加载失败，停止后续操作
-        }
-
-        // 索引加载成功后的处理
-        currentFilteredData = [...peptideIndexData]; // 初始状态下，过滤数据等于完整数据
-        totalPages = Math.ceil(currentFilteredData.length / itemsPerPage);
-        currentPage = 1;
-        console.log(`总条目数: ${peptideIndexData.length}, 总页数: ${totalPages}, 当前页: ${currentPage}`);
-        displayPage(currentPage);
-        setupPaginationControls();
-        setupResetButton(); // 设置重置按钮
     }
 
     // 显示指定页的数据
-    function displayPage(page) { // 改为同步函数，因为不再需要异步加载
+    async function displayPage(page) {
         console.log(`显示第 ${page} 页数据...`);
         currentPage = page;
         const tableBody = document.getElementById('table-body');
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
 
-        // 使用过滤后的数据或完整数据
-        const dataSource = isFiltered ? currentFilteredData : peptideIndexData;
-        totalPages = Math.ceil(dataSource.length / itemsPerPage);
-        console.log(`当前数据源包含 ${dataSource.length} 个条目, 总页数: ${totalPages}`);
+        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Loading...</td></tr>';
 
+        // 取消之前可能进行的预加载
+        if (preloadTimer) {
+            clearTimeout(preloadTimer);
+            preloadTimer = null;
+        }
+        isPreloading = false;
+
+        // 根据是否过滤，选择使用的文件列表
+        const filesSource = isFiltered ? currentFilterFiles : allPeptideFiles;
+        totalPages = Math.ceil(filesSource.length / itemsPerPage);
+        console.log(`当前文件列表包含 ${filesSource.length} 个文件, 总页数: ${totalPages}`);
+        
         // 确保页码在有效范围内
-        if (page < 1 && totalPages > 0) page = 1;
+        if (page < 1) page = 1;
         if (page > totalPages && totalPages > 0) page = totalPages;
-        if (totalPages === 0) page = 0; // 处理没有数据的情况
         currentPage = page;
+        
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = Math.min(page * itemsPerPage, filesSource.length);
+        const filesToLoad = filesSource.slice(startIndex, endIndex);
+        console.log(`正在加载第 ${startIndex+1} 到 ${endIndex} 条数据，文件数: ${filesToLoad.length}`);
 
-        tableBody.innerHTML = ''; // 清空表格体
-
-        if (dataSource.length === 0 || currentPage === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px;">${isFiltered ? 'No matching results found.' : 'No data available.'}</td></tr>`;
+        if (filesToLoad.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No data available.</td></tr>';
             updatePaginationInfo();
             return;
         }
 
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = Math.min(page * itemsPerPage, dataSource.length);
-        const pageData = dataSource.slice(startIndex, endIndex);
-        console.log(`正在显示第 ${startIndex + 1} 到 ${endIndex} 条数据，共 ${pageData.length} 条`);
+        try {
+            // 使用分批加载优化性能
+            tableBody.innerHTML = ''; // 清空表格准备接收数据
+            
+            // 显示加载进度指示器
+            const loadingRow = document.createElement('tr');
+            loadingRow.id = 'loading-indicator';
+            const loadingCell = document.createElement('td');
+            loadingCell.colSpan = 4;
+            loadingCell.style.textAlign = 'center';
+            loadingCell.style.padding = '20px';
+            loadingCell.innerHTML = `加载中... <span id="loading-progress">0/${filesToLoad.length}</span>`;
+            loadingRow.appendChild(loadingCell);
+            tableBody.appendChild(loadingRow);
+            
+            // 分批处理文件
+            const batches = [];
+            for (let i = 0; i < filesToLoad.length; i += BATCH_SIZE) {
+                batches.push(filesToLoad.slice(i, i + BATCH_SIZE));
+            }
+            
+            let loadedCount = 0;
+            let allValidData = [];
+            
+            // 依次加载每个批次
+            for (const batch of batches) {
+                const batchPromises = batch.map(file => loadFileWithCache(file));
+                const batchData = await Promise.all(batchPromises);
+                
+                // 过滤有效数据并添加到总结果
+                const validBatchData = batchData.filter(data => data !== null);
+                allValidData = allValidData.concat(validBatchData);
+                
+                // 更新加载进度
+                loadedCount += batch.length;
+                const progressElem = document.getElementById('loading-progress');
+                if (progressElem) {
+                    progressElem.textContent = `${loadedCount}/${filesToLoad.length}`;
+                }
+                
+                // 每批次立即渲染，不等待所有数据加载完成
+                renderBatchData(validBatchData);
+            }
+            
+            // 移除加载指示器
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.remove();
+            }
+            
+            // 检查是否有加载结果
+            if (allValidData.length === 0 && filesSource.length > 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px;">${isFiltered ? 'No matching results found.' : 'Failed to load data for this page.'}</td></tr>`;
+            } else if (allValidData.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">No data available.</td></tr>';
+            }
+            
+            if (window.tranzyInstance) {
+                window.tranzyInstance.translatePage('#table-body');
+            }
+            
+            // 当前页面加载完成后，开始预加载下一页
+            preloadNextPage();
 
-        pageData.forEach(data => {
+        } catch (error) {
+            console.error('数据加载或渲染失败:', error);
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Error loading data.</td></tr>';
+        }
+
+        updatePaginationInfo();
+    }
+    
+    // 预加载下一页数据
+    function preloadNextPage() {
+        // 如果已经是最后一页或正在预加载，则不进行预加载
+        if (currentPage >= totalPages || isPreloading) {
+            return;
+        }
+        
+        // 设置延迟预加载，给当前页面渲染一点时间
+        preloadTimer = setTimeout(async () => {
+            isPreloading = true;
+            
+            const nextPage = currentPage + 1;
+            if (nextPage <= totalPages) {
+                const filesSource = isFiltered ? currentFilterFiles : allPeptideFiles;
+                const startIndex = (nextPage - 1) * itemsPerPage;
+                const endIndex = Math.min(nextPage * itemsPerPage, filesSource.length);
+                const filesToPreload = filesSource.slice(startIndex, endIndex);
+                
+                console.log(`预加载第 ${nextPage} 页数据，共 ${filesToPreload.length} 个文件...`);
+                
+                // 使用较低优先级进行预加载
+                try {
+                    // 分批预加载
+                    for (let i = 0; i < filesToPreload.length; i += BATCH_SIZE) {
+                        const batch = filesToPreload.slice(i, i + BATCH_SIZE);
+                        // 使用Promise.allSettled而不是Promise.all，忽略单个文件的加载失败
+                        await Promise.allSettled(batch.map(file => {
+                            return loadFileWithCache(file).catch(err => {
+                                console.warn(`预加载文件 ${file} 失败:`, err);
+                                return null;
+                            });
+                        }));
+                        // 在批次之间添加短暂延迟，避免阻塞主线程
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                    }
+                    console.log(`第 ${nextPage} 页数据预加载完成`);
+                } catch (error) {
+                    console.warn(`预加载第 ${nextPage} 页数据失败:`, error);
+                }
+            }
+            
+            isPreloading = false;
+        }, 500); // 延迟500ms开始预加载
+    }
+    
+    // 加载单个文件并使用缓存(内存缓存 + IndexedDB)
+    async function loadFileWithCache(file) {
+        const now = Date.now();
+        const cacheKey = file;
+        
+        // 1. 检查内存缓存是否有效
+        if (dataCache.has(cacheKey)) {
+            const cachedItem = dataCache.get(cacheKey);
+            if (now - cachedItem.timestamp < CACHE_EXPIRY) {
+                console.log(`从内存缓存加载: ${file}`);
+                return cachedItem.data;
+            } else {
+                // 内存缓存过期，移除
+                dataCache.delete(cacheKey);
+            }
+        }
+        
+        // 2. 检查IndexedDB缓存
+        try {
+            const dbData = await getFromIndexedDB(cacheKey);
+            if (dbData) {
+                console.log(`从IndexedDB加载: ${file}`);
+                // 同时更新内存缓存
+                dataCache.set(cacheKey, {
+                    data: dbData,
+                    timestamp: now
+                });
+                return dbData;
+            }
+        } catch (error) {
+            console.warn(`从IndexedDB加载 ${file} 失败:`, error);
+            // 错误处理，继续尝试网络请求
+        }
+        
+        // 3. 缓存未命中，从网络加载
+        const url = `./database/${file}`;
+        console.log(`从网络加载: ${url}`);
+        
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                console.error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
+                return null;
+            }
+            
+            const data = await response.json();
+            
+            // 保存到内存缓存
+            dataCache.set(cacheKey, {
+                data: data,
+                timestamp: now
+            });
+            
+            // 保存到IndexedDB
+            saveToIndexedDB(cacheKey, data).catch(err => {
+                console.warn(`保存 ${file} 到IndexedDB失败:`, err);
+            });
+            
+            return data;
+        } catch (error) {
+            console.error(`Error fetching ${file}:`, error);
+            return null;
+        }
+    }
+    
+    // 渲染一批数据到表格
+    function renderBatchData(batchData) {
+        const tableBody = document.getElementById('table-body');
+        
+        batchData.forEach(data => {
+            // 检查数据结构，适配不同格式
+            let id, name, sequence;
+            
+            if (data['Sequence Information']) {
+                // 新格式，数据在Sequence Information对象内
+                const seqInfo = data['Sequence Information'];
+                id = seqInfo['DRAMP ID'];
+                name = seqInfo['Peptide Name'];
+                sequence = seqInfo['Sequence'];
+            } else {
+                // 旧格式，数据直接在根级别
+                id = data['DRAMP ID'];
+                name = data['Peptide Name'];
+                sequence = data['Sequence'];
+            }
+            
+            // 确保所有字段都有值
+            id = id || "未知ID";
+            name = name || "未知名称";
+            sequence = sequence || "未知序列";
+            
             const row = document.createElement('tr');
+            
             const idCell = document.createElement('td');
-            idCell.textContent = data.id; // 使用索引中的 id
+            idCell.textContent = id;
             row.appendChild(idCell);
-
+            
             const nameCell = document.createElement('td');
-            nameCell.textContent = data.name; // 使用索引中的 name
+            nameCell.textContent = name;
             row.appendChild(nameCell);
-
+            
             const sequenceCell = document.createElement('td');
-            sequenceCell.textContent = data.sequence; // 使用索引中的 sequence
+            sequenceCell.textContent = sequence;
             row.appendChild(sequenceCell);
-
+            
             const actionCell = document.createElement('td');
             const viewButton = document.createElement('button');
             viewButton.className = 'view-btn';
             viewButton.textContent = 'View'; // 稍后会被Tranzy翻译
             viewButton.onclick = function() {
-                const url = `peptide_card.html?DRAMP ID=${encodeURIComponent(data.id)}`; // 使用 data.id
+                const url = `peptide_card.html?DRAMP ID=${encodeURIComponent(id)}`;
                 window.location.href = url;
             };
             actionCell.appendChild(viewButton);
-
+            
             // 添加Visualize按钮
             const visualizeButton = document.createElement('button');
             visualizeButton.className = 'view-btn';
@@ -964,22 +1224,44 @@ thead th:last-child {
             visualizeButton.style.backgroundColor = '#7597de';
             visualizeButton.textContent = 'Visualize'; // 稍后会被Tranzy翻译
             visualizeButton.onclick = function() {
-                const url = `amp_visualization.html?id=${encodeURIComponent(data.id)}`; // 使用 data.id
+                const url = `amp_visualization.html?id=${encodeURIComponent(id)}`;
                 window.location.href = url;
             };
             actionCell.appendChild(visualizeButton);
-
+            
             row.appendChild(actionCell);
-            tableBody.appendChild(row);
+            
+            // 将加载指示器前面插入新行
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                tableBody.insertBefore(row, loadingIndicator);
+            } else {
+                tableBody.appendChild(row);
+            }
         });
-
-        if (window.tranzyInstance) {
-            window.tranzyInstance.translatePage('#table-body'); // 重新翻译新添加的内容
-        }
-
-        updatePaginationInfo();
     }
     
+    // 清理过期缓存
+    function clearCache() {
+        // 清理内存缓存
+        const now = Date.now();
+        for (const [key, value] of dataCache.entries()) {
+            if (now - value.timestamp > CACHE_EXPIRY) {
+                dataCache.delete(key);
+            }
+        }
+        
+        // 清理IndexedDB缓存（每天清理一次，使用概率控制）
+        if (Math.random() < 0.1) {  // 约10%的几率执行清理
+            cleanupIndexedDB().catch(err => {
+                console.warn('清理IndexedDB缓存失败:', err);
+            });
+        }
+    }
+    
+    // 定期清理缓存
+    setInterval(clearCache, 60000); // 每分钟清理一次过期缓存
+
     // 更新分页信息和按钮状态
     function updatePaginationInfo() {
         const pageInfo = document.getElementById('pageInfo');
@@ -1066,12 +1348,189 @@ thead th:last-child {
             document.getElementById("nameInput").value = '';
             document.getElementById("sequenceInput").value = '';
             document.getElementById("lengthInput").value = '';
-
+            
             // 重置过滤状态和数据
             isFiltered = false;
-            currentFilteredData = [...peptideIndexData]; // 重置为完整数据
+            currentFilterFiles = [...allPeptideFiles];
             displayPage(1); // 显示第一页的全部数据
         });
+    }
+
+    // 初始化IndexedDB
+    async function initIndexedDB() {
+      return new Promise((resolve, reject) => {
+        // 打开数据库连接
+        const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+        
+        // 处理数据库升级事件
+        request.onupgradeneeded = function(event) {
+          const db = event.target.result;
+          // 创建对象存储，使用文件名作为键
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            const store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+            // 创建时间戳索引，用于管理过期数据
+            store.createIndex('timestamp', 'timestamp', { unique: false });
+          }
+          console.log('IndexedDB存储创建成功');
+        };
+        
+        // 处理连接成功
+        request.onsuccess = function(event) {
+          db = event.target.result;
+          console.log('IndexedDB连接成功');
+          resolve();
+        };
+        
+        // 处理错误
+        request.onerror = function(event) {
+          console.error('IndexedDB连接失败:', event.target.error);
+          reject(event.target.error);
+        };
+      });
+    }
+    
+    // 从IndexedDB读取数据
+    async function getFromIndexedDB(key) {
+      return new Promise((resolve, reject) => {
+        if (!db) {
+          return resolve(null); // 数据库未初始化，返回null
+        }
+        
+        try {
+          const transaction = db.transaction([STORE_NAME], 'readonly');
+          const store = transaction.objectStore(STORE_NAME);
+          const request = store.get(key);
+          
+          request.onsuccess = function(event) {
+            const result = event.target.result;
+            if (result) {
+              // 检查缓存是否过期
+              if (Date.now() - result.timestamp < INDEXED_DB_EXPIRY) {
+                resolve(result.data);
+              } else {
+                // 过期删除
+                deleteFromIndexedDB(key);
+                resolve(null);
+              }
+            } else {
+              resolve(null);
+            }
+          };
+          
+          request.onerror = function(event) {
+            console.error('从IndexedDB读取失败:', event.target.error);
+            resolve(null); // 失败返回null而不是reject，避免中断流程
+          };
+        } catch (error) {
+          console.error('IndexedDB读取操作异常:', error);
+          resolve(null);
+        }
+      });
+    }
+    
+    // 保存数据到IndexedDB
+    async function saveToIndexedDB(key, data) {
+      return new Promise((resolve, reject) => {
+        if (!db) {
+          return resolve(false); // 数据库未初始化，返回失败
+        }
+        
+        try {
+          const transaction = db.transaction([STORE_NAME], 'readwrite');
+          const store = transaction.objectStore(STORE_NAME);
+          
+          // 准备存储对象
+          const storeObj = {
+            id: key,
+            data: data,
+            timestamp: Date.now()
+          };
+          
+          const request = store.put(storeObj);
+          
+          request.onsuccess = function() {
+            resolve(true);
+          };
+          
+          request.onerror = function(event) {
+            console.error('保存到IndexedDB失败:', event.target.error);
+            resolve(false);
+          };
+        } catch (error) {
+          console.error('IndexedDB写入操作异常:', error);
+          resolve(false);
+        }
+      });
+    }
+    
+    // 从IndexedDB删除数据
+    async function deleteFromIndexedDB(key) {
+      return new Promise((resolve, reject) => {
+        if (!db) {
+          return resolve(false);
+        }
+        
+        try {
+          const transaction = db.transaction([STORE_NAME], 'readwrite');
+          const store = transaction.objectStore(STORE_NAME);
+          const request = store.delete(key);
+          
+          request.onsuccess = function() {
+            resolve(true);
+          };
+          
+          request.onerror = function(event) {
+            console.error('从IndexedDB删除失败:', event.target.error);
+            resolve(false);
+          };
+        } catch (error) {
+          console.error('IndexedDB删除操作异常:', error);
+          resolve(false);
+        }
+      });
+    }
+    
+    // 清理过期的IndexedDB数据
+    async function cleanupIndexedDB() {
+      return new Promise((resolve, reject) => {
+        if (!db) {
+          return resolve(false);
+        }
+        
+        try {
+          const transaction = db.transaction([STORE_NAME], 'readwrite');
+          const store = transaction.objectStore(STORE_NAME);
+          const index = store.index('timestamp');
+          
+          // 获取过期时间点前的所有记录
+          const expiryTime = Date.now() - INDEXED_DB_EXPIRY;
+          const range = IDBKeyRange.upperBound(expiryTime);
+          
+          const request = index.openCursor(range);
+          let deletedCount = 0;
+          
+          request.onsuccess = function(event) {
+            const cursor = event.target.result;
+            if (cursor) {
+              // 删除过期记录
+              store.delete(cursor.primaryKey);
+              deletedCount++;
+              cursor.continue();
+            } else {
+              console.log(`已清理 ${deletedCount} 条过期的IndexedDB缓存`);
+              resolve(true);
+            }
+          };
+          
+          request.onerror = function(event) {
+            console.error('清理IndexedDB失败:', event.target.error);
+            resolve(false);
+          };
+        } catch (error) {
+          console.error('IndexedDB清理操作异常:', error);
+          resolve(false);
+        }
+      });
     }
   </script>
 </body>
