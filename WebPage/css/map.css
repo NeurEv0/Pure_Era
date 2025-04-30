@@ -1,0 +1,499 @@
+$browser-default-font-size:16px;
+$layout-size:16px;
+
+/* Breakpoints
+// ========================================================================== */
+$break-0:0;
+$break-1:20em; /* 320px */
+$break-2:30em; /* 480px */
+$break-mobile-max:37.4375em; /* 599px */
+$break-3:37.5em; /* 600px */
+$break-4:48em; /* 768px */
+$break-tablet-max: 59.9375em; /* 967px */
+$break-5:60em; /* 960px */
+$break-6:87.5em; /* 1400px */
+
+/* Colors 
+// ========================================================================== */
+$color-white:#fff;
+$color-text: #282828;
+$color-black:#000;
+$color-yellow:#ffdf1c;
+$color-yellow-hover:#ccb216;
+$color-light-blue:#80c3d9;
+
+/* Convert px to ems
+// ========================================================================== */
+@function px-to-ems( $pixels, $context: $browser-default-font-size ) {
+  @return #{$pixels/$context}em;
+}
+
+@function return-ems( $pixels, $context ) {
+  @return #{$pixels/$context}em;
+}
+
+@function layout-ems( $pixels, $context: $layout-size ) {
+  @return #{$pixels/$context}em;
+}
+
+/* Mixins
+// ========================================================================== */
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+@mixin delist {
+	list-style-type: none;
+	margin:0;
+	padding: 0;
+	li {
+		margin: 0;
+		padding: 0;
+	}
+}
+@mixin center() {
+	margin-left:auto;
+	margin-right: auto;
+}
+@mixin content-center() {
+	@media (min-width:$break-6) {
+		max-width: px-to-ems(1400px);
+		margin-left:auto;
+		margin-right: auto;
+	}
+}
+
+/* Media Query Watcher
+// ========================================================================== */
+#getActiveMQ-watcher {
+	font-family: "break-0";
+	@media (min-width:$break-1) {
+		font-family: "break-1";
+	}
+	@media (min-width:$break-2) {
+		font-family: "break-2";
+	}
+	@media (min-width:$break-3) {
+		font-family: "break-3";
+	}
+	@media (min-width:$break-4) {
+		font-family: "break-4";
+	}
+	@media (min-width:$break-5) {
+		font-family: "break-5";
+	}
+}
+
+/* =Map Pin Animation
+// ========================================================================== */
+
+@-webkit-keyframes pulsate {
+	0% {
+		-webkit-transform: scale(0.2);
+		transform: scale(0.2);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+@-moz-keyframes pulsate {
+	0% {
+		-webkit-transform: scale(0.2);
+		transform: scale(0.2);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+@keyframes pulsate {
+	0% {
+		-webkit-transform: scale(0.2);
+		transform: scale(0.2);
+		opacity: 1;
+	}
+	100% {
+		-webkit-transform: scale(1.2);
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+    transform: translateY(30px);
+  }
+
+  80% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-2000px);
+    -ms-transform: translateY(-2000px);
+    transform: translateY(-2000px);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+    -ms-transform: translateY(30px);
+    transform: translateY(30px);
+  }
+
+  80% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+.bounceInDown {
+  -webkit-animation-name: bounceInDown;
+  animation-name: bounceInDown;
+}
+
+/* =Places Map
+// ========================================================================== */
+#places-map {
+	background: #f8dc3b;
+	padding: px-to-ems(52px) px-to-ems(25px) px-to-ems(40px);
+	position: relative;
+	@media (min-width:$break-6) {
+		// @include content-center;
+	}
+	h1 {
+		font-size: px-to-ems(21px);
+		margin-top: return-ems(20px,21px);
+		text-align: center;
+		@media (min-width:$break-3) {
+			font-size: px-to-ems(35px);
+			margin-top: return-ems(33px,35px);
+		}
+	}
+	.wu-logo {
+		display: none;
+		height: px-to-ems(62px);
+		width: px-to-ems(181px);
+		@media (min-width:$break-5) {
+			background: url(https://jeffbridgforth.com/codepen/wu-logo.jpg) no-repeat;
+			display: block;
+			position: absolute;
+			bottom: px-to-ems(30px);
+			left:px-to-ems(32px);
+		}
+		@media (min-width:$break-6) {
+			left:50%;
+			margin-left: px-to-ems(-700px);
+		}
+	}
+	img {
+		height: auto;
+		position: relative;
+		width: 100%;
+		z-index:1;
+	}
+	.secondary-page & .content {
+		margin: 0;
+		position: relative;
+		@media (min-width:$break-5) {
+			margin: 0 auto;
+		}
+	}
+	.map {
+		position: relative;
+		max-width: px-to-ems(903px);
+		@include center;
+	}
+	.map-pins {
+		position: absolute;
+		height: 100%;
+		top:0;
+		left:0;
+		width: 100%;
+	}
+	.map-location-marker {
+		background: url(https://jeffbridgforth.com/codepen/map-pin.png) no-repeat;
+		cursor: pointer;
+		position: absolute;
+		height: px-to-ems(30px);
+		margin-top:px-to-ems(-30px);
+		margin-left: px-to-ems(-11px,14px);
+		width: px-to-ems(21px);
+		z-index:3;
+		@media (min-width:$break-4) {
+			.js & {
+				visibility: hidden;
+			}
+			.js &.bounceInDown {
+				visibility: visible;
+			}
+		}
+	}
+	.marker-san-francisco {
+		left:8%;
+		top:30%;
+		@media (max-width:$break-mobile-max) {
+			left:6%;
+			top:32%;
+		}
+	}
+	.marker-denver {
+		left:13%;
+		top:29%;
+		-webkit-animation-delay:.1s;
+		animation-delay:.1s;
+	}
+	.marker-argentina {
+		left:29.5%;
+		bottom:21.5%;
+		-webkit-animation-delay:.3s;
+		animation-delay:.3s;
+	}
+	.marker-dubai {
+		left:64%;
+		top:42%;
+		-webkit-animation-delay:.6s;
+		animation-delay:.6s;
+	}
+	.marker-costa-rica {
+		left:17.5%;
+		top: 50%;
+		-webkit-animation-delay:.2s;
+		animation-delay:.2s;
+	}
+	.marker-peterborough {
+		left:45.5%;
+		top:20%;
+		-webkit-animation-delay:.4s;
+		animation-delay:.4s;
+	}
+	.marker-vilnius {
+		left:52%;
+		top:18%;
+		-webkit-animation-delay:.5s;
+		animation-delay:.5s;
+	}
+	.marker-singapore {
+		left:79%;
+		bottom:42%;
+		-webkit-animation-delay:.7s;
+		animation-delay:.7s;
+	}
+	.marker-manila {
+		left:84.5%;
+		top:48%;
+		-webkit-animation-delay:.8s;
+		animation-delay:.8s;
+	}
+	.marker-sydney {
+		bottom: 14%;
+		right:7.5%;
+		-webkit-animation-delay:.9s;
+		animation-delay:.9s;
+	}
+	.map-location-marker:after {
+		-webkit-animation: pulsate 2s ease-in-out infinite;
+		-moz-animation: pulsate 2s ease-in-out infinite;
+		animation: pulsate 2s ease-in-out infinite;
+		background: transparent;
+		border: 2px solid $color-white;
+		border-radius: 30px;
+		content: "";
+		display: block;
+		height: 31px;
+		left: -7px;
+		opacity: 0;
+		position: absolute;
+		top: -8px;
+		-webkit-transition: all .25s linear;
+		-moz-transition: all .25s linear;
+		-o-transition: all .25s linear;
+		transition: all .25s linear;
+		width: 31px;
+		z-index: 2;
+	}
+}
+#page-places {
+	position: relative;
+}
+#map-info {
+	background: $color-black;
+	color: $color-white;
+	position: absolute;
+	top:px-to-ems(-25px);
+	left:50%;
+	margin-left:px-to-ems(-125px);
+	padding:px-to-ems(18px);
+	width:px-to-ems(250px);
+	z-index:10;
+	.close-btn {
+		background: url(http://jeffbridgforth.com/codepen//close-btn.png) no-repeat;
+		cursor: pointer;
+		display: block;
+		height: px-to-ems(11px);
+		width: px-to-ems(11px);
+		position: absolute;
+		right:px-to-ems(18px);
+		top:px-to-ems(18px);
+		
+	}
+	@media (min-width:$break-2) {
+		top:50%;
+		margin-top:px-to-ems(-142px);
+	}
+	@media (min-width:$break-5) {
+		margin-left:px-to-ems(-142px);
+		width:px-to-ems(284px);
+	}
+	@media (min-width:$break-4) {
+		margin-left:0;
+		margin-top: 0;
+		&:before {
+			content: "";
+			display: block;
+			width: 0;
+			height: 0;
+			border-style:solid;
+			border-width: 13px 16px 13px 0;
+			border-color:transparent $color-black transparent transparent;
+			position: absolute;
+			left:-16px;
+		}
+		&.san-francisco {
+			left:11%;
+			top:23%;
+		}
+		&.denver {
+			left:16%;
+			top:21.5%;
+		}
+		&.argentina {
+			left:32.5%;
+			bottom:0;
+			top:auto;
+			&:before {
+				top:152px;
+			}
+		}
+		&.costa-rica {
+			bottom:5%;
+			left:20%;
+			top:auto;
+			&:before {
+				top:45px;
+			}
+		}
+		&.peterborough {
+			top:12.5%;
+			left:48%;
+		}
+		&.vilnius {
+			top:10.5%;
+			left:54.5%;
+		}
+		&.dubai {
+			top:35%;
+			left:66.5%;
+		}
+		&.singapore {
+			left:auto;
+			top:auto;
+			bottom:0%;
+			right:24%;
+			&:before {
+				border-width: 13px 0 13px 16px;
+				border-color:transparent transparent transparent $color-black;
+				left:auto;
+				right:-16px;
+				top:55px;
+			}
+		}
+		&.manila {
+			left:auto;
+			top:auto;
+			bottom:1.75%;
+			right:18.5%;
+			&:before {
+				border-width: 13px 0 13px 16px;
+				border-color:transparent transparent transparent $color-black;
+				left:auto;
+				right:-16px;
+			//	top:55px;
+			}
+		}
+		&.sydney {
+			left: auto;
+			top:auto;
+			right:11.5%;
+			bottom:0;
+			&:before {
+				border-width: 13px 0 13px 16px;
+				border-color:transparent transparent transparent $color-black;
+				left:auto;
+				right:-16px;
+				bottom:50px;
+			}
+		}
+	}
+	h1 {
+		float: left;
+		font-size: px-to-ems(22px,16px);
+		line-height: 1;
+		margin-bottom: px-to-ems(16px,22px);
+		margin-top: 0;
+	}
+	a {
+		color: $color-yellow;
+		display: block;
+		font-size: px-to-ems(12px);
+		float: right;
+		margin-right: return-ems(30px,12px);
+		margin-top: return-ems(8px,12px);
+		text-decoration: underline;
+	}
+	img {
+		height: auto;
+		max-width: 100%;
+	}
+}
