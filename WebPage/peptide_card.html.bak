@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../icon/iconfont.css">
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE Peptide Details</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+        /* 自定义滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+        :root {
+          --primary: #2A5C8B;    /* 深蓝 - 主品牌色 */
+          --secondary: #4CAF50;  /* 绿色 - 强调色（如生物活性标签） */
+          --background: #F8F9FA;/* 浅灰背景 */
+          --text-primary: #333;  /* 主文字色 */
+          --text-secondary: #666;/* 辅助文字色 */
+          --border: #E0E0E0;    /* 边框色 */
+          --sidebar-bg: #2b1055; /* 侧边栏背景色 */
+          --sidebar-hover: #7597de; /* 侧边栏悬停色 */
+          --header-height: 80px; /* 添加header高度变量 */
+        }
+        
+        * {
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Arial, 'Poppins', sans-serif;
+        }
+
+        body{
+            background-color: var(--background); /* 使用变量定义浅灰背景 */
+        }
+
+        /* 添加对header的样式 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #2b1055;
+            z-index: 1000; /* 确保header在最上层 */
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 100px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-left: 84px; /* 改为与侧边栏初始宽度一致 */
+            padding-right: 20px; /* 添加右侧内边距 */
+            padding-top: var(--header-height); /* 使用变量设置顶部内边距 */
+            transition: margin-left 0.5s ease; /* 添加过渡效果 */
+            z-index: 1; /* 确保section的z-index低于header */
+        }
+
+        /* 当侧边栏展开时，增加 section 的左边距 */
+        body.sidebar-expanded section {
+            margin-left: 300px;
+        }
+
+        .shell{
+            position: fixed;
+            width: 84px;
+            height: 100%;
+            background: var(--sidebar-bg);
+            z-index: 900; /* 确保shell在section上方但在header下方 */
+            transition: 0.5s;
+            padding-left: 10px;
+            padding-top: 120px;
+            overflow: hidden;
+            top: var(--header-height); /* 使用变量定位shell */
+        }
+
+        .shell:hover{
+            width:300px;
+        }
+
+        .imageBox{
+            position:relative;
+            width: 50px;
+            height:50px;
+            border-radius: 50%;
+            overflow:hidden;
+        }
+
+        .imageBox img{
+            width:100%;
+            height:100%;
+            object-fit: cover;
+        }
+
+        .shell ul {
+            position:relative;
+            height: 100vh;
+        }
+
+        .shell ul li{
+            position: relative;
+            padding: 5px;
+        }
+
+        .active{
+            background:var(--background);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius:50px;
+        }
+
+        .active::before{
+            content: "";
+            position:absolute;
+            top: -30px;
+            right:0;
+            width:30px;
+            height:30px;
+            border-bottom-right-radius: 25px;
+            box-shadow:5px 5px 0 5px var(--background);
+            background: transparent;
+        }
+
+        .active::after{
+            content: "";
+            position:absolute;
+            bottom:-30px;
+            right:0;
+            width:30px;
+            height:30px;
+            border-top-right-radius: 25px;
+            box-shadow:5px -5px 0 var(--background);
+            background:transparent;
+        }
+        #logo {
+            margin: 40px 0 100px 0;
+        }
+
+        .shell  ul li a {
+            position:relative;
+            display:flex;
+            white-space: nowrap;
+            align-items: center;
+        }
+
+        .icon{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 60px;
+            height: 60px;
+            color:#fff;
+            transition: 0.5s;
+        }
+
+        .icon i{
+            font-size: 25px;
+            z-index: 999;
+        }
+
+        .text{
+            position:relative;
+            height: 30px;
+            display:flex;
+            align-items: center;
+            font-size: 16px;
+            color: var(--sidebar-hover);
+            padding-left:15px;
+            transition:0.2s;
+            opacity:0;
+            visibility: hidden;
+        }
+
+        .shell:hover .text {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .shell ul li:hover a .icon,
+        .shell ul li:hover a .text{
+            color: var(--sidebar-bg);
+        }
+
+        /* 添加悬停背景样式 */
+        .shell ul li:hover {
+            background: white;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        /* 添加特殊圆角效果，与 .active 类似 */
+        .shell ul li:hover::before{
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 5px 5px 0 5px white;
+            background: transparent;
+        }
+
+        .shell ul li:hover::after{
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-top-right-radius: 25px;
+            box-shadow: 5px -5px 0 white;
+            background: transparent;
+        }
+
+        .active a .icon:before{
+            content: "";
+            position: absolute;
+            inset: 5px;
+            width: 50px;
+            background: var(--sidebar-hover);
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .main-content {
+            /* margin-left: 60px;  移除，让 section 控制主要偏移 */
+            padding: 40px; 
+            width: 100%; /* 宽度适应 section */
+            max-width: 1100px; /* 限制最大宽度，避免过宽 */
+            margin: 0 auto; /* 居中内容 */
+            box-sizing: border-box; /* 确保 padding 包含在宽度内 */
+        }
+
+        .page-title {
+            color: var(--primary);
+            font-size: 28px; /* 稍微增大标题字号 */
+            border-bottom: 3px solid var(--primary); /* 加粗下划线 */
+            padding-bottom: 10px;
+            margin-bottom: 30px; /* 增加标题下方间距 */
+            display: inline-block;
+        }
+
+        /* 错误信息样式 */
+        .error-message {
+            color: #e74c3c;
+            font-size: 24px;
+            text-align: center;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+            max-width: 80%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 根据peptide_card重绘.md应用新的样式 */
+        .detail-container {
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+          padding: 24px;
+          margin-top: 100px; /* 为顶部导航栏留出空间 */
+        }
+
+        /* 信息表格 */
+        .info-table {
+            width: 100%;
+            table-layout: fixed; 
+            border-collapse: collapse;
+            margin: 20px 0; /* 增加表格上下间距 */
+        }
+
+        .info-table td,
+        .info-table th {
+            padding: 15px 18px; /* 增加单元格内边距 */
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+            hyphens: auto; 
+            vertical-align: top; /* 顶部对齐，处理多行内容 */
+        }
+        
+        .info-table th {
+          font-weight: 600;
+          color: var(--text-secondary);
+          width: 220px; /* 稍微增加标签列宽度 */
+          background-color: #f8f9fa; /* 给表头加浅灰底色 */
+          text-align: left; /* 确保左对齐 */
+        }
+
+        /* 模块样式 */
+        .module {
+            margin-bottom: 40px;
+            background: white; /* 模块背景保持白色，与灰色区分 */
+            padding: 30px; /* 增加模块内边距 */
+            border-radius: 12px; /* 更圆润的边角 */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08); /* 稍微加深的阴影 */
+            border: 1px solid #e9ecef; /* 添加细边框 */
+        }
+
+        .module-title {
+            color: var(--primary);
+            font-size: 20px; /* 增大模块标题字号 */
+            font-weight: 600; /* 加粗 */
+            margin-bottom: 25px; /* 增加标题下方间距 */
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        /* 活性标签 */
+        .activity-tag {
+          display: inline-block;
+          background: var(--secondary);
+          color: white;
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 14px;
+          margin: 4px;
+        }
+
+        /* 序列显示 */
+        .sequence {
+          font-family: monospace;
+          background: var(--background);
+          padding: 8px;
+          border-radius: 4px;
+          letter-spacing: 1px;
+        }
+
+        /* 新的语言选择UI - 使用全局样式 */
+
+        /* 新增Target Organism样式 */
+        .organism-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .organism-item {
+            display: flex;
+            padding: 10px 8px;
+            border-bottom: 1px dashed var(--border);
+            transition: background-color 0.2s;
+        }
+        
+        .organism-item:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+        
+        .organism-item:last-child {
+            border-bottom: none;
+        }
+        
+        .organism-name {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .organism-susceptibility {
+            color: #4CAF50;
+            font-weight: 600;
+            margin-left: 12px;
+            min-width: 60px;
+            text-align: right;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 992px) {
+            .shell {
+                width: 60px; /* 在中等屏幕上减小侧边栏宽度 */
+            }
+            
+            section {
+                margin-left: 60px;
+            }
+            
+            .main-content {
+                margin-left: 30px;
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .shell {
+                width: 50px; /* 在小屏幕上进一步减小侧边栏宽度 */
+            }
+            
+            section {
+                margin-left: 50px;
+            }
+            
+            .main-content {
+                margin-left: 10px;
+                padding: 20px 15px;
+            }
+            
+            .info-table th {
+                width: 40%;
+                font-size: 14px;
+            }
+            
+            .info-table td {
+                font-size: 14px;
+            padding: 10px;
+            }
+            
+            .module {
+                padding: 15px;
+            }
+            
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+        }
+        
+        /* 为特别长的内容添加滚动条而不破坏布局 */
+        .scrollable-content {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px;
+            background-color: var(--background);
+        }
+
+        /* 修改表格行样式，增加隔行底色，提高可读性 */
+        /* .info-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.02);
+        } */
+
+        .info-table tr:hover {
+            background-color: rgba(42, 92, 139, 0.05); /* 使用主色调的浅色作为悬停背景 */
+        }
+        
+        /* 添加响应式媒体查询 */
+        /* 大型设备（台式机/笔记本，992px及以上） */
+        @media (min-width: 992px) {
+            .main-content {
+                padding: 40px;
+                max-width: 1100px;
+            }
+        }
+        
+        /* 中型设备（平板电脑，768px到991px） */
+        @media (min-width: 768px) and (max-width: 991px) {
+            header {
+                padding: 15px 40px;
+            }
+            
+            .shell {
+                width: 70px; /* 略微缩小侧边栏 */
+            }
+            
+            section {
+                margin-left: 70px;
+                padding-right: 15px;
+            }
+            
+            .main-content {
+                padding: 30px;
+                max-width: 100%;
+            }
+            
+            .module {
+                padding: 25px 20px;
+            }
+            
+            .info-table th {
+                width: 180px; /* 减小表头宽度 */
+            }
+        }
+        
+        /* 小型设备（手机，767px及以下） */
+        @media (max-width: 767px) {
+            header {
+                padding: 10px 20px;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: var(--header-height);
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - var(--header-height));
+                background: var(--sidebar-bg);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                transition: right 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+                width: 100%;
+            }
+            
+            .shell {
+                width: 0;
+                overflow: hidden;
+                padding-left: 0;
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            /* 添加展开侧边栏的按钮 */
+            .sidebar-toggle {
+                display: block;
+                position: fixed;
+                left: 15px;
+                bottom: 15px;
+                width: 40px;
+                height: 40px;
+                background: var(--sidebar-bg);
+                color: white;
+                border-radius: 50%;
+                border: none;
+                z-index: 950;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                font-size: 18px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* 点击展开时的侧边栏 */
+            .shell.expanded {
+                width: 250px;
+                padding-left: 15px;
+                opacity: 1;
+                visibility: visible;
+                z-index: 995;
+            }
+            
+            section {
+                margin-left: 0;
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+            
+            .main-content {
+                padding: 20px 10px;
+                max-width: 100%;
+            }
+            
+            .module {
+                padding: 20px 15px;
+                margin-bottom: 25px;
+                border-radius: 8px;
+            }
+            
+            .page-title {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            
+            .info-table {
+                display: block;
+            }
+            
+            .info-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            
+            .info-table th, 
+            .info-table td {
+                display: block;
+                width: 100%;
+                padding: 12px 15px;
+            }
+            
+            .info-table th {
+                border-bottom: none;
+                background-color: #f0f0f0;
+            }
+            
+            /* 让活性标签更紧凑 */
+            .activity-tag {
+                margin: 2px;
+                padding: 3px 8px;
+                font-size: 12px;
+            }
+        }
+        
+        /* 超小型设备（小手机，479px及以下） */
+        @media (max-width: 479px) {
+            header {
+                padding: 10px;
+            }
+            
+            .logo-container {
+                max-width: 180px;
+            }
+            
+            .team-link {
+                font-size: 10px;
+            }
+            
+            .main-content {
+                padding: 15px 5px;
+            }
+            
+            .module {
+                padding: 15px 10px;
+                margin-bottom: 20px;
+            }
+            
+            .module-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .info-table th, 
+            .info-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .scrollable-content {
+                max-height: 200px;
+            }
+            
+            /* 处理序列显示 */
+            .sequence {
+                font-size: 13px;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 5px;
+            }
+            
+            /* 缩小错误信息 */
+            .error-message {
+                font-size: 18px;
+                margin: 60px auto;
+                max-width: 95%;
+            }
+        }
+        
+        /* JavaScript 样式增强支持 */
+        /* 侧边栏交互样式 */
+        .sidebar-toggle {
+            display: none; /* 默认隐藏，只在小屏幕显示 */
+        }
+        
+        /* 为小屏幕设备添加平滑滚动 */
+        @media (max-width: 767px) {
+            html {
+                scroll-behavior: smooth;
+            }
+            
+            /* 滚动到顶部按钮 */
+            .scroll-top {
+                position: fixed;
+                right: 15px;
+                bottom: 15px;
+                width: 40px;
+                height: 40px;
+                background: var(--primary);
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: 0.3s;
+                z-index: 950;
+            }
+            
+            .scroll-top.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    </style>
+</head>
+<body class="other-page">
+    <header>
+      <div class="logo-container">
+        <a href="#" class="logo">
+          <img src="../icon/logo.png"  style="vertical-align: middle; height: 30px;">
+          SPADE
+        </a>
+        <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="statistics.html">Statistics</a></li>
+        <!-- <li><a href="amp_visualization.html">AMP Visualization</a></li> -->
+        <li><a href="chat.html">Chat</a></li>  
+    </ul>
+    </header>
+
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <div class="language-current" id="currentLang">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangText">English</span>
+        </div>
+        <div class="language-options">
+            <a href="#" data-lang="en" class="no-translate">English</a>
+            <a href="#" data-lang="zh-Hans" class="no-translate">中文 (简体)</a>
+            <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+            <a href="#" data-lang="ja" class="no-translate">日本語</a>
+            <a href="#" data-lang="ko" class="no-translate">한국어</a>
+            <a href="#" data-lang="fr" class="no-translate">Français</a>
+            <a href="#" data-lang="de" class="no-translate">Deutsch</a>
+            <a href="#" data-lang="es" class="no-translate">Español</a>
+            <a href="#" data-lang="ru" class="no-translate">Русский</a>
+        </div>
+    </div>
+
+    <!-- 保留侧边栏 -->
+    <div class="shell">
+        <ul class="nav">
+            <li class="active">
+                <a href="#general">
+                    <span class="icon"><i class="fas fa-info"></i></span>
+                    <span class="text">General Information</span>
+                </a>
+            </li>
+            <li>
+                <a href="#activity">
+                    <span class="icon"><i class="fas fa-vial"></i></span>
+                    <span class="text">Activity Information</span>
+                </a>
+            </li>
+            <li>
+                <a href="#structure">
+                    <span class="icon"><i class="fas fa-dna"></i></span>
+                    <span class="text">Structural Information</span>
+                </a>
+            </li>
+            <li>
+                <a href="#properties">
+                    <span class="icon"><i class="fas fa-flask"></i></span>
+                    <span class="text">Physicochemical Properties</span>
+                </a>
+            </li>
+            <li>
+                <a href="#comments">
+                    <span class="icon"><i class="fas fa-comment"></i></span>
+                    <span class="text">Comments Information</span>
+                </a>
+            </li>
+            <li>
+                <a href="#literature">
+                    <span class="icon"><i class="fas fa-book"></i></span>
+                    <span class="text">Literature Information</span>
+                </a>
+            </li>
+            <li>
+                <a href="search.html">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="text">Back to Search
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主内容区 -->
+    <section>
+        <div class="main-content">
+            <h1 class="page-title" id="peptide-name"></h1>
+            
+            <!-- 动态生成的模块容器 -->
+            <div id="module-container"></div>
+        </div>
+    </section>
+
+    <!-- 添加响应式设计的按钮 -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+        <i class="fas fa-grip-lines"></i>
+    </button>
+    
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // 获取 URL 中的 ID 参数
+        const urlParams = new URLSearchParams(window.location.search);
+        let peptideIdRaw = urlParams.get('DRAMP ID'); // Correct parameter name is 'DRAMP ID'
+        let peptideId = null;
+        if (peptideIdRaw) {
+            peptideId = peptideIdRaw.split(':')[0]; // 去掉可能存在的后缀，如 ':517'
+        }
+        
+        // 检查 peptideId 是否有效
+        if (!peptideId) {
+            console.error('无法从URL获取有效的 Peptide ID');
+            // 显示错误信息
+            document.getElementById('peptide-name').textContent = '';
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.textContent = 'Invalid Peptide ID in URL';
+            errorMsg.setAttribute('data-translate', ''); // 标记为需要翻译
+            document.getElementById('module-container').innerHTML = '';
+            document.getElementById('module-container').appendChild(errorMsg);
+        } else {
+            const DATA_URL = `./Database/${peptideId}.json`;
+            // 加载并渲染数据
+            fetch(DATA_URL)
+                .then(response => {
+                    if (!response.ok) {
+                        // 如果响应状态不是 2xx，则抛出错误
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    // 尝试解析JSON
+                    return response.json(); 
+                })
+                .then(data => renderPeptide(data))
+                .catch(error => {
+                    console.error('数据加载或解析失败:', error);
+                    document.getElementById('peptide-name').textContent = '';
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'error-message';
+                    // 根据错误类型显示不同的消息
+                    if (error instanceof SyntaxError) {
+                        errorMsg.textContent = 'Failed to parse data. Invalid format.';
+                    } else if (error.message.includes('HTTP error')) {
+                        errorMsg.textContent = `Data file not found or server error (${peptideId}.json).`;
+                    } else {
+                        errorMsg.textContent = 'Data loading failed.';
+                    }
+                    errorMsg.setAttribute('data-translate', ''); // 标记为需要翻译
+                    document.getElementById('module-container').innerHTML = '';
+                    document.getElementById('module-container').appendChild(errorMsg);
+                });
+        }
+
+        function renderPeptide(peptide) {
+            const pageTitle = document.getElementById('peptide-name');
+            // 因为数据在Sequence Information对象内部，需要先检查数据结构
+            const peptideData = peptide['Sequence Information'] || peptide;
+            pageTitle.textContent = peptideData['Peptide Name'];
+
+            const modules = [
+                { id: 'general', title: 'General Information', fields: [
+                    'DRAMP ID', 'Peptide Name', 'Source', 'Family', 'Sequence Length', 'Biological Activity',
+                    'Gene', 'Sequence', 'UniProt Entry', 'Protein Existence'
+                ]},
+                { id: 'activity', title: 'Activity Information', fields: [
+                    'Biological Activity', 'Target Organism', 'Hemolytic Activity',
+                    'Cytotoxicity', 'Binding Target'
+                ]},
+                { id: 'structure', title: 'Structural Information', fields: [
+                    'Linear/Cyclic', 'N-terminal Modification', 'C-terminal Modification',
+                    'Nonterminal Modifications and Unusual Amino Acids', 'Stereochemistry',
+                    'Structure', 'Structure Description', 'Helical Wheel Diagram',
+                    'PDB ID', 'Predicted Structure'
+                ]},
+                { id: 'properties', title: 'Physico-Chemical Properties', fields: [
+                    'Formula', 'Absent Amino Acids', 'Common Amino Acids', 'Mass', 'PI',
+                    'Basic Residues', 'Acidic Residues', 'Hydrophobic Residues', 'Net Charge',
+                    'Boman Index', 'Hydrophobicity', 'Aliphatic Index', 'Half Life',
+                    'Extinction Coefficient Cystines', 'Absorbance 280nm', 'Polar Residues'
+                ]},
+                { id: 'comments', title: 'Comments Information', fields: [
+                    'Function', 'PTM'
+                ]},
+                { id: 'literature', title: 'Literature Information', fields: [
+                    'Title', 'Pubmed ID', 'Reference', 'Author'
+                ]}
+            ];
+
+            const moduleContainer = document.getElementById('module-container');
+            moduleContainer.innerHTML = ''; // 清空容器
+            
+            modules.forEach(moduleConfig => {
+                const module = document.createElement('div');
+                module.className = 'module';
+                module.id = moduleConfig.id;
+
+                const moduleTitle = document.createElement('h3');
+                moduleTitle.className = 'module-title';
+                moduleTitle.textContent = moduleConfig.title;
+                moduleTitle.setAttribute('data-translate', ''); // 标记为需要翻译
+                module.appendChild(moduleTitle);
+
+                const table = document.createElement('table');
+                table.className = 'info-table';
+
+                moduleConfig.fields.forEach(field => {
+                    const row = document.createElement('tr');
+                    const th = document.createElement('th');
+                    th.textContent = field;
+                    th.setAttribute('data-translate', ''); // 标记为需要翻译
+                    row.appendChild(th);
+
+                    const td = document.createElement('td');
+                    let value = peptideData[field];
+
+                    // 特殊处理Target Organism字段，以分隔的形式展示
+                    if (field === 'Target Organism' && value) {
+                        // 创建可滚动容器
+                        const scrollContainer = document.createElement('div');
+                        scrollContainer.className = 'scrollable-content';
+                        
+                        const organismList = document.createElement('ul');
+                        organismList.className = 'organism-list';
+                        
+                        // 如果是长字符串，尝试解析为更友好的格式
+                        if (typeof value === 'string') {
+                            // 处理特殊格式：添加说明标题
+                            if (value.includes('Note:')) {
+                                // 分离注释和主要内容
+                                const parts = value.split('Note:');
+                                const mainContent = parts[0].trim();
+                                const note = 'Note:' + parts[1].trim();
+                                
+                                // 处理主要内容部分
+                                processOrganismString(mainContent, organismList);
+                                
+                                // 添加注释作为单独的项
+                                const noteItem = document.createElement('li');
+                                noteItem.className = 'organism-item';
+                                noteItem.style.fontStyle = 'italic';
+                                noteItem.style.marginTop = '10px';
+                                noteItem.style.color = '#666';
+                                noteItem.textContent = note;
+                                noteItem.setAttribute('data-translate', ''); // 标记为需要翻译
+                                organismList.appendChild(noteItem);
+                            } else {
+                                // 处理普通格式
+                                processOrganismString(value, organismList);
+                            }
+                        }
+                        
+                        scrollContainer.appendChild(organismList);
+                        td.appendChild(scrollContainer);
+                    }
+                    // 特殊处理序列字段，应用新样式
+                    else if (field === 'Sequence' && value) {
+                        const sequenceElem = document.createElement('div');
+                        sequenceElem.className = 'sequence';
+                        sequenceElem.textContent = value;
+                        sequenceElem.classList.add('no-translate'); // 序列不应被翻译
+                        td.appendChild(sequenceElem);
+                    }
+                    // 特殊处理生物活性字段，应用标签样式
+                    else if (field === 'Biological Activity' && value) {
+                        if (Array.isArray(value)) {
+                            value.forEach(activity => {
+                                const tag = document.createElement('span');
+                                tag.className = 'activity-tag';
+                                tag.textContent = activity;
+                                tag.setAttribute('data-translate', ''); // 标记为需要翻译
+                                td.appendChild(tag);
+                            });
+                        } else {
+                            const tag = document.createElement('span');
+                            tag.className = 'activity-tag';
+                            tag.textContent = value;
+                            tag.setAttribute('data-translate', ''); // 标记为需要翻译
+                            td.appendChild(tag);
+                        }
+                    }
+                    // 处理数组和链接
+                    else if (Array.isArray(value)) {
+                        if (field === 'UniProt Entry' || field === 'Literature') {
+                            value.forEach(item => {
+                                if (field === 'UniProt Entry') {
+                                    const link = document.createElement('a');
+                                    link.href = item;
+                                    link.textContent = item;
+                                    td.appendChild(link);
+                                    td.appendChild(document.createElement('br'));
+                                } else {
+                                    const textElem = document.createElement('span');
+                                    textElem.textContent = item;
+                                    textElem.setAttribute('data-translate', ''); // 标记为需要翻译
+                                    td.appendChild(textElem);
+                                    td.appendChild(document.createElement('br'));
+                                }
+                            });
+                        } else {
+                            const textContainer = document.createElement('span');
+                            textContainer.textContent = value.join(', ');
+                            textContainer.setAttribute('data-translate', ''); // 标记为需要翻译
+                            td.appendChild(textContainer);
+                        }
+                    } else if (field === 'Literature' && value && typeof value === 'object') {
+                        // 处理Literature可能是对象数组的情况
+                        if (Array.isArray(value)) {
+                            value.forEach(item => {
+                                if (typeof item === 'object') {
+                                    const literatureDiv = document.createElement('div');
+                                    literatureDiv.style.marginBottom = '10px';
+                                    
+                                    // 处理标题
+                                    if (item.Title) {
+                                        const titleElem = document.createElement('strong');
+                                        titleElem.textContent = item.Title;
+                                        titleElem.setAttribute('data-translate', '');
+                                        literatureDiv.appendChild(titleElem);
+                                        literatureDiv.appendChild(document.createElement('br'));
+                                    }
+                                    
+                                    // 处理作者
+                                    if (item.Author) {
+                                        const authorElem = document.createElement('span');
+                                        authorElem.textContent = item.Author;
+                                        authorElem.setAttribute('data-translate', '');
+                                        literatureDiv.appendChild(authorElem);
+                                        literatureDiv.appendChild(document.createElement('br'));
+                                    }
+                                    
+                                    // 处理引用
+                                    if (item.Reference) {
+                                        const refElem = document.createElement('em');
+                                        refElem.textContent = item.Reference;
+                                        literatureDiv.appendChild(refElem);
+                                        literatureDiv.appendChild(document.createElement('br'));
+                                    }
+                                    
+                                    // 处理PubMed ID
+                                    if (item['Pubmed ID']) {
+                                        const pubmedLink = document.createElement('a');
+                                        pubmedLink.href = `http://www.ncbi.nlm.nih.gov/pubmed/?term=${item['Pubmed ID']}`;
+                                        pubmedLink.textContent = `PubMed ID: ${item['Pubmed ID']}`;
+                                        pubmedLink.target = '_blank';
+                                        literatureDiv.appendChild(pubmedLink);
+                                    }
+                                    
+                                    td.appendChild(literatureDiv);
+                                } else {
+                                    const textElem = document.createElement('span');
+                                    textElem.textContent = item;
+                                    textElem.setAttribute('data-translate', '');
+                                    td.appendChild(textElem);
+                                    td.appendChild(document.createElement('br'));
+                                }
+                            });
+                        } else {
+                            const textElem = document.createElement('span');
+                            textElem.textContent = JSON.stringify(value);
+                            td.appendChild(textElem);
+                        }
+                    } else if (field === 'Pubmed ID' && value) {
+                        const link = document.createElement('a');
+                        link.href = `http://www.ncbi.nlm.nih.gov/pubmed/?term=${value}`;
+                        link.textContent = value;
+                        td.appendChild(link);
+                    } else {
+                        const textElem = document.createElement('span');
+                        textElem.textContent = value || 'Not found';
+                        if (value !== null && value !== undefined && !field.includes('ID') && field !== 'Mass' && field !== 'PI') {
+                            textElem.setAttribute('data-translate', ''); // 标记为需要翻译，但排除ID、数值等
+                        }
+                        td.appendChild(textElem);
+                    }
+
+                    row.appendChild(td);
+                    table.appendChild(row);
+                });
+
+                module.appendChild(table);
+                moduleContainer.appendChild(module);
+            });
+            
+            // 在所有动态内容渲染完成后，初始化并执行翻译
+            initializeTranslation(getLanguagePreference());
+        }
+
+        // 辅助函数：处理目标生物字符串
+        function processOrganismString(str, containerList) {
+            // 更精确地分割目标生物，处理括号内的逗号
+            let organisms = [];
+            let inParentheses = false;
+            let currentOrg = '';
+            
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                
+                if (char === '(') {
+                    inParentheses = true;
+                    currentOrg += char;
+                } else if (char === ')') {
+                    inParentheses = false;
+                    currentOrg += char;
+                } else if ((char === ',' || char === ';') && !inParentheses) {
+                    if (currentOrg.trim()) {
+                        organisms.push(currentOrg.trim());
+                    }
+                    currentOrg = '';
+                } else {
+                    currentOrg += char;
+                }
+            }
+            
+            // 添加最后一个生物
+            if (currentOrg.trim()) {
+                organisms.push(currentOrg.trim());
+            }
+            
+            // 处理每个分离的生物项
+            organisms.forEach(org => {
+                // 使用更通用的正则表达式来匹配各种敏感性标记格式
+                const match = org.match(/(.*?)(\s*\([+\w\s.,]+\))?$/);
+                
+                if (match) {
+                    const organismItem = document.createElement('li');
+                    organismItem.className = 'organism-item';
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'organism-name';
+                    nameSpan.textContent = match[1].trim();
+                    nameSpan.setAttribute('data-translate', ''); // 标记为需要翻译
+                    organismItem.appendChild(nameSpan);
+                    
+                    // 如果有敏感性/信息标记，添加它
+                    if (match[2]) {
+                        const susceptSpan = document.createElement('span');
+                        susceptSpan.className = 'organism-susceptibility';
+                        
+                        // 判断敏感性标记类型并设置颜色
+                        const susceptText = match[2].trim();
+                        susceptSpan.textContent = susceptText;
+                        
+                        // 根据加号数量确定颜色
+                        const plusCount = (susceptText.match(/\+/g) || []).length;
+                        if (plusCount >= 3) {
+                            susceptSpan.style.color = '#4CAF50'; // 高敏感性绿色
+                        } else if (plusCount >= 2) {
+                            susceptSpan.style.color = '#2196F3'; // 中等敏感性蓝色
+                        } else if (plusCount >= 1) {
+                            susceptSpan.style.color = '#FFC107'; // 低敏感性黄色
+                        }
+                        
+                        organismItem.appendChild(susceptSpan);
+                    }
+                    
+                    containerList.appendChild(organismItem);
+                } else {
+                    // 如果无法解析格式，直接添加整个字符串
+                    const organismItem = document.createElement('li');
+                    organismItem.className = 'organism-item';
+                    organismItem.textContent = org;
+                    organismItem.setAttribute('data-translate', ''); // 标记为需要翻译
+                    containerList.appendChild(organismItem);
+                }
+            });
+        }
+
+        // 导航栏交互
+        let nav = document.querySelectorAll(".nav li");
+        function activeLink() {
+            nav.forEach((item) => item.classList.remove("active"));
+            this.classList.add("active");
+        }
+        nav.forEach((item) => item.addEventListener("click", activeLink));
+
+        // 顶部导航栏响应式控制
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+
+        // 初始化语言功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置导航栏当前活动项目
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const currentPage = window.location.pathname.split('/').pop();
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            const savedLang = getLanguagePreference();
+            document.documentElement.lang = savedLang;
+            
+            // 更新当前语言显示
+            updateCurrentLanguageDisplay();
+            
+            // 初始化多语言选择
+            const langOptions = document.querySelectorAll('.language-options a');
+            langOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newLang = this.getAttribute('data-lang');
+                    if (newLang === document.documentElement.lang) return;
+                    
+                    // 保存语言设置并刷新页面
+                    saveLanguagePreference(newLang);
+                    
+                    // 获取当前URL并添加时间戳参数以确保刷新
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.set('ts', Date.now());
+                    window.location.href = currentUrl.toString();
+                });
+            });
+        });
+        
+        // 更新当前语言显示
+        function updateCurrentLanguageDisplay() {
+            const currentLang = document.getElementById('currentLang');
+            const currentLangText = document.getElementById('currentLangText');
+            
+            currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+            
+            currentLang.classList.add('no-translate');
+            currentLangText.classList.add('no-translate');
+        }
+        
+        // 初始化翻译函数
+        function initializeTranslation(lang) {
+            // 全局特殊术语配置
+            window.specialTerms = {
+                'en': { 'SPADE': 'SPADE' },
+                'zh-Hans': {
+                    'SPADE': 'SPADE',
+                    'Peptide Details': '肽详情',
+                    'General Information': '基本信息',
+                    'Activity Information': '活性信息',
+                    'Structural Information': '结构信息',
+                    'Physicochemical Properties': '物理化学特性',
+                    'Comments Information': '备注信息',
+                    'Literature Information': '参考文献',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'AMP Visualization': '抗菌肽可视化',
+                    'Statistics': '统计',
+                    'Source': '来源',
+                    'Family': '家族',
+                    'Sequence Length': '序列长度',
+                    'Biological Activity': '生物活性',
+                    'Gene': '基因',
+                    'Sequence': '序列',
+                    'UniProt Entry': 'UniProt条目',
+                    'Protein Existence': '蛋白质存在性',
+                    'Target Organism': '目标生物',
+                    'Hemolytic Activity': '溶血活性',
+                    'Cytotoxicity': '细胞毒性',
+                    'Binding Target': '结合靶点',
+                    'Linear/Cyclic': '线性/环状',
+                    'DRAMP ID': 'DRAMP ID',
+                    'Select a Section': '选择一个部分',
+                    'Not found': '未找到',
+                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队',
+                    'Formula': '分子式',
+                    'Absent Amino Acids': '缺失氨基酸',
+                    'Common Amino Acids': '常见氨基酸',
+                    'Mass': '质量',
+                    'PI': '等电点',
+                    'Basic Residues': '碱性残基',
+                    'Acidic Residues': '酸性残基',
+                    'Hydrophobic Residues': '疏水残基',
+                    'Net Charge': '净电荷',
+                    'Boman Index': 'Boman指数',
+                    'Hydrophobicity': '疏水性',
+                    'Aliphatic Index': '脂肪族指数',
+                    'Half Life': '半衰期',
+                    'Extinction Coefficient Cystines': '消光系数(含半胱氨酸)',
+                    'Absorbance 280nm': '280nm吸光度',
+                    'Polar Residues': '极性残基',
+                    'Function': '功能',
+                    'PTM': '翻译后修饰',
+                    'Title': '标题',
+                    'Pubmed ID': 'Pubmed ID',
+                    'Reference': '参考文献',
+                    'Author': '作者',
+                    'N-terminal Modification': 'N端修饰',
+                    'C-terminal Modification': 'C端修饰',
+                    'Nonterminal Modifications and Unusual Amino Acids': '非末端修饰和非常规氨基酸',
+                    'Stereochemistry': '立体化学',
+                    'Structure': '结构',
+                    'Structure Description': '结构描述',
+                    'Helical Wheel Diagram': '螺旋轮图',
+                    'PDB ID': 'PDB ID',
+                    'Predicted Structure': '预测结构',
+                    'Peptide Name': '肽名称',
+                    'Efficacy': '效力',
+                    'Toxicity': '毒性',
+                    'Stability': '稳定性',
+                    'Synthesis': '合成',
+                    'Original Score By Category': '各类别原始分数',
+                    'Total Score': '总分',
+                    'Note:': '注意：',
+                    'Data loading failed': '数据加载失败'
+                },
+                'zh-Hant': {
+                    'SPADE': 'SPADE',
+                    'Peptide Details': '肽詳情',
+                    'General Information': '基本信息',
+                    'Activity Information': '活性信息',
+                    'Structural Information': '結構信息',
+                    'Physicochemical Properties': '物理化學特性',
+                    'Comments Information': '備註信息',
+                    'Literature Information': '參考文獻',
+                    'Home': '首頁',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'AMP Visualization': '抗菌肽可視化',
+                    'Statistics': '統計',
+                    'Source': '來源',
+                    'Family': '家族',
+                    'Sequence Length': '序列長度',
+                    'Biological Activity': '生物活性',
+                    'Gene': '基因',
+                    'Sequence': '序列',
+                    'UniProt Entry': 'UniProt條目',
+                    'Protein Existence': '蛋白質存在性',
+                    'Target Organism': '目標生物',
+                    'Hemolytic Activity': '溶血活性',
+                    'Cytotoxicity': '細胞毒性',
+                    'Binding Target': '結合靶點',
+                    'Linear/Cyclic': '線性/環狀',
+                    'DRAMP ID': 'DRAMP ID',
+                    'Select a Section': '選擇一個部分',
+                    'Not found': '未找到',
+                    'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊',
+                    'Formula': '分子式',
+                    'Absent Amino Acids': '缺失氨基酸',
+                    'Common Amino Acids': '常見氨基酸',
+                    'Mass': '質量',
+                    'PI': '等電點',
+                    'Basic Residues': '鹼性殘基',
+                    'Acidic Residues': '酸性殘基',
+                    'Hydrophobic Residues': '疏水殘基',
+                    'Net Charge': '淨電荷',
+                    'Boman Index': 'Boman指數',
+                    'Hydrophobicity': '疏水性',
+                    'Aliphatic Index': '脂肪族指數',
+                    'Half Life': '半衰期',
+                    'Extinction Coefficient Cystines': '消光係數(含半胱氨酸)',
+                    'Absorbance 280nm': '280nm吸光度',
+                    'Polar Residues': '極性殘基',
+                    'Function': '功能',
+                    'PTM': '翻譯後修飾',
+                    'Title': '標題',
+                    'Pubmed ID': 'Pubmed ID',
+                    'Reference': '參考文獻',
+                    'Author': '作者',
+                    'N-terminal Modification': 'N端修飾',
+                    'C-terminal Modification': 'C端修飾',
+                    'Nonterminal Modifications and Unusual Amino Acids': '非末端修飾和非常規氨基酸',
+                    'Stereochemistry': '立體化學',
+                    'Structure': '結構',
+                    'Structure Description': '結構描述',
+                    'Helical Wheel Diagram': '螺旋輪圖',
+                    'PDB ID': 'PDB ID',
+                    'Predicted Structure': '預測結構',
+                    'Peptide Name': '肽名稱',
+                    'Efficacy': '效力',
+                    'Toxicity': '毒性',
+                    'Stability': '穩定性',
+                    'Synthesis': '合成',
+                    'Original Score By Category': '各類別原始分數',
+                    'Total Score': '總分',
+                    'Note:': '注意：',
+                    'Data loading failed': '數據加載失敗'
+                },
+                'ja': {
+                    'SPADE': 'SPADE',
+                    'Peptide Details': 'ペプチド詳細',
+                    'General Information': '基本情報',
+                    'Activity Information': '活性情報',
+                    'Structural Information': '構造情報',
+                    'Physicochemical Properties': '物理化学的特性',
+                    'Comments Information': '備考情報',
+                    'Literature Information': '参考文献',
+                    'Home': 'ホーム',
+                    'Search': '検索',
+                    'Tools': 'ツール',
+                    'AMP Visualization': '抗菌ペプチド可視化',
+                    'Statistics': '統計',
+                    'Source': '出典',
+                    'Family': 'ファミリー',
+                    'Sequence Length': '配列長',
+                    'Biological Activity': '生物活性',
+                    'Gene': '遺伝子',
+                    'Sequence': '配列',
+                    'UniProt Entry': 'UniProtエントリー',
+                    'Select a Section': 'セクションを選択',
+                    'Not found': '見つかりません',
+                    'Belongs to 2025-XJTLU-Software': '2025-XJTLU-Softwareチームに属しています',
+                    'Target Organism': '標的生物',
+                    'Peptide Name': 'ペプチド名',
+                    'Efficacy': '効力',
+                    'Toxicity': '毒性',
+                    'Stability': '安定性',
+                    'Synthesis': '合成',
+                    'Original Score By Category': 'カテゴリー別元スコア',
+                    'Total Score': '合計スコア',
+                    'Note:': '注意：',
+                    'Data loading failed': 'データの読み込みに失敗しました'
+                },
+                'ko': { 'SPADE': 'SPADE' },
+                'fr': { 'SPADE': 'SPADE' },
+                'de': { 'SPADE': 'SPADE' },
+                'es': { 'SPADE': 'SPADE' },
+                'ru': { 'SPADE': 'SPADE' }
+            };
+            
+            const tranzy = new Tranzy.Translator({
+                toLang: lang,
+                fromLang: 'en',
+                ignore: ['.no-translate', '.sequence'],
+                manualDict: window.specialTerms
+            });
+            
+            tranzy.translatePage();
+            tranzy.startObserver();
+            
+            // 将翻译实例保存到全局变量，以便之后销毁
+            window.tranzyInstance = tranzy;
+        }
+
+        // 新增：响应式布局增强脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 侧边栏切换
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.querySelector('.shell');
+            
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('expanded');
+                });
+            }
+            
+            // 移动端导航菜单
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // 滚动到顶部按钮
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            if (scrollTopBtn) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        scrollTopBtn.classList.add('visible');
+                    } else {
+                        scrollTopBtn.classList.remove('visible');
+                    }
+                });
+                
+                scrollTopBtn.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // 点击屏幕其他区域关闭菜单
+            document.addEventListener('click', function(e) {
+                if (
+                    navMenu && 
+                    navMenu.classList.contains('active') && 
+                    !navMenu.contains(e.target) && 
+                    !navToggle.contains(e.target)
+                ) {
+                    navMenu.classList.remove('active');
+                }
+                
+                if (
+                    sidebar && 
+                    sidebar.classList.contains('expanded') && 
+                    !sidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target)
+                ) {
+                    sidebar.classList.remove('expanded');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

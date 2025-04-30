@@ -1,0 +1,3013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE Home</title>
+    <!-- 修复CSS和图标引用 -->
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+          const links = document.querySelectorAll(".nav-menu a");
+          const currentPath = window.location.pathname;
+      
+          links.forEach(link => {
+            if (link.getAttribute("href") === currentPath.split("/").pop()) {
+              link.classList.add("active");
+            }
+          });
+        });
+    </script>
+    
+    <!-- 添加统计数字计数动画的JavaScript -->
+    <script>
+        // 统计数字计数动画
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-number');
+            const speed = 4000; // 动画持续时间（毫秒）
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / (speed / 50); // 每50毫秒增加的值
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        setTimeout(updateCounter, 50);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                // 使用IntersectionObserver触发计数动画
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(counter); // 只触发一次
+                    }
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 立即添加appear类到标题元素，解决标题不显示问题
+            const sectionTitles = document.querySelectorAll('.section-title.fade-in-up');
+            const sectionSubtitles = document.querySelectorAll('.section-subtitle.fade-in-up');
+            
+            sectionTitles.forEach(title => {
+                title.classList.add('appear');
+            });
+            
+            sectionSubtitles.forEach(subtitle => {
+                subtitle.classList.add('appear');
+            });
+            
+            // 初始化统计数字动画
+            animateCounters();
+            
+            // 统计卡片滚动显示动画
+            const statsCards = document.querySelectorAll('.stats-card');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            statsCards.forEach(card => {
+                statsObserver.observe(card);
+            });
+            
+            // 初始化团队成员卡片动画
+            const teamCards = document.querySelectorAll('.team-member-card');
+            const teamObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // 添加延迟，使卡片逐个显示
+                        setTimeout(() => {
+                            entry.target.classList.add('appear');
+                        }, index * 200);
+                        
+                        teamObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            teamCards.forEach(card => {
+                teamObserver.observe(card);
+            });
+            
+            // 伙伴机构logo动画
+            const logos = document.querySelectorAll('.university-logo');
+            const logoObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('appear');
+                        }, index * 150);
+                        
+                        logoObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            logos.forEach(logo => {
+                logoObserver.observe(logo);
+            });
+        });
+    </script>
+    
+    <style>
+        /* 滚动进度指示器 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 20px;
+            height: 100vh;
+            width: 3px;
+            background: rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+
+        .progress-indicator {
+            position: absolute;
+            width: 100%;
+            background: linear-gradient(to bottom, #7597de, #2b1055);
+            bottom: 100%;
+            transition: height 0.1s ease;
+        }
+
+        .section-marker {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+            left: -3.5px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .section-marker.active {
+            transform: scale(1.2);
+        }
+
+        /* 全局动画变量和样式 */
+        :root {
+            --animation-slow: 0.8s;
+            --animation-medium: 0.4s;
+            --animation-fast: 0.2s;
+            --ease-out-cubic: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+            --primary-color: #2b1055;
+            --secondary-color: #7597de;
+            --accent-color: #50e2c2;
+            --neutral-color: #2a2a3c;
+        }
+
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 增强按钮和链接的交互反馈 */
+        .enhanced-button {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--animation-medium) var(--ease-out-cubic);
+        }
+
+        .enhanced-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 0;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .enhanced-button:hover::before {
+            height: 300%;
+        }
+
+        .enhanced-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+        }
+
+        .enhanced-button:hover::after {
+            transform: translateX(100%);
+            transition: transform 0.6s ease;
+        }
+
+        /* 滚动触发动画类 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--animation-medium) var(--ease-out-cubic),
+                        transform var(--animation-medium) var(--ease-out-cubic);
+        }
+
+        .fade-in-up.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity var(--animation-medium) var(--ease-out-cubic),
+                        transform var(--animation-medium) var(--ease-out-cubic);
+        }
+
+        .scale-in.appear {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity var(--animation-medium) var(--ease-out-cubic),
+                        transform var(--animation-medium) var(--ease-out-cubic);
+        }
+
+        .fade-in-left.appear {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity var(--animation-medium) var(--ease-out-cubic),
+                        transform var(--animation-medium) var(--ease-out-cubic);
+        }
+
+        .fade-in-right.appear {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 图形装饰元素 */
+        .decoration-shape {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        .language-switch {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9em;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .language-switch:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            background: rgba(43, 16, 85, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            right: 0;
+        }
+        
+        .language-container:hover .language-dropdown {
+            display: block;
+        }
+        
+        .language-dropdown a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        
+        .language-dropdown a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .language-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* 新的语言选择器样式 */
+        .language-selector {
+            position: fixed;
+            right: 20px;
+            top: 100px; /* 调整到更合适的高度 */
+            z-index: 10000;
+        }
+
+        .language-current {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            cursor: pointer;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* 使用缓动函数让动画更自然 */
+            overflow: hidden;
+        }
+
+        .language-current i {
+            font-size: 18px;
+            color: white;
+            margin-right: 0; /* 默认没有右边距 */
+            transition: margin 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-current span {
+            max-width: 0;
+            opacity: 0;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* 悬停时的动画变化 */
+        .language-selector:hover .language-current {
+            padding-right: 15px;
+            border-radius: 10px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .language-selector:hover .language-current i {
+            margin-right: 8px;
+        }
+
+        .language-selector:hover .language-current span {
+            max-width: 120px;
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .language-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(43, 16, 85, 0.95);
+            border-radius: 10px;
+            border-top-right-radius: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 180px;
+            max-height: 350px;
+            overflow-y: auto;
+            transform: translateY(-10px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .language-selector:hover .language-options {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeDown 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes fadeDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .language-options a {
+            display: block;
+            padding: 10px 15px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .language-options a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 为最后一个元素添加圆角 */
+        .language-options a:last-child {
+            margin-bottom: 10px;
+        }
+
+        /* 为第一个元素添加顶部间距 */
+        .language-options a:first-child {
+            margin-top: 10px;
+        }
+
+        /* 自定义滚动条样式 */
+        .language-options::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .language-options::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .language-options::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        /* 特性块的交互效果样式 */
+        .characteristic-block {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            /* 初始状态设置为隐藏 */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+
+        .characteristic-block.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .characteristic-block:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .animation-dot {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hover-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .characteristic-block:hover .hover-effect {
+            opacity: 1;
+        }
+
+        .characteristic-block.clicked {
+            animation: click-pulse 0.3s ease;
+        }
+
+        /* 特性块的视差滚动效果 */
+        .characteristics-section {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .characteristic-block:nth-child(1) {
+            transform: translateZ(0);
+        }
+
+        .characteristic-block:nth-child(2) {
+            transform: translateZ(-5px);
+        }
+
+        .characteristic-block:nth-child(3) {
+            transform: translateZ(-10px);
+        }
+
+        @keyframes click-pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.95);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        /* 弹出详情样式 */
+        .popup-detail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(43, 16, 85, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .popup-detail.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s, opacity 0.3s;
+            opacity: 0;
+        }
+
+        .popup-detail.active .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #2b1055;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 新增信息卡片CSS样式 */
+        .info-cards-section {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(to bottom, #2b1055, #7597de);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .info-cards-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/particles-bg.png');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .info-cards-section .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-cards-section .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            left: 20%;
+            bottom: -10px;
+            border-radius: 2px;
+        }
+
+        .info-cards-section .section-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cards-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 600px;
+            perspective: 1500px;
+            padding: 20px 0;
+        }
+
+        .card-layer {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-style: preserve-3d;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .card-layer[data-layer="1"] {
+            transform: translateZ(0) translateY(30px);
+        }
+
+        .card-layer[data-layer="2"] {
+            transform: translateZ(-100px) translateY(60px);
+        }
+
+        .card-layer[data-layer="3"] {
+            transform: translateZ(-200px) translateY(90px);
+        }
+
+        .card-layer.active {
+            opacity: 1;
+            transform: translateZ(0) translateY(0);
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .card-layer.prev {
+            transform: translateZ(200px) translateY(-40px);
+            opacity: 0;
+            z-index: 9;
+        }
+
+        .card-layer.next {
+            transform: translateZ(-100px) translateY(30px);
+            opacity: 0.6;
+            pointer-events: all;
+            z-index: 8;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            width: calc(50% - 30px);
+            min-width: 280px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        box-shadow 0.5s ease;
+            transform-style: preserve-3d;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .info-card.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+            bottom: -10px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-description {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(45deg, #7597de, #2b1055);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .card-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #2b1055, #7597de);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .card-link:hover::before {
+            opacity: 1;
+        }
+
+        .card-hover-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at var(--x, 50%) var(--y, 50%),
+                rgba(255,255,255,0.2) 0%,
+                rgba(255,255,255,0) 60%
+            );
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .info-card:hover .card-hover-effect {
+            opacity: 1;
+        }
+
+        /* 卡片层控制器 */
+        .layer-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .layer-control {
+            width: 40px;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .layer-control:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scaleX(1.2);
+        }
+
+        .layer-control.active {
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* 关键帧动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes rotate3d {
+            0% {
+                transform: perspective(1000px) rotateX(0) rotateY(0);
+            }
+            50% {
+                transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            }
+            100% {
+                transform: perspective(1000px) rotateX(0) rotateY(0);
+            }
+        }
+
+        /* 媒体查询 - 响应式设计 */
+        @media (max-width: 768px) {
+            .info-card {
+                width: 100%;
+                min-height: auto;
+            }
+            
+            .info-cards-section {
+                padding: 60px 20px;
+            }
+            
+            .info-cards-section .section-title {
+                font-size: 2rem;
+            }
+            
+            .cards-container {
+                min-height: 450px;
+            }
+        }
+
+        /* 添加浮动装饰元素 */
+        .floating-decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            filter: blur(1px);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-decoration:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #7597de, transparent);
+            border-radius: 50%;
+            animation-delay: 0s;
+            animation-duration: 10s;
+        }
+        
+        .floating-decoration:nth-child(2) {
+            top: 75%;
+            right: 15%;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #2b1055, transparent);
+            border-radius: 50%;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+        
+        .floating-decoration:nth-child(3) {
+            top: 40%;
+            right: 8%;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(225deg, #7d54ab, transparent);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 1s;
+            animation-duration: 8s;
+        }
+        
+        .floating-decoration:nth-child(4) {
+            bottom: 20%;
+            left: 8%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(315deg, #493175, transparent);
+            border-radius: 30% 70% 50% 50% / 50%;
+            animation-delay: 3s;
+            animation-duration: 14s;
+        }
+        
+        /* 增强卡片轮播转场效果 */
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        @keyframes scaleOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(1.1) translateY(-20px);
+            }
+        }
+        
+        .card-layer {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-style: preserve-3d;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .card-layer.active {
+            animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            pointer-events: all;
+            z-index: 10;
+        }
+        
+        .card-layer.active.fadeOut {
+            animation: scaleOut 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        /* 添加单独卡片的入场和悬停动画 */
+        .info-card {
+            animation: none;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        box-shadow 0.5s ease,
+                        background-color 0.3s ease;
+        }
+        
+        .info-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* 添加卡片图标旋转动画 */
+        .card-icon i {
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+        
+        .info-card:hover .card-icon i {
+            transform: rotateY(180deg);
+        }
+        
+        /* 滚动指示器动画 */
+        .layer-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .layer-control {
+            width: 40px;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .layer-control:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scaleX(1.2);
+        }
+        
+        .layer-control.active {
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .layer-control.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: slide 2s infinite;
+        }
+        
+        @keyframes slide {
+            100% {
+                left: 100%;
+            }
+        }
+
+        .info-cards-section .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 团队成员卡片样式 */
+        .team-section {
+            padding: 80px 5%;
+            background: linear-gradient(to bottom, #7597de, #2b1055);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-molecule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .team-member-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .team-member-card.appear {
+            opacity: 1;
+            transform: translateY(0);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .team-member-card:nth-child(even) {
+            animation-delay: 3s;
+        }
+
+        .team-member-card:hover {
+            transform: translateZ(20px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(80, 226, 194, 0.3), transparent);
+            z-index: 1;
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-bio {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .team-connection-line {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* 科研数据统计样式 */
+        .stats-section {
+            padding: 80px 5%;
+            background: linear-gradient(to bottom, #2b1055, #7597de);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .stats-card.appear {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stats-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .stats-counter {
+            margin-bottom: 15px;
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .counter-label {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .stats-growth {
+            display: inline-block;
+            background: rgba(80, 226, 194, 0.1);
+            color: var(--accent-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stats-growth.positive::before {
+            content: '↑';
+            margin-right: 5px;
+        }
+
+        .stats-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .stats-card.appear::after {
+            transform: scaleX(1);
+        }
+
+        /* 添加浮动装饰元素 */
+        .floating-decoration {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            filter: blur(1px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* 修复标题动画问题 */
+        .section-title.fade-in-up.appear,
+        .section-subtitle.fade-in-up.appear {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="home-page">
+        <!-- 更新滚动进度指示器为更现代化的设计 -->
+        <div class="page-progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="section-dots">
+                <div class="section-dot" data-section="search" data-label="首页">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-label">首页</span>
+                </div>
+                <div class="section-dot" data-section="features" data-label="功能">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-label">功能</span>
+                </div>
+                <div class="section-dot" data-section="research-map" data-label="研究网络">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-label">研究网络</span>
+                </div>
+                <div class="section-dot" data-section="stats" data-label="数据统计">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-label">数据统计</span>
+                </div>
+                <div class="section-dot" data-section="team" data-label="团队">
+                    <span class="dot-pulse"></span>
+                    <span class="dot-label">团队</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 移除旧的滚动进度指示器 -->
+        <!-- <div class="scroll-progress">
+            <div class="progress-indicator"></div>
+            <div class="section-marker" data-section="search" style="top: 10%;"></div>
+            <div class="section-marker" data-section="features" style="top: 30%;"></div>
+            <div class="section-marker" data-section="map" style="top: 50%;"></div>
+            <div class="section-marker" data-section="stats" style="top: 70%;"></div>
+            <div class="section-marker" data-section="team" style="top: 90%;"></div>
+        </div> -->
+        
+        <header>
+          <div class="logo-container">
+            <a href="#" class="logo">
+              <img src="../icon/logo.png"  style="vertical-align: middle; height: 30px;">
+              SPADE
+            </a>
+            <div style="color: white; font-size: 0.6em;">System for Antimicrobial Peptide<br>Management and Database</div>
+            <!-- <a href="https://2025.igem.wiki/xjtlu - software" class="team-link" target="_blank" rel="noopener noreferrer">Belongs to 2025-XJTLU-Software</a> -->
+          </div>
+          <button class="nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="nav-menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="statistics.html">Statistics</a></li>
+            <!-- <li><a href="amp_visualization.html">AMP Visualization</a></li> -->
+            <!-- <li><a href="chat.html">Chat</a></li> -->
+            <!-- <li><a href="login.html">Login</a></li> -->
+        </ul>
+        </header>
+
+    <!-- 新的语言选择器UI - 放在右上角 -->
+    <div class="language-selector">
+        <div class="language-current" id="currentLang">
+            <i class="fas fa-globe"></i>
+            <span id="currentLangText">English</span>
+        </div>
+        <div class="language-options">
+            <a href="#" data-lang="en" class="no-translate">English</a>
+            <a href="#" data-lang="zh-Hans" class="no-translate">中文 (简体)</a>
+            <a href="#" data-lang="zh-Hant" class="no-translate">繁體中文</a>
+            <a href="#" data-lang="ja" class="no-translate">日本語</a>
+            <a href="#" data-lang="ko" class="no-translate">한국어</a>
+            <a href="#" data-lang="fr" class="no-translate">Français</a>
+            <a href="#" data-lang="de" class="no-translate">Deutsch</a>
+            <a href="#" data-lang="es" class="no-translate">Español</a>
+            <a href="#" data-lang="ru" class="no-translate">Русский</a>
+        </div>
+    </div>
+
+    <section class="search-section">
+        <h1 class="title">Welcome to <span class="spade-custom">SPADE</span> Database</h1>
+        <p class="subtitle"> System for Antimicrobial Peptide Management and Database</p>
+        
+        <!-- 修改为表单，并添加action和method属性 -->
+        <form id="searchForm" action="search.html" method="get" class="search-container">
+            <select name="category" class="search-category">
+                <option value="all">All Categories</option>
+                <option value="id">ID</option>
+                <option value="name">Name</option>
+                <option value="sequence">Sequence</option>
+            </select>
+            <div class="search-input-wrapper">
+                <input type="text" 
+                       name="query"
+                       class="search-input" 
+                       placeholder="enter name or ID" 
+                       required>
+                <button type="submit" class="search-button">
+                    <span class="search-icon"><i class="fas fa-search"></i></span>
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- 添加新的信息卡片区域 -->
+    <section class="info-cards-section">
+        <!-- 添加浮动装饰元素 -->
+        <div class="floating-decoration"></div>
+        <div class="floating-decoration"></div>
+        <div class="floating-decoration"></div>
+        <div class="floating-decoration"></div>
+        
+        <h2 class="section-title">Explore SPADE Features</h2>
+        <p class="section-subtitle">Discover how our platform accelerates antimicrobial peptide research</p>
+        
+        <div class="cards-container">
+            <!-- 卡片层 1：核心功能 -->
+            <div class="card-layer" data-layer="1">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <h3 class="card-title">Comprehensive Database</h3>
+                    <p class="card-description">Access over 10,000 antimicrobial peptides with detailed structural and functional data</p>
+                    <div class="card-tags">
+                        <span class="tag">Data</span>
+                        <span class="tag">Research</span>
+                    </div>
+                    <a href="#" class="card-link">Learn More</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3 class="card-title">Advanced Search</h3>
+                    <p class="card-description">Find exactly what you need with our powerful search and filtering capabilities</p>
+                    <div class="card-tags">
+                        <span class="tag">Search</span>
+                        <span class="tag">Filter</span>
+                    </div>
+                    <a href="#" class="card-link">Try Now</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+            </div>
+            
+            <!-- 卡片层 2：研究工具 -->
+            <div class="card-layer" data-layer="2">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3 class="card-title">Sequence Analysis</h3>
+                    <p class="card-description">Analyze peptide sequences with our integrated bioinformatics tools</p>
+                    <div class="card-tags">
+                        <span class="tag">Analysis</span>
+                        <span class="tag">Tools</span>
+                    </div>
+                    <a href="#" class="card-link">Explore Tools</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="card-title">Statistical Insights</h3>
+                    <p class="card-description">Visualize trends and patterns in antimicrobial peptide research</p>
+                    <div class="card-tags">
+                        <span class="tag">Statistics</span>
+                        <span class="tag">Trends</span>
+                    </div>
+                    <a href="#" class="card-link">View Stats</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+            </div>
+            
+            <!-- 卡片层 3：应用案例 -->
+            <div class="card-layer" data-layer="3">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-microscope"></i></div>
+                    <h3 class="card-title">Research Applications</h3>
+                    <p class="card-description">Discover how researchers worldwide use SPADE to advance their work</p>
+                    <div class="card-tags">
+                        <span class="tag">Research</span>
+                        <span class="tag">Case Studies</span>
+                    </div>
+                    <a href="#" class="card-link">Read Cases</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-flask"></i></div>
+                    <h3 class="card-title">Clinical Insights</h3>
+                    <p class="card-description">Explore the clinical potential of antimicrobial peptides in modern medicine</p>
+                    <div class="card-tags">
+                        <span class="tag">Clinical</span>
+                        <span class="tag">Medicine</span>
+                    </div>
+                    <a href="#" class="card-link">Discover</a>
+                    <div class="card-hover-effect"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 卡片层控制器 -->
+        <div class="layer-controls">
+            <div class="layer-control" data-layer="1"></div>
+            <div class="layer-control" data-layer="2"></div>
+            <div class="layer-control" data-layer="3"></div>
+        </div>
+    </section>
+
+    <!-- 添加研究地图部分 -->
+    <section class="research-map-section" id="research-map">
+        <div class="decoration-shape" style="top: 15%; left: 10%; width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), transparent);"></div>
+        <div class="decoration-shape" style="bottom: 20%; right: 5%; width: 150px; height: 150px; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; background: linear-gradient(45deg, var(--accent-color), transparent);"></div>
+        
+        <h2 class="section-title fade-in-up appear">Global Research Network</h2>
+        <p class="section-subtitle fade-in-up appear">Explore our research locations around the world</p>
+        
+        <div class="map-container">
+            <div class="map-background-wrapper">
+                <!-- 更改成本地图片，避免加载外部网址 -->
+                <img id="worldMap" src="img/map/R.jpeg" alt="World Map" class="map-background">
+            </div>
+            
+            <div class="map-markers-container">
+                <!-- 北美标记点 -->
+                <div class="map-marker research-center" 
+                     data-location="north-america" 
+                     data-title="North America Research Center" 
+                     data-description="Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis."
+                     data-image="img/markers/1.jpg"
+                     style="top: 28%; left: 18%;">
+                    <div class="marker-inner"></div>
+                </div>
+                
+                <!-- 欧洲标记点 1 -->
+                <div class="map-marker collaboration" 
+                     data-location="europe-1" 
+                     data-title="European AMR Network" 
+                     data-description="Collaborative network addressing antimicrobial resistance through sustainable peptide applications."
+                     data-image="img/markers/2.jpg"
+                     style="top: 22%; left: 48%;">
+                    <div class="marker-inner"></div>
+                </div>
+                
+                <!-- 欧洲标记点 2 -->
+                <div class="map-marker clinical-trial" 
+                     data-location="europe-2" 
+                     data-title="European Clinical Research Center" 
+                     data-description="Clinical trials and validation of novel antimicrobial peptides for therapeutic applications."
+                     data-image="img/markers/3.jpg"
+                     style="top: 26%; left: 38%;">
+                    <div class="marker-inner"></div>
+                </div>
+                
+                <!-- 亚洲标记点 1 -->
+                <div class="map-marker research-center" 
+                     data-location="asia-1" 
+                     data-title="East Asia Research Center" 
+                     data-description="Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization."
+                     data-image="img/markers/1.jpg"
+                     style="top: 34%; left: 75%;">
+                    <div class="marker-inner"></div>
+                </div>
+                
+                <!-- 亚洲标记点 2 -->
+                <div class="map-marker collaboration" 
+                     data-location="asia-2" 
+                     data-title="Southeast Asia Biodiversity Network" 
+                     data-description="Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources."
+                     data-image="img/markers/2.jpg"
+                     style="top: 45%; left: 72%;">
+                    <div class="marker-inner"></div>
+                </div>
+                
+                <!-- 大洋洲标记点 -->
+                <div class="map-marker clinical-trial" 
+                     data-location="oceania" 
+                     data-title="Oceania Marine Research Center" 
+                     data-description="Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges."
+                     data-image="img/markers/3.jpg"
+                     style="top: 65%; left: 85%;">
+                    <div class="marker-inner"></div>
+                </div>
+            </div>
+            
+            <!-- 标记点详情 -->
+            <div class="marker-details" id="markerDetails">
+                <span class="close-btn">&times;</span>
+                <div class="details-header">
+                    <h3 class="marker-title"></h3>
+                    <span class="marker-category"></span>
+                </div>
+                <div class="details-body">
+                    <p class="marker-description"></p>
+                    <div class="marker-image-container">
+                        <img class="marker-image" src="" alt="">
+                    </div>
+                </div>
+                <div class="details-footer">
+                    <a href="#" class="details-link">Learn More</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 地图图例 -->
+        <div class="map-legend">
+            <div class="legend-item">
+                <div class="legend-marker research-center"></div>
+                <span class="legend-text">Research Centers</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-marker collaboration"></div>
+                <span class="legend-text">Collaboration Networks</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-marker clinical-trial"></div>
+                <span class="legend-text">Clinical Trial Centers</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // 保存语言偏好
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // 获取保存的语言偏好
+        function getLanguagePreference() {
+            return localStorage.getItem('preferredLanguage') || 'en';
+        }
+        
+        // 获取语言显示名称
+        function getLanguageDisplayName(langCode) {
+            const langNames = {
+                'en': 'English',
+                'zh-Hans': '中文 (简体)',
+                'zh-Hant': '繁體中文',
+                'ja': '日本語',
+                'ko': '한국어',
+                'fr': 'Français',
+                'de': 'Deutsch',
+                'es': 'Español',
+                'ru': 'Русский'
+            };
+            return langNames[langCode] || langCode;
+        }
+
+        // 设置初始语言
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建特殊名词配置库
+            window.specialTerms = {
+                'en': { 'SPADE': 'SPADE' }, 
+                'zh-Hans': {
+                    'SPADE': 'SPADE',
+                    'Welcome to SPADE Database': '欢迎使用SPADE数据库',
+                    'a useful database of antimicrobial peptides': '一个实用的抗菌肽数据库',
+                    'enter name or ID': '输入名称或ID',
+                    'All Categories': '所有类别',
+                    'Antibiotic': '抗生素',
+                    'Peptide': '肽',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Characteristic1': '特点1',
+                    'Characteristic2': '特点2',
+                    'Characteristic3': '特点3',
+                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队',
+                    'Global Research Network': '全球研究网络',
+                    'Explore our research locations around the world': '探索我们在全球的研究点',
+                    'Research Centers': '研究中心',
+                    'Collaboration Hubs': '合作中心',
+                    'Clinical Trial Centers': '临床试验中心',
+                    'Learn More': '了解更多',
+                    'Explore SPADE Features': '探索SPADE功能',
+                    'Discover how our platform accelerates antimicrobial peptide research': '了解我们的平台如何加速抗菌肽研究',
+                    'Comprehensive Database': '综合数据库',
+                    'Advanced Search': '高级搜索',
+                    'Sequence Analysis': '序列分析',
+                    'Statistical Insights': '统计洞察',
+                    'Research Applications': '研究应用',
+                    'Clinical Insights': '临床见解',
+                    'Data': '数据',
+                    'Research': '研究',
+                    'Search': '搜索',
+                    'Filter': '筛选',
+                    'Analysis': '分析',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Trends': '趋势',
+                    'Case Studies': '案例研究',
+                    'Clinical': '临床',
+                    'Medicine': '医学',
+                    'Try Now': '立即尝试',
+                    'Explore Tools': '探索工具',
+                    'View Stats': '查看统计',
+                    'Read Cases': '阅读案例',
+                    'Discover': '探索'
+                },
+                'zh-Hant': {
+                    'SPADE': 'SPADE',
+                    'Welcome to SPADE Database': '欢迎使用SPADE数据库',
+                    'a useful database of antimicrobial peptides': '一个实用的抗菌肽数据库',
+                    'enter name or ID': '输入名称或ID',
+                    'All Categories': '所有类别',
+                    'Antibiotic': '抗生素',
+                    'Peptide': '肽',
+                    'Home': '首页',
+                    'Search': '搜索',
+                    'Tools': '工具',
+                    'Statistics': '统计',
+                    'Characteristic1': '特点1',
+                    'Characteristic2': '特点2',
+                    'Characteristic3': '特点3',
+                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队'
+                },
+                'ja': {
+                    'SPADE': 'SPADE',
+                    'Welcome to SPADE Database': 'SPADEデータベースへようこそ',
+                    'a useful database of antimicrobial peptides': '抗菌ペプチドの実用的なデータベース',
+                    'Home': 'ホーム',
+                    'Search': '検索',
+                    'Tools': 'ツール',
+                    'Statistics': '統計'
+                },
+                'ko': { 'SPADE': 'SPADE' },
+                'fr': { 'SPADE': 'SPADE' },
+                'de': { 'SPADE': 'SPADE' },
+                'es': { 'SPADE': 'SPADE' },
+                'ru': { 'SPADE': 'SPADE' }
+            };
+            
+            const savedLang = getLanguagePreference();
+            document.documentElement.lang = savedLang;
+            
+            // 更新当前语言显示 - 确保不翻译语言名称
+            updateCurrentLanguageDisplay();
+            
+            // 初始化多语言选择
+            const langOptions = document.querySelectorAll('.language-options a');
+            langOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newLang = this.getAttribute('data-lang');
+                    if (newLang === document.documentElement.lang) return;
+                    
+                    // 保存语言设置并刷新页面
+                    saveLanguagePreference(newLang);
+                    
+                    // 获取当前URL并添加时间戳参数以确保刷新
+                    const currentUrl = new URL(window.location.href);
+                    currentUrl.searchParams.set('ts', Date.now());
+                    window.location.href = currentUrl.toString();
+                });
+            });
+            
+            // 初始化翻译
+            initializeTranslation(savedLang);
+
+            // 信息卡片动画和交互
+            initInfoCardsAnimation();
+        });
+        
+        // 更新当前语言显示 - 确保不翻译语言名称
+        function updateCurrentLanguageDisplay() {
+            const currentLang = document.getElementById('currentLang');
+            const currentLangText = document.getElementById('currentLangText');
+            
+            // 更新文本内容
+            currentLangText.textContent = getLanguageDisplayName(document.documentElement.lang);
+            
+            // 确保语言名称不被翻译
+            currentLang.classList.add('no-translate');
+            currentLangText.classList.add('no-translate');
+        }
+        
+        // 初始化翻译函数
+        function initializeTranslation(lang) {
+            const tranzy = new Tranzy.Translator({
+                toLang: lang,
+                fromLang: 'en',
+                ignore: ['.no-translate', 'input', 'select', '.search-icon', '.language-dropdown a'],
+                manualDict: window.specialTerms
+            });
+            
+            tranzy.translatePage();
+            tranzy.startObserver();
+            
+            // 将翻译实例保存到全局变量，以便之后销毁
+            window.tranzyInstance = tranzy;
+        }
+        
+        // 提供一个全局函数用于动态添加或修改特殊名词
+        window.updateSpecialTerm = function(term, translation, language) {
+            language = language || document.documentElement.lang;
+            if (!window.specialTerms[language]) {
+                window.specialTerms[language] = {};
+            }
+            window.specialTerms[language][term] = translation;
+            
+            // 如果当前语言匹配，立即应用更新
+            if (language === document.documentElement.lang && window.tranzyInstance) {
+                window.tranzyInstance.destroy();
+                initializeTranslation(language);
+            }
+        };
+
+        // 为特性块添加鼠标移动效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const blocks = document.querySelectorAll('.characteristic-block');
+            const section = document.querySelector('.characteristics-section');
+            
+            // 添加视差滚动效果
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset;
+                const sectionTop = section.offsetTop;
+                const scrollPosition = scrollTop - sectionTop;
+                
+                if (scrollPosition > -window.innerHeight && scrollPosition < section.offsetHeight) {
+                    blocks.forEach((block, index) => {
+                        // 只有已经出现的块才应用视差效果
+                        if (block.classList.contains('appear')) {
+                            const speed = (index + 1) * 0.05;
+                            const yPos = scrollPosition * speed;
+                            // 使用transform3d以启用硬件加速
+                            block.style.transform = `translate3d(0, ${yPos}px, ${-index * 5}px)`;
+                            
+                            // 添加悬停效果
+                            if (block.classList.contains('hovered')) {
+                                block.style.transform = `translate3d(0, ${yPos - 10}px, ${-index * 5}px)`;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            // 创建滚动观察器来检测特性块的可见性
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // 当元素进入视口时
+                    if (entry.isIntersecting) {
+                        // 添加一个小延迟，使元素逐个显示
+                        const block = entry.target;
+                        const index = Array.from(blocks).indexOf(block);
+                        
+                        setTimeout(() => {
+                            block.classList.add('appear');
+                        }, index * 200); // 每个块延迟200ms显示
+                        
+                        // 元素已显示，不再观察
+                        observer.unobserve(block);
+                    }
+                });
+            }, {
+                threshold: 0.1 // 当10%的元素可见时触发
+            });
+            
+            // 开始观察所有特性块
+            blocks.forEach(block => {
+                observer.observe(block);
+                
+                // 添加鼠标悬停状态标记
+                block.addEventListener('mouseenter', function() {
+                    this.classList.add('hovered');
+                });
+                
+                block.addEventListener('mouseleave', function() {
+                    this.classList.remove('hovered');
+                });
+            });
+            
+            blocks.forEach((block, index) => {
+                const effect = block.querySelector('.hover-effect');
+                
+                block.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    effect.style.setProperty('--x', `${x}px`);
+                    effect.style.setProperty('--y', `${y}px`);
+                });
+                
+                // 点击效果
+                block.addEventListener('click', function() {
+                    this.classList.add('clicked');
+                    setTimeout(() => {
+                        this.classList.remove('clicked');
+                    }, 300);
+                    
+                    // 显示对应的弹出详情
+                    const popupId = `popup${index + 1}`;
+                    const popup = document.getElementById(popupId);
+                    popup.classList.add('active');
+                });
+            });
+            
+            // 关闭弹窗按钮
+            const closeButtons = document.querySelectorAll('.close-popup');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('.popup-detail');
+                    popup.classList.remove('active');
+                });
+            });
+            
+            // 点击弹窗外部关闭
+            const popups = document.querySelectorAll('.popup-detail');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            });
+            
+            // 随机改变动画点的颜色
+            setInterval(() => {
+                const dots = document.querySelectorAll('.animation-dot');
+                const colors = ['#fff', '#ffcc00', '#ff6699', '#66ccff', '#99ff99'];
+                
+                dots.forEach(dot => {
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    dot.style.backgroundColor = randomColor;
+                });
+            }, 3000);
+
+            // 研究地图标记点动画系统
+            const mapContainer = document.querySelector('.map-container');
+            const mapMarkers = document.querySelectorAll('.map-marker');
+            const markerDetails = document.getElementById('markerDetails');
+            const worldMap = document.getElementById('worldMap');
+            
+            if (!mapContainer || !mapMarkers.length || !markerDetails || !worldMap) {
+                console.log("地图元素未找到，跳过地图初始化");
+                return;
+            }
+            
+            // 防止重复请求，添加onerror处理
+            worldMap.onerror = function() {
+                console.error("地图图片加载失败");
+                this.src = "img/map/R.jpeg"; // 确保使用本地图片
+            };
+            
+            // 确保section元素存在，防止offsetTop错误
+            const mapSection = document.querySelector('.research-map-section');
+            if (!mapSection) {
+                console.log("地图部分未找到，跳过视差效果");
+                return;
+            }
+            
+            // 关闭详情按钮
+            const closeBtn = markerDetails.querySelector('.close-btn');
+            let activeMarker = null;
+            
+            // 初始化时标记点不可见
+            mapMarkers.forEach(marker => {
+                marker.classList.remove('visible');
+            });
+            
+            // 滚动触发显示 - 使用try-catch防止错误中断脚本
+            try {
+                const mapObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        // 触发标记点序列显示
+                        showMarkersSequentially();
+                        // 添加动画类到地图容器
+                        setTimeout(() => {
+                            mapContainer.classList.add('map-animated');
+                        }, 300);
+                        // 已触发，取消观察
+                        mapObserver.disconnect();
+                    }
+                }, { threshold: 0.2 });
+                
+                // 开始观察
+                mapObserver.observe(mapContainer);
+            } catch (e) {
+                console.error("地图观察器初始化失败", e);
+                // 降级方案
+                setTimeout(() => {
+                    showMarkersSequentially();
+                    mapContainer.classList.add('map-animated');
+                }, 1000);
+            }
+            
+            // 序列显示标记点
+            function showMarkersSequentially() {
+                mapMarkers.forEach((marker, index) => {
+                    setTimeout(() => {
+                        marker.classList.add('visible');
+                        // 添加短暂动画效果
+                        marker.classList.add('pulse-once');
+                        setTimeout(() => {
+                            marker.classList.remove('pulse-once');
+                        }, 1000);
+                    }, 200 + (index * 180));
+                });
+            }
+            
+            // 显示标记点详情 - 改用本地图片，避免外部请求
+            function showMarkerDetails(marker) {
+                try {
+                    // 更新详情内容
+                    const title = marker.getAttribute('data-title');
+                    const description = marker.getAttribute('data-description');
+                    const imgSrc = marker.getAttribute('data-image');
+                    const location = marker.getAttribute('data-location');
+                    
+                    // 设置详情内容
+                    markerDetails.querySelector('.marker-title').textContent = title;
+                    markerDetails.querySelector('.marker-description').textContent = description;
+                    
+                    // 设置图片（带错误处理）
+                    const imgElement = markerDetails.querySelector('.marker-image');
+                    imgElement.src = imgSrc;
+                    imgElement.alt = title;
+                    imgElement.onerror = function() {
+                        this.src = 'img/markers/1.jpg'; // 备用图片
+                    };
+                    
+                    // 根据标记点类型设置类别文本
+                    let categoryText = '';
+                    if (marker.classList.contains('research-center')) {
+                        categoryText = 'Research Center';
+                    } else if (marker.classList.contains('collaboration')) {
+                        categoryText = 'Collaboration Hub';
+                    } else if (marker.classList.contains('clinical-trial')) {
+                        categoryText = 'Clinical Trial Center';
+                    }
+                    
+                    markerDetails.querySelector('.marker-category').textContent = categoryText;
+                    
+                    // 设置链接
+                    markerDetails.querySelector('.details-link').href = `#${location}`;
+                    
+                    // 显示详情
+                    markerDetails.classList.add('visible');
+                    
+                    // 更新活跃标记点
+                    if (activeMarker) {
+                        activeMarker.classList.remove('active');
+                    }
+                    marker.classList.add('active');
+                    activeMarker = marker;
+                } catch (e) {
+                    console.error("显示标记点详情失败", e);
+                }
+            }
+            
+            // 标记点点击事件
+            mapMarkers.forEach(marker => {
+                marker.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    showMarkerDetails(this);
+                });
+            });
+            
+            // 关闭详情
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    markerDetails.classList.remove('visible');
+                    if (activeMarker) {
+                        activeMarker.classList.remove('active');
+                        activeMarker = null;
+                    }
+                });
+            }
+            
+            // 点击地图其他区域关闭详情
+            mapContainer.addEventListener('click', function(e) {
+                if (e.target.closest('.map-marker') || e.target.closest('.marker-details')) {
+                    return;
+                }
+                markerDetails.classList.remove('visible');
+                if (activeMarker) {
+                    activeMarker.classList.remove('active');
+                    activeMarker = null;
+                }
+            });
+        });
+
+        // 初始化信息卡片动画和交互
+        function initInfoCardsAnimation() {
+            // 获取所有卡片层和控制器
+            const cardLayers = document.querySelectorAll('.card-layer');
+            const layerControls = document.querySelectorAll('.layer-control');
+            const infoCards = document.querySelectorAll('.info-card');
+            
+            // 设置初始活动层
+            let currentLayerIndex = 0;
+            let autoPlayInterval;
+            
+            // 初始化卡片层
+            function initCardLayers() {
+                // 默认显示第一层
+                cardLayers[0].classList.add('active');
+                layerControls[0].classList.add('active');
+                
+                // 初始化所有卡片的hover效果
+                infoCards.forEach(card => {
+                    card.addEventListener('mousemove', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const hoverEffect = this.querySelector('.card-hover-effect');
+                        hoverEffect.style.setProperty('--x', `${x}px`);
+                        hoverEffect.style.setProperty('--y', `${y}px`);
+                    });
+                    
+                    // 3D傾斜效果增强
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transition = 'transform 0.3s ease';
+                    });
+                    
+                    card.addEventListener('mousemove', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        // 计算倾斜角度（最大10度）
+                        const rotateY = ((x - centerX) / centerX) * 10;
+                        const rotateX = ((centerY - y) / centerY) * 5;
+                        
+                        this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                        setTimeout(() => {
+                            this.style.transition = '';
+                        }, 300);
+                    });
+                });
+                
+                // 为卡片添加序列显示动画
+                setTimeout(() => {
+                    const activeLayer = document.querySelector('.card-layer.active');
+                    const cards = activeLayer.querySelectorAll('.info-card');
+                    
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('appear');
+                        }, index * 200); // 每个卡片延迟200ms显示
+                    });
+                }, 100);
+            }
+            
+            // 切换卡片层
+            function switchLayer(index) {
+                // 防止重复切换到当前层
+                if (index === currentLayerIndex) return;
+                
+                // 获取当前活动层
+                const currentActiveLayer = document.querySelector('.card-layer.active');
+                
+                // 添加淡出动画类
+                if (currentActiveLayer) {
+                    currentActiveLayer.classList.add('fadeOut');
+                    
+                    // 在淡出动画完成后再切换到新层
+                    setTimeout(() => {
+                        // 移除所有活动类
+                        cardLayers.forEach(layer => {
+                            layer.classList.remove('active', 'prev', 'next', 'fadeOut');
+                        });
+                        
+                        layerControls.forEach(control => {
+                            control.classList.remove('active');
+                        });
+                        
+                        // 设置新的活动层
+                        cardLayers[index].classList.add('active');
+                        layerControls[index].classList.add('active');
+                        
+                        // 设置前一层和后一层（循环）
+                        const prevIndex = (index - 1 + cardLayers.length) % cardLayers.length;
+                        const nextIndex = (index + 1) % cardLayers.length;
+                        
+                        cardLayers[prevIndex].classList.add('prev');
+                        cardLayers[nextIndex].classList.add('next');
+                        
+                        // 重置所有卡片状态
+                        infoCards.forEach(card => {
+                            card.classList.remove('appear');
+                        });
+                        
+                        // 为新活动层的卡片添加序列显示动画
+                        setTimeout(() => {
+                            const activeCards = cardLayers[index].querySelectorAll('.info-card');
+                            activeCards.forEach((card, i) => {
+                                setTimeout(() => {
+                                    card.classList.add('appear');
+                                }, i * 150); // 加快显示间隔，每个卡片延迟150ms
+                            });
+                        }, 100);
+                        
+                        // 更新当前层索引
+                        currentLayerIndex = index;
+                    }, 600); // 等待淡出动画完成
+                } else {
+                    // 如果没有当前活动层（初始化时），直接设置
+                    cardLayers[index].classList.add('active');
+                    layerControls[index].classList.add('active');
+                    currentLayerIndex = index;
+                    
+                    // 为新活动层的卡片添加序列显示动画
+                    setTimeout(() => {
+                        const activeCards = cardLayers[index].querySelectorAll('.info-card');
+                        activeCards.forEach((card, i) => {
+                            setTimeout(() => {
+                                card.classList.add('appear');
+                            }, i * 150);
+                        });
+                    }, 100);
+                }
+                
+                // 重置自动播放定时器
+                resetAutoPlay();
+            }
+            
+            // 为层控制器添加点击事件
+            layerControls.forEach((control, index) => {
+                control.addEventListener('click', function() {
+                    switchLayer(index);
+                });
+            });
+            
+            // 设置自动播放
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(() => {
+                    const nextIndex = (currentLayerIndex + 1) % cardLayers.length;
+                    switchLayer(nextIndex);
+                }, 5000); // 每5秒切换一次
+            }
+            
+            // 重置自动播放
+            function resetAutoPlay() {
+                clearInterval(autoPlayInterval);
+                startAutoPlay();
+            }
+            
+            // 初始化滚动检测
+            function initScrollDetection() {
+                const cardsSection = document.querySelector('.info-cards-section');
+                
+                // 使用 IntersectionObserver 检测卡片区域进入视口
+                const observer = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting) {
+                        // 卡片区域进入视口，初始化卡片层
+                        initCardLayers();
+                        startAutoPlay();
+                        
+                        // 只需观察一次
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.2 }); // 当20%的元素可见时触发
+                
+                observer.observe(cardsSection);
+            }
+            
+            // 添加滚动视差效果
+            function initParallaxEffect() {
+                const cardsSection = document.querySelector('.info-cards-section');
+                
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.pageYOffset;
+                    const sectionTop = cardsSection.offsetTop;
+                    const sectionHeight = cardsSection.offsetHeight;
+                    
+                    // 只在卡片区域可见时应用视差效果
+                    if (scrollPosition > sectionTop - window.innerHeight && 
+                        scrollPosition < sectionTop + sectionHeight) {
+                        
+                        // 计算滚动进度 (0-1)
+                        const scrollProgress = (scrollPosition - (sectionTop - window.innerHeight)) / 
+                                              (sectionHeight + window.innerHeight);
+                        
+                        // 应用视差效果到卡片层
+                        cardLayers.forEach((layer, index) => {
+                            const depth = index * 0.2; // 不同层有不同的视差深度
+                            const yMove = (scrollProgress - 0.5) * 100 * depth;
+                            
+                            if (layer.classList.contains('active')) {
+                                layer.style.transform = `translateZ(0) translateY(${yMove}px)`;
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // 添加键盘导航
+            function initKeyboardNavigation() {
+                document.addEventListener('keydown', e => {
+                    // 只在卡片区域可见时启用键盘导航
+                    const cardsSection = document.querySelector('.info-cards-section');
+                    const rect = cardsSection.getBoundingClientRect();
+                    
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        if (e.key === 'ArrowLeft') {
+                            const prevIndex = (currentLayerIndex - 1 + cardLayers.length) % cardLayers.length;
+                            switchLayer(prevIndex);
+                        } else if (e.key === 'ArrowRight') {
+                            const nextIndex = (currentLayerIndex + 1) % cardLayers.length;
+                            switchLayer(nextIndex);
+                        }
+                    }
+                });
+            }
+            
+            // 触摸滑动支持
+            function initTouchSwipe() {
+                const cardsContainer = document.querySelector('.cards-container');
+                let startX, moveX;
+                let threshold = 50; // 滑动阈值
+                
+                cardsContainer.addEventListener('touchstart', e => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                cardsContainer.addEventListener('touchmove', e => {
+                    moveX = e.touches[0].clientX;
+                });
+                
+                cardsContainer.addEventListener('touchend', e => {
+                    if (!startX || !moveX) return;
+                    
+                    const diff = moveX - startX;
+                    
+                    if (Math.abs(diff) > threshold) {
+                        if (diff > 0) {
+                            // 向右滑动，显示上一层
+                            const prevIndex = (currentLayerIndex - 1 + cardLayers.length) % cardLayers.length;
+                            switchLayer(prevIndex);
+                        } else {
+                            // 向左滑动，显示下一层
+                            const nextIndex = (currentLayerIndex + 1) % cardLayers.length;
+                            switchLayer(nextIndex);
+                        }
+                    }
+                    
+                    // 重置
+                    startX = null;
+                    moveX = null;
+                });
+            }
+            
+            // 执行初始化函数
+            initScrollDetection();
+            initParallaxEffect();
+            initKeyboardNavigation();
+            initTouchSwipe();
+        }
+    </script>
+
+    <!-- 弹出详情模板 -->
+    <div class="popup-detail" id="popup1">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <h2>Characteristic1</h2>
+            <p>这里是特性1的详细描述，可以包含更多信息。Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+    </div>
+
+    <div class="popup-detail" id="popup2">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <h2>Characteristic2</h2>
+            <p>这里是特性2的详细描述，可以包含更多信息。Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+    </div>
+
+    <div class="popup-detail" id="popup3">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <h2>Characteristic3</h2>
+            <p>这里是特性3的详细描述，可以包含更多信息。Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+    </div>
+
+    <!-- 科研数据统计部分 -->
+    <section class="stats-section" id="stats">
+        <div class="decoration-shape" style="top: 10%; left: 5%; width: 150px; height: 150px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; background: linear-gradient(45deg, var(--secondary-color), transparent);"></div>
+        <div class="decoration-shape" style="bottom: 15%; right: 10%; width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), transparent);"></div>
+        
+        <h2 class="section-title fade-in-up appear">SPADE Database in Numbers</h2>
+        <p class="section-subtitle fade-in-up appear">Our comprehensive collection of antimicrobial peptide data</p>
+        
+        <div class="stats-container">
+            <div class="stats-card scale-in">
+                <div class="stats-icon"><i class="fas fa-database"></i></div>
+                <div class="stats-counter">
+                    <span class="counter-number" data-target="10583">0</span>
+                    <span class="counter-label">Antimicrobial Peptides</span>
+                </div>
+                <div class="stats-growth positive">12% growth</div>
+            </div>
+            
+            <div class="stats-card scale-in">
+                <div class="stats-icon"><i class="fas fa-microscope"></i></div>
+                <div class="stats-counter">
+                    <span class="counter-number" data-target="358">0</span>
+                    <span class="counter-label">Research Institutions</span>
+                </div>
+                <div class="stats-growth positive">8% growth</div>
+            </div>
+            
+            <div class="stats-card scale-in">
+                <div class="stats-icon"><i class="fas fa-flask"></i></div>
+                <div class="stats-counter">
+                    <span class="counter-number" data-target="1247">0</span>
+                    <span class="counter-label">Scientific Publications</span>
+                </div>
+                <div class="stats-growth positive">15% growth</div>
+            </div>
+            
+            <div class="stats-card scale-in">
+                <div class="stats-icon"><i class="fas fa-dna"></i></div>
+                <div class="stats-counter">
+                    <span class="counter-number" data-target="467">0</span>
+                    <span class="counter-label">Bacterial Targets</span>
+                </div>
+                <div class="stats-growth positive">6% growth</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 团队成员部分 -为8位XJTLU成员，正好是SW队伍组成 -->
+    <section class="team-section" id="team">
+        <div class="decoration-shape" style="top: 20%; right: 8%; width: 100px; height: 100px; border-radius: 30% 70% 50% 50% / 50%; background: linear-gradient(225deg, var(--accent-color), transparent);"></div>
+        <div class="decoration-shape" style="bottom: 10%; left: 15%; width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(45deg, var(--secondary-color), transparent);"></div>
+        
+        <h2 class="section-title fade-in-up appear">Our Research Team</h2>
+        <p class="section-subtitle fade-in-up appear">Meet the XJTLU experts behind SPADE database</p>
+        
+        <div class="team-molecule-grid">
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/1.jpg" alt="Team Member 1">
+                </div>
+                <h3 class="member-name">Dr. Li Wei</h3>
+                <div class="member-role">Lead Bioinformatician</div>
+                <p class="member-bio">XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/2.jpg" alt="Team Member 2">
+                </div>
+                <h3 class="member-name">Prof. Zhang Min</h3>
+                <div class="member-role">Principal Investigator</div>
+                <p class="member-bio">XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/3.jpg" alt="Team Member 3">
+                </div>
+                <h3 class="member-name">Dr. Wang Jian</h3>
+                <div class="member-role">Database Architect</div>
+                <p class="member-bio">XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/4.jpg" alt="Team Member 4">
+                </div>
+                <h3 class="member-name">Dr. Liu Hong</h3>
+                <div class="member-role">Microbiology Specialist</div>
+                <p class="member-bio">XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <!-- 添加4位新成员，全部来自XJTLU -->
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/1.jpg" alt="Team Member 5">
+                </div>
+                <h3 class="member-name">Dr. Chen Xiaofeng</h3>
+                <div class="member-role">Data Scientist</div>
+                <p class="member-bio">XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/2.jpg" alt="Team Member 6">
+                </div>
+                <h3 class="member-name">Dr. Yang Mei</h3>
+                <div class="member-role">Structural Biologist</div>
+                <p class="member-bio">XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/3.jpg" alt="Team Member 7">
+                </div>
+                <h3 class="member-name">Dr. Zhao Jianguo</h3>
+                <div class="member-role">Clinical Researcher</div>
+                <p class="member-bio">XJTLU specialist in translational research and clinical applications of antimicrobial peptides.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="team-member-card fade-in-up">
+                <div class="member-avatar">
+                    <img src="img/team/4.jpg" alt="Team Member 8">
+                </div>
+                <h3 class="member-name">Dr. Sun Qiang</h3>
+                <div class="member-role">Biochemistry Expert</div>
+                <p class="member-bio">XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.</p>
+                <div class="member-social">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="collaboration-logos">
+            <h3 class="fade-in-up appear" style="margin-top: 60px; margin-bottom: 30px; font-size: 1.5rem;">Our Partner Institution</h3>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 0 auto;">
+                <!-- 替换为XJTLU的实际logo -->
+                <div class="university-logo fade-in-left">
+                    <img src="img/ScLGO/cn-header-logo.svg" alt="XJTLU" width="200">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <!-- 内容 -->
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+<style>
+    /* 滚动条整体样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+/* 鼠标悬停时的滑块 */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* 新的页面进度指示器样式 */
+.page-progress-indicator {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-bar {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    background: rgba(255,255,255,0.1);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.progress-fill {
+    position: absolute;
+    width: 100%;
+    background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+    bottom: 0;
+    height: 0%;
+    transition: height 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.section-dot {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.section-dot:hover, 
+.section-dot.active {
+    background: var(--accent-color);
+    transform: scale(1.2);
+}
+
+.section-dot.active::before {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+}
+
+.dot-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent;
+    z-index: -1;
+}
+
+.section-dot.active .dot-pulse {
+    animation: dot-pulse 2s infinite;
+}
+
+.dot-label {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 10px);
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: white;
+    white-space: nowrap;
+    opacity: 0;
+    transform-origin: right center;
+    transform: translateY(-50%) translateX(10px) scale(0.8);
+    transition: opacity 0.3s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(5px);
+}
+
+.section-dot:hover .dot-label {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0) scale(1);
+}
+
+@keyframes dot-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(80, 226, 194, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(80, 226, 194, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(80, 226, 194, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+/* 添加响应式调整 */
+@media (max-width: 768px) {
+    .page-progress-indicator {
+        right: 15px;
+    }
+    
+    .section-dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .section-dots {
+        gap: 25px;
+    }
+}
+
+    /* 搜索按钮样式 */
+    .search-button {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .search-button.searching {
+        animation: search-pulse 0.6s cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    
+    @keyframes search-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    /* 输入框验证抖动动画 */
+    .search-input.shake {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        border-color: #ff5555;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+</style>
+
+<script>
+    // 修复图片加载问题
+    document.addEventListener('DOMContentLoaded', function() {
+        // 处理可能不存在的背景图片
+        const bgImages = document.querySelectorAll('img[src$="particles-bg.png"]');
+        bgImages.forEach(img => {
+            img.onerror = function() {
+                // 移除不存在的背景图片元素或替换为纯色背景
+                this.style.display = 'none';
+                if (this.parentElement) {
+                    this.parentElement.style.backgroundColor = 'rgba(43, 16, 85, 0.8)';
+                }
+            };
+        });
+        
+        // 初始化新的页面进度指示器
+        initPageProgressIndicator();
+        
+        // 增强搜索表单功能
+        enhanceSearchForm();
+    });
+    
+    // 增强搜索表单功能
+    function enhanceSearchForm() {
+        const searchForm = document.getElementById('searchForm');
+        if (!searchForm) return;
+        
+        searchForm.addEventListener('submit', function(e) {
+            const input = document.querySelector('.search-input');
+            const query = input.value.trim();
+            const category = document.querySelector('.search-category').value;
+            
+            if (query) {
+                // 添加动画效果
+                document.querySelector('.search-button').classList.add('searching');
+                
+                // 存储最近搜索到localStorage
+                try {
+                    const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+                    recentSearches.unshift({ 
+                        query, 
+                        category, 
+                        timestamp: Date.now() 
+                    });
+                    // 只保留最近5次搜索
+                    localStorage.setItem('recentSearches', JSON.stringify(recentSearches.slice(0, 5)));
+                } catch (err) {
+                    console.warn('无法保存搜索历史', err);
+                }
+                
+                // 不阻止表单提交，让默认行为继续
+            } else {
+                // 如果输入为空，阻止提交
+                e.preventDefault();
+                input.focus();
+                // 添加抖动动画反馈
+                input.classList.add('shake');
+                setTimeout(() => input.classList.remove('shake'), 500);
+            }
+        });
+    }
+    
+    // 页面进度指示器功能
+    function initPageProgressIndicator() {
+        // 获取所有章节和指示点
+        const sections = [
+            document.querySelector('.search-section'),
+            document.querySelector('.info-cards-section'),
+            document.querySelector('.research-map-section'),
+            document.querySelector('.stats-section'),
+            document.querySelector('.team-section')
+        ];
+        
+        const sectionDots = document.querySelectorAll('.section-dot');
+        const progressFill = document.querySelector('.progress-fill');
+        
+        // 设置激活状态的函数
+        function setActiveDot(index) {
+            sectionDots.forEach(dot => dot.classList.remove('active'));
+            if (index >= 0 && index < sectionDots.length) {
+                sectionDots[index].classList.add('active');
+            }
+        }
+        
+        // 初始激活第一个点
+        setActiveDot(0);
+        
+        // 监听滚动事件
+        window.addEventListener('scroll', () => {
+            // 计算页面滚动百分比
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            
+            // 更新进度条填充高度
+            progressFill.style.height = `${scrollPercentage}%`;
+            
+            // 确定当前可见章节
+            let currentSectionIndex = -1;
+            
+            sections.forEach((section, index) => {
+                if (!section) return;
+                
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // 当章节位于视口中央或上方时激活对应点
+                if (rect.top <= windowHeight * 0.5 && rect.bottom > 0) {
+                    currentSectionIndex = index;
+                }
+            });
+            
+            // 设置当前激活点
+            setActiveDot(currentSectionIndex);
+        });
+        
+        // 添加点击导航功能
+        sectionDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                if (sections[index]) {
+                    // 平滑滚动到对应章节
+                    sections[index].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // 添加弹性动画效果
+                    dot.style.transform = 'scale(1.4)';
+                    setTimeout(() => {
+                        dot.style.transform = 'scale(1.2)';
+                    }, 300);
+                }
+            });
+        });
+        
+        // 初始检查滚动位置
+        window.dispatchEvent(new Event('scroll'));
+    }
+</script>
+
