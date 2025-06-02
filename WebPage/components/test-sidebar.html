@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侧边栏文字显示测试</title>
+    
+    <!-- Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- 侧边栏组件样式 -->
+    <link rel="stylesheet" href="sidebar-nav.css">
+    
+    <style>
+        :root {
+            --primary: #2A5C8B;
+            --secondary: #4CAF50;
+            --background: #F8F9FA;
+            --text-primary: #333;
+            --text-secondary: #666;
+            --border: #E0E0E0;
+            --sidebar-bg: #2b1055;
+            --sidebar-hover: #7597de;
+            --header-height: 80px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #2b1055;
+            z-index: 1000;
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        /* 主内容区域 */
+        section {
+            position: relative;
+            width: 100%;
+            margin-left: 84px;
+            padding-top: var(--header-height);
+            padding-right: 20px;
+            transition: margin-left 0.5s ease;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            padding: 40px;
+            max-width: 800px;
+        }
+        
+        .test-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .test-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        .test-button:hover {
+            background: #1d4e7c;
+            transform: translateY(-1px);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 767px) {
+            section {
+                margin-left: 0;
+                padding-left: 10px;
+            }
+            
+            header {
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-vial"></i> 侧边栏测试页面
+        </div>
+    </header>
+
+    <!-- 侧边栏导航 -->
+    <div class="shell">
+        <ul class="nav">
+            <li class="active">
+                <a href="#test1">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span class="text">首页测试</span>
+                </a>
+            </li>
+            <li>
+                <a href="#test2">
+                    <span class="icon"><i class="fas fa-search"></i></span>
+                    <span class="text">搜索功能</span>
+                </a>
+            </li>
+            <li>
+                <a href="#test3">
+                    <span class="icon"><i class="fas fa-cog"></i></span>
+                    <span class="text">设置页面</span>
+                </a>
+            </li>
+            <li>
+                <a href="#test4">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <span class="text">用户中心</span>
+                </a>
+            </li>
+            <li>
+                <a href="#test5">
+                    <span class="icon"><i class="fas fa-info"></i></span>
+                    <span class="text">关于我们</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主内容区域 -->
+    <section>
+        <div class="main-content">
+            <div id="test1" class="test-section">
+                <h2>🔧 侧边栏文字显示测试</h2>
+                <p>这个页面专门用于测试侧边栏文字显示问题的修复效果。</p>
+                
+                <h3>📱 测试说明：</h3>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>桌面端：</strong> 将鼠标悬停在侧边栏上，应该看到文字标签显示</li>
+                    <li><strong>移动端：</strong> 点击左下角的切换按钮展开侧边栏，应该看到文字标签显示</li>
+                    <li><strong>平板端：</strong> 测试不同屏幕尺寸下的显示效果</li>
+                </ul>
+                
+                <div style="margin: 20px 0;">
+                    <button class="test-button" onclick="testToggle()">
+                        <i class="fas fa-bars"></i> 手动切换侧边栏
+                    </button>
+                    <button class="test-button" onclick="testScreenInfo()">
+                        <i class="fas fa-info-circle"></i> 显示屏幕信息
+                    </button>
+                </div>
+                
+                <div id="info-display" style="background: #f0f0f0; padding: 15px; border-radius: 6px; margin-top: 15px; display: none;">
+                    <!-- 信息将在这里显示 -->
+                </div>
+            </div>
+            
+            <div id="test2" class="test-section">
+                <h2>🎯 功能验证</h2>
+                <p>测试各项功能是否正常工作：</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>✅ 侧边栏悬停展开（桌面端）</li>
+                    <li>✅ 侧边栏按钮切换（移动端）</li>
+                    <li>✅ 文字标签显示</li>
+                    <li>✅ 导航项活动状态切换</li>
+                    <li>✅ 平滑滚动</li>
+                    <li>✅ 响应式适配</li>
+                </ul>
+            </div>
+            
+            <div id="test3" class="test-section">
+                <h2>📐 响应式测试</h2>
+                <p>调整浏览器窗口大小来测试不同断点下的表现：</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>>992px:</strong> 桌面端，悬停展开</li>
+                    <li><strong>768-992px:</strong> 平板端，适度缩小</li>
+                    <li><strong><768px:</strong> 移动端，隐藏+按钮切换</li>
+                </ul>
+            </div>
+            
+            <div id="test4" class="test-section">
+                <h2>🎨 样式验证</h2>
+                <p>检查样式是否正确应用：</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>文字颜色：默认 #7597de，悬停时 #2b1055</li>
+                    <li>背景颜色：默认 #2b1055，悬停时白色</li>
+                    <li>动画效果：0.5s过渡动画</li>
+                    <li>圆角边框：50px圆角</li>
+                </ul>
+            </div>
+            
+            <div id="test5" class="test-section">
+                <h2>✨ 修复内容</h2>
+                <p>本次修复解决的问题：</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>✅ 添加了 <code>.shell.expanded .text</code> 样式规则</li>
+                    <li>✅ 确保移动端展开时文字显示</li>
+                    <li>✅ 统一了悬停和展开状态的文字显示逻辑</li>
+                    <li>✅ 使用 <code>!important</code> 确保样式优先级</li>
+                </ul>
+                
+                <p style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 6px; color: #2e7d32;">
+                    <i class="fas fa-check-circle"></i> 
+                    <strong>修复完成！</strong> 侧边栏文字现在应该在所有设备上正确显示。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 引入侧边栏组件脚本 -->
+    <script src="sidebar-nav.js"></script>
+    
+    <script>
+        function testToggle() {
+            if (window.sidebarNav) {
+                window.sidebarNav.toggleSidebar();
+                
+                const sidebar = document.querySelector('.shell');
+                const isExpanded = sidebar.classList.contains('expanded');
+                
+                document.getElementById('info-display').style.display = 'block';
+                document.getElementById('info-display').innerHTML = `
+                    <strong>侧边栏状态：</strong> ${isExpanded ? '已展开' : '已收起'}<br>
+                    <strong>CSS类：</strong> ${sidebar.className}<br>
+                    <strong>时间：</strong> ${new Date().toLocaleTimeString()}
+                `;
+            } else {
+                alert('侧边栏组件尚未初始化');
+            }
+        }
+        
+        function testScreenInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            let deviceType = '';
+            if (width > 992) {
+                deviceType = '桌面端 (>992px)';
+            } else if (width > 768) {
+                deviceType = '平板端 (768-992px)';
+            } else {
+                deviceType = '移动端 (<768px)';
+            }
+            
+            document.getElementById('info-display').style.display = 'block';
+            document.getElementById('info-display').innerHTML = `
+                <strong>屏幕尺寸：</strong> ${width} × ${height}px<br>
+                <strong>设备类型：</strong> ${deviceType}<br>
+                <strong>用户代理：</strong> ${navigator.userAgent.split(' ')[0]}...
+            `;
+        }
+        
+        // 页面加载完成后的验证
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 测试页面已加载');
+            
+            // 检查组件是否正确初始化
+            setTimeout(() => {
+                if (window.sidebarNav) {
+                    console.log('✅ 侧边栏组件初始化成功');
+                    
+                    // 检查CSS样式是否正确应用
+                    const textElements = document.querySelectorAll('.shell .text');
+                    console.log('📝 找到文字元素数量:', textElements.length);
+                    
+                    textElements.forEach((text, index) => {
+                        const styles = window.getComputedStyle(text);
+                        console.log(`文字元素 ${index + 1} 样式:`, {
+                            opacity: styles.opacity,
+                            visibility: styles.visibility,
+                            color: styles.color
+                        });
+                    });
+                } else {
+                    console.warn('❌ 侧边栏组件初始化失败');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

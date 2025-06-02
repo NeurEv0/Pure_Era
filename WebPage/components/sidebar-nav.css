@@ -1,0 +1,282 @@
+/**
+ * SPADE 侧边栏导航组件
+ * 简约风格的侧边栏导航系统
+ */
+
+/* 侧边栏容器 */
+.shell {
+    position: fixed;
+    width: 84px;
+    height: 100%;
+    background: var(--sidebar-bg, #2b1055);
+    z-index: 900;
+    transition: 0.5s;
+    padding-left: 10px;
+    padding-top: 120px;
+    overflow: hidden;
+    top: var(--header-height, 80px);
+}
+
+.shell:hover {
+    width: 300px;
+}
+
+/* 头像容器 */
+.imageBox {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.imageBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 导航列表 */
+.shell ul {
+    position: relative;
+    height: 100vh;
+}
+
+.shell ul li {
+    position: relative;
+    padding: 5px;
+}
+
+/* 活动状态样式 */
+.active {
+    background: var(--background, #F8F9FA);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.active::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 5px 5px 0 5px var(--background, #F8F9FA);
+    background: transparent;
+}
+
+.active::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-top-right-radius: 25px;
+    box-shadow: 5px -5px 0 var(--background, #F8F9FA);
+    background: transparent;
+}
+
+/* Logo区域 */
+#logo {
+    margin: 40px 0 100px 0;
+}
+
+/* 链接样式 */
+.shell ul li a {
+    position: relative;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+}
+
+/* 图标样式 */
+.icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+    height: 60px;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.icon i {
+    font-size: 25px;
+    z-index: 999;
+}
+
+/* 文字样式 */
+.text {
+    position: relative;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--sidebar-hover, #7597de);
+    padding-left: 15px;
+    transition: 0.2s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.shell:hover .text,
+.shell.expanded .text {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 悬停效果 */
+.shell ul li:hover a .icon,
+.shell ul li:hover a .text {
+    color: var(--sidebar-bg, #2b1055);
+}
+
+/* 展开状态下的文字颜色和显示 */
+.shell.expanded .text {
+    color: var(--sidebar-hover, #7597de);
+    opacity: 1;
+    visibility: visible;
+}
+
+.shell ul li:hover {
+    background: white;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.shell ul li:hover::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 5px 5px 0 5px white;
+    background: transparent;
+}
+
+.shell ul li:hover::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border-top-right-radius: 25px;
+    box-shadow: 5px -5px 0 white;
+    background: transparent;
+}
+
+/* 活动状态的图标背景 */
+.active a .icon:before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    width: 50px;
+    background: var(--sidebar-hover, #7597de);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .shell {
+        width: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shell {
+        width: 50px;
+    }
+}
+
+/* 移动端特殊处理 */
+@media (max-width: 767px) {
+    .shell {
+        width: 0;
+        overflow: hidden;
+        padding-left: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    /* 展开状态 */
+    .shell.expanded {
+        width: 250px;
+        padding-left: 15px;
+        opacity: 1;
+        visibility: visible;
+        z-index: 995;
+    }
+    
+    /* 展开状态下显示文字 */
+    .shell.expanded .text {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* 侧边栏切换按钮 */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    left: 15px;
+    bottom: 15px;
+    width: 40px;
+    height: 40px;
+    background: var(--sidebar-bg, #2b1055);
+    color: white;
+    border-radius: 50%;
+    border: none;
+    z-index: 950;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+@media (max-width: 767px) {
+    .sidebar-toggle {
+        display: flex;
+    }
+}
+
+/* 超小型设备优化 */
+@media (max-width: 479px) {
+    .shell.expanded {
+        width: calc(100vw - 40px);
+        left: 20px;
+        right: 20px;
+        max-width: 280px;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .sidebar-toggle:hover {
+        transform: none;
+    }
+    
+    .sidebar-toggle:active {
+        transform: scale(0.95);
+    }
+}
+
+/* 横屏适配 */
+@media (max-height: 600px) and (orientation: landscape) {
+    .shell {
+        padding-top: 80px;
+    }
+} 
