@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="shortcut icon" href="../icon/favicon.ico">
     <script src="https://unpkg.com/tranzy/dist/tranzy.umd.js"></script>
+    <!-- 反爬虫保护组件 -->
+    <script src="anti-crawler-protection.js"></script>
+    <!-- 快速笔记组件 -->
+    <script src="quick-notes.js"></script>
     <!-- 引入 Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -618,6 +622,20 @@
         #amino-acid-freq-chart {
             min-height: 250px;
         }
+
+        /* 快速笔记按钮样式 - 简约版 */
+        .notes-trigger {
+            transition: opacity 0.2s ease;
+        }
+
+        .notes-trigger:hover {
+            opacity: 0.8;
+        }
+
+        .notes-trigger i {
+            font-size: 16px;
+            color: white;
+        }
     </style>
 </head>
 <body class="visualization-page">
@@ -638,8 +656,11 @@
             <li><a href="search.html">Search</a></li>
             <li><a href="tools.html">Tools</a></li>
             <li><a href="statistics.html">Statistics</a></li>
-            <li><a href="chat.html" >Chat</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="#" id="quick-notes-btn" class="notes-trigger" title="快速笔记 (Ctrl+Shift+N)">
+                <i class="fas fa-sticky-note"></i>
+            </a></li>
+            <!-- <li><a href="chat.html" >Chat</a></li>
+            <li><a href="login.html">Login</a></li> -->
         </ul>
     </header>
 
@@ -681,38 +702,181 @@
     </div>
 
     <script>
-        // --- 辅助函数：在嵌套对象/数组中查找值 ---
-        function findValueInObject(data, targetKey) {
-            "use strict";
-            if (typeof data !== 'object' || data === null) {
-                return null;
+        // --- 高效的数据查找辅助函数 ---
+        class DataFinder {
+            constructor(data) {
+                this.data = data;
+                this.cache = new Map();
+                this.pathCache = new Map();
+                this.initializeFieldMap();
             }
-        
-            if (data.hasOwnProperty(targetKey)) {
-                return data[targetKey];
+
+            // 初始化字段映射，预计算常用字段路径
+            initializeFieldMap() {
+                this.fieldPaths = new Map();
+                this.flattenData(this.data, []);
             }
-        
-            if (Array.isArray(data)) {
-                for (const item of data) {
-                    const found = findValueInObject(item, targetKey);
-                    if (found !== null && found !== undefined) {
-                        return found;
+
+            // 展平数据结构，建立字段路径映射
+            flattenData(obj, path) {
+                if (obj === null || obj === undefined) return;
+
+                if (Array.isArray(obj)) {
+                    obj.forEach((item, index) => {
+                        this.flattenData(item, [...path, index]);
+                    });
+                } else if (typeof obj === 'object') {
+                    Object.entries(obj).forEach(([key, value]) => {
+                        const currentPath = [...path, key];
+                        
+                        // 存储字段路径
+                        if (!this.fieldPaths.has(key)) {
+                            this.fieldPaths.set(key, []);
+                        }
+                        this.fieldPaths.get(key).push({
+                            path: currentPath,
+                            value: value
+                        });
+
+                        // 递归处理嵌套对象
+                        if (value && typeof value === 'object') {
+                            this.flattenData(value, currentPath);
+                        }
+                    });
+                }
+            }
+
+            // 高效查找字段值
+            findValue(targetKey) {
+                // 检查缓存
+                if (this.cache.has(targetKey)) {
+                    return this.cache.get(targetKey);
+                }
+
+                let result = null;
+
+                // 首先尝试直接字段匹配
+                if (this.fieldPaths.has(targetKey)) {
+                    const matches = this.fieldPaths.get(targetKey);
+                    if (matches.length > 0) {
+                        // 返回第一个匹配的值
+                        result = matches[0].value;
                     }
                 }
-            } else { // 是对象
-                for (const key in data) {
-                    if (data.hasOwnProperty(key)) {
-                        const found = findValueInObject(data[key], targetKey);
-                        if (found !== null && found !== undefined) {
-                            return found;
+
+                // 如果没找到，尝试大小写不敏感匹配
+                if (result === null) {
+                    const lowerKey = targetKey.toLowerCase();
+                    for (const [key, matches] of this.fieldPaths.entries()) {
+                        if (key.toLowerCase() === lowerKey && matches.length > 0) {
+                            result = matches[0].value;
+                            break;
                         }
                     }
                 }
+
+                // 如果还是没找到，尝试包含匹配
+                if (result === null) {
+                    const searchKey = targetKey.toLowerCase();
+                    for (const [key, matches] of this.fieldPaths.entries()) {
+                        if (key.toLowerCase().includes(searchKey) && matches.length > 0) {
+                            result = matches[0].value;
+                            break;
+                        }
+                    }
+                }
+
+                // 缓存结果
+                this.cache.set(targetKey, result);
+                return result;
             }
-        
-            return null; // 未找到键
+
+            // 获取数据路径
+            getValuePath(targetKey) {
+                if (this.pathCache.has(targetKey)) {
+                    return this.pathCache.get(targetKey);
+                }
+
+                if (this.fieldPaths.has(targetKey)) {
+                    const matches = this.fieldPaths.get(targetKey);
+                    if (matches.length > 0) {
+                        const path = matches[0].path;
+                        this.pathCache.set(targetKey, path);
+                        return path;
+                    }
+                }
+
+                return null;
+            }
+
+            // 获取所有匹配的值
+            findAllValues(targetKey) {
+                const lowerKey = targetKey.toLowerCase();
+                const results = [];
+
+                for (const [key, matches] of this.fieldPaths.entries()) {
+                    if (key.toLowerCase() === lowerKey) {
+                        results.push(...matches.map(m => m.value));
+                    }
+                }
+
+                return results;
+            }
+
+            // 检查字段是否存在
+            hasField(targetKey) {
+                return this.findValue(targetKey) !== null;
+            }
+
+            // 清理缓存
+            clearCache() {
+                this.cache.clear();
+                this.pathCache.clear();
+            }
         }
-        // --- 结束辅助函数 ---
+
+        // 全局数据查找器实例
+        let globalDataFinder = null;
+
+        // 兼容性包装函数
+        function findValueInObject(data, targetKey) {
+            if (!data) return null;
+
+            // 如果是新数据，创建新的查找器
+            if (!globalDataFinder || globalDataFinder.data !== data) {
+                globalDataFinder = new DataFinder(data);
+            }
+
+            return globalDataFinder.findValue(targetKey);
+        }
+
+        // 高性能数据查找函数
+        function findDataField(data, fieldName) {
+            if (!data || !fieldName) return null;
+
+            // 创建临时查找器用于单次查找
+            const finder = new DataFinder(data);
+            return finder.findValue(fieldName);
+        }
+
+        // 快速访问常用字段
+        function getQuickAccess(data) {
+            const finder = new DataFinder(data);
+            return {
+                drampId: finder.findValue("DRAMP ID"),
+                peptideName: finder.findValue("Peptide Name"),
+                sequence: finder.findValue("Sequence"),
+                literature: finder.findValue("Literature"),
+                bioActivity: finder.findValue("Biological Activity"),
+                targetOrganism: finder.findValue("Target Organism"),
+                function: finder.findValue("Function"),
+                mass: finder.findValue("Mass"),
+                pi: finder.findValue("PI"),
+                formula: finder.findValue("Formula")
+            };
+        }
+
+        // --- 结束数据查找辅助函数 ---
 
         // --- 核心功能：获取 ID 和加载数据 ---
         function getPeptideIdFromUrl() {
@@ -728,6 +892,20 @@
             }
 
             try {
+                // 等待保护组件初始化
+                if (!window.protectionInstance) {
+                    await new Promise(resolve => {
+                        const checkProtection = () => {
+                            if (window.protectionInstance) {
+                                resolve();
+                            } else {
+                                setTimeout(checkProtection, 100);
+                            }
+                        };
+                        checkProtection();
+                    });
+                }
+
                 const dataUrl = `result/scored_${peptideId}.json`;
                 const response = await fetch(dataUrl);
                 
@@ -736,12 +914,57 @@
                 }
                 
                 const data = await response.json();
-                renderVisualization(data);
+                
+                // 移除保护元数据（如果存在）
+                const cleanData = cleanProtectedData(data);
+                
+                renderVisualization(cleanData);
             } catch (error) {
                 console.error('Data loading error:', error);
-                const message = getLocalizedText('Error loading data') + ': ' + error.message;
+                let message = getLocalizedText('Error loading data') + ': ' + error.message;
+                
+                // 特殊处理保护相关错误
+                if (error.message.includes('访问被限制') || error.message.includes('请求频率')) {
+                    message = getLocalizedText('Access temporarily limited. Please try again in a moment.');
+                }
+                
                 showError(message);
             }
+        }
+
+        // 清理保护数据函数
+        function cleanProtectedData(data) {
+            if (data && typeof data === 'object') {
+                const cleanData = { ...data };
+                delete cleanData._metadata;
+                return cleanData;
+            }
+            return data;
+        }
+
+        // 安全数据加载函数
+        async function loadSecureData(url) {
+            // 等待保护组件初始化
+            if (!window.protectionInstance) {
+                await new Promise(resolve => {
+                    const checkProtection = () => {
+                        if (window.protectionInstance) {
+                            resolve();
+                        } else {
+                            setTimeout(checkProtection, 100);
+                        }
+                    };
+                    checkProtection();
+                });
+            }
+
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`无法获取数据: ${response.status}`);
+            }
+            
+            return await response.json();
         }
 
         // 获取当前语言的本地化文本
@@ -1012,6 +1235,15 @@
                     'No peptide ID provided. Please specify a peptide ID in the URL.': 'No peptide ID provided. Please specify a peptide ID in the URL.',
                     'Please check the ID and try again.': 'Please check the ID and try again.',
                     'Error loading data': 'Error loading data',
+                    'Access temporarily limited. Please try again in a moment.': 'Access temporarily limited. Please try again in a moment.',
+                    'Loading literature data...': 'Loading literature data...',
+                    'No peptide ID found': 'No peptide ID found',
+                    'Literature data file not found': 'Literature data file not found',
+                    'Error loading literature data': 'Error loading literature data',
+                    'No literature information available for this peptide': 'No literature information available for this peptide',
+                    'Unknown Authors': 'Unknown Authors',
+                    'Untitled': 'Untitled',
+                    'View Original': 'View Original',
                     // 新增氨基酸频率分析相关翻译
                     'Amino Acid Frequency Analysis': 'Amino Acid Frequency Analysis',
                     'Amino Acid Frequency (%)': 'Amino Acid Frequency (%)',
@@ -1060,6 +1292,15 @@
                     'No peptide ID provided. Please specify a peptide ID in the URL.': '未提供肽ID，请在URL中指定肽ID。',
                     'Please check the ID and try again.': '请检查ID并重试。',
                     'Error loading data': '加载数据错误',
+                    'Access temporarily limited. Please try again in a moment.': '访问暂时受限，请稍后重试',
+                    'Loading literature data...': '加载文献数据...',
+                    'No peptide ID found': '未找到肽ID',
+                    'Literature data file not found': '文献数据文件未找到',
+                    'Error loading literature data': '加载文献信息时出错',
+                    'No literature information available for this peptide': '此肽的文献信息尚未添加',
+                    'Unknown Authors': '未知作者',
+                    'Untitled': '无标题',
+                    'View Original': '查看原文',
                     // 新增氨基酸频率分析相关翻译
                     'Amino Acid Frequency Analysis': '氨基酸频率分析',
                     'Amino Acid Frequency (%)': '氨基酸频率 (%)',
@@ -1108,6 +1349,15 @@
                     'No peptide ID provided. Please specify a peptide ID in the URL.': '未提供肽ID，請在URL中指定肽ID。',
                     'Please check the ID and try again.': '請檢查ID並重試。',
                     'Error loading data': '加載數據錯誤',
+                    'Access temporarily limited. Please try again in a moment.': '訪問暫時受限，請稍後重試',
+                    'Loading literature data...': '加載文獻數據...',
+                    'No peptide ID found': '未找到肽ID',
+                    'Literature data file not found': '文獻數據文件未找到',
+                    'Error loading literature data': '加載文獻信息時出錯',
+                    'No literature information available for this peptide': '此肽的文獻信息尚未添加',
+                    'Unknown Authors': '未知作者',
+                    'Untitled': '無標題',
+                    'View Original': '查看原文',
                     // 新增氨基酸頻率分析相關翻譯
                     'Amino Acid Frequency Analysis': '氨基酸頻率分析',
                     'Amino Acid Frequency (%)': '氨基酸頻率 (%)',
@@ -1814,16 +2064,12 @@
             
             // 从database目录获取完整的肽数据信息
             const peptideId = data["DRAMP ID"];
-            fetch(`database/${peptideId}.json`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('无法获取生物活性数据');
-                    }
-                    return response.json();
-                })
+            loadSecureData(`database/${peptideId}.json`)
                 .then(fullData => {
+                    // 移除保护元数据（如果存在）
+                    const cleanData = cleanProtectedData(fullData);
                     // 更新卡片内容
-                    updateBioactivityCard(card, fullData, data);
+                    updateBioactivityCard(card, cleanData, data);
                 })
                 .catch(error => {
                     console.error('生物活性数据加载错误:', error);
@@ -1866,16 +2112,20 @@
         
         // 使用获取的数据更新生物活性信息卡片
         function updateBioactivityCard(card, fullData, scoredData) {
-            // 从完整数据中获取生物活性信息 (使用辅助函数)
-            const bioActivity = findValueInObject(fullData, "Biological Activity") || [];
-            const function_desc = findValueInObject(fullData, "Function") || '';
-            const biophysical = findValueInObject(fullData, "Biophysicochemical properties") || '';
+            // 使用高效查找获取生物活性信息
+            const fullDataFinder = new DataFinder(fullData);
+            const scoredDataFinder = new DataFinder(scoredData);
+            
+            const bioActivity = fullDataFinder.findValue("Biological Activity") || [];
+            const function_desc = fullDataFinder.findValue("Function") || '';
+            const biophysical = fullDataFinder.findValue("Biophysicochemical properties") || '';
 
-            // 从评分数据中获取补充信息 (使用辅助函数)
-            const bioactivity = findValueInObject(scoredData, "bioactivity") || {};
-            const activeMechanisms = findValueInObject(bioactivity, "mechanisms") || [];
-            const applications = findValueInObject(bioactivity, "applications") || [];
-            const micData = findValueInObject(bioactivity, "mic_values") || []; // Get MIC data
+            // 从评分数据中获取补充信息
+            const bioactivity = scoredDataFinder.findValue("bioactivity") || {};
+            const bioactivityFinder = new DataFinder(bioactivity);
+            const activeMechanisms = bioactivityFinder.findValue("mechanisms") || [];
+            const applications = bioactivityFinder.findValue("applications") || [];
+            const micData = bioactivityFinder.findValue("mic_values") || [];
 
             // 构建生物活性信息HTML
             let bioActivityHtml = '';
@@ -1975,78 +2225,149 @@
             const card = document.createElement('div');
             card.className = 'viz-card viz-card-full';
             
+            // 获取当前语言翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            const literatureTitle = translations['Original Literature'] || '原始文献';
+            const loadingText = translations['Loading literature data...'] || '加载文献数据...';
+            
             // 显示加载指示器
             card.innerHTML = `
-                <h3>原始文献</h3>
+                <h3>${literatureTitle}</h3>
                 <div class="loading-indicator">
                     <i class="fas fa-spinner fa-spin"></i>
-                    <p>加载文献数据...</p>
+                    <p>${loadingText}</p>
                 </div>
             `;
             container.appendChild(card);
             
-            // 从database目录获取完整的肽数据信息
-            const peptideId = data["DRAMP ID"];
-            fetch(`database/${peptideId}.json`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('无法获取文献数据');
-                    }
-                    return response.json();
-                })
+            // 先尝试从当前数据中查找文献信息
+            const quickAccess = getQuickAccess(data);
+            const peptideId = quickAccess.drampId;
+            
+            if (!peptideId) {
+                const errorText = translations['No peptide ID found'] || '未找到肽ID';
+                card.innerHTML = `
+                    <h3>${literatureTitle}</h3>
+                    <p class="empty-info">${errorText}</p>
+                `;
+                return;
+            }
+            
+            // 检查当前数据是否已包含文献信息
+            if (quickAccess.literature && Array.isArray(quickAccess.literature) && quickAccess.literature.length > 0) {
+                // 直接使用当前数据中的文献信息
+                updateLiteratureCard(card, data, literatureTitle);
+                return;
+            }
+            
+            // 如果当前数据中没有文献信息，从database目录获取完整数据
+            loadSecureData(`Database/${peptideId}.json`)
                 .then(fullData => {
+                    // 移除保护元数据（如果存在）
+                    const cleanData = cleanProtectedData(fullData);
                     // 更新卡片内容
-                    updateLiteratureCard(card, fullData);
+                    updateLiteratureCard(card, cleanData, literatureTitle);
                 })
                 .catch(error => {
                     console.error('文献数据加载错误:', error);
+                    
+                    // 提供更详细的错误信息
+                    let errorMessage = '';
+                    if (error.message.includes('404')) {
+                        errorMessage = translations['Literature data file not found'] || `文献数据文件未找到 (${peptideId}.json)`;
+                    } else if (error.message.includes('访问被限制') || error.message.includes('请求频率')) {
+                        errorMessage = translations['Access temporarily limited. Please try again in a moment.'] || '访问暂时受限，请稍后重试';
+                    } else {
+                        errorMessage = translations['Error loading literature data'] || '加载文献信息时出错';
+                        errorMessage += `: ${error.message}`;
+                    }
+                    
                     card.innerHTML = `
-                        <h3>原始文献</h3>
-                        <p class="empty-info">加载文献信息时出错: ${error.message}</p>
+                        <h3>${literatureTitle}</h3>
+                        <p class="empty-info">${errorMessage}</p>
                     `;
                 });
         }
         
         // 使用获取的数据更新文献信息卡片
-        function updateLiteratureCard(card, fullData) {
-            // 使用辅助函数查找文献数据
-            const literature = findValueInObject(fullData, "Literature") || [];
+        function updateLiteratureCard(card, fullData, titleText = null) {
+            // 获取翻译
+            const currentLang = document.documentElement.lang;
+            const translations = getTranslations(currentLang);
+            
+            // 使用传入的标题或获取翻译
+            const literatureTitle = titleText || translations['Original Literature'] || '原始文献';
+            const noDataText = translations['No literature information available for this peptide'] || '此肽的文献信息尚未添加';
+            const unknownAuthorsText = translations['Unknown Authors'] || '未知作者';
+            const untitledText = translations['Untitled'] || '无标题';
+            const viewOriginalText = translations['View Original'] || '查看原文';
+            
+            // 使用高效查找获取文献数据
+            const finder = new DataFinder(fullData);
+            const literature = finder.findValue("Literature") || [];
+
+            console.log('文献数据查找结果:', literature); // 调试日志
 
             let literatureHtml = '';
             if (Array.isArray(literature) && literature.length > 0) {
                 literatureHtml = `
                     <div class="literature-list">
-                        ${literature.map((ref, index) => `
-                            <div class="literature-item">
-                                <div class="lit-number">${index + 1}</div>
-                                <div class="lit-content">
-                                    <p class="lit-authors">${findValueInObject(ref, "Author") || 'Unknown Authors'}</p>
-                                    <p class="lit-title">${findValueInObject(ref, "Title") || 'Untitled'}</p>
-                                    <p class="lit-journal">${findValueInObject(ref, "Reference") || ''}</p>
-                                    <div class="lit-buttons">
-                                        ${findValueInObject(ref, "Pubmed ID") ? 
-                                            `<a href="http://www.ncbi.nlm.nih.gov/pubmed/?term=${findValueInObject(ref, "Pubmed ID")}" 
-                                                target="_blank" class="lit-button">
-                                                <i class="fas fa-external-link-alt"></i> PubMed ${findValueInObject(ref, "Pubmed ID")}
-                                            </a>` : ''
-                                        }
-                                        ${findValueInObject(ref, "URL") ? 
-                                            `<a href="${findValueInObject(ref, "URL")}" target="_blank" class="lit-button">
-                                                <i class="fas fa-globe"></i> 查看原文
-                                            </a>` : ''
-                                        }
+                        ${literature.map((ref, index) => {
+                            // 直接访问引用对象的属性，不需要再次查找
+                            const author = ref.Author || ref.author || unknownAuthorsText;
+                            const title = ref.Title || ref.title || untitledText;
+                            const reference = ref.Reference || ref.reference || '';
+                            const pubmedId = ref["Pubmed ID"] || ref["pubmed_id"] || ref.pubmedId || '';
+                            const url = ref.URL || ref.url || '';
+                            
+                            return `
+                                <div class="literature-item">
+                                    <div class="lit-number">${index + 1}</div>
+                                    <div class="lit-content">
+                                        <p class="lit-authors">${author}</p>
+                                        <p class="lit-title">${title}</p>
+                                        <p class="lit-journal">${reference}</p>
+                                        <div class="lit-buttons">
+                                            ${pubmedId ? 
+                                                `<a href="https://www.ncbi.nlm.nih.gov/pubmed/${pubmedId}" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    class="lit-button">
+                                                    <i class="fas fa-external-link-alt"></i> PubMed ${pubmedId}
+                                                </a>` : ''
+                                            }
+                                            ${url ? 
+                                                `<a href="${url}" 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    class="lit-button">
+                                                    <i class="fas fa-globe"></i> ${viewOriginalText}
+                                                </a>` : ''
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        `).join('')}
+                            `;
+                        }).join('')}
                     </div>
                 `;
             } else {
-                literatureHtml = '<p class="empty-info">此肽的文献信息尚未添加</p>';
+                // 提供更详细的调试信息
+                console.warn('文献数据为空或格式不正确:', {
+                    literature,
+                    isArray: Array.isArray(literature),
+                    length: literature?.length,
+                    fullDataKeys: Object.keys(fullData || {}),
+                    hasSequenceInfo: fullData && fullData['Sequence Information'],
+                    sequenceInfoKeys: fullData?.['Sequence Information'] ? Object.keys(fullData['Sequence Information']) : null
+                });
+                
+                literatureHtml = `<p class="empty-info">${noDataText}</p>`;
             }
             
             card.innerHTML = `
-                <h3>原始文献</h3>
+                <h3>${literatureTitle}</h3>
                 ${literatureHtml}
             `;
         }
@@ -2206,6 +2527,17 @@
             if (navToggle && navMenu) {
                 navToggle.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
+                });
+            }
+
+            // 快速笔记按钮事件处理
+            const notesBtn = document.getElementById('quick-notes-btn');
+            if (notesBtn) {
+                notesBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (window.quickNotes) {
+                        window.quickNotes.toggle();
+                    }
                 });
             }
             

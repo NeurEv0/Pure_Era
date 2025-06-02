@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE Platform Documentation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 0px; /* Adjusted for potentially no fixed top main navbar from layout.html */ }
+        .sidebar {
+            position: sticky;
+            top: 20px; 
+            height: calc(100vh - 40px); 
+            overflow-y: auto;
+            border-right: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .main-content {
+            padding-top: 20px;
+        }
+        .reading-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 5px;
+            background-color: #007bff; 
+            z-index: 10000; /* High z-index */
+        }
+        .spade-navbar { /* Custom class for spade specific nav */
+             background-color: #f8f9fa !important; /* Standard light bg for navbar */
+             border-bottom: 1px solid #e7e7e7;
+        }
+        .spade-footer {
+            background-color: #21005D; 
+            color: white;
+            padding: 40px 0;
+            font-family: sans-serif; 
+        }
+        .spade-footer h5 {
+            color: #A599FF; 
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .spade-footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .spade-footer ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .spade-footer ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress-bar" id="readingProgress"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light spade-navbar sticky-top">
+        <a class="navbar-brand" href="#">SPADE Docs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#spadeNav" aria-controls="spadeNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="spadeNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#introduction">Introduction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#operations">How to Use</a>
+                </li>
+                <li class="nav-item">
+                    <!-- This will need app.py to have a route named 'wiki_page' for url_for to work -->
+                    <a class="nav-link" href="home.html">Back to Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="spadeSidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse show">
+                <div class="sidebar-sticky">
+                    <h5>On this page</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#introduction">Introduction</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Key Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#operations">Operating Procedures</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact-us-footer">Contact (Footer)</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="pt-3 pb-2 mb-3 border-bottom">
+                    <h1>SPADE Platform Documentation</h1>
+                </div>
+
+                <section id="introduction">
+                    <h2>Introduction</h2>
+                    <p>This section provides a detailed overview of the SPADE platform's primary functions. SPADE aims to integrate synthetic biology and artificial intelligence, with a focus on the discovery and design of Antimicrobial Peptides (AMPs).</p>
+                    <p>Our platform utilizes advanced machine learning models to analyze vast amounts of biological data, predicting and generating novel AMPs with high activity and low toxicity. Through SPADE, researchers can accelerate the AMP development process and address the growing challenge of antibiotic resistance.</p>
+                    <p>This project is related to synthetic biology, artificial intelligence, and antimicrobial peptides.</p>
+                </section>
+
+                <section id="features">
+                    <h2>Key Features</h2>
+                    <p>An explanation of the core functionalities of the SPADE platform:</p>
+                    <ul>
+                        <li><strong>AMP Sequence Generation:</strong> Generate new potential antimicrobial peptide sequences based on AI models.</li>
+                        <li><strong>Activity Prediction:</strong> Evaluate the antimicrobial activity of input sequences.</li>
+                        <li><strong>Toxicity Assessment:</strong> Predict the potential toxicity of peptide sequences to host cells.</li>
+                        <li><strong>Physicochemical Property Analysis:</strong> Calculate key parameters such as molecular weight, isoelectric point, and hydrophobicity.</li>
+                        <li><strong>Database Integration:</strong> Provide access to and comparison with existing AMP databases.</li>
+                    </ul>
+                </section>
+
+                <section id="operations">
+                    <h2>Operating Procedures</h2>
+                    <p>How to use the SPADE platform:</p>
+                    <ol>
+                        <li><strong>Registration & Login:</strong> (If applicable) Access the platform and create an account or log in.</li>
+                        <li><strong>Function Selection:</strong> Choose your desired function from the main navigation or dashboard, such as "Sequence Generation" or "Activity Prediction."</li>
+                        <li><strong>Parameter Input:</strong> Depending on the selected function, input necessary parameters like target bacterial species, sequence length constraints, etc.</li>
+                        <li><strong>Execute Analysis:</strong> Submit the task and wait for the platform's AI model to process.</li>
+                        <li><strong>View & Download Results:</strong> Once the analysis is complete, view the detailed report on the results page and download relevant data.</li>
+                    </ol>
+                    <p><em>Note: This is a general operational flow. Specific steps may vary by function. Please refer to the help documentation for each functional module for details.</em></p>
+                </section>
+                
+                <section id="faq">
+                    <h2>Frequently Asked Questions (FAQ)</h2>
+                    <p>Here are some questions users might have, along with their answers.</p>
+                    <ul>
+                        <li><strong>Q: What types of antimicrobial peptides does SPADE support?</strong><br/>A: SPADE is primarily optimized for linear cationic antimicrobial peptides but is continuously expanding its scope.</li>
+                        <li><strong>Q: How accurate are the prediction results?</strong><br/>A: Our models are trained on extensive experimental data and exhibit high prediction accuracy. However, all predicted results are recommended for experimental validation.</li>
+                        <li><strong>Q: Is programming knowledge required to use SPADE?</strong><br/>A: No. SPADE offers a user-friendly graphical interface, operable without a programming background.</li>
+                    </ul>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <footer class="spade-footer text-center text-lg-start mt-5">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5>About</h5>
+                    <ul>
+                        <li><a href="home.html#about-spade-footer">About SPADE</a></li>
+                        <li><a href="home.html#advertising-policy-footer">Advertising policy</a></li>
+                        <li><a href="home.html#attribution-citations-footer">Attribution & citations</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5>Terms & privacy</h5>
+                    <ul>
+                        <li><a href="home.html#terms-of-use-footer">Terms of use</a></li>
+                        <li><a href="home.html#editorial-policy-footer">Editorial policy</a></li>
+                        <li><a href="home.html#privacy-policy-footer">Privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="home.html#help-center-footer">Help center</a></li>
+                        <li><a href="home.html#sitemap-footer">Sitemap</a></li>
+                        <li><a href="home.html#contact-us-footer">Contact us</a></li>
+                    </ul>
+                </div>
+                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <p style="font-size: 0.9em;">
+                        This project is related to synthetic biology, AI, and antimicrobial peptides.
+                        <br/>
+                        Team member image link: <a href="https://static.igem.wiki/teams/xjtlu-software/tst/pre.webp" target="_blank" rel="noopener noreferrer" style="color: #A599FF;">Member Pic Example</a>
+                        <!-- Actual image display: -->
+                        <img src="https://static.igem.wiki/teams/xjtlu-software/tst/pre.webp" alt="Team Member Example" style="width: 50px; height: auto; border-radius: 50%; margin-top: 5px;">
+                    </p>
+                </div>
+            </div>
+            <!-- Placeholder sections for footer links to scroll to, if they are meant to be on-page content -->
+            <div style="display:none">
+                <section id="about-spade-footer"><h3>About SPADE (Footer Link Target)</h3><p>Content for About SPADE.</p></section>
+                <section id="advertising-policy-footer"><h3>Advertising Policy (Footer Link Target)</h3><p>Content for Advertising policy.</p></section>
+                <section id="attribution-citations-footer"><h3>Attribution & Citations (Footer Link Target)</h3><p>Content for Attribution & citations.</p></section>
+                <section id="terms-of-use-footer"><h3>Terms of Use (Footer Link Target)</h3><p>Content for Terms of use.</p></section>
+                <section id="editorial-policy-footer"><h3>Editorial Policy (Footer Link Target)</h3><p>Content for Editorial policy.</p></section>
+                <section id="privacy-policy-footer"><h3>Privacy Policy (Footer Link Target)</h3><p>Content for Privacy policy.</p></section>
+                <section id="help-center-footer"><h3>Help Center (Footer Link Target)</h3><p>Content for Help center.</p></section>
+                <section id="sitemap-footer"><h3>Sitemap (Footer Link Target)</h3><p>Content for Sitemap.</p></section>
+                <section id="contact-us-footer"><h3>Contact Us (Footer Link Target)</h3><p>Content for Contact us.</p></section>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2025 SPADE Project - iGEM XJTLU-Software
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Reading progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById("readingProgress");
+            if (!progressBar) return;
+
+            window.onscroll = function() {updateReadingProgress()};
+            function updateReadingProgress() {
+                var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (height <= 0) { // Avoid division by zero if content is not scrollable
+                     progressBar.style.width = "0%";
+                     return;
+                }
+                var scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            }
+            updateReadingProgress(); // Initial call
+        });
+
+        // Smooth scrolling for sidebar/nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href !== "#" && href.startsWith("#")) {
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

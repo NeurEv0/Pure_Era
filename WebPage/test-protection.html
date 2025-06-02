@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPADE 保护系统测试</title>
+    <script src="anti-crawler-protection.js"></script>
+    <script src="data-obfuscator.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.3);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .warning {
+            background: rgba(255, 193, 7, 0.3);
+            border-left: 4px solid #FFC107;
+        }
+        
+        .error {
+            background: rgba(244, 67, 54, 0.3);
+            border-left: 4px solid #F44336;
+        }
+        
+        .info {
+            background: rgba(33, 150, 243, 0.3);
+            border-left: 4px solid #2196F3;
+        }
+        
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ SPADE 保护系统测试面板</h1>
+        
+        <!-- 反爬虫保护测试 -->
+        <div class="test-card">
+            <h2 class="test-title">🚫 反爬虫保护测试</h2>
+            <div id="anti-crawler-results"></div>
+            <button onclick="testAntiCrawler()">运行反爬虫测试</button>
+            <button onclick="showProtectionStatus()">显示保护状态</button>
+        </div>
+        
+        <!-- 数据混淆测试 -->
+        <div class="test-card">
+            <h2 class="test-title">🔒 数据混淆测试</h2>
+            <div id="obfuscation-results"></div>
+            <button onclick="testDataObfuscation()">运行数据混淆测试</button>
+            <button onclick="testFieldObfuscation()">测试字段混淆</button>
+        </div>
+        
+        <!-- 性能测试 -->
+        <div class="test-card">
+            <h2 class="test-title">⚡ 性能影响测试</h2>
+            <div id="performance-results"></div>
+            <button onclick="testPerformance()">运行性能测试</button>
+        </div>
+        
+        <!-- 实时统计 -->
+        <div class="test-card">
+            <h2 class="test-title">📊 实时保护统计</h2>
+            <div class="stats-grid" id="stats-grid">
+                <!-- 动态生成统计项 -->
+            </div>
+            <button onclick="updateStats()">更新统计</button>
+            <button onclick="clearStats()">清除统计</button>
+        </div>
+        
+        <!-- 日志面板 -->
+        <div class="test-card">
+            <h2 class="test-title">📋 保护日志</h2>
+            <div id="log-panel">
+                <pre id="log-content"></pre>
+            </div>
+            <button onclick="clearLogs()">清除日志</button>
+        </div>
+    </div>
+
+    <script>
+        // 测试数据
+        const testData = {
+            "DRAMP ID": "DRAMP00001",
+            "Peptide Name": "Test Peptide",
+            "Sequence": "ACDEFGHIKLMNPQRSTVWY",
+            "Source": "Synthetic",
+            "Biological Activity": ["Antibacterial", "Antifungal"],
+            "Gene": "TEST_GENE_001",
+            "Formula": "C100H150N30O20S5",
+            "UniProt Entry": "P12345",
+            "PDB ID": "1ABC",
+            "Pubmed ID": "12345678",
+            "Sequence Information": {
+                "Length": 20,
+                "Molecular Weight": "2500.5"
+            }
+        };
+        
+        let testLogs = [];
+        let testStats = {
+            totalRequests: 0,
+            blockedRequests: 0,
+            obfuscatedFields: 0,
+            humanScore: 0
+        };
+        
+        // 日志函数
+        function log(message, type = 'info') {
+            const timestamp = new Date().toISOString();
+            const logEntry = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            testLogs.push(logEntry);
+            
+            const logContent = document.getElementById('log-content');
+            if (logContent) {
+                logContent.textContent = testLogs.slice(-50).join('\n'); // 保留最近50条日志
+                logContent.scrollTop = logContent.scrollHeight;
+            }
+        }
+        
+        // 反爬虫保护测试
+        async function testAntiCrawler() {
+            const resultsDiv = document.getElementById('anti-crawler-results');
+            resultsDiv.innerHTML = '<div class="test-result info">正在运行反爬虫测试...</div>';
+            
+            try {
+                log('开始反爬虫保护测试');
+                
+                // 测试1: 检查保护实例是否存在
+                if (!window.protectionInstance) {
+                    throw new Error('反爬虫保护实例未初始化');
+                }
+                addResult(resultsDiv, '✅ 保护实例已正确初始化', 'success');
+                
+                // 测试2: 检查行为追踪
+                const behaviorScore = window.protectionInstance.userBehavior.humanScore;
+                addResult(resultsDiv, `📊 当前用户行为评分: ${behaviorScore.toFixed(2)}`, 'info');
+                
+                // 测试3: 测试请求频率限制
+                try {
+                    for (let i = 0; i < 3; i++) {
+                        window.protectionInstance.checkRequestFrequency('/test/endpoint');
+                        testStats.totalRequests++;
+                    }
+                    addResult(resultsDiv, '✅ 正常请求频率通过检查', 'success');
+                } catch (error) {
+                    addResult(resultsDiv, `⚠️ 请求频率限制触发: ${error.message}`, 'warning');
+                    testStats.blockedRequests++;
+                }
+                
+                // 测试4: 测试人类行为检测
+                const isHuman = window.protectionInstance.isHumanBehavior();
+                addResult(resultsDiv, `🤖 人类行为检测结果: ${isHuman ? '通过' : '未通过'}`, isHuman ? 'success' : 'warning');
+                
+                // 测试5: 获取保护状态
+                const status = window.protectionInstance.getProtectionStatus();
+                addResult(resultsDiv, `📈 会话时长: ${(status.uptime / 1000).toFixed(1)}秒`, 'info');
+                addResult(resultsDiv, `🔢 请求计数: ${status.requestCount}`, 'info');
+                
+                log('反爬虫保护测试完成', 'success');
+                
+            } catch (error) {
+                addResult(resultsDiv, `❌ 测试失败: ${error.message}`, 'error');
+                log(`反爬虫测试失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 数据混淆测试
+        async function testDataObfuscation() {
+            const resultsDiv = document.getElementById('obfuscation-results');
+            resultsDiv.innerHTML = '<div class="test-result info">正在运行数据混淆测试...</div>';
+            
+            try {
+                log('开始数据混淆测试');
+                
+                // 测试1: 检查混淆器实例
+                if (!window.dataObfuscator) {
+                    throw new Error('数据混淆器实例未初始化');
+                }
+                addResult(resultsDiv, '✅ 数据混淆器已正确初始化', 'success');
+                
+                // 测试2: 测试字符串混淆
+                const originalString = "ACDEFGHIKLMNPQRSTVWY";
+                const obfuscated = window.dataObfuscator.obfuscateString(originalString, 'Sequence');
+                const deobfuscated = window.dataObfuscator.deobfuscateString(obfuscated, 'Sequence');
+                
+                if (deobfuscated === originalString) {
+                    addResult(resultsDiv, '✅ 字符串混淆/解混淆成功', 'success');
+                    addResult(resultsDiv, `🔐 原始: "${originalString}"`, 'info');
+                    addResult(resultsDiv, `🔒 混淆: "${obfuscated.substring(0, 20)}..."`, 'info');
+                } else {
+                    throw new Error('字符串混淆/解混淆失败');
+                }
+                
+                // 测试3: 测试对象混淆
+                const obfuscatedData = window.dataObfuscator.obfuscateData(testData);
+                const deobfuscatedData = window.dataObfuscator.deobfuscateData(obfuscatedData);
+                
+                // 检查关键字段是否正确恢复
+                if (deobfuscatedData['DRAMP ID'] === testData['DRAMP ID'] &&
+                    deobfuscatedData['Sequence'] === testData['Sequence']) {
+                    addResult(resultsDiv, '✅ 对象混淆/解混淆成功', 'success');
+                    testStats.obfuscatedFields += Object.keys(testData).length;
+                } else {
+                    throw new Error('对象混淆/解混淆失败');
+                }
+                
+                // 测试4: 混淆统计
+                const stats = window.dataObfuscator.getObfuscationStats(testData);
+                addResult(resultsDiv, `📊 混淆率: ${stats.obfuscationRate}`, 'info');
+                addResult(resultsDiv, `🔢 混淆字段: ${stats.obfuscatedFields}/${stats.totalFields}`, 'info');
+                
+                // 测试5: 诱饵数据
+                const withDecoy = window.dataObfuscator.addDecoyData(testData);
+                const cleanData = window.dataObfuscator.removeDecoyData(withDecoy);
+                const hasDecoyFields = Object.keys(withDecoy).some(key => key.startsWith('_decoy_'));
+                const decoyRemoved = !Object.keys(cleanData).some(key => key.startsWith('_decoy_'));
+                
+                if (hasDecoyFields && decoyRemoved) {
+                    addResult(resultsDiv, '✅ 诱饵数据添加/移除成功', 'success');
+                } else {
+                    addResult(resultsDiv, '⚠️ 诱饵数据处理异常', 'warning');
+                }
+                
+                log('数据混淆测试完成', 'success');
+                
+            } catch (error) {
+                addResult(resultsDiv, `❌ 测试失败: ${error.message}`, 'error');
+                log(`数据混淆测试失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 字段混淆测试
+        function testFieldObfuscation() {
+            const resultsDiv = document.getElementById('obfuscation-results');
+            
+            try {
+                log('开始字段混淆专项测试');
+                
+                const sensitiveFields = ['Sequence', 'DRAMP ID', 'UniProt Entry', 'PDB ID', 'Gene'];
+                
+                addResult(resultsDiv, '🔍 敏感字段混淆测试:', 'info');
+                
+                sensitiveFields.forEach(field => {
+                    if (testData[field]) {
+                        const original = testData[field];
+                        const obfuscated = window.dataObfuscator.obfuscateString(original.toString(), field);
+                        const restored = window.dataObfuscator.deobfuscateString(obfuscated, field);
+                        
+                        const success = restored === original.toString();
+                        addResult(resultsDiv, 
+                            `  ${field}: ${success ? '✅' : '❌'} ${success ? '成功' : '失败'}`, 
+                            success ? 'success' : 'error'
+                        );
+                    }
+                });
+                
+                log('字段混淆专项测试完成', 'success');
+                
+            } catch (error) {
+                addResult(resultsDiv, `❌ 字段测试失败: ${error.message}`, 'error');
+                log(`字段混淆测试失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 性能测试
+        async function testPerformance() {
+            const resultsDiv = document.getElementById('performance-results');
+            resultsDiv.innerHTML = '<div class="test-result info">正在运行性能测试...</div>';
+            
+            try {
+                log('开始性能影响测试');
+                
+                const iterations = 1000;
+                
+                // 测试1: 混淆性能
+                const startObfuscation = performance.now();
+                for (let i = 0; i < iterations; i++) {
+                    window.dataObfuscator.obfuscateString("ACDEFGHIKLMNPQRSTVWY", "Sequence");
+                }
+                const obfuscationTime = performance.now() - startObfuscation;
+                
+                // 测试2: 解混淆性能
+                const obfuscatedTest = window.dataObfuscator.obfuscateString("ACDEFGHIKLMNPQRSTVWY", "Sequence");
+                const startDeobfuscation = performance.now();
+                for (let i = 0; i < iterations; i++) {
+                    window.dataObfuscator.deobfuscateString(obfuscatedTest, "Sequence");
+                }
+                const deobfuscationTime = performance.now() - startDeobfuscation;
+                
+                // 测试3: 行为检测性能
+                const startBehavior = performance.now();
+                for (let i = 0; i < iterations; i++) {
+                    window.protectionInstance.isHumanBehavior();
+                }
+                const behaviorTime = performance.now() - startBehavior;
+                
+                // 显示结果
+                addResult(resultsDiv, `⚡ 混淆性能: ${(obfuscationTime / iterations).toFixed(4)}ms/次`, 'info');
+                addResult(resultsDiv, `⚡ 解混淆性能: ${(deobfuscationTime / iterations).toFixed(4)}ms/次`, 'info');
+                addResult(resultsDiv, `⚡ 行为检测性能: ${(behaviorTime / iterations).toFixed(4)}ms/次`, 'info');
+                
+                const totalTime = obfuscationTime + deobfuscationTime + behaviorTime;
+                if (totalTime < 1000) { // 小于1秒认为性能良好
+                    addResult(resultsDiv, '✅ 性能影响在可接受范围内', 'success');
+                } else {
+                    addResult(resultsDiv, '⚠️ 性能影响较大，建议优化', 'warning');
+                }
+                
+                log('性能测试完成', 'success');
+                
+            } catch (error) {
+                addResult(resultsDiv, `❌ 性能测试失败: ${error.message}`, 'error');
+                log(`性能测试失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 显示保护状态
+        function showProtectionStatus() {
+            const resultsDiv = document.getElementById('anti-crawler-results');
+            
+            if (window.protectionInstance) {
+                const status = window.protectionInstance.getProtectionStatus();
+                
+                addResult(resultsDiv, '📊 详细保护状态:', 'info');
+                addResult(resultsDiv, `  会话ID: ${status.sessionId}`, 'info');
+                addResult(resultsDiv, `  人类评分: ${status.humanScore.toFixed(2)}`, 'info');
+                addResult(resultsDiv, `  人类状态: ${status.isHuman ? '✅ 是' : '❌ 否'}`, status.isHuman ? 'success' : 'warning');
+                addResult(resultsDiv, `  请求总数: ${status.requestCount}`, 'info');
+                addResult(resultsDiv, `  运行时间: ${(status.uptime / 1000).toFixed(1)}秒`, 'info');
+                
+                testStats.humanScore = status.humanScore;
+            } else {
+                addResult(resultsDiv, '❌ 保护实例未找到', 'error');
+            }
+        }
+        
+        // 更新统计信息
+        function updateStats() {
+            const statsGrid = document.getElementById('stats-grid');
+            
+            const stats = [
+                { label: '总请求数', value: testStats.totalRequests, color: '#2196F3' },
+                { label: '被阻止请求', value: testStats.blockedRequests, color: '#F44336' },
+                { label: '混淆字段数', value: testStats.obfuscatedFields, color: '#FF9800' },
+                { label: '人类评分', value: testStats.humanScore.toFixed(1), color: '#4CAF50' },
+                { label: '保护率', value: `${((testStats.blockedRequests / Math.max(testStats.totalRequests, 1)) * 100).toFixed(1)}%`, color: '#9C27B0' },
+                { label: '日志条数', value: testLogs.length, color: '#607D8B' }
+            ];
+            
+            statsGrid.innerHTML = stats.map(stat => `
+                <div class="stat-item">
+                    <div class="stat-value" style="color: ${stat.color};">${stat.value}</div>
+                    <div class="stat-label">${stat.label}</div>
+                </div>
+            `).join('');
+        }
+        
+        // 清除统计
+        function clearStats() {
+            testStats = {
+                totalRequests: 0,
+                blockedRequests: 0,
+                obfuscatedFields: 0,
+                humanScore: 0
+            };
+            updateStats();
+            log('统计数据已清除', 'info');
+        }
+        
+        // 清除日志
+        function clearLogs() {
+            testLogs = [];
+            document.getElementById('log-content').textContent = '';
+            log('日志已清除');
+        }
+        
+        // 添加测试结果
+        function addResult(container, message, type) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.textContent = message;
+            container.appendChild(resultDiv);
+        }
+        
+        // 模拟用户行为以提高人类评分
+        function simulateUserBehavior() {
+            // 模拟鼠标移动
+            document.dispatchEvent(new MouseEvent('mousemove', { clientX: Math.random() * 100, clientY: Math.random() * 100 }));
+            
+            // 模拟滚动
+            if (Math.random() < 0.3) {
+                document.dispatchEvent(new Event('scroll'));
+            }
+            
+            // 模拟点击
+            if (Math.random() < 0.1) {
+                document.dispatchEvent(new MouseEvent('click'));
+            }
+        }
+        
+        // 初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            log('保护系统测试面板已加载');
+            updateStats();
+            
+            // 定期模拟用户行为
+            setInterval(simulateUserBehavior, 1000);
+            
+            // 定期更新统计
+            setInterval(updateStats, 5000);
+        });
+        
+        // 页面交互事件
+        document.addEventListener('mousemove', () => {
+            if (window.protectionInstance) {
+                testStats.humanScore = window.protectionInstance.userBehavior.humanScore;
+            }
+        });
+    </script>
+</body>
+</html> 

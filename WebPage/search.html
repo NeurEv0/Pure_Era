@@ -262,6 +262,8 @@ header ul li a.active {
         align-items: center;
         padding: 20px 0;
         z-index: 1000;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .nav-menu.active {
@@ -272,12 +274,22 @@ header ul li a.active {
         margin: 10px 0;
     }
     
+    .nav-menu li a {
+        padding: 8px 20px;
+        font-size: 1em;
+        border-radius: 25px;
+    }
+    
     .logo {
         font-size: 1.2em !important;
     }
     
+    .logo-container div {
+        font-size: 0.5em !important;
+    }
+    
     .team-link {
-        font-size: 0.7em;
+        font-size: 0.5em;
     }
     
     .main-container {
@@ -379,12 +391,70 @@ header ul li a.active {
         padding: 8px 12px;
         font-size: 0.9em;
     }
+    
+    /* 搜索页面专用移动端优化 */
+    .main-container {
+        top: 80px;
+        padding-top: 20px;
+    }
+    
+    .filter {
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .table-container {
+        border-radius: 15px;
+    }
+    
+    /* 优化表格在移动端的显示 */
+    table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .view-btn {
+        padding: 6px 12px;
+        font-size: 0.85em;
+        border-radius: 15px;
+        white-space: nowrap;
+    }
+    
+    /* 分页控件优化 */
+    .pagination-container {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .pagination-btn {
+        min-width: 35px;
+        height: 35px;
+        font-size: 0.9em;
+    }
 }
 
 /* 超小屏幕设备 (小于 480px) */
 @media (max-width: 479px) {
     header {
         padding: 10px 15px;
+    }
+    
+    .logo {
+        font-size: 1em !important;
+    }
+    
+    .logo-container div {
+        font-size: 0.45em !important;
+        line-height: 1.2;
     }
     
     .main-container {
@@ -417,6 +487,52 @@ header ul li a.active {
     .language-selector {
         top: 75px;
         right: 5px;
+    }
+    
+    /* 超小屏幕搜索页面专用优化 */
+    .main-container {
+        top: 75px;
+        width: 98%;
+        gap: 8px;
+    }
+    
+    .filter {
+        padding: 10px;
+        border-radius: 12px;
+    }
+    
+    .form-group {
+        margin-bottom: 10px;
+    }
+    
+    label {
+        font-size: 0.85em;
+    }
+    
+    input, select {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+    
+    .search-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+    
+    .table-container {
+        padding: 8px;
+        border-radius: 12px;
+    }
+    
+    .view-btn {
+        padding: 4px 8px;
+        font-size: 0.75em;
+    }
+    
+    .pagination-btn {
+        min-width: 30px;
+        height: 30px;
+        font-size: 0.8em;
     }
 }
 
@@ -799,10 +915,367 @@ thead th:last-child {
 @keyframes spinner {
     to { transform: rotate(360deg); }
 }
+
+    /* 移动端横屏提示弹窗样式 */
+    .orientation-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(43, 16, 85, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 10001;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: inherit;
+    }
+    
+    .orientation-modal.show {
+        display: flex;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .orientation-content {
+        text-align: center;
+        padding: 40px 30px;
+        max-width: 350px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .orientation-content::before {
+        content: \'\';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(117, 151, 222, 0.1), rgba(80, 226, 194, 0.1));
+        pointer-events: none;
+    }
+    
+    .phone-animation {
+        width: 80px;
+        height: 140px;
+        margin: 0 auto 30px;
+        position: relative;
+        animation: floatPhone 3s ease-in-out infinite;
+    }
+    
+    .phone-frame {
+        width: 100%;
+        height: 100%;
+        border: 3px solid #fff;
+        border-radius: 15px;
+        position: relative;
+        background: linear-gradient(135deg, #7597de, #2b1055);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform-origin: center center;
+        animation: rotatePhone 3s ease-in-out infinite;
+    }
+    
+    .phone-screen {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .phone-content {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #2b1055, #7597de);
+        position: relative;
+    }
+    
+    .phone-content::after {
+        content: \'SPADE\';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 8px;
+        font-weight: bold;
+    }
+    
+    .rotate-arrow {
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        animation: pulseArrow 2s ease-in-out infinite;
+    }
+    
+    .rotate-arrow::before {
+        content: \'↻\';
+        font-size: 24px;
+        color: #50e2c2;
+        display: block;
+        animation: spinArrow 2s linear infinite;
+    }
+    
+    .orientation-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #7597de, #50e2c2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .orientation-message {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .orientation-tip {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .tip-icon {
+        display: inline-block;
+        margin-right: 8px;
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    .orientation-close-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .orientation-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .orientation-close-btn i {
+        font-size: 0.8rem;
+    }
+    
+    /* 动画定义 */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes floatPhone {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    @keyframes rotatePhone {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(-5deg);
+        }
+        50% {
+            transform: rotate(90deg);
+        }
+        75% {
+            transform: rotate(85deg);
+        }
+        100% {
+            transform: rotate(90deg);
+        }
+    }
+    
+    @keyframes pulseArrow {
+        0%, 100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-50%) scale(1.2);
+            opacity: 0.8;
+        }
+    }
+    
+    @keyframes spinArrow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-8px);
+        }
+        60% {
+            transform: translateY(-4px);
+        }
+    }
+    
+    /* 横屏状态下隐藏弹窗 */
+    @media screen and (orientation: landscape) and (max-width: 1024px) {
+        .orientation-modal {
+            display: none !important;
+        }
+    }
+    
+    /* 平板横屏优化 */
+    @media screen and (orientation: landscape) and (min-width: 768px) and (max-width: 1024px) {
+        .orientation-modal {
+            display: none !important;
+        }
+    }
+    
+    /* 小屏幕设备特殊处理 */
+    @media screen and (max-width: 480px) {
+        .orientation-content {
+            max-width: 300px;
+            padding: 30px 25px;
+        }
+        
+        .orientation-title {
+            font-size: 1.2rem;
+        }
+        
+        .orientation-message {
+            font-size: 0.9rem;
+        }
+        
+        .phone-animation {
+            width: 70px;
+            height: 120px;
+        }
+    }
+    
+    /* 确保弹窗在所有其他元素之上 */
+    .orientation-modal {
+        z-index: 10001 !important;
+    }
+    
+    /* 为弹窗添加更多视觉效果 */
+    .orientation-content {
+        animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @keyframes modalSlideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    /* 添加脉冲光效 */
+    .orientation-content::after {
+        content: \'\';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 22px;
+        background: linear-gradient(45deg, 
+            rgba(117, 151, 222, 0.3), 
+            rgba(80, 226, 194, 0.3), 
+            rgba(117, 151, 222, 0.3)
+        );
+        z-index: -1;
+        animation: borderPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes borderPulse {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.02);
+        }
+    }
   </style>
 </head>
 
 <body class="other-page">
+  <!-- 移动端横屏提示弹窗 -->
+  <div class="orientation-modal" id="orientationModal">
+      <div class="orientation-content">
+          <div class="phone-animation">
+              <div class="phone-frame">
+                  <div class="phone-screen">
+                      <div class="phone-content"></div>
+                  </div>
+              </div>
+              <div class="rotate-arrow"></div>
+          </div>
+          <h3 class="orientation-title">Better Experience</h3>
+          <p class="orientation-message">
+              For the best browsing experience, we recommend using SPADE database in <strong>landscape</strong> mode.
+          </p>
+          <div class="orientation-tip">
+              <span class="tip-icon">💡</span>
+              In landscape mode, you can better view data tables, charts and research content
+          </div>
+          <button class="orientation-close-btn" id="orientationCloseBtn" style="display: none;">
+              <i class="fas fa-times"></i>
+              <span>Continue anyway</span>
+          </button>
+      </div>
+  </div>
+
   <header>
     <div class="logo-container">
       <a href="#" class="logo">
@@ -916,12 +1389,33 @@ thead th:last-child {
     let isPreloading = false; // 标记是否正在预加载
     let preloadTimer = null; // 预加载定时器
     
-    navToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
+    // 导航切换功能
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // 点击菜单项后关闭菜单
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    }
 
     // 在页面加载时初始化数据
     document.addEventListener('DOMContentLoaded', () => {
+      // 初始化移动端横屏提示
+      initOrientationModal();
+
       // 初始化IndexedDB
       initIndexedDB().then(() => {
         // 加载数据...
@@ -959,12 +1453,41 @@ thead th:last-child {
       }
     }
 
-      // 如果全局特殊词汇配置不存在，则创建
+      // 如果全局特殊词汇配置不存在，则创建完整的搜索页面翻译字典
       if (!window.specialTerms) {
         window.specialTerms = {
-          'en': { 'SPADE': 'SPADE' },
+          'en': {
+            'SPADE': 'SPADE',
+            'System for Antimicrobial Peptide Management and Database': 'System for Antimicrobial Peptide Management and Database',
+            'Home': 'Home',
+            'Search': 'Search',
+            'Tools': 'Tools',
+            'Statistics': 'Statistics',
+            'ID': 'ID',
+            'Name': 'Name',
+            'Sequence': 'Sequence',
+            'Action': 'Action',
+            'View': 'View',
+            'Visualize': 'Visualize',
+            'Input ID': 'Input ID',
+            'Input Name': 'Input Name',
+            'Input Sequence': 'Input Sequence',
+            'Sequence Length': 'Sequence Length',
+            'For example: 10-50': 'For example: 10-50',
+            'Export CSV': 'Export CSV',
+            'Clear Search': 'Clear Search',
+            'Previous': 'Previous',
+            'Next': 'Next',
+            'Page': 'Page',
+            'of': 'of',
+            'No results found': 'No results found',
+            'Loading...': 'Loading...',
+            'Error loading data': 'Error loading data',
+            'AMP Visualization': 'AMP Visualization'
+          },
           'zh-Hans': {
             'SPADE': 'SPADE',
+            'System for Antimicrobial Peptide Management and Database': '抗菌肽管理和数据库系统',
             'Home': '首页',
             'Search': '搜索',
             'Tools': '工具',
@@ -980,15 +1503,22 @@ thead th:last-child {
             'Input Sequence': '输入序列',
             'Sequence Length': '序列长度',
             'For example: 10-50': '例如：10-50',
-            'Search': '搜索',
             'Export CSV': '导出CSV',
-            'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队',
+            'Clear Search': '清空搜索',
+            'Previous': '上一页',
+            'Next': '下一页',
+            'Page': '第',
+            'of': '页，共',
+            'No results found': '未找到结果',
+            'Loading...': '加载中...',
+            'Error loading data': '数据加载错误',
             'AMP Visualization': '抗菌肽可视化'
           },
           'zh-Hant': {
             'SPADE': 'SPADE',
+            'System for Antimicrobial Peptide Management and Database': '抗菌肽管理和資料庫系統',
             'Home': '首頁',
-            'Search': '搜索',
+            'Search': '搜尋',
             'Tools': '工具',
             'Statistics': '統計',
             'ID': 'ID',
@@ -1002,13 +1532,49 @@ thead th:last-child {
             'Input Sequence': '輸入序列',
             'Sequence Length': '序列長度',
             'For example: 10-50': '例如：10-50',
-            'Search': '搜索',
             'Export CSV': '導出CSV',
-            'Belongs to 2025-XJTLU-Software': '屬於2025-XJTLU-Software團隊',
+            'Clear Search': '清空搜尋',
+            'Previous': '上一頁',
+            'Next': '下一頁',
+            'Page': '第',
+            'of': '頁，共',
+            'No results found': '未找到結果',
+            'Loading...': '加載中...',
+            'Error loading data': '數據加載錯誤',
             'AMP Visualization': '抗菌肽可視化'
+          },
+          'es': {
+            'SPADE': 'SPADE',
+            'System for Antimicrobial Peptide Management and Database': 'Sistema de Gestión y Base de Datos de Péptidos Antimicrobianos',
+            'Home': 'Inicio',
+            'Search': 'Buscar',
+            'Tools': 'Herramientas',
+            'Statistics': 'Estadísticas',
+            'ID': 'ID',
+            'Name': 'Nombre',
+            'Sequence': 'Secuencia',
+            'Action': 'Acción',
+            'View': 'Ver',
+            'Visualize': 'Visualizar',
+            'Input ID': 'Ingrese ID',
+            'Input Name': 'Ingrese Nombre',
+            'Input Sequence': 'Ingrese Secuencia',
+            'Sequence Length': 'Longitud de Secuencia',
+            'For example: 10-50': 'Por ejemplo: 10-50',
+            'Export CSV': 'Exportar CSV',
+            'Clear Search': 'Limpiar Búsqueda',
+            'Previous': 'Anterior',
+            'Next': 'Siguiente',
+            'Page': 'Página',
+            'of': 'de',
+            'No results found': 'No se encontraron resultados',
+            'Loading...': 'Cargando...',
+            'Error loading data': 'Error al cargar datos',
+            'AMP Visualization': 'Visualización AMP'
           },
           'ja': {
             'SPADE': 'SPADE',
+            'System for Antimicrobial Peptide Management and Database': '抗菌ペプチド管理・データベースシステム',
             'Home': 'ホーム',
             'Search': '検索',
             'Tools': 'ツール',
@@ -1024,16 +1590,17 @@ thead th:last-child {
             'Input Sequence': '配列を入力',
             'Sequence Length': '配列の長さ',
             'For example: 10-50': '例：10-50',
-            'Search': '検索',
             'Export CSV': 'CSVをエクスポート',
+            'Clear Search': '検索をクリア',
+            'Previous': '前へ',
+            'Next': '次へ',
+            'Page': 'ページ',
+            'of': '/',
+            'No results found': '結果が見つかりません',
+            'Loading...': '読み込み中...',
+            'Error loading data': 'データ読み込みエラー',
             'AMP Visualization': '抗菌ペプチド可視化'
-          },
-          // 为其他语言也添加SPADE的映射
-          'ko': { 'SPADE': 'SPADE' },
-          'fr': { 'SPADE': 'SPADE' },
-          'de': { 'SPADE': 'SPADE' },
-          'es': { 'SPADE': 'SPADE' },
-          'ru': { 'SPADE': 'SPADE' }
+          }
         };
       }
       
@@ -1622,6 +2189,37 @@ thead th:last-child {
       currentLangText.classList.add('no-translate');
     }
 
+    // 初始化翻译函数
+    function initializeTranslation(lang) {
+      const tranzy = new Tranzy.Translator({
+        toLang: lang,
+        fromLang: 'en',
+        ignore: ['.no-translate', 'input', 'select', '.search-icon', '.language-dropdown a'],
+        manualDict: window.specialTerms
+      });
+      
+      tranzy.translatePage();
+      tranzy.startObserver();
+      
+      // 将翻译实例保存到全局变量，以便之后销毁
+      window.tranzyInstance = tranzy;
+    }
+    
+    // 提供一个全局函数用于动态添加或修改特殊名词
+    window.updateSpecialTerm = function(term, translation, language) {
+      language = language || document.documentElement.lang;
+      if (!window.specialTerms[language]) {
+        window.specialTerms[language] = {};
+      }
+      window.specialTerms[language][term] = translation;
+      
+      // 如果当前语言匹配，立即应用更新
+      if (language === document.documentElement.lang && window.tranzyInstance) {
+        window.tranzyInstance.destroy();
+        initializeTranslation(language);
+      }
+    };
+
     // 设置分页按钮事件
     function setupPaginationControls() {
         const prevBtn = document.getElementById('prevPageBtn');
@@ -1890,6 +2488,130 @@ thead th:last-child {
         
         // 更新localStorage
         localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+    }
+
+    // 移动端横屏提示功能
+    function initOrientationModal() {
+        const orientationModal = document.getElementById('orientationModal');
+        
+        if (!orientationModal) {
+            console.warn('横屏提示模态框未找到');
+            return;
+        }
+        
+        function isMobileDevice() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone', 'webos'];
+            const isMobileUserAgent = mobileKeywords.some(keyword => userAgent.includes(keyword));
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const isSmallScreen = window.innerWidth <= 1024;
+            return isMobileUserAgent || (hasTouch && isSmallScreen);
+        }
+        
+        function getOrientation() {
+            if (screen.orientation) {
+                return screen.orientation.angle === 0 || screen.orientation.angle === 180 ? 'portrait' : 'landscape';
+            }
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            return aspectRatio > 1.2 ? 'landscape' : 'portrait';
+        }
+        
+        function toggleOrientationModal(show) {
+            if (show) {
+                orientationModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    const content = orientationModal.querySelector('.orientation-content');
+                    if (content) {
+                        content.style.animation = 'modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    }
+                }, 100);
+            } else {
+                orientationModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        function checkOrientationNeed() {
+            const isMobile = isMobileDevice();
+            const isPortrait = getOrientation() === 'portrait';
+            const isLandscape = getOrientation() === 'landscape';
+            const isDismissed = sessionStorage.getItem('orientationTipDismissed') === 'true';
+            const closeBtn = document.getElementById('orientationCloseBtn');
+            if (closeBtn) {
+                closeBtn.style.display = isLandscape ? 'flex' : 'none';
+            }
+            if (isMobile && isPortrait && !isDismissed) {
+                setTimeout(() => toggleOrientationModal(true), 500);
+            } else {
+                toggleOrientationModal(false);
+            }
+        }
+        
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        const debouncedCheck = debounce(checkOrientationNeed, 300);
+        
+        function setupOrientationListeners() {
+            if (screen.orientation) {
+                screen.orientation.addEventListener('change', debouncedCheck);
+            }
+            window.addEventListener('orientationchange', debouncedCheck);
+            window.addEventListener('resize', debouncedCheck);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    setTimeout(debouncedCheck, 100);
+                }
+            });
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && orientationModal.classList.contains('show')) {
+                if (getOrientation() === 'landscape') {
+                    toggleOrientationModal(false);
+                }
+            }
+        });
+        
+        const orientationContent = orientationModal.querySelector('.orientation-content');
+        if (orientationContent) {
+            orientationContent.addEventListener('click', (e) => e.stopPropagation());
+        }
+        
+        orientationModal.addEventListener('click', (e) => {
+            if (e.target === orientationModal && getOrientation() === 'landscape') {
+                toggleOrientationModal(false);
+            }
+        });
+        
+        const orientationCloseBtn = document.getElementById('orientationCloseBtn');
+        if (orientationCloseBtn) {
+            orientationCloseBtn.addEventListener('click', () => {
+                toggleOrientationModal(false);
+                sessionStorage.setItem('orientationTipDismissed', 'true');
+            });
+        }
+        
+        checkOrientationNeed();
+        setupOrientationListeners();
+        setInterval(() => {
+            if (orientationModal.classList.contains('show')) {
+                if (getOrientation() === 'landscape') {
+                    toggleOrientationModal(false);
+                }
+            }
+        }, 5000);
+        window.addEventListener('load', () => setTimeout(checkOrientationNeed, 1000));
     }
   </script>
 <footer style="background-color: #fbfafd; color: white; padding: 40px 20px;">

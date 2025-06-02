@@ -128,6 +128,96 @@
     </script>
     
     <style>
+        /* 基础头部样式 - 统一home和search页面 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(43, 16, 85, 0.98) 0%, rgba(43, 16, 85, 0.9) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            align-items: center;
+        }
+
+        .team-link {
+            font-size: 0.6em;
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            text-decoration: underline; 
+            transition: color 0.3s ease; 
+        }
+
+        .team-link:hover {
+            color: #fff; 
+        }
+
+        header .logo {
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.6em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo img {
+            margin-right: 10px; 
+        }
+
+        header ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header ul li {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        header ul li a {
+            text-decoration: none;
+            padding: 6px 15px;
+            color: #fff;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        header ul li a:hover,
+        header ul li a.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2b1055;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 导航栏切换按钮样式 */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
         /* 滚动进度指示器 */
         .scroll-progress {
             position: fixed;
@@ -1373,9 +1463,368 @@
             transform: translateY(0);
             visibility: visible;
         }
+    /* 移动端横屏提示弹窗样式 */
+    .orientation-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(43, 16, 85, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 10001;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: inherit;
+    }
+    
+    .orientation-modal.show {
+        display: flex;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .orientation-content {
+        text-align: center;
+        padding: 40px 30px;
+        max-width: 350px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .orientation-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(117, 151, 222, 0.1), rgba(80, 226, 194, 0.1));
+        pointer-events: none;
+    }
+    
+    .phone-animation {
+        width: 80px;
+        height: 140px;
+        margin: 0 auto 30px;
+        position: relative;
+        animation: floatPhone 3s ease-in-out infinite;
+    }
+    
+    .phone-frame {
+        width: 100%;
+        height: 100%;
+        border: 3px solid #fff;
+        border-radius: 15px;
+        position: relative;
+        background: linear-gradient(135deg, #7597de, #2b1055);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform-origin: center center;
+        animation: rotatePhone 3s ease-in-out infinite;
+    }
+    
+    .phone-screen {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .phone-content {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #2b1055, #7597de);
+        position: relative;
+    }
+    
+    .phone-content::after {
+        content: 'SPADE';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 8px;
+        font-weight: bold;
+    }
+    
+    .rotate-arrow {
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        animation: pulseArrow 2s ease-in-out infinite;
+    }
+    
+    .rotate-arrow::before {
+        content: '↻';
+        font-size: 24px;
+        color: #50e2c2;
+        display: block;
+        animation: spinArrow 2s linear infinite;
+    }
+    
+    .orientation-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #7597de, #50e2c2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .orientation-message {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .orientation-tip {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .tip-icon {
+        display: inline-block;
+        margin-right: 8px;
+        animation: bounce 2s ease-in-out infinite;
+    }
+    
+    .orientation-close-btn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .orientation-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .orientation-close-btn i {
+        font-size: 0.8rem;
+    }
+    
+    /* 动画定义 */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes floatPhone {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    @keyframes rotatePhone {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(-5deg);
+        }
+        50% {
+            transform: rotate(90deg);
+        }
+        75% {
+            transform: rotate(85deg);
+        }
+        100% {
+            transform: rotate(90deg);
+        }
+    }
+    
+    @keyframes pulseArrow {
+        0%, 100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-50%) scale(1.2);
+            opacity: 0.8;
+        }
+    }
+    
+    @keyframes spinArrow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-8px);
+        }
+        60% {
+            transform: translateY(-4px);
+        }
+    }
+    
+    /* 横屏状态下隐藏弹窗 */
+    @media screen and (orientation: landscape) and (max-width: 1024px) {
+        .orientation-modal {
+            display: none !important;
+        }
+    }
+    
+    /* 平板横屏优化 */
+    @media screen and (orientation: landscape) and (min-width: 768px) and (max-width: 1024px) {
+        .orientation-modal {
+            display: none !important;
+        }
+    }
+    
+    /* 小屏幕设备特殊处理 */
+    @media screen and (max-width: 480px) {
+        .orientation-content {
+            max-width: 300px;
+            padding: 30px 25px;
+        }
+        
+        .orientation-title {
+            font-size: 1.2rem;
+        }
+        
+        .orientation-message {
+            font-size: 0.9rem;
+        }
+        
+        .phone-animation {
+            width: 70px;
+            height: 120px;
+        }
+    }
+    
+    /* 确保弹窗在所有其他元素之上 */
+    .orientation-modal {
+        z-index: 10001 !important;
+    }
+    
+    /* 为弹窗添加更多视觉效果 */
+    .orientation-content {
+        animation: modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @keyframes modalSlideIn {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    /* 添加脉冲光效 */
+    .orientation-content::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 22px;
+        background: linear-gradient(45deg, 
+            rgba(117, 151, 222, 0.3), 
+            rgba(80, 226, 194, 0.3), 
+            rgba(117, 151, 222, 0.3)
+        );
+        z-index: -1;
+        animation: borderPulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes borderPulse {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.6;
+            transform: scale(1.02);
+        }
+    }
+
     </style>
 </head>
 <body class="home-page">
+        <!-- 移动端横屏提示弹窗 -->
+        <div class="orientation-modal" id="orientationModal">
+            <div class="orientation-content">
+                <div class="phone-animation">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <div class="phone-content"></div>
+                        </div>
+                    </div>
+                    <div class="rotate-arrow"></div>
+                </div>
+                
+                <h3 class="orientation-title">Better Experience</h3>
+                <p class="orientation-message">
+                    For the best browsing experience, we recommend using SPADE database in <strong>landscape</strong> mode.
+                </p>
+                <div class="orientation-tip">
+                    <span class="tip-icon">💡</span>
+                    In landscape mode, you can better view data tables, charts and research content
+                </div>
+                
+                <!-- 横屏时显示的关闭按钮 -->
+                <button class="orientation-close-btn" id="orientationCloseBtn" style="display: none;">
+                    <i class="fas fa-times"></i>
+                    <span>Continue anyway</span>
+                </button>
+            </div>
+        </div>
         <!-- 更新滚动进度指示器为更现代化的设计 -->
         <div class="page-progress-indicator">
             <div class="progress-bar">
@@ -1457,7 +1906,7 @@
         </div>
     </div>
 
-    <section class="search-section">
+    <section class="search-section" style="padding-top: 120px;">
         <h1 class="title">Welcome to <span class="spade-custom">SPADE</span> Database</h1>
         <p class="subtitle"> System for Antimicrobial Peptide Management and Database</p>
         
@@ -1697,11 +2146,31 @@
     </section>
 
     <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const navMenu = document.querySelector('.nav-menu');
+        // 导航切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
 
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                });
+                
+                // 点击菜单项后关闭菜单
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                    });
+                });
+                
+                // 点击页面其他地方关闭菜单
+                document.addEventListener('click', (e) => {
+                    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
         });
 
         // 保存语言偏好
@@ -1732,88 +2201,520 @@
 
         // 设置初始语言
         document.addEventListener('DOMContentLoaded', function() {
-            // 创建特殊名词配置库
+            // 创建完整的多语言翻译配置库
             window.specialTerms = {
-                'en': { 'SPADE': 'SPADE' }, 
+                'en': {
+                    'SPADE': 'SPADE',
+                    'Welcome to SPADE Database': 'Welcome to SPADE Database',
+                    'System for Antimicrobial Peptide Management and Database': 'System for Antimicrobial Peptide Management and Database',
+                    'enter name or ID': 'enter name or ID',
+                    'All Categories': 'All Categories',
+                    'ID': 'ID',
+                    'Name': 'Name',
+                    'Sequence': 'Sequence',
+                    'Home': 'Home',
+                    'Search': 'Search',
+                    'Tools': 'Tools',
+                    'Statistics': 'Statistics',
+                    'Explore SPADE Features': 'Explore SPADE Features',
+                    'Discover how our platform accelerates antimicrobial peptide research': 'Discover how our platform accelerates antimicrobial peptide research',
+                    'Comprehensive Database': 'Comprehensive Database',
+                    'Access over 10,000 antimicrobial peptides with detailed structural and functional data': 'Access over 10,000 antimicrobial peptides with detailed structural and functional data',
+                    'Advanced Search': 'Advanced Search',
+                    'Find exactly what you need with our powerful search and filtering capabilities': 'Find exactly what you need with our powerful search and filtering capabilities',
+                    'Sequence Analysis': 'Sequence Analysis',
+                    'Analyze peptide sequences with our integrated bioinformatics tools': 'Analyze peptide sequences with our integrated bioinformatics tools',
+                    'Statistical Insights': 'Statistical Insights',
+                    'Visualize trends and patterns in antimicrobial peptide research': 'Visualize trends and patterns in antimicrobial peptide research',
+                    'Research Applications': 'Research Applications',
+                    'Discover how researchers worldwide use SPADE to advance their work': 'Discover how researchers worldwide use SPADE to advance their work',
+                    'Clinical Insights': 'Clinical Insights',
+                    'Explore the clinical potential of antimicrobial peptides in modern medicine': 'Explore the clinical potential of antimicrobial peptides in modern medicine',
+                    'Data': 'Data',
+                    'Research': 'Research',
+                    'Filter': 'Filter',
+                    'Analysis': 'Analysis',
+                    'Trends': 'Trends',
+                    'Case Studies': 'Case Studies',
+                    'Clinical': 'Clinical',
+                    'Medicine': 'Medicine',
+                    'Learn More': 'Learn More',
+                    'Try Now': 'Try Now',
+                    'Explore Tools': 'Explore Tools',
+                    'View Stats': 'View Stats',
+                    'Read Cases': 'Read Cases',
+                    'Discover': 'Discover',
+                    'Global Research Network': 'Global Research Network',
+                    'Explore our research locations around the world': 'Explore our research locations around the world',
+                    'Research Centers': 'Research Centers',
+                    'Collaboration Networks': 'Collaboration Networks',
+                    'Clinical Trial Centers': 'Clinical Trial Centers',
+                    'SPADE Database in Numbers': 'SPADE Database in Numbers',
+                    'Our comprehensive collection of antimicrobial peptide data': 'Our comprehensive collection of antimicrobial peptide data',
+                    'Antimicrobial Peptides': 'Antimicrobial Peptides',
+                    'Research Institutions': 'Research Institutions',
+                    'Scientific Publications': 'Scientific Publications',
+                    'Bacterial Targets': 'Bacterial Targets',
+                    'growth': 'growth',
+                    'Our Research Team': 'Our Research Team',
+                    'Meet the XJTLU experts behind SPADE database': 'Meet the XJTLU experts behind SPADE database',
+                    'Our Partner Institution': 'Our Partner Institution',
+                    'About': 'About',
+                    'About SPADE': 'About SPADE',
+                    'Advertising policy': 'Advertising policy',
+                    'Attribution & citations': 'Attribution & citations',
+                    'Terms & privacy': 'Terms & privacy',
+                    'Terms of use': 'Terms of use',
+                    'Editorial policy': 'Editorial policy',
+                    'Privacy policy': 'Privacy policy',
+                    'Support': 'Support',
+                    'Help center': 'Help center',
+                    'Sitemap': 'Sitemap',
+                    'Contact us': 'Contact us',
+                    'Lead Bioinformatician': 'Lead Bioinformatician',
+                    'Principal Investigator': 'Principal Investigator',
+                    'Database Architect': 'Database Architect',
+                    'Microbiology Specialist': 'Microbiology Specialist',
+                    'Data Scientist': 'Data Scientist',
+                    'Structural Biologist': 'Structural Biologist',
+                    'Clinical Researcher': 'Clinical Researcher',
+                    'Biochemistry Expert': 'Biochemistry Expert',
+                    'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.': 'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.',
+                    'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.': 'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.',
+                    'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.': 'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.',
+                    'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.': 'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.',
+                    'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.': 'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.',
+                    'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.': 'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.',
+                    'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.': 'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.',
+                    'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.': 'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.',
+                    'North America Research Center': 'North America Research Center',
+                    'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.': 'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.',
+                    'European AMR Network': 'European AMR Network',
+                    'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.': 'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.',
+                    'European Clinical Research Center': 'European Clinical Research Center',
+                    'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.': 'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.',
+                    'East Asia Research Center': 'East Asia Research Center',
+                    'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.': 'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.',
+                    'Southeast Asia Biodiversity Network': 'Southeast Asia Biodiversity Network',
+                    'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.': 'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.',
+                    'Oceania Marine Research Center': 'Oceania Marine Research Center',
+                    'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.': 'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.'
+                },
                 'zh-Hans': {
                     'SPADE': 'SPADE',
                     'Welcome to SPADE Database': '欢迎使用SPADE数据库',
-                    'a useful database of antimicrobial peptides': '一个实用的抗菌肽数据库',
+                    'System for Antimicrobial Peptide Management and Database': '抗菌肽管理和数据库系统',
                     'enter name or ID': '输入名称或ID',
                     'All Categories': '所有类别',
-                    'Antibiotic': '抗生素',
-                    'Peptide': '肽',
+                    'ID': 'ID',
+                    'Name': '名称',
+                    'Sequence': '序列',
                     'Home': '首页',
                     'Search': '搜索',
                     'Tools': '工具',
                     'Statistics': '统计',
-                    'Characteristic1': '特点1',
-                    'Characteristic2': '特点2',
-                    'Characteristic3': '特点3',
-                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队',
-                    'Global Research Network': '全球研究网络',
-                    'Explore our research locations around the world': '探索我们在全球的研究点',
-                    'Research Centers': '研究中心',
-                    'Collaboration Hubs': '合作中心',
-                    'Clinical Trial Centers': '临床试验中心',
-                    'Learn More': '了解更多',
                     'Explore SPADE Features': '探索SPADE功能',
                     'Discover how our platform accelerates antimicrobial peptide research': '了解我们的平台如何加速抗菌肽研究',
                     'Comprehensive Database': '综合数据库',
+                    'Access over 10,000 antimicrobial peptides with detailed structural and functional data': '访问超过10,000种抗菌肽的详细结构和功能数据',
                     'Advanced Search': '高级搜索',
+                    'Find exactly what you need with our powerful search and filtering capabilities': '使用我们强大的搜索和筛选功能找到您需要的内容',
                     'Sequence Analysis': '序列分析',
+                    'Analyze peptide sequences with our integrated bioinformatics tools': '使用我们集成的生物信息学工具分析肽序列',
                     'Statistical Insights': '统计洞察',
+                    'Visualize trends and patterns in antimicrobial peptide research': '可视化抗菌肽研究的趋势和模式',
                     'Research Applications': '研究应用',
+                    'Discover how researchers worldwide use SPADE to advance their work': '了解全球研究人员如何使用SPADE推进他们的工作',
                     'Clinical Insights': '临床见解',
+                    'Explore the clinical potential of antimicrobial peptides in modern medicine': '探索抗菌肽在现代医学中的临床潜力',
                     'Data': '数据',
                     'Research': '研究',
-                    'Search': '搜索',
                     'Filter': '筛选',
                     'Analysis': '分析',
-                    'Tools': '工具',
-                    'Statistics': '统计',
                     'Trends': '趋势',
                     'Case Studies': '案例研究',
                     'Clinical': '临床',
                     'Medicine': '医学',
+                    'Learn More': '了解更多',
                     'Try Now': '立即尝试',
                     'Explore Tools': '探索工具',
                     'View Stats': '查看统计',
                     'Read Cases': '阅读案例',
-                    'Discover': '探索'
+                    'Discover': '探索',
+                    'Global Research Network': '全球研究网络',
+                    'Explore our research locations around the world': '探索我们在全球的研究点',
+                    'Research Centers': '研究中心',
+                    'Collaboration Networks': '合作网络',
+                    'Clinical Trial Centers': '临床试验中心',
+                    'SPADE Database in Numbers': 'SPADE数据库统计',
+                    'Our comprehensive collection of antimicrobial peptide data': '我们的抗菌肽数据综合集合',
+                    'Antimicrobial Peptides': '抗菌肽',
+                    'Research Institutions': '研究机构',
+                    'Scientific Publications': '科学出版物',
+                    'Bacterial Targets': '细菌靶点',
+                    'growth': '增长',
+                    'Our Research Team': '我们的研究团队',
+                    'Meet the XJTLU experts behind SPADE database': '认识SPADE数据库背后的西交利物浦大学专家',
+                    'Our Partner Institution': '我们的合作机构',
+                    'About': '关于',
+                    'About SPADE': '关于SPADE',
+                    'Advertising policy': '广告政策',
+                    'Attribution & citations': '引用和版权',
+                    'Terms & privacy': '条款和隐私',
+                    'Terms of use': '使用条款',
+                    'Editorial policy': '编辑政策',
+                    'Privacy policy': '隐私政策',
+                    'Support': '支持',
+                    'Help center': '帮助中心',
+                    'Sitemap': '网站地图',
+                    'Contact us': '联系我们',
+                    'Lead Bioinformatician': '首席生物信息学家',
+                    'Principal Investigator': '首席研究员',
+                    'Database Architect': '数据库架构师',
+                    'Microbiology Specialist': '微生物学专家',
+                    'Data Scientist': '数据科学家',
+                    'Structural Biologist': '结构生物学家',
+                    'Clinical Researcher': '临床研究员',
+                    'Biochemistry Expert': '生物化学专家',
+                    'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.': '西交利物浦大学研究员，专注计算生物学和抗菌肽序列分析，具有超过10年的经验。',
+                    'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.': '西交利物浦大学抗菌研究主任，在肽类治疗和药物发现应用方面具有专业知识。',
+                    'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.': '西交利物浦大学科学数据库设计和生物医学信息系统专家，专注可访问性。',
+                    'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.': '西交利物浦大学研究员，专注抗菌肽活性的实验验证和耐药机制研究。',
+                    'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.': '西交利物浦大学机器学习应用专家，专注抗菌肽预测和优化。',
+                    'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.': '西交利物浦大学研究员，专精肽结构分析和分子动力学模拟。',
+                    'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.': '西交利物浦大学转化研究和抗菌肽临床应用专家。',
+                    'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.': '西交利物浦大学研究员，专精新型抗菌化合物的生化表征和合成。',
+                    'North America Research Center': '北美研究中心',
+                    'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.': '专注基因组和蛋白质组分析的抗菌肽发现领先机构。',
+                    'European AMR Network': '欧洲AMR网络',
+                    'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.': '通过可持续肽应用解决抗菌耐药性的合作网络。',
+                    'European Clinical Research Center': '欧洲临床研究中心',
+                    'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.': '新型抗菌肽治疗应用的临床试验和验证。',
+                    'East Asia Research Center': '东亚研究中心',
+                    'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.': '整合人工智能和高通量筛选进行新型抗菌肽发现和优化的先进研究中心。',
+                    'Southeast Asia Biodiversity Network': '东南亚生物多样性网络',
+                    'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.': '探索东南亚独特生态系统抗菌肽的研究网络，重点关注海洋和植物来源。',
+                    'Oceania Marine Research Center': '大洋洲海洋研究中心',
+                    'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.': '专门研究珊瑚礁生态系统抗菌肽及其在解决抗菌耐药性挑战中应用的中心。'
                 },
                 'zh-Hant': {
                     'SPADE': 'SPADE',
-                    'Welcome to SPADE Database': '欢迎使用SPADE数据库',
-                    'a useful database of antimicrobial peptides': '一个实用的抗菌肽数据库',
-                    'enter name or ID': '输入名称或ID',
-                    'All Categories': '所有类别',
-                    'Antibiotic': '抗生素',
-                    'Peptide': '肽',
-                    'Home': '首页',
-                    'Search': '搜索',
+                    'Welcome to SPADE Database': '歡迎使用SPADE資料庫',
+                    'System for Antimicrobial Peptide Management and Database': '抗菌肽管理和資料庫系統',
+                    'enter name or ID': '輸入名稱或ID',
+                    'All Categories': '所有類別',
+                    'ID': 'ID',
+                    'Name': '名稱',
+                    'Sequence': '序列',
+                    'Home': '首頁',
+                    'Search': '搜尋',
                     'Tools': '工具',
-                    'Statistics': '统计',
-                    'Characteristic1': '特点1',
-                    'Characteristic2': '特点2',
-                    'Characteristic3': '特点3',
-                    'Belongs to 2025-XJTLU-Software': '属于2025-XJTLU-Software团队'
+                    'Statistics': '統計',
+                    'Explore SPADE Features': '探索SPADE功能',
+                    'Discover how our platform accelerates antimicrobial peptide research': '了解我們的平台如何加速抗菌肽研究',
+                    'Comprehensive Database': '綜合資料庫',
+                    'Access over 10,000 antimicrobial peptides with detailed structural and functional data': '訪問超過10,000種抗菌肽的詳細結構和功能數據',
+                    'Advanced Search': '高級搜尋',
+                    'Find exactly what you need with our powerful search and filtering capabilities': '使用我們強大的搜尋和篩選功能找到您需要的內容',
+                    'Sequence Analysis': '序列分析',
+                    'Analyze peptide sequences with our integrated bioinformatics tools': '使用我們集成的生物資訊學工具分析肽序列',
+                    'Statistical Insights': '統計洞察',
+                    'Visualize trends and patterns in antimicrobial peptide research': '可視化抗菌肽研究的趨勢和模式',
+                    'Research Applications': '研究應用',
+                    'Discover how researchers worldwide use SPADE to advance their work': '了解全球研究人員如何使用SPADE推進他們的工作',
+                    'Clinical Insights': '臨床見解',
+                    'Explore the clinical potential of antimicrobial peptides in modern medicine': '探索抗菌肽在現代醫學中的臨床潛力',
+                    'Data': '數據',
+                    'Research': '研究',
+                    'Filter': '篩選',
+                    'Analysis': '分析',
+                    'Trends': '趨勢',
+                    'Case Studies': '案例研究',
+                    'Clinical': '臨床',
+                    'Medicine': '醫學',
+                    'Learn More': '了解更多',
+                    'Try Now': '立即嘗試',
+                    'Explore Tools': '探索工具',
+                    'View Stats': '查看統計',
+                    'Read Cases': '閱讀案例',
+                    'Discover': '探索',
+                    'Global Research Network': '全球研究網絡',
+                    'Explore our research locations around the world': '探索我們在全球的研究點',
+                    'Research Centers': '研究中心',
+                    'Collaboration Networks': '合作網絡',
+                    'Clinical Trial Centers': '臨床試驗中心',
+                    'SPADE Database in Numbers': 'SPADE資料庫統計',
+                    'Our comprehensive collection of antimicrobial peptide data': '我們的抗菌肽數據綜合集合',
+                    'Antimicrobial Peptides': '抗菌肽',
+                    'Research Institutions': '研究機構',
+                    'Scientific Publications': '科學出版物',
+                    'Bacterial Targets': '細菌靶點',
+                    'growth': '增長',
+                    'Our Research Team': '我們的研究團隊',
+                    'Meet the XJTLU experts behind SPADE database': '認識SPADE資料庫背後的西交利物浦大學專家',
+                    'Our Partner Institution': '我們的合作機構',
+                    'About': '關於',
+                    'About SPADE': '關於SPADE',
+                    'Advertising policy': '廣告政策',
+                    'Attribution & citations': '引用和版權',
+                    'Terms & privacy': '條款和隱私',
+                    'Terms of use': '使用條款',
+                    'Editorial policy': '編輯政策',
+                    'Privacy policy': '隱私政策',
+                    'Support': '支持',
+                    'Help center': '幫助中心',
+                    'Sitemap': '網站地圖',
+                    'Contact us': '聯繫我們',
+                    'Lead Bioinformatician': '首席生物資訊學家',
+                    'Principal Investigator': '首席研究員',
+                    'Database Architect': '資料庫架構師',
+                    'Microbiology Specialist': '微生物學專家',
+                    'Data Scientist': '資料科學家',
+                    'Structural Biologist': '結構生物學家',
+                    'Clinical Researcher': '臨床研究員',
+                    'Biochemistry Expert': '生物化學專家',
+                    'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.': '西交利物浦大學研究員，專注計算生物學和抗菌肽序列分析，具有超過10年的經驗。',
+                    'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.': '西交利物浦大學抗菌研究主任，在肽類治療和藥物發現應用方面具有專業知識。',
+                    'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.': '西交利物浦大學科學資料庫設計和生物醫學資訊系統專家，專注可訪問性。',
+                    'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.': '西交利物浦大學研究員，專注抗菌肽活性的實驗驗證和耐藥機制研究。',
+                    'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.': '西交利物浦大學機器學習應用專家，專注抗菌肽預測和優化。',
+                    'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.': '西交利物浦大學研究員，專精肽結構分析和分子動力學模擬。',
+                    'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.': '西交利物浦大學轉化研究和抗菌肽臨床應用專家。',
+                    'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.': '西交利物浦大學研究員，專精新型抗菌化合物的生化表徵和合成。',
+                    'North America Research Center': '北美研究中心',
+                    'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.': '專注基因組和蛋白質組分析的抗菌肽發現領先機構。',
+                    'European AMR Network': '歐洲AMR網絡',
+                    'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.': '通過可持續肽應用解決抗菌耐藥性的合作網絡。',
+                    'European Clinical Research Center': '歐洲臨床研究中心',
+                    'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.': '新型抗菌肽治療應用的臨床試驗和驗證。',
+                    'East Asia Research Center': '東亞研究中心',
+                    'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.': '整合人工智能和高通量篩選進行新型抗菌肽發現和優化的先進研究中心。',
+                    'Southeast Asia Biodiversity Network': '東南亞生物多樣性網絡',
+                    'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.': '探索東南亞獨特生態系統抗菌肽的研究網絡，重點關注海洋和植物來源。',
+                    'Oceania Marine Research Center': '大洋洲海洋研究中心',
+                    'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.': '專門研究珊瑚礁生態系統抗菌肽及其在解決抗菌耐藥性挑戰中應用的中心。'
+                },
+                'es': {
+                    'SPADE': 'SPADE',
+                    'Welcome to SPADE Database': 'Bienvenido a la Base de Datos SPADE',
+                    'System for Antimicrobial Peptide Management and Database': 'Sistema de Gestión y Base de Datos de Péptidos Antimicrobianos',
+                    'enter name or ID': 'ingrese nombre o ID',
+                    'All Categories': 'Todas las Categorías',
+                    'ID': 'ID',
+                    'Name': 'Nombre',
+                    'Sequence': 'Secuencia',
+                    'Home': 'Inicio',
+                    'Search': 'Buscar',
+                    'Tools': 'Herramientas',
+                    'Statistics': 'Estadísticas',
+                    'Explore SPADE Features': 'Explorar Características de SPADE',
+                    'Discover how our platform accelerates antimicrobial peptide research': 'Descubra cómo nuestra plataforma acelera la investigación de péptidos antimicrobianos',
+                    'Comprehensive Database': 'Base de Datos Completa',
+                    'Access over 10,000 antimicrobial peptides with detailed structural and functional data': 'Acceda a más de 10,000 péptidos antimicrobianos con datos estructurales y funcionales detallados',
+                    'Advanced Search': 'Búsqueda Avanzada',
+                    'Find exactly what you need with our powerful search and filtering capabilities': 'Encuentre exactamente lo que necesita con nuestras potentes capacidades de búsqueda y filtrado',
+                    'Sequence Analysis': 'Análisis de Secuencias',
+                    'Analyze peptide sequences with our integrated bioinformatics tools': 'Analice secuencias de péptidos con nuestras herramientas bioinformáticas integradas',
+                    'Statistical Insights': 'Perspectivas Estadísticas',
+                    'Visualize trends and patterns in antimicrobial peptide research': 'Visualice tendencias y patrones en la investigación de péptidos antimicrobianos',
+                    'Research Applications': 'Aplicaciones de Investigación',
+                    'Discover how researchers worldwide use SPADE to advance their work': 'Descubra cómo los investigadores de todo el mundo usan SPADE para avanzar en su trabajo',
+                    'Clinical Insights': 'Perspectivas Clínicas',
+                    'Explore the clinical potential of antimicrobial peptides in modern medicine': 'Explore el potencial clínico de los péptidos antimicrobianos en la medicina moderna',
+                    'Data': 'Datos',
+                    'Research': 'Investigación',
+                    'Filter': 'Filtrar',
+                    'Analysis': 'Análisis',
+                    'Trends': 'Tendencias',
+                    'Case Studies': 'Estudios de Caso',
+                    'Clinical': 'Clínico',
+                    'Medicine': 'Medicina',
+                    'Learn More': 'Saber Más',
+                    'Try Now': 'Probar Ahora',
+                    'Explore Tools': 'Explorar Herramientas',
+                    'View Stats': 'Ver Estadísticas',
+                    'Read Cases': 'Leer Casos',
+                    'Discover': 'Descubrir',
+                    'Global Research Network': 'Red de Investigación Global',
+                    'Explore our research locations around the world': 'Explore nuestras ubicaciones de investigación en todo el mundo',
+                    'Research Centers': 'Centros de Investigación',
+                    'Collaboration Networks': 'Redes de Colaboración',
+                    'Clinical Trial Centers': 'Centros de Ensayos Clínicos',
+                    'SPADE Database in Numbers': 'Base de Datos SPADE en Números',
+                    'Our comprehensive collection of antimicrobial peptide data': 'Nuestra colección completa de datos de péptidos antimicrobianos',
+                    'Antimicrobial Peptides': 'Péptidos Antimicrobianos',
+                    'Research Institutions': 'Instituciones de Investigación',
+                    'Scientific Publications': 'Publicaciones Científicas',
+                    'Bacterial Targets': 'Objetivos Bacterianos',
+                    'growth': 'crecimiento',
+                    'Our Research Team': 'Nuestro Equipo de Investigación',
+                    'Meet the XJTLU experts behind SPADE database': 'Conozca a los expertos de XJTLU detrás de la base de datos SPADE',
+                    'Our Partner Institution': 'Nuestra Institución Asociada',
+                    'About': 'Acerca de',
+                    'About SPADE': 'Acerca de SPADE',
+                    'Advertising policy': 'Política de publicidad',
+                    'Attribution & citations': 'Atribución y citas',
+                    'Terms & privacy': 'Términos y privacidad',
+                    'Terms of use': 'Términos de uso',
+                    'Editorial policy': 'Política editorial',
+                    'Privacy policy': 'Política de privacidad',
+                    'Support': 'Soporte',
+                    'Help center': 'Centro de ayuda',
+                    'Sitemap': 'Mapa del sitio',
+                    'Contact us': 'Contáctanos',
+                    'Lead Bioinformatician': 'Bioinformático Principal',
+                    'Principal Investigator': 'Investigador Principal',
+                    'Database Architect': 'Arquitecto de Base de Datos',
+                    'Microbiology Specialist': 'Especialista en Microbiología',
+                    'Data Scientist': 'Científico de Datos',
+                    'Structural Biologist': 'Biólogo Estructural',
+                    'Clinical Researcher': 'Investigador Clínico',
+                    'Biochemistry Expert': 'Experto en Bioquímica',
+                    'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.': 'Investigador de XJTLU especializado en biología computacional y análisis de secuencias de péptidos antimicrobianos con más de 10 años de experiencia.',
+                    'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.': 'Director de investigación antimicrobiana de XJTLU con experiencia en terapéutica de péptidos y aplicaciones de descubrimiento de fármacos.',
+                    'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.': 'Experto de XJTLU en diseño de bases de datos científicas y sistemas de información biomédica con enfoque en accesibilidad.',
+                    'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.': 'Investigador de XJTLU enfocado en la validación experimental de actividades de péptidos antimicrobianos y mecanismos de resistencia.',
+                    'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.': 'Especialista de XJTLU en aplicaciones de aprendizaje automático para predicción y optimización de péptidos antimicrobianos.',
+                    'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.': 'Investigador de XJTLU especializado en análisis estructural de péptidos y simulaciones de dinámica molecular.',
+                    'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.': 'Especialista de XJTLU en investigación traslacional y aplicaciones clínicas de péptidos antimicrobianos.',
+                    'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.': 'Investigador de XJTLU especializado en caracterización bioquímica y síntesis de compuestos antimicrobianos novedosos.',
+                    'North America Research Center': 'Centro de Investigación de América del Norte',
+                    'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.': 'Instalación líder para el descubrimiento de péptidos antimicrobianos enfocada en análisis genómico y proteómico.',
+                    'European AMR Network': 'Red Europea AMR',
+                    'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.': 'Red colaborativa que aborda la resistencia antimicrobiana a través de aplicaciones sostenibles de péptidos.',
+                    'European Clinical Research Center': 'Centro Europeo de Investigación Clínica',
+                    'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.': 'Ensayos clínicos y validación de péptidos antimicrobianos novedosos para aplicaciones terapéuticas.',
+                    'East Asia Research Center': 'Centro de Investigación de Asia Oriental',
+                    'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.': 'Centro de investigación avanzado que integra inteligencia artificial y cribado de alto rendimiento para el descubrimiento y optimización de péptidos antimicrobianos novedosos.',
+                    'Southeast Asia Biodiversity Network': 'Red de Biodiversidad del Sudeste Asiático',
+                    'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.': 'Red de investigación que explora péptidos antimicrobianos de ecosistemas únicos del sudeste asiático, con énfasis en fuentes marinas y vegetales.',
+                    'Oceania Marine Research Center': 'Centro de Investigación Marina de Oceanía',
+                    'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.': 'Centro especializado que estudia péptidos antimicrobianos de ecosistemas de arrecifes de coral y sus aplicaciones para abordar los desafíos de resistencia antimicrobiana.'
                 },
                 'ja': {
                     'SPADE': 'SPADE',
                     'Welcome to SPADE Database': 'SPADEデータベースへようこそ',
-                    'a useful database of antimicrobial peptides': '抗菌ペプチドの実用的なデータベース',
+                    'System for Antimicrobial Peptide Management and Database': '抗菌ペプチド管理・データベースシステム',
+                    'enter name or ID': '名前またはIDを入力',
+                    'All Categories': 'すべてのカテゴリ',
+                    'ID': 'ID',
+                    'Name': '名前',
+                    'Sequence': '配列',
                     'Home': 'ホーム',
                     'Search': '検索',
                     'Tools': 'ツール',
-                    'Statistics': '統計'
-                },
-                'ko': { 'SPADE': 'SPADE' },
-                'fr': { 'SPADE': 'SPADE' },
-                'de': { 'SPADE': 'SPADE' },
-                'es': { 'SPADE': 'SPADE' },
-                'ru': { 'SPADE': 'SPADE' }
+                    'Statistics': '統計',
+                    'Explore SPADE Features': 'SPADE機能を探索',
+                    'Discover how our platform accelerates antimicrobial peptide research': '私たちのプラットフォームが抗菌ペプチド研究をどのように加速するかを発見してください',
+                    'Comprehensive Database': '包括的データベース',
+                    'Access over 10,000 antimicrobial peptides with detailed structural and functional data': '詳細な構造・機能データを持つ10,000以上の抗菌ペプチドにアクセス',
+                    'Advanced Search': '高度検索',
+                    'Find exactly what you need with our powerful search and filtering capabilities': '強力な検索・フィルタリング機能で必要なものを正確に見つけます',
+                    'Sequence Analysis': '配列解析',
+                    'Analyze peptide sequences with our integrated bioinformatics tools': '統合されたバイオインフォマティクスツールでペプチド配列を解析',
+                    'Statistical Insights': '統計的洞察',
+                    'Visualize trends and patterns in antimicrobial peptide research': '抗菌ペプチド研究のトレンドとパターンを可視化',
+                    'Research Applications': '研究応用',
+                    'Discover how researchers worldwide use SPADE to advance their work': '世界中の研究者がSPADEを使って研究を進めている方法を発見',
+                    'Clinical Insights': '臨床的洞察',
+                    'Explore the clinical potential of antimicrobial peptides in modern medicine': '現代医学における抗菌ペプチドの臨床的可能性を探索',
+                    'Data': 'データ',
+                    'Research': '研究',
+                    'Filter': 'フィルター',
+                    'Analysis': '解析',
+                    'Trends': 'トレンド',
+                    'Case Studies': 'ケーススタディ',
+                    'Clinical': '臨床',
+                    'Medicine': '医学',
+                    'Learn More': '詳細を見る',
+                    'Try Now': '今すぐ試す',
+                    'Explore Tools': 'ツールを探索',
+                    'View Stats': '統計を見る',
+                    'Read Cases': 'ケースを読む',
+                    'Discover': '発見',
+                    'Global Research Network': 'グローバル研究ネットワーク',
+                    'Explore our research locations around the world': '世界中の研究拠点を探索',
+                    'Research Centers': '研究センター',
+                    'Collaboration Networks': '協力ネットワーク',
+                    'Clinical Trial Centers': '臨床試験センター',
+                    'SPADE Database in Numbers': 'SPADEデータベースの数値',
+                    'Our comprehensive collection of antimicrobial peptide data': '抗菌ペプチドデータの包括的コレクション',
+                    'Antimicrobial Peptides': '抗菌ペプチド',
+                    'Research Institutions': '研究機関',
+                    'Scientific Publications': '科学出版物',
+                    'Bacterial Targets': '細菌標的',
+                    'growth': '成長',
+                    'Our Research Team': '研究チーム',
+                    'Meet the XJTLU experts behind SPADE database': 'SPADEデータベースの背後にいるXJTLUの専門家に会う',
+                    'Our Partner Institution': 'パートナー機関',
+                    'About': 'について',
+                    'About SPADE': 'SPADEについて',
+                    'Advertising policy': '広告ポリシー',
+                    'Attribution & citations': '帰属と引用',
+                    'Terms & privacy': '利用規約とプライバシー',
+                    'Terms of use': '利用規約',
+                    'Editorial policy': '編集ポリシー',
+                    'Privacy policy': 'プライバシーポリシー',
+                    'Support': 'サポート',
+                    'Help center': 'ヘルプセンター',
+                    'Sitemap': 'サイトマップ',
+                    'Contact us': 'お問い合わせ',
+                    'Lead Bioinformatician': '主任バイオインフォマティシャン',
+                    'Principal Investigator': '主任研究員',
+                    'Database Architect': 'データベースアーキテクト',
+                    'Microbiology Specialist': '微生物学専門家',
+                    'Data Scientist': 'データサイエンティスト',
+                    'Structural Biologist': '構造生物学者',
+                    'Clinical Researcher': '臨床研究者',
+                    'Biochemistry Expert': '生化学専門家',
+                    'XJTLU researcher specializing in computational biology and antimicrobial peptide sequence analysis with over 10 years of experience.': '10年以上の経験を持つ計算生物学と抗菌ペプチド配列解析を専門とするXJTLU研究者。',
+                    'XJTLU director of antimicrobial research with expertise in peptide therapeutics and drug discovery applications.': 'ペプチド治療と創薬応用の専門知識を持つXJTLU抗菌研究ディレクター。',
+                    'XJTLU expert in scientific database design and biomedical information systems with a focus on accessibility.': 'アクセシビリティに焦点を当てた科学データベース設計と生物医学情報システムのXJTLU専門家。',
+                    'XJTLU researcher focusing on experimental validation of antimicrobial peptide activities and resistance mechanisms.': '抗菌ペプチド活性の実験的検証と耐性メカニズムに焦点を当てるXJTLU研究者。',
+                    'XJTLU specialist in machine learning applications for antimicrobial peptide prediction and optimization.': '抗菌ペプチド予測と最適化のための機械学習応用のXJTLU専門家。',
+                    'XJTLU researcher specializing in peptide structural analysis and molecular dynamics simulations.': 'ペプチド構造解析と分子動力学シミュレーションを専門とするXJTLU研究者。',
+                    'XJTLU specialist in translational research and clinical applications of antimicrobial peptides.': '抗菌ペプチドの橋渡し研究と臨床応用のXJTLU専門家。',
+                    'XJTLU researcher specializing in biochemical characterization and synthesis of novel antimicrobial compounds.': '新規抗菌化合物の生化学的特性評価と合成を専門とするXJTLU研究者。',
+                    'North America Research Center': '北米研究センター',
+                    'Leading facility for antimicrobial peptide discovery focusing on genomic and proteomic analysis.': 'ゲノムおよびプロテオーム解析に焦点を当てた抗菌ペプチド発見の主要施設。',
+                    'European AMR Network': 'ヨーロッパAMRネットワーク',
+                    'Collaborative network addressing antimicrobial resistance through sustainable peptide applications.': '持続可能なペプチド応用による抗菌薬耐性に取り組む協力ネットワーク。',
+                    'European Clinical Research Center': 'ヨーロッパ臨床研究センター',
+                    'Clinical trials and validation of novel antimicrobial peptides for therapeutic applications.': '治療応用のための新規抗菌ペプチドの臨床試験と検証。',
+                    'East Asia Research Center': '東アジア研究センター',
+                    'Advanced research center integrating artificial intelligence and high-throughput screening for novel antimicrobial peptide discovery and optimization.': '新規抗菌ペプチド発見と最適化のために人工知能とハイスループットスクリーニングを統合した先進研究センター。',
+                    'Southeast Asia Biodiversity Network': '東南アジア生物多様性ネットワーク',
+                    'Research network exploring antimicrobial peptides from unique Southeast Asian ecosystems, with emphasis on marine and plant sources.': '海洋および植物源を重視した東南アジアの独特な生態系からの抗菌ペプチドを探索する研究ネットワーク。',
+                    'Oceania Marine Research Center': 'オセアニア海洋研究センター',
+                    'Specialized center studying antimicrobial peptides from coral reef ecosystems and their applications in addressing antimicrobial resistance challenges.': 'サンゴ礁生態系からの抗菌ペプチドとその抗菌薬耐性課題への対処応用を研究する専門センター。',
+                    'Better Experience': 'より良い体験',
+                    'For the best browsing experience, we recommend using SPADE database in landscape mode.': '最高のブラウジング体験のために、SPADEデータベースを横向きモードでご利用することをお勧めします。',
+                    'In landscape mode, you can better view data tables, charts and research content': '横向きモードでは、データテーブル、チャート、研究内容をより見やすく表示できます'
+                }
             };
+            
+            // 为弹窗文本添加多语言支持
+            window.specialTerms['en']['Better Experience'] = 'Better Experience';
+            window.specialTerms['en']['For the best browsing experience, we recommend using SPADE database in landscape mode.'] = 'For the best browsing experience, we recommend using SPADE database in landscape mode.';
+            window.specialTerms['en']['In landscape mode, you can better view data tables, charts and research content'] = 'In landscape mode, you can better view data tables, charts and research content';
+            
+                         window.specialTerms['zh-Hans']['Better Experience'] = '获得更佳体验';
+             window.specialTerms['zh-Hans']['For the best browsing experience, we recommend using SPADE database in landscape mode.'] = '为了获得最佳的浏览体验，建议您将设备横屏使用SPADE数据库。';
+             window.specialTerms['zh-Hans']['In landscape mode, you can better view data tables, charts and research content'] = '横屏模式下，您可以更好地查看数据表格、图表和研究内容';
+             window.specialTerms['zh-Hans']['Continue anyway'] = '继续浏览';
+            
+                         window.specialTerms['zh-Hant']['Better Experience'] = '獲得更佳體驗';
+             window.specialTerms['zh-Hant']['For the best browsing experience, we recommend using SPADE database in landscape mode.'] = '為了獲得最佳的瀏覽體驗，建議您將設備橫屏使用SPADE資料庫。';
+             window.specialTerms['zh-Hant']['In landscape mode, you can better view data tables, charts and research content'] = '橫屏模式下，您可以更好地查看數據表格、圖表和研究內容';
+             window.specialTerms['zh-Hant']['Continue anyway'] = '繼續瀏覽';
+            
+                         window.specialTerms['es']['Better Experience'] = 'Mejor Experiencia';
+             window.specialTerms['es']['For the best browsing experience, we recommend using SPADE database in landscape mode.'] = 'Para la mejor experiencia de navegación, recomendamos usar la base de datos SPADE en modo horizontal.';
+             window.specialTerms['es']['In landscape mode, you can better view data tables, charts and research content'] = 'En modo horizontal, puede ver mejor las tablas de datos, gráficos y contenido de investigación';
+             window.specialTerms['es']['Continue anyway'] = 'Continuar de todos modos';
+             
+             window.specialTerms['en']['Continue anyway'] = 'Continue anyway';
+             window.specialTerms['ja']['Continue anyway'] = 'とにかく続行';
             
             const savedLang = getLanguagePreference();
             document.documentElement.lang = savedLang;
@@ -2659,31 +3560,31 @@
       
       <!-- About Section -->
       <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
-        <h4 style="color: #9db4f0;">About</h4>
+        <h4 id="about-spade-footer" style="color: #9db4f0;">About</h4>
         <ul style="list-style: none; padding: 0;">
-          <li><a href="#" style="color: white; text-decoration: none;">About SPADE</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Advertising policy</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Attribution & citations</a></li>
+          <li><a href="spade.html#about-spade-footer" style="color: white; text-decoration: none;">About SPADE</a></li>
+          <li><a id="advertising-policy-footer" href="spade.html#advertising-policy-footer" style="color: white; text-decoration: none;">Advertising policy</a></li>
+          <li><a id="attribution-citations-footer" href="spade.html#attribution-citations-footer" style="color: white; text-decoration: none;">Attribution & citations</a></li>
         </ul>
       </div>
   
       <!-- Terms & Privacy Section -->
       <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
-        <h4 style="color: #9db4f0;">Terms & privacy</h4>
+        <h4 id="terms-of-use-footer" style="color: #9db4f0;">Terms & privacy</h4>
         <ul style="list-style: none; padding: 0;">
-          <li><a href="#" style="color: white; text-decoration: none;">Terms of use</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Editorial policy</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Privacy policy</a></li>
+          <li><a href="spade.html#terms-of-use-footer" style="color: white; text-decoration: none;">Terms of use</a></li>
+          <li><a id="editorial-policy-footer" href="spade.html#editorial-policy-footer" style="color: white; text-decoration: none;">Editorial policy</a></li>
+          <li><a id="privacy-policy-footer" href="spade.html#privacy-policy-footer" style="color: white; text-decoration: none;">Privacy policy</a></li>
         </ul>
       </div>
   
       <!-- Support Section -->
       <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
-        <h4 style="color: #9db4f0;">Support</h4>
+        <h4 id="help-center-footer" style="color: #9db4f0;">Support</h4>
         <ul style="list-style: none; padding: 0;">
-          <li><a href="#" style="color: white; text-decoration: none;">Help center</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Sitemap</a></li>
-          <li><a href="#" style="color: white; text-decoration: none;">Contact us</a></li>
+          <li><a href="spade.html#help-center-footer" style="color: white; text-decoration: none;">Help center</a></li>
+          <li><a id="sitemap-footer" href="spade.html#sitemap-footer" style="color: white; text-decoration: none;">Sitemap</a></li>
+          <li><a id="contact-us-footer" href="spade.html#contact-us-footer" style="color: white; text-decoration: none;">Contact us</a></li>
         </ul>
       </div>
     </div>
@@ -2864,10 +3765,132 @@
     }
 }
 
-/* 添加响应式调整 */
-@media (max-width: 768px) {
+/* 添加统一的响应式设计 */
+/* 大型设备（1440px以上）的样式 */
+@media (min-width: 1441px) {
+    header {
+        padding: 15px 150px;
+    }
+}
+
+/* 中型桌面设备 (1280px - 1440px) */
+@media (min-width: 1280px) and (max-width: 1440px) {
+    header {
+        padding: 15px 80px;
+    }
+}
+
+/* 小型桌面设备 (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    header {
+        padding: 15px 50px;
+    }
+    
+    header .logo {
+        font-size: 1.5em;
+    }
+    
+    header ul li a {
+        padding: 5px 12px;
+        font-size: 0.95em;
+    }
+}
+
+/* 平板设备 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    header {
+        padding: 15px 30px;
+    }
+    
+    header ul li a {
+        padding: 5px 10px;
+        font-size: 0.9em;
+    }
+    
+    .logo {
+        font-size: 1.4em !important;
+    }
+    
+    .language-selector {
+        top: 85px;
+    }
+    
     .page-progress-indicator {
         right: 15px;
+    }
+}
+
+/* 移动设备 (小于 768px) */
+@media (max-width: 767px) {
+    header {
+        padding: 12px 20px;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(43, 16, 85, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        z-index: 1000;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-menu li {
+        margin: 10px 0;
+    }
+    
+    .nav-menu li a {
+        padding: 8px 20px;
+        font-size: 1em;
+        border-radius: 25px;
+    }
+    
+    .logo {
+        font-size: 1.2em !important;
+    }
+    
+    .logo-container div {
+        font-size: 0.5em !important;
+    }
+    
+    .team-link {
+        font-size: 0.5em;
+    }
+    
+    .language-selector {
+        top: 80px;
+        right: 10px;
+    }
+    
+    .language-current {
+        padding: 8px 10px;
+    }
+    
+    .language-options {
+        width: 150px;
+    }
+    
+    .language-options a {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    
+    .page-progress-indicator {
+        right: 10px;
     }
     
     .section-dot {
@@ -2877,6 +3900,189 @@
     
     .section-dots {
         gap: 25px;
+    }
+    
+    /* 搜索部分移动端优化 */
+    .search-section {
+        padding: 100px 20px 60px;
+    }
+    
+    .title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .search-container {
+        flex-direction: column;
+        gap: 15px;
+        max-width: 100%;
+    }
+    
+    .search-category {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .search-input-wrapper {
+        width: 100%;
+    }
+    
+    .search-input {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    
+    /* 信息卡片移动端优化 */
+    .info-cards-section {
+        padding: 60px 20px;
+    }
+    
+    .info-card {
+        width: 100%;
+        min-height: auto;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    
+    .info-cards-section .section-title {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    .info-cards-section .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    
+    .cards-container {
+        min-height: 450px;
+    }
+    
+    /* 地图部分移动端优化 */
+    .research-map-section {
+        padding: 60px 20px;
+    }
+    
+    .map-container {
+        height: 250px;
+        margin: 30px 0;
+    }
+    
+    .map-marker {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .marker-details {
+        width: 90%;
+        max-width: 300px;
+        padding: 20px;
+    }
+    
+    /* 统计数据移动端优化 */
+    .stats-section {
+        padding: 60px 20px;
+    }
+    
+    .stats-container {
+        gap: 20px;
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-card {
+        padding: 25px;
+    }
+    
+    .counter-number {
+        font-size: 2.5rem;
+    }
+    
+    /* 团队部分移动端优化 */
+    .team-section {
+        padding: 60px 20px;
+    }
+    
+    .team-molecule-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .team-member-card {
+        padding: 25px;
+    }
+    
+    .member-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* 超小屏幕设备 (小于 480px) */
+@media (max-width: 479px) {
+    header {
+        padding: 10px 15px;
+    }
+    
+    .logo {
+        font-size: 1em !important;
+    }
+    
+    .logo-container div {
+        font-size: 0.45em !important;
+        line-height: 1.2;
+    }
+    
+    .language-selector {
+        top: 75px;
+        right: 5px;
+    }
+    
+    .page-progress-indicator {
+        right: 5px;
+    }
+    
+    .search-section {
+        padding: 80px 15px 50px;
+    }
+    
+    .title {
+        font-size: 1.7rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .info-cards-section,
+    .research-map-section,
+    .stats-section,
+    .team-section {
+        padding: 50px 15px;
+    }
+    
+    .info-cards-section .section-title,
+    .research-map-section .section-title,
+    .stats-section .section-title,
+    .team-section .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .info-card {
+        padding: 20px;
+    }
+    
+    .stats-card {
+        padding: 20px;
+    }
+    
+    .team-member-card {
+        padding: 20px;
     }
 }
 
@@ -2928,6 +4134,9 @@
             };
         });
         
+        // 初始化移动端横屏提示
+        initOrientationModal();
+        
         // 初始化新的页面进度指示器
         initPageProgressIndicator();
         
@@ -2973,6 +4182,200 @@
                 setTimeout(() => input.classList.remove('shake'), 500);
             }
         });
+    }
+    
+    // 移动端横屏提示功能
+    function initOrientationModal() {
+        const orientationModal = document.getElementById('orientationModal');
+        
+        if (!orientationModal) {
+            console.warn('横屏提示模态框未找到');
+            return;
+        }
+        
+        // 检测是否为移动设备
+        function isMobileDevice() {
+            // 检测多种移动设备标识
+            const userAgent = navigator.userAgent.toLowerCase();
+            const mobileKeywords = [
+                'mobile', 'android', 'iphone', 'ipad', 'ipod', 
+                'blackberry', 'windows phone', 'webos'
+            ];
+            
+            const isMobileUserAgent = mobileKeywords.some(keyword => 
+                userAgent.includes(keyword)
+            );
+            
+            // 检测触摸支持和屏幕尺寸
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            const isSmallScreen = window.innerWidth <= 1024;
+            
+            return isMobileUserAgent || (hasTouch && isSmallScreen);
+        }
+        
+                 // 检测屏幕方向
+         function getOrientation() {
+             // 优先使用screen.orientation API
+             if (screen.orientation) {
+                 return screen.orientation.angle === 0 || screen.orientation.angle === 180 
+                     ? 'portrait' : 'landscape';
+             }
+             
+             // 备用方案：比较宽高（添加一定的容差值以避免边界情况）
+             const aspectRatio = window.innerWidth / window.innerHeight;
+             return aspectRatio > 1.2 ? 'landscape' : 'portrait';
+         }
+        
+        // 显示/隐藏弹窗
+        function toggleOrientationModal(show) {
+            if (show) {
+                orientationModal.classList.add('show');
+                // 防止背景滚动
+                document.body.style.overflow = 'hidden';
+                
+                // 添加进入动画延迟
+                setTimeout(() => {
+                    const content = orientationModal.querySelector('.orientation-content');
+                    if (content) {
+                        content.style.animation = 'modalSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    }
+                }, 100);
+                
+                console.log('横屏提示弹窗已显示');
+            } else {
+                orientationModal.classList.remove('show');
+                // 恢复背景滚动
+                document.body.style.overflow = '';
+                console.log('横屏提示弹窗已隐藏');
+            }
+        }
+        
+                 // 检查是否需要显示横屏提示
+         function checkOrientationNeed() {
+             const isMobile = isMobileDevice();
+             const isPortrait = getOrientation() === 'portrait';
+             const isLandscape = getOrientation() === 'landscape';
+             const isDismissed = sessionStorage.getItem('orientationTipDismissed') === 'true';
+             
+             console.log('设备检测结果:', { 
+                 isMobile, 
+                 orientation: getOrientation(),
+                 screenSize: `${window.innerWidth}x${window.innerHeight}`,
+                 userAgent: navigator.userAgent,
+                 isDismissed
+             });
+             
+             // 更新关闭按钮的显示状态
+             const closeBtn = document.getElementById('orientationCloseBtn');
+             if (closeBtn) {
+                 closeBtn.style.display = isLandscape ? 'flex' : 'none';
+             }
+             
+             // 只在移动设备且竖屏时显示提示，且用户未手动关闭
+             if (isMobile && isPortrait && !isDismissed) {
+                 // 添加小延迟，确保页面完全加载
+                 setTimeout(() => {
+                     toggleOrientationModal(true);
+                 }, 500);
+             } else {
+                 toggleOrientationModal(false);
+             }
+         }
+        
+        // 防抖函数，避免方向变化时频繁触发
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // 创建防抖的检查函数
+        const debouncedCheck = debounce(checkOrientationNeed, 300);
+        
+        // 监听屏幕方向变化
+        function setupOrientationListeners() {
+            // 现代浏览器的方向变化事件
+            if (screen.orientation) {
+                screen.orientation.addEventListener('change', debouncedCheck);
+            }
+            
+            // 备用事件监听器
+            window.addEventListener('orientationchange', debouncedCheck);
+            window.addEventListener('resize', debouncedCheck);
+            
+            // 监听页面可见性变化（用户切换应用后回来）
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    // 页面重新可见时检查方向
+                    setTimeout(debouncedCheck, 100);
+                }
+            });
+        }
+        
+        // 添加键盘事件监听（ESC键关闭弹窗，仅在横屏时）
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && orientationModal.classList.contains('show')) {
+                // 只有在横屏状态下才允许ESC关闭
+                if (getOrientation() === 'landscape') {
+                    toggleOrientationModal(false);
+                }
+            }
+        });
+        
+        // 添加弹窗内容点击事件（点击内容区域不关闭）
+        const orientationContent = orientationModal.querySelector('.orientation-content');
+        if (orientationContent) {
+            orientationContent.addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止事件冒泡
+            });
+        }
+        
+                 // 点击弹窗背景关闭（仅在横屏时）
+         orientationModal.addEventListener('click', (e) => {
+             if (e.target === orientationModal && getOrientation() === 'landscape') {
+                 toggleOrientationModal(false);
+             }
+         });
+         
+         // 关闭按钮事件
+         const orientationCloseBtn = document.getElementById('orientationCloseBtn');
+         if (orientationCloseBtn) {
+             orientationCloseBtn.addEventListener('click', () => {
+                 toggleOrientationModal(false);
+                 // 设置会话存储，在当前会话中不再显示提示
+                 sessionStorage.setItem('orientationTipDismissed', 'true');
+             });
+         }
+        
+        // 初始化检查
+        checkOrientationNeed();
+        
+        // 设置事件监听器
+        setupOrientationListeners();
+        
+        // 添加额外的保险检查 - 每隔5秒检查一次
+        setInterval(() => {
+            // 只在弹窗可见时才进行检查
+            if (orientationModal.classList.contains('show')) {
+                const currentOrientation = getOrientation();
+                if (currentOrientation === 'landscape') {
+                    toggleOrientationModal(false);
+                }
+            }
+        }, 5000);
+        
+        // 在页面完全加载后再次检查
+        window.addEventListener('load', () => {
+            setTimeout(checkOrientationNeed, 1000);
+        });
+        
+        console.log('横屏提示模块已初始化');
     }
     
     // 页面进度指示器功能
