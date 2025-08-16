@@ -1,0 +1,14 @@
+parameter_type,organism,mean,std
+mic_regression,Acinetobacter baumannii,-3.9472555417678667,0.8674093573773516
+mic_regression,Bacillus subtilis,-3.7605086170655335,1.0520355455527979
+mic_regression,Candida albicans,-3.657298399087392,1.5026830022633961
+mic_regression,Enterococcus faecalis,-4.018110609665049,1.0703248608727642
+mic_regression,Escherichia coli,-3.9541295193113797,1.0776840877403395
+mic_regression,Klebsiella pneumoniae,-4.114489331800953,1.0695516137811323
+mic_regression,Micrococcus luteus,-3.580956316271909,1.30615398030868
+mic_regression,Pseudomonas aeruginosa,-4.005396756267271,1.0820328576066158
+mic_regression,Salmonella enterica,-4.099622494685006,0.7978296882485584
+mic_regression,Staphylococcus aureus,-3.8818138467088303,1.1884551963715086
+mic_regression,Staphylococcus epidermidis,-3.885451894684626,0.9123088623754232
+half_life_regression,,-2.568944850858384,0.6447882280812716
+hemolysis_regression,,0.23009431697585067,0.17071657489486344
